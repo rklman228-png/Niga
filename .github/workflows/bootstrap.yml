@@ -1,0 +1,60 @@
+name: Bootstrap Plus Bridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/plus-bootstrap.mjs
+      - .github/workflows/bootstrap.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preserve fork patcher
+        shell: bash
+        run: |
+          cp scripts/plus-bootstrap.mjs "$RUNNER_TEMP/plus-bootstrap.mjs"
+          cp .github/workflows/bootstrap.yml "$RUNNER_TEMP/bootstrap.yml"
+
+      - name: Fetch upstream Chat On Steroids 1.9.4
+        shell: bash
+        run: git clone --depth 1 https://github.com/totec448-spec/chat-on-steroids.git "$RUNNER_TEMP/upstream"
+
+      - name: Mirror upstream source
+        shell: bash
+        run: |
+          rsync -a --delete \
+            --exclude '.git' \
+            --exclude '.github/workflows/bootstrap.yml' \
+            --exclude 'scripts/plus-bootstrap.mjs' \
+            "$RUNNER_TEMP/upstream/" ./
+          mkdir -p scripts .github/workflows
+          cp "$RUNNER_TEMP/plus-bootstrap.mjs" scripts/plus-bootstrap.mjs
+          cp "$RUNNER_TEMP/bootstrap.yml" .github/workflows/bootstrap.yml
+
+      - name: Patch Plus Bridge
+        run: node scripts/plus-bootstrap.mjs
+
+      - name: Commit mirrored source
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Mirror Chat On Steroids and add Plus Bridge"
+          git push origin HEAD:main
