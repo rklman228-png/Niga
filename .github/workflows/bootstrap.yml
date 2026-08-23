@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - scripts/plus-bootstrap.mjs
+      - scripts/plus-fixups.mjs
       - .github/workflows/bootstrap.yml
   issues:
     types: [opened]
@@ -24,10 +25,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Preserve fork patcher
+      - name: Preserve fork patchers
         shell: bash
         run: |
           cp scripts/plus-bootstrap.mjs "$RUNNER_TEMP/plus-bootstrap.mjs"
+          cp scripts/plus-fixups.mjs "$RUNNER_TEMP/plus-fixups.mjs"
           cp .github/workflows/bootstrap.yml "$RUNNER_TEMP/bootstrap.yml"
 
       - name: Fetch upstream Chat On Steroids 1.9.4
@@ -41,13 +43,23 @@ jobs:
             --exclude '.git' \
             --exclude '.github/workflows/bootstrap.yml' \
             --exclude 'scripts/plus-bootstrap.mjs' \
+            --exclude 'scripts/plus-fixups.mjs' \
             "$RUNNER_TEMP/upstream/" ./
           mkdir -p scripts .github/workflows
           cp "$RUNNER_TEMP/plus-bootstrap.mjs" scripts/plus-bootstrap.mjs
+          cp "$RUNNER_TEMP/plus-fixups.mjs" scripts/plus-fixups.mjs
           cp "$RUNNER_TEMP/bootstrap.yml" .github/workflows/bootstrap.yml
 
       - name: Patch Plus Bridge
-        run: node scripts/plus-bootstrap.mjs
+        run: |
+          node scripts/plus-bootstrap.mjs
+          node scripts/plus-fixups.mjs
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck and tests
+        run: npm run verify:ci
 
       - name: Commit mirrored source
         shell: bash
