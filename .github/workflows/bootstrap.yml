@@ -25,12 +25,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Preserve fork patchers
+      - name: Preserve fork overlay
         shell: bash
         run: |
           cp scripts/plus-bootstrap.mjs "$RUNNER_TEMP/plus-bootstrap.mjs"
           cp scripts/plus-fixups.mjs "$RUNNER_TEMP/plus-fixups.mjs"
+          cp bootstrap-local.ps1 "$RUNNER_TEMP/bootstrap-local.ps1"
           cp .github/workflows/bootstrap.yml "$RUNNER_TEMP/bootstrap.yml"
+          cp .github/workflows/build-plus.yml "$RUNNER_TEMP/build-plus.yml"
 
       - name: Fetch upstream Chat On Steroids 1.9.4
         shell: bash
@@ -42,13 +44,17 @@ jobs:
           rsync -a --delete \
             --exclude '.git' \
             --exclude '.github/workflows/bootstrap.yml' \
+            --exclude '.github/workflows/build-plus.yml' \
             --exclude 'scripts/plus-bootstrap.mjs' \
             --exclude 'scripts/plus-fixups.mjs' \
+            --exclude 'bootstrap-local.ps1' \
             "$RUNNER_TEMP/upstream/" ./
           mkdir -p scripts .github/workflows
           cp "$RUNNER_TEMP/plus-bootstrap.mjs" scripts/plus-bootstrap.mjs
           cp "$RUNNER_TEMP/plus-fixups.mjs" scripts/plus-fixups.mjs
+          cp "$RUNNER_TEMP/bootstrap-local.ps1" bootstrap-local.ps1
           cp "$RUNNER_TEMP/bootstrap.yml" .github/workflows/bootstrap.yml
+          cp "$RUNNER_TEMP/build-plus.yml" .github/workflows/build-plus.yml
 
       - name: Patch Plus Bridge
         run: |
