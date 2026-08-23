@@ -7,6 +7,8 @@ on:
       - scripts/plus-bootstrap.mjs
       - scripts/plus-fixups.mjs
       - .github/workflows/build-plus.yml
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
