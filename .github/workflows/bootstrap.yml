@@ -7,6 +7,8 @@ on:
     paths:
       - scripts/plus-bootstrap.mjs
       - .github/workflows/bootstrap.yml
+  issues:
+    types: [opened]
   workflow_dispatch:
 
 permissions:
