@@ -1,43 +1,26 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+LEVEL_NAME
+level-name=world
 
-> Configure project :
-Fabric Loom: 1.17.19
+WORLD_TARGETS
+.cache
+.fabric
+backups
+config
+libraries
+logs
+mods
+versions
+world
 
-> Task :clean
+SIZES
+2.4G	/opt/minecraft/server/world
 
-> Task :compileJava
-Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
+STATE
+-rw-r--r-- 1 minecraft minecraft 157 Aug 24 23:08 /opt/minecraft/server/config/brigada-core/state.json
 
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 43s
-6 actionable tasks: 6 executed
-
-ARTIFACT
-6e95fd40b4d8b8425f323af9d4563aaa6d322e47f200c44041339d95c02a4995  build/libs/brigada-core-0.1.0.jar
+SERVICE
+active
 
 exit_code=0
-finished_at=2026-08-24T23:30:20Z
+finished_at=2026-08-24T23:31:37Z
 runner=alexhost-143-246
