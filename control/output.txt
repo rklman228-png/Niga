@@ -1,11 +1,30 @@
 SERVICE
 active
 
+PORT
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3067175,fd=161))                                                                                           
+
+LOG
+Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
+Aug 24 21:43:55 test1 java[2942986]: [21:43:55] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
+Aug 24 21:43:55 test1 java[2942986]: [21:43:55] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 24 21:43:59 test1 java[2942986]: [21:43:59] [Server thread/INFO]: Done (3.076s)! For help, type "help"
+Aug 24 22:35:46 test1 systemd[1]: Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+Aug 24 22:35:49 test1 java[3067175]: Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
+Aug 24 22:36:53 test1 java[3067175]: [22:36:53] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
+Aug 24 22:36:54 test1 java[3067175]: [22:36:54] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 24 22:36:59 test1 java[3067175]: [22:36:59] [Server thread/INFO]: Done (3.459s)! For help, type "help"
+
 ARTIFACT
 c1892656451b9120b3c39799e5223e15e459b66a78ff7cc5a868f98084caca59  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
 
-PORT
-
-exit_code=1
-finished_at=2026-08-24T22:36:12Z
+exit_code=0
+finished_at=2026-08-24T22:37:51Z
 runner=alexhost-143-246
