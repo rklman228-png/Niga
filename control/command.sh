@@ -29,7 +29,7 @@ else
   fi
 
   echo "Downloading from Google Drive..."
-  "$GDOWN" --fuzzy --continue "$DRIVE_URL" -O "$PART"
+  "$GDOWN" --continue "$DRIVE_URL" -O "$PART"
 
   ACTUAL_SIZE="$(stat -c '%s' "$PART")"
   printf 'downloaded_bytes=%s\n' "$ACTUAL_SIZE"
