@@ -1,43 +1,40 @@
-Checking Java 25 toolchain...
-openjdk version "25.0.4.1" 2026-08-18
-OpenJDK Runtime Environment (build 25.0.4.1+1-1-deb13u1-Debian)
-OpenJDK 64-Bit Server VM (build 25.0.4.1+1-1-deb13u1-Debian, mixed mode, sharing)
-javac 25.0.4.1
-From https://github.com/PaperMC/Paper
- * branch            dev/26.3   -> FETCH_HEAD
- + b51aba9...126c75a dev/26.3   -> origin/dev/26.3  (forced update)
-Note: switching to 'FETCH_HEAD'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
+=== BUILD PAPER LOCALLY ON VPS ===
 HEAD is now at 126c75a Merge remote-tracking branch 'origin/main' into dev/26.3
 Removing .gradle/
 Removing build/
-Removing paper-api/build/
 Removing paper-generator.settings.gradle.kts
-Removing paper-server/.gradle/
+Skipping repository paper-server/.gradle/caches/paperweight/mache/base/resources
+Removing paper-server/.gradle/caches/paperweight/mache/base/resources.zip
+Skipping repository paper-server/.gradle/caches/paperweight/oldPaper/37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9
+Removing paper-server/.gradle/caches/paperweight/data
+Removing paper-server/.gradle/caches/paperweight/jars
+Removing paper-server/.gradle/caches/paperweight/taskCache
 Removing paper-server/build/
+Skipping repository paper-server/src/minecraft/resources
 Removing test-plugin.settings.gradle.kts
-Pinned Paper source:
+Fetching missing Paper history...
+From https://github.com/PaperMC/Paper
+ * [new tag]             1.21.10    -> 1.21.10
+ * [new tag]             1.21.11    -> 1.21.11
+ * [new tag]             1.21.4     -> 1.21.4
+ * [new tag]             1.21.5     -> 1.21.5
+ * [new tag]             1.21.6     -> 1.21.6
+ * [new tag]             1.21.7     -> 1.21.7
+ * [new tag]             1.21.8     -> 1.21.8
+ * [new tag]             1.21.9     -> 1.21.9
+ * [new tag]             26.1.2     -> 26.1.2
+From https://github.com/PaperMC/Paper
+ * branch                dev/26.3   -> FETCH_HEAD
+HEAD is now at 126c75ae4 Merge remote-tracking branch 'origin/main' into dev/26.3
+Skipping repository paper-server/.gradle/caches/paperweight/mache/base/resources
+Skipping repository paper-server/.gradle/caches/paperweight/oldPaper/37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9
+Skipping repository paper-server/src/minecraft/resources
+Paper source commit:
 126c75ae4aac41b48a285d05ccb7f258ec2043a3
 mcVersion=26.3-snapshot-9
 apiVersion=26.3
 channel=ALPHA
 updatingMinecraft=true
-Applying Paper patches...
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 Calculating task graph as no cached configuration is available for tasks: applyPatches
@@ -49,65 +46,339 @@ paperweight-core v2.0.0-beta.21 (running on 'Linux')
 > Task :paper-server:mergePaperATs
 > Task :paper-server:downloadMcManifest
 > Task :paper-server:downloadMcVersionManifest FROM-CACHE
+> Task :paper-server:downloadRuntimeClasspathSources FROM-CACHE
 > Task :paper-server:downloadServerJar FROM-CACHE
-> Task :paper-server:downloadRuntimeClasspathSources
 > Task :paper-server:extractFromBundler
-
-> Task :paper-server:setupMacheResources
-Copy initial sources...
-
-> Task :paper-server:downloadMcLibrariesSources
+> Task :paper-server:setupMacheResources FROM-CACHE
+> Task :paper-server:macheRemapJar FROM-CACHE
+> Task :paper-server:downloadMcLibrariesSources FROM-CACHE
+> Task :paper-server:macheDecompileJar FROM-CACHE
 > Task :paper-server:indexLibraryFiles
-
-> Task :paper-server:setupMacheResources
-Setup git repo...
 
 > Task :paper-server:importPaperLibraryFiles
 Importing 13 classes from library sources...
 
-> Task :paper-server:macheRemapJar
+> Task :paper-server:setupMacheSources
+Setting up Paper commit 37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9 to use as base for constructing Git repo...
+
 > Task :paper-server:extractMacheResources
-> Task :paper-server:applyResourcePatches
-> Task :paper-server:macheDecompileJar
 
 > Task :paper-server:applyResourcePatches
 Applied 3 patches
 
 > Task :paper-server:setupMacheSources
-Setting up Paper commit 37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9 to use as base for constructing Git repo...
+Copy initial sources...
+Setup git repo...
+Applying mache patches...
+Applied 107 mache patches
+Applying access transformers...
 
-paper.libs.org.eclipse.jgit.transport.UploadPackInternalServerErrorException
-	at paper.libs.org.eclipse.jgit.transport.UploadPack.upload(UploadPack.java:790)
-	at paper.libs.org.eclipse.jgit.transport.InternalFetchConnection$2.run(InternalFetchConnection.java:77)
-Caused by: paper.libs.org.eclipse.jgit.errors.MissingObjectException: Missing unknown 37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9
-	at paper.libs.org.eclipse.jgit.internal.storage.file.WindowCursor.open(WindowCursor.java:149)
-	at paper.libs.org.eclipse.jgit.lib.ObjectReader.open(ObjectReader.java:216)
-	at paper.libs.org.eclipse.jgit.revwalk.RevWalk.parseAny(RevWalk.java:1163)
-	at paper.libs.org.eclipse.jgit.revwalk.RevWalk.parseCommit(RevWalk.java:1074)
-	at paper.libs.org.eclipse.jgit.transport.UploadPack.computeShallowsAndUnshallows(UploadPack.java:1470)
-	at paper.libs.org.eclipse.jgit.transport.UploadPack.service(UploadPack.java:1075)
-	at paper.libs.org.eclipse.jgit.transport.UploadPack.uploadWithExceptionPropagation(UploadPack.java:859)
-	at paper.libs.org.eclipse.jgit.transport.UploadPack.upload(UploadPack.java:767)
-	... 1 more
+> Task :paper-server:extractMacheSources
 
-> Task :paper-server:setupMacheSources FAILED
+> Task :paper-server:applySourcePatches
+Applied 927 patches
+
+> Task :paper-server:applyFilePatches
+> Task :paper-server:applyFeaturePatches
+> Task :paper-server:applyPatches
+
+BUILD SUCCESSFUL in 22m 5s
+19 actionable tasks: 12 executed, 7 from cache
+Configuration cache entry stored.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Calculating task graph as no cached configuration is available for tasks: createPaperclipJar
+
+> Configure project :paper-server
+paperweight-core v2.0.0-beta.21 (running on 'Linux')
+
+> Task :paper-api:processResources NO-SOURCE
+> Task :paper-api:generateApiVersioningFile
+> Task :paper-server:processLog4jPluginsResources NO-SOURCE
+> Task :paper-server:downloadMcManifest
+> Task :paper-server:downloadMcVersionManifest UP-TO-DATE
+> Task :paper-api:compileJava
+> Task :paper-server:processResources
+> Task :paper-server:downloadServerJar UP-TO-DATE
+> Task :paper-server:extractFromBundler UP-TO-DATE
+> Task :paper-api:compileJava FROM-CACHE
+> Task :paper-api:classes UP-TO-DATE
+> Task :paper-api:jar
+> Task :paper-server:compileJava
+> Task :paper-server:compileLog4jPluginsJava
+Note: GraalVmProcessor: writing GraalVM metadata for 1 Java classes to `META-INF/native-image/log4j-generated/io.papermc.paper/paper-server/reflect-config.json`.
+Note: PluginProcessor: writing plugin descriptor for 1 Log4j Plugins to `META-INF/org/apache/logging/log4j/core/config/plugins/Log4j2Plugins.dat`.
+
+> Task :paper-server:log4jPluginsClasses
+
+> Task :paper-server:compileJava
+/opt/minecraft-build/Paper/paper-server/src/generated/java/org/bukkit/craftbukkit/block/impl/CraftRedStoneWire.java:9: error: cannot find symbol
+import net.minecraft.world.level.block.RedStoneWireBlock;
+                                      ^
+  symbol:   class RedStoneWireBlock
+  location: package net.minecraft.world.level.block
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/item/crafting/BrewingRecipe.java:11: error: BrewingRecipe is not abstract and does not override abstract method toBukkitRecipe(NamespacedKey) in net.minecraft.world.item.crafting.Recipe
+public class BrewingRecipe implements Recipe<BrewingInput> {
+       ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/potion/PaperPotionBrewer.java:44: error: cannot find symbol
+        this.minecraftServer.potionBrewing().addPotionMix(potionMix);
+                            ^
+  symbol:   method potionBrewing()
+  location: variable minecraftServer of type MinecraftServer
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/potion/PaperPotionBrewer.java:49: error: cannot find symbol
+        this.minecraftServer.potionBrewing().removePotionMix(key);
+                            ^
+  symbol:   method potionBrewing()
+  location: variable minecraftServer of type MinecraftServer
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/potion/PaperPotionBrewer.java:54: error: cannot find symbol
+        this.minecraftServer.potionBrewing = this.minecraftServer.potionBrewing().reload(this.minecraftServer.getWorldData().enabledFeatures());
+                            ^
+  symbol:   variable potionBrewing
+  location: variable minecraftServer of type MinecraftServer
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/potion/PaperPotionBrewer.java:54: error: cannot find symbol
+        this.minecraftServer.potionBrewing = this.minecraftServer.potionBrewing().reload(this.minecraftServer.getWorldData().enabledFeatures());
+                                                                 ^
+  symbol:   method potionBrewing()
+  location: variable minecraftServer of type MinecraftServer
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/event/RegistryEntryAddEventImpl.java:25: error: cannot find symbol
+        final RegistryOps.RegistryInfo<Object> registryInfo = this.conversions.lookup().lookup(PaperRegistries.registryToNms(tagKey.registryKey())).orElseThrow();
+                         ^
+  symbol:   class RegistryInfo
+  location: class RegistryOps
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/event/RegistryComposeEventImpl.java:23: error: cannot find symbol
+        final RegistryOps.RegistryInfo<Object> registryInfo = this.conversions.lookup().lookup(PaperRegistries.registryToNms(tagKey.registryKey())).orElseThrow();
+                         ^
+  symbol:   class RegistryInfo
+  location: class RegistryOps
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemType.java:198: error: package ComposterBlock does not exist
+        return ComposterBlock.COMPOSTABLES.getFloat(this.getHandle());
+                             ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/inventory/CraftTransmuteRecipe.java:36: error: incompatible types: ItemStackTemplate cannot be converted to TransmuteResult
+            CraftItemStack.asTemplate(this.getResult()),
+                                     ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:83: error: incompatible types: Optional<Item> cannot be converted to Optional<ItemStackTemplate>
+            case BACK -> this.getSnapshot().decorations = new PotDecorations(sherdItem, decorations.left(), decorations.right(), decorations.front());
+                                                                             ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:84: error: incompatible types: Optional<Item> cannot be converted to Optional<ItemStackTemplate>
+            case LEFT -> this.getSnapshot().decorations = new PotDecorations(decorations.back(), sherdItem, decorations.right(), decorations.front());
+                                                                                                 ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:85: error: incompatible types: Optional<Item> cannot be converted to Optional<ItemStackTemplate>
+            case RIGHT -> this.getSnapshot().decorations = new PotDecorations(decorations.back(), decorations.left(), sherdItem, decorations.front());
+                                                                                                                      ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:86: error: incompatible types: Optional<Item> cannot be converted to Optional<ItemStackTemplate>
+            case FRONT -> this.getSnapshot().decorations = new PotDecorations(decorations.back(), decorations.left(), decorations.right(), sherdItem);
+                                                                                                                                           ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:97: error: incompatible types: bad type in switch expression
+            case BACK -> decorations.back();
+                                         ^
+    Optional<ItemStackTemplate> cannot be converted to Optional<Item>
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:98: error: incompatible types: bad type in switch expression
+            case LEFT -> decorations.left();
+                                         ^
+    Optional<ItemStackTemplate> cannot be converted to Optional<Item>
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:99: error: incompatible types: bad type in switch expression
+            case RIGHT -> decorations.right();
+                                           ^
+    Optional<ItemStackTemplate> cannot be converted to Optional<Item>
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:100: error: incompatible types: bad type in switch expression
+            case FRONT -> decorations.front();
+                                           ^
+    Optional<ItemStackTemplate> cannot be converted to Optional<Item>
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:112: error: incompatible types: Item cannot be converted to ItemStackTemplate
+        sherds.put(Side.BACK, CraftItemType.minecraftToBukkit(decorations.back().orElse(Items.BRICK)));
+                                                                                             ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:113: error: incompatible types: Item cannot be converted to ItemStackTemplate
+        sherds.put(Side.LEFT, CraftItemType.minecraftToBukkit(decorations.left().orElse(Items.BRICK)));
+                                                                                             ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:114: error: incompatible types: Item cannot be converted to ItemStackTemplate
+        sherds.put(Side.RIGHT, CraftItemType.minecraftToBukkit(decorations.right().orElse(Items.BRICK)));
+                                                                                               ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:115: error: incompatible types: Item cannot be converted to ItemStackTemplate
+        sherds.put(Side.FRONT, CraftItemType.minecraftToBukkit(decorations.front().orElse(Items.BRICK)));
+                                                                                               ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftDecoratedPot.java:121: error: cannot find symbol
+        return this.getSnapshot().getDecorations().ordered().stream().map(CraftItemType::minecraftToBukkit).collect(Collectors.toUnmodifiableList());
+                                                  ^
+  symbol:   method ordered()
+  location: class PotDecorations
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftBrewingStand.java:48: error: cannot find symbol
+        this.getSnapshot().recipeBrewTime = recipeBrewTime;
+                          ^
+  symbol:   variable recipeBrewTime
+  location: class BrewingStandBlockEntity
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/block/CraftBrewingStand.java:53: error: cannot find symbol
+        return this.getSnapshot().recipeBrewTime;
+                                 ^
+  symbol:   variable recipeBrewTime
+  location: class BrewingStandBlockEntity
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:39: error: BrewingStandBlockEntity is not abstract and does not override abstract method setMaxStackSize(int) in Container
+public class BrewingStandBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+       ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:101: error: method does not override or implement a method from a supertype
+        @Override
+        ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:106: error: method does not override or implement a method from a supertype
+        @Override
+        ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:111: error: method does not override or implement a method from a supertype
+        @Override
+        ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:116: error: method does not override or implement a method from a supertype
+        @Override
+        ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:118: error: cannot find symbol
+            return this.items;
+                       ^
+  symbol: variable items
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:121: error: method does not override or implement a method from a supertype
+        @Override
+        ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/block/entity/BrewingStandBlockEntity.java:126: error: method does not override or implement a method from a supertype
+        @Override
+        ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomWorldChunkManager.java:14: error: CustomWorldChunkManager is not abstract and does not override abstract method createResolver(Sampler) in BiomeSource
+public class CustomWorldChunkManager extends BiomeSource {
+       ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomWorldChunkManager.java:31: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:48: error: CustomChunkGenerator is not abstract and does not override abstract method buildSurface(StructureManager,RandomState,ChunkAccess,BiomeManager,Blender,Set<Holder<Biome>>) in ChunkGenerator
+public class CustomChunkGenerator extends InternalChunkGenerator {
+       ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:136: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:144: error: method buildSurface in class ChunkGenerator cannot be applied to given types;
+            this.delegate.buildSurface(level, structureManager, randomState, protoChunk);
+                         ^
+  required: StructureManager,RandomState,ChunkAccess,BiomeManager,Blender,Set<Holder<Biome>>
+  found:    WorldGenRegion,StructureManager,RandomState,ChunkAccess
+  reason: actual and formal argument lists differ in length
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:234: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:242: error: incompatible types: long cannot be converted to RandomState
+            this.delegate.applyCarvers(region, seed, randomState, biomeManager, structureManager, chunk);
+                                               ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:294: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/generator/CustomChunkGenerator.java:296: error: incompatible types: Holder<Biome> cannot be converted to Level
+        return this.delegate.getMobsAt(biome, structureManager, mobCategory, pos);
+                                       ^
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/datacomponent/item/PaperPotDecorations.java:15: error: incompatible types: cannot infer type-variable(s) U
+        return this.impl.back().map(CraftItemType::minecraftToBukkitNew).orElse(null);
+                                   ^
+    (argument mismatch; invalid method reference
+      incompatible types: ItemStackTemplate cannot be converted to Item)
+  where U,T,M are type-variables:
+    U extends Object declared in method <U>map(Function<? super T,? extends U>)
+    T extends Object declared in class Optional
+    M extends ItemMeta declared in class CraftItemType
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/datacomponent/item/PaperPotDecorations.java:20: error: incompatible types: cannot infer type-variable(s) U
+        return this.impl.left().map(CraftItemType::minecraftToBukkitNew).orElse(null);
+                                   ^
+    (argument mismatch; invalid method reference
+      incompatible types: ItemStackTemplate cannot be converted to Item)
+  where U,T,M are type-variables:
+    U extends Object declared in method <U>map(Function<? super T,? extends U>)
+    T extends Object declared in class Optional
+    M extends ItemMeta declared in class CraftItemType
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/datacomponent/item/PaperPotDecorations.java:25: error: incompatible types: cannot infer type-variable(s) U
+        return this.impl.right().map(CraftItemType::minecraftToBukkitNew).orElse(null);
+                                    ^
+    (argument mismatch; invalid method reference
+      incompatible types: ItemStackTemplate cannot be converted to Item)
+  where U,T,M are type-variables:
+    U extends Object declared in method <U>map(Function<? super T,? extends U>)
+    T extends Object declared in class Optional
+    M extends ItemMeta declared in class CraftItemType
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/datacomponent/item/PaperPotDecorations.java:30: error: incompatible types: cannot infer type-variable(s) U
+        return this.impl.front().map(CraftItemType::minecraftToBukkitNew).orElse(null);
+                                    ^
+    (argument mismatch; invalid method reference
+      incompatible types: ItemStackTemplate cannot be converted to Item)
+  where U,T,M are type-variables:
+    U extends Object declared in method <U>map(Function<? super T,? extends U>)
+    T extends Object declared in class Optional
+    M extends ItemMeta declared in class CraftItemType
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/datacomponent/item/PaperPotDecorations.java:76: error: incompatible types: inference variable U has incompatible bounds
+                Optional.ofNullable(this.back).map(CraftItemType::bukkitToMinecraftNew),
+                                                  ^
+    equality constraints: ItemStackTemplate
+    lower bounds: Item
+  where U,T are type-variables:
+    U extends Object declared in method <U>map(Function<? super T,? extends U>)
+    T extends Object declared in class Optional
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/set/PaperRegistrySets.java:23: error: cannot find symbol
+            final RegistryOps.RegistryInfo<M> registryInfo = lookup.lookup(resourceKey).orElseThrow();
+                             ^
+  symbol:   class RegistryInfo
+  location: class RegistryOps
+/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/set/PaperRegistrySets.java:45: error: cannot find symbol
+            final RegistryOps.RegistryInfo<M> registryInfo = lookup.lookup(resourceKey).orElseThrow();
+                             ^
+  symbol:   class RegistryInfo
+  location: class RegistryOps
+/opt/minecraft-build/Paper/paper-server/src/generated/java/org/bukkit/craftbukkit/block/impl/CraftRedStoneWire.java:23: error: cannot find symbol
+    private static final IntegerProperty POWER = RedStoneWireBlock.POWER;
+                                                 ^
+  symbol:   variable RedStoneWireBlock
+  location: class CraftRedStoneWire
+/opt/minecraft-build/Paper/paper-server/src/generated/java/org/bukkit/craftbukkit/block/impl/CraftRedStoneWire.java:25: error: package RedStoneWireBlock does not exist
+    private static final Map<BlockFace, EnumProperty<RedstoneSide>> PROPERTY_BY_DIRECTION = RedStoneWireBlock.PROPERTY_BY_DIRECTION.entrySet().stream()
+                                                                                                             ^
+/opt/minecraft-build/Paper/paper-server/src/generated/java/org/bukkit/craftbukkit/block/impl/CraftRedStoneWire.java:26: error: cannot find symbol
+            .collect(Collectors.toMap(entry -> CraftBlock.notchToBlockFace(entry.getKey()), entry -> entry.getValue()));
+                                                                                ^
+  symbol:   method getKey()
+  location: variable entry of type Object
+/opt/minecraft-build/Paper/paper-server/src/generated/java/org/bukkit/craftbukkit/block/impl/CraftRedStoneWire.java:26: error: cannot find symbol
+            .collect(Collectors.toMap(entry -> CraftBlock.notchToBlockFace(entry.getKey()), entry -> entry.getValue()));
+                                                                                                          ^
+  symbol:   method getValue()
+  location: variable entry of type Object
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/level/levelgen/structure/placement/DimensionOriginStructurePlacement.java:7: error: DimensionOriginStructurePlacement is not abstract and does not override abstract method isStructureChunk(ChunkGeneratorStructureState,int,int,@org.jspecify.annotations.Nullable ResourceKey<StructureSet>) in StructurePlacement
+public class DimensionOriginStructurePlacement implements StructurePlacement {
+       ^
+/opt/minecraft-build/Paper/paper-server/src/minecraft/java/net/minecraft/world/item/crafting/TransmuteRecipe.java:219: error: cannot find symbol
+        return new org.bukkit.craftbukkit.inventory.CraftTransmuteRecipe(id, org.bukkit.craftbukkit.inventory.CraftItemType.minecraftToBukkit(this.result.item().value()), org.bukkit.craftbukkit.inventory.CraftRecipe.toChoice(this.input), org.bukkit.craftbukkit.inventory.CraftRecipe.toChoice(this.material));
+                                                                                                                                                                ^
+  symbol:   method value()
+  location: class Optional<Holder<Item>>
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use or override a deprecated API that is marked for removal.
+Note: Recompile with -Xlint:removal for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+55 errors
+
+> Task :paper-server:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/minecraft-build/Paper/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':paper-server:setupMacheSources'.
-> paper.libs.org.eclipse.jgit.api.errors.TransportException: Short read of block.
+Execution failed for task ':paper-server:compileJava'.
+> Compilation failed; see the compiler output below.
+  /opt/minecraft-build/Paper/paper-server/src/generated/java/org/bukkit/craftbukkit/block/impl/CraftRedStoneWire.java:9: error: cannot find symbol
+  import net.minecraft.world.level.block.RedStoneWireBlock;
+                                        ^
+    symbol:   class RedStoneWireBlock
+    location: package net.minecraft.world.level.block
+  55 errors
 
 * Try:
-> Run with --stacktrace option to get the stack trace.
-> Run with --info or --debug option to get more log output.
+> Check your code and dependencies to fix the compilation error(s)
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
 
-BUILD FAILED in 13m 25s
-16 actionable tasks: 14 executed, 2 from cache
+BUILD FAILED in 8m 10s
+10 actionable tasks: 6 executed, 1 from cache, 3 up-to-date
 Configuration cache entry stored.
 
 exit_code=1
-finished_at=2026-08-24T17:02:02Z
+finished_at=2026-08-24T17:41:23Z
 runner=alexhost-143-246
