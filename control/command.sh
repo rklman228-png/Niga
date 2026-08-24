@@ -1,16 +1,11 @@
 set -euo pipefail
-STAMP=$(date -u +%Y%m%dT%H%M%SZ)
-SERVER=/opt/minecraft/server
-mkdir -p "$SERVER/mods" "$SERVER/backups/mods-$STAMP"
-cp -a "$SERVER/mods/." "$SERVER/backups/mods-$STAMP/" 2>/dev/null || true
-FABRIC_API=$(find /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-api/0.158.1+26.3 -type f -name '*.jar' | head -n1)
-test -n "$FABRIC_API"
-install -m 0644 "$FABRIC_API" "$SERVER/mods/fabric-api-0.158.1+26.3.jar"
-install -m 0644 /opt/brigada-core-src/build/libs/brigada-core-0.1.0.jar "$SERVER/mods/brigada-core-0.1.0.jar"
-systemctl restart minecraft.service
-sleep 12
+systemctl stop minecraft.service || true
+printf '%s' 'ewogICJzY2hlbWFWZXJzaW9uIjogMSwKICAiaWQiOiAiYnJpZ2FkYV9jb3JlIiwKICAidmVyc2lvbiI6ICIke3ZlcnNpb259IiwKICAibmFtZSI6ICJCcmlnYWRhIENvcmUiLAogICJkZXNjcmlwdGlvbiI6ICJQcml2YXRlIGNvb3BlcmF0aXZlIHNlcnZlciBzeXN0ZW1zIGZvciBCcmlnYWRhIE5vLiAxMy4iLAogICJhdXRob3JzIjogWyJCcmlnYWRhIDEzIl0sCiAgImNvbnRhY3QiOiB7CiAgICAic291cmNlcyI6ICJodHRwczovL2dpdGh1Yi5jb20vcmtsbWFuMjI4LXBuZy9QbGFnaW5fMSIKICB9LAogICJsaWNlbnNlIjogIk1JVCIsCiAgImVudmlyb25tZW50IjogInNlcnZlciIsCiAgImVudHJ5cG9pbnRzIjogewogICAgIm1haW4iOiBbCiAgICAgICJkZXYuYnJpZ2FkYTEzLmNvcmUuQnJpZ2FkYUNvcmUiCiAgICBdCiAgfSwKICAiZGVwZW5kcyI6IHsKICAgICJmYWJyaWNsb2FkZXIiOiAiPj0wLjE5LjMiLAogICAgIm1pbmVjcmFmdCI6ICIyNi4zLWFscGhhLjkiLAogICAgImphdmEiOiAiPj0yNSIsCiAgICAiZmFicmljLWFwaSI6ICI+PTAuMTU4LjEiCiAgfQp9Cg==' | base64 -d > /opt/brigada-core-src/src/main/resources/fabric.mod.json
+cd /opt/brigada-core-src
+./gradlew --no-daemon clean build
+install -m 0644 build/libs/brigada-core-0.1.0.jar /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+systemctl start minecraft.service
+sleep 15
 systemctl --no-pager --full status minecraft.service || true
-printf '\n=== MODS ===\n'
-ls -lh "$SERVER/mods"
 printf '\n=== RECENT LOG ===\n'
-journalctl -u minecraft.service --since '-3 minutes' --no-pager -o cat | tail -n 220
+journalctl -u minecraft.service --since '-3 minutes' --no-pager -o cat | tail -n 260
