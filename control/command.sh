@@ -1,4 +1,8 @@
 set -euo pipefail
-J=$(find /root/.gradle/caches -type f -name '*.jar' | grep -E 'minecraft.*26\.3|minecraft-merged|client-intermediary' | tail -n 1)
-echo "$J"
-javap -classpath "$J" net.minecraft.server.level.ServerLevel 2>/dev/null | grep -A2 -B2 'sendParticles' || true
+echo PROJECTS
+find /opt -maxdepth 4 -type f -name build.gradle -print
+echo MODS
+find /opt/minecraft -maxdepth 4 -type f -name '*.jar' -print 2>/dev/null | sort
+echo SERVICES
+systemctl list-unit-files --type=service | grep -Ei 'minecraft|fabric|paper' || true
+systemctl list-units --type=service --all | grep -Ei 'minecraft|fabric|paper' || true
