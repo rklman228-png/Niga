@@ -1,5 +1,26 @@
-Gradle 9.6.1 not found
+PROJECT
+total 56
+drwxr-xr-x  6 root root 4096 Aug 24 23:30 .
+drwxr-xr-x 15 root root 4096 Aug 24 20:39 ..
+drwxr-xr-x  6 root root 4096 Aug 24 20:43 .gradle
+-rw-r--r--  1 root root 1067 Aug 24 20:37 LICENSE
+-rw-r--r--  1 root root  663 Aug 24 20:37 README.md
+drwxr-xr-x  9 root root 4096 Aug 24 23:30 build
+-rw-r--r--  1 root root 1054 Aug 24 20:37 build.gradle
+drwxr-xr-x  3 root root 4096 Aug 24 20:39 gradle
+-rw-r--r--  1 root root  275 Aug 24 20:40 gradle.properties
+-rwxr-xr-x  1 root root 8654 Aug 24 20:39 gradlew
+-rw-r--r--  1 root root  235 Aug 24 20:37 settings.gradle
+drwxr-xr-x  3 root root 4096 Aug 24 20:37 src
+/opt/brigada-core-src/gradle/wrapper/gradle-wrapper.properties
+/opt/brigada-core-src/gradlew
+/opt/brigada-core-src/build.gradle
+GRADLE
+/root/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/bin/gradle
+/root/.gradle/wrapper/dists/gradle-9.4.1-bin/arn2x92ynaizyzdaamcbpbhtj/gradle-9.4.1/bin/gradle
+/root/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/bin/gradle
+/root/.gradle/wrapper/dists/gradle-9.4.1-bin/arn2x92ynaizyzdaamcbpbhtj/gradle-9.4.1/bin/gradle
 
-exit_code=2
-finished_at=2026-08-24T23:52:35Z
+exit_code=0
+finished_at=2026-08-24T23:53:36Z
 runner=alexhost-143-246
