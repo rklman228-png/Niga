@@ -1,30 +1,42 @@
-SERVICE
-active
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-PORT
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3067175,fd=161))                                                                                           
+> Configure project :
+Fabric Loom: 1.17.19
 
-LOG
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 21:43:55 test1 java[2942986]: [21:43:55] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
-Aug 24 21:43:55 test1 java[2942986]: [21:43:55] [Server thread/INFO]: Starting Minecraft server on *:25565
-Aug 24 21:43:59 test1 java[2942986]: [21:43:59] [Server thread/INFO]: Done (3.076s)! For help, type "help"
-Aug 24 22:35:46 test1 systemd[1]: Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
-Aug 24 22:35:49 test1 java[3067175]: Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 22:36:53 test1 java[3067175]: [22:36:53] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
-Aug 24 22:36:54 test1 java[3067175]: [22:36:54] [Server thread/INFO]: Starting Minecraft server on *:25565
-Aug 24 22:36:59 test1 java[3067175]: [22:36:59] [Server thread/INFO]: Done (3.459s)! For help, type "help"
+> Task :clean
 
-ARTIFACT
-c1892656451b9120b3c39799e5223e15e459b66a78ff7cc5a868f98084caca59  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+> Task :compileJava
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:513: error: cannot find symbol
+            LocatedEvent located = locate(level, level.getSharedSpawnPos(), candidate);
+                                                      ^
+  symbol:   method getSharedSpawnPos()
+  location: variable level of type ServerLevel
+1 error
 
-exit_code=0
-finished_at=2026-08-24T22:37:51Z
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:513: error: cannot find symbol
+              LocatedEvent located = locate(level, level.getSharedSpawnPos(), candidate);
+                                                        ^
+    symbol:   method getSharedSpawnPos()
+    location: variable level of type ServerLevel
+  1 error
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 38s
+2 actionable tasks: 2 executed
+
+exit_code=1
+finished_at=2026-08-24T22:54:59Z
 runner=alexhost-143-246
