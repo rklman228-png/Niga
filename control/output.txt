@@ -1,64 +1,102 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-
-> Task :compileJava
-Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 56s
-6 actionable tasks: 6 executed
 STATUS
 active
-FABRIC_FILES
--rw-r--r-- 1 minecraft minecraft     616 Aug 24 17:52 /opt/minecraft/server/fabric-server-launch.jar
--rw-r--r-- 1 root      root       106271 Aug 24 23:55 /opt/minecraft/server/mods/brigada-core-0.1.0.jar
--rw-r--r-- 1 root      root      2537629 Aug 24 21:19 /opt/minecraft/server/mods/fabric-api-0.158.1+26.3.jar
-PAUSE_BUTTON
-{
-  "replace": false,
-  "values": [
-    "brigada_core:main"
-  ]
-}
-SHA256
-489896a638c66c4a42b2c37317bd913cc34d9b8b3891ab004b438a99bf7da5e6  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+PORT
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3261613,fd=161))                                                                                           
 LOG
-Aug 24 23:32:59 test1 java[3209028]: [23:32:59] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
-Aug 24 23:33:36 test1 java[3209028]: [23:33:36] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 23:34:09 test1 java[3209028]: [23:34:09] [Server thread/INFO]: Done (19.436s)! For help, type "help"
 Aug 24 23:55:18 test1 systemd[1]: Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+Aug 24 23:55:19 test1 systemd[1]: minecraft.service: Deactivated successfully.
 Aug 24 23:55:19 test1 systemd[1]: Stopped minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 24 23:55:19 test1 systemd[1]: minecraft.service: Consumed 8min 31.617s CPU time, 2.2G memory peak.
 Aug 24 23:55:19 test1 systemd[1]: Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 24 23:55:21 test1 java[3261613]: Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
 Aug 24 23:55:24 test1 java[3261613]: [23:55:24] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 24 23:55:24 test1 java[3261613]: [23:55:24] [main/INFO]: Mappings not present!
+Aug 24 23:55:25 test1 java[3261613]: [23:55:25] [main/INFO]: Loading 42 mods:
+Aug 24 23:55:25 test1 java[3261613]:         - brigada_core 0.1.0
+Aug 24 23:55:25 test1 java[3261613]:         - fabric-api 0.158.1+26.3
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-api-base 2.0.5+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-biome-api-v1 20.0.6+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-block-api-v1 3.0.4+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-block-getter-api-v2 2.0.8+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-command-api-v2 3.1.1+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-content-registries-v0 14.2.3+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-crash-report-info-v1 1.0.6+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-creative-tab-api-v1 5.0.20+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-data-attachment-api-v1 2.2.28+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-data-generation-api-v1 27.1.5+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-debug-api-v1 1.0.3+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-dimensions-v1 5.1.16+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-entity-events-v1 6.0.3+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-events-interaction-v0 5.3.5+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-game-rule-api-v1 4.0.9+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-item-api-v1 14.5.1+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-key-mapping-api-v1 2.0.7+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-lifecycle-events-v1 4.1.6+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-loot-api-v3 4.0.2+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-menu-api-v1 2.0.24+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-message-api-v1 7.0.9+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-model-loading-api-v1 8.0.28+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-networking-api-v1 6.3.7+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-object-builder-api-v1 24.1.7+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-particles-v1 5.0.23+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-permission-api-v1 1.0.6+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-recipe-api-v1 10.0.5+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-registry-sync-v0 7.1.8+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-renderer-api-v1 17.0.8+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-renderer-indigo 9.1.15+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-rendering-fluids-v1 6.0.5+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-rendering-v1 27.0.9+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-screen-api-v1 5.2.1+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-serialization-api-v1 2.0.5+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-sound-api-v1 2.0.6+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            |-- fabric-transfer-api-v1 8.0.21+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:            \-- fabric-transitive-access-wideners-v1 8.1.13+3434d6d97a
+Aug 24 23:55:25 test1 java[3261613]:         - fabricloader 0.19.3
+Aug 24 23:55:25 test1 java[3261613]:            \-- mixinextras 0.5.4
+Aug 24 23:55:25 test1 java[3261613]:         - java 25
+Aug 24 23:55:25 test1 java[3261613]:         - minecraft 26.3-alpha.9
 Aug 24 23:55:26 test1 java[3261613]: [23:55:26] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 24 23:55:26 test1 java[3261613]: [23:55:26] [main/INFO]: Compatibility level set to JAVA_25
+Aug 24 23:55:29 test1 java[3261613]: [23:55:29] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 24 23:55:32 test1 java[3261613]: WARNING: A restricted method in java.lang.System has been called
+Aug 24 23:55:32 test1 java[3261613]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 24 23:55:32 test1 java[3261613]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 24 23:55:32 test1 java[3261613]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+Aug 24 23:55:39 test1 java[3261613]: WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+Aug 24 23:55:39 test1 java[3261613]: WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+Aug 24 23:55:39 test1 java[3261613]: WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+Aug 24 23:55:39 test1 java[3261613]: WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+Aug 24 23:56:00 test1 java[3261613]: [23:56:00] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+Aug 24 23:56:00 test1 java[3261613]: [23:56:00] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+Aug 24 23:56:00 test1 java[3261613]: [23:56:00] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+Aug 24 23:56:00 test1 java[3261613]: [23:56:00] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 24 23:56:02 test1 java[3261613]: [23:56:02] [main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+Aug 24 23:56:13 test1 java[3261613]: [23:56:13] [Worker-Main-3/INFO]: Loaded 1866 advancements
+Aug 24 23:56:14 test1 java[3261613]: [23:56:14] [main/INFO]: Applied 0 biome modifications to 0 of 67 new biomes in 21.71 ms
+Aug 24 23:56:14 test1 java[3261613]: [23:56:14] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
+Aug 24 23:56:14 test1 java[3261613]: [23:56:14] [Server thread/INFO]: Loading properties
+Aug 24 23:56:14 test1 java[3261613]: [23:56:14] [Server thread/INFO]: Default game type: SURVIVAL
+Aug 24 23:56:14 test1 java[3261613]: [23:56:14] [Server thread/INFO]: Generating keypair
+Aug 24 23:56:14 test1 java[3261613]: [23:56:14] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 24 23:56:15 test1 java[3261613]: [23:56:15] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+Aug 24 23:56:15 test1 java[3261613]: [23:56:15] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+Aug 24 23:56:15 test1 java[3261613]: [23:56:15] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+Aug 24 23:56:15 test1 java[3261613]: [23:56:15] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+Aug 24 23:56:15 test1 java[3261613]: [23:56:15] [Server thread/INFO]: Preparing level "world"
+Aug 24 23:56:18 test1 java[3261613]: [23:56:18] [Server thread/INFO]: Loading 0 persistent chunks...
+Aug 24 23:56:19 test1 java[3261613]: [23:56:19] [Server thread/INFO]: Preparing spawn area: 100%
+Aug 24 23:56:19 test1 java[3261613]: [23:56:19] [Server thread/INFO]: Time elapsed: 595 ms
+Aug 24 23:56:19 test1 java[3261613]: [23:56:19] [Server thread/INFO]: Done (3.454s)! For help, type "help"
+Aug 24 23:56:19 test1 java[3261613]: [23:56:19] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+Aug 24 23:56:19 test1 java[3261613]: [23:56:19] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+Aug 24 23:56:19 test1 java[3261613]: [23:56:19] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
 
 exit_code=0
-finished_at=2026-08-24T23:55:31Z
+finished_at=2026-08-24T23:56:43Z
 runner=alexhost-143-246
