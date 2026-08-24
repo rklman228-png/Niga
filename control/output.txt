@@ -1,10 +1,42 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-gzip: stdin: invalid compressed data--crc error
+> Configure project :
+Fabric Loom: 1.17.19
 
-gzip: stdin: invalid compressed data--length error
-tar: Child returned status 1
-tar: Error is not recoverable: exiting now
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
 
-exit_code=2
-finished_at=2026-08-24T21:17:01Z
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 46s
+6 actionable tasks: 6 executed
+
+ARTIFACTS
+brigada-core-0.1.0.jar 62026 bytes
+brigada-core-0.1.0-sources.jar 27968 bytes
+3589385852c094a1c7711bb4d678d132385dddb9f2619c308d900af03262162b  build/libs/brigada-core-0.1.0-sources.jar
+709cb2b1a2c6e5aa954d76f0fd75386d5c665014d0ae18f65fb52c56a65d9079  build/libs/brigada-core-0.1.0.jar
+
+exit_code=0
+finished_at=2026-08-24T21:18:43Z
 runner=alexhost-143-246
