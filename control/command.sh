@@ -1,26 +1,12 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-
 src=/opt/brigada-core-src
-install -d -m 0755 "$src"
-printf '%s' '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' | base64 -d | tar -xzf - -C "$src"
-
-if [[ ! -f "$src/gradlew" ]]; then
-  cp /opt/minecraft-build/Paper/gradlew "$src/gradlew"
-  cp /opt/minecraft-build/Paper/gradlew.bat "$src/gradlew.bat"
-  install -d "$src/gradle/wrapper"
-  cp /opt/minecraft-build/Paper/gradle/wrapper/gradle-wrapper.jar "$src/gradle/wrapper/gradle-wrapper.jar"
-  cp /opt/minecraft-build/Paper/gradle/wrapper/gradle-wrapper.properties "$src/gradle/wrapper/gradle-wrapper.properties"
-fi
-chmod +x "$src/gradlew"
-sed -i -E 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-9.6.1-bin.zip#' "$src/gradle/wrapper/gradle-wrapper.properties"
-
-echo "=== WRAPPER ==="
-grep distributionUrl "$src/gradle/wrapper/gradle-wrapper.properties"
+test -d "$src"
+sed -i 's/^loom_version=.*/loom_version=1.17.19/' "$src/gradle.properties"
 cd "$src"
-./gradlew --no-daemon --version
+echo "=== TOOLCHAIN ==="
+grep -E '^(minecraft|loader|loom|fabric_api)_version=' gradle.properties
 ./gradlew --no-daemon clean build
-
 echo "=== ARTIFACTS ==="
 find build/libs -maxdepth 1 -type f -printf '%f %s bytes\n' | sort
 sha256sum build/libs/*.jar
