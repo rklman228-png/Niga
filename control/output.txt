@@ -1,42 +1,116 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 1m 12s
-6 actionable tasks: 6 executed
-=== CATALOG BUILD ===
-brigada-core-0.1.0-sources.jar 9344 bytes
-brigada-core-0.1.0.jar 21970 bytes
-ce9cf0803df7170ad3bbffb8795f80bdc57a98c84e629c774f08033fdf795e94  build/libs/brigada-core-0.1.0-sources.jar
-91056d272e7d309d45a9616b6212a67c7c269bc3badf2d56b117970df6d6cf6d  build/libs/brigada-core-0.1.0.jar
-CATALOG_BUILD_OK
+=== CALLBACKS ===
+--- net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$EndTick
+Compiled from "ServerTickEvents.java"
+public interface net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$EndTick {
+  public abstract void onEndTick(net.minecraft.server.MinecraftServer);
+}
+--- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath
+Compiled from "ServerLivingEntityEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath {
+  public abstract boolean allowDeath(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource, float);
+}
+--- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDamage
+Compiled from "ServerLivingEntityEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDamage {
+  public abstract void afterDamage(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource, float, float, boolean);
+}
+--- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath
+Compiled from "ServerLivingEntityEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath {
+  public abstract void afterDeath(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
+}
+--- net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AfterRespawn
+Compiled from "ServerPlayerEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AfterRespawn {
+  public abstract void afterRespawn(net.minecraft.server.level.ServerPlayer, net.minecraft.server.level.ServerPlayer, boolean);
+}
+--- net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Join
+Compiled from "ServerPlayerEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Join {
+  public abstract void onJoin(net.minecraft.server.level.ServerPlayer);
+}
+--- net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Join
+Compiled from "ServerPlayConnectionEvents.java"
+public interface net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Join {
+  public abstract void onPlayReady(net.minecraft.server.network.ServerGamePacketListenerImpl, net.fabricmc.fabric.api.networking.v1.PacketSender, net.minecraft.server.MinecraftServer);
+}
+=== SERIALIZATION / UI ===
+--- net.minecraft.core.RegistryAccess
+public interface net.minecraft.core.RegistryAccess extends net.minecraft.core.HolderLookup$Provider {
+--- net.minecraft.core.HolderLookup$Provider
+public interface net.minecraft.core.HolderLookup$Provider extends net.minecraft.core.HolderGetter$Provider {
+  public default <V> net.minecraft.resources.RegistryOps<V> createSerializationContext(com.mojang.serialization.DynamicOps<V>);
+--- net.minecraft.resources.RegistryOps
+public class net.minecraft.resources.RegistryOps<T> extends net.minecraft.resources.DelegatingOps<T> {
+--- net.minecraft.world.item.ItemStack
+public final class net.minecraft.world.item.ItemStack implements net.minecraft.core.component.DataComponentHolder,net.minecraft.world.item.ItemInstance {
+  public static final com.mojang.serialization.MapCodec<net.minecraft.world.item.ItemStack> MAP_CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStack> CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStack> OPTIONAL_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> OPTIONAL_STREAM_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> OPTIONAL_UNTRUSTED_STREAM_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> STREAM_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, java.util.List<net.minecraft.world.item.ItemStack>> OPTIONAL_LIST_STREAM_CODEC;
+  public boolean isEmpty();
+  public net.minecraft.world.item.ItemStack copy();
+  public net.minecraft.network.chat.Component getHoverName();
+  public net.minecraft.network.chat.Component getStyledHoverName();
+  public int getCount();
+  public void setCount(int);
+--- net.minecraft.network.chat.Component
+public interface net.minecraft.network.chat.Component extends com.mojang.brigadier.Message,net.minecraft.network.chat.FormattedText {
+  public default java.lang.String getString();
+  public default java.lang.String getString(int);
+  public default net.minecraft.network.chat.MutableComponent copy();
+  public static net.minecraft.network.chat.MutableComponent literal(java.lang.String);
+  public static net.minecraft.network.chat.MutableComponent translatable(java.lang.String);
+  public static net.minecraft.network.chat.MutableComponent translatable(java.lang.String, java.lang.Object...);
+  public static net.minecraft.network.chat.MutableComponent translatableEscape(java.lang.String, java.lang.Object...);
+  public static net.minecraft.network.chat.MutableComponent translatableWithFallback(java.lang.String, java.lang.String);
+  public static net.minecraft.network.chat.MutableComponent translatableWithFallback(java.lang.String, java.lang.String, java.lang.Object...);
+--- net.minecraft.network.chat.MutableComponent
+public final class net.minecraft.network.chat.MutableComponent implements net.minecraft.network.chat.Component {
+  public net.minecraft.network.chat.MutableComponent append(java.lang.String);
+  public net.minecraft.network.chat.MutableComponent append(net.minecraft.network.chat.Component);
+  public net.minecraft.network.chat.MutableComponent withStyle(java.util.function.UnaryOperator<net.minecraft.network.chat.Style>);
+  public net.minecraft.network.chat.MutableComponent withStyle(net.minecraft.network.chat.Style);
+  public net.minecraft.network.chat.MutableComponent withStyle(net.minecraft.ChatFormatting...);
+  public net.minecraft.network.chat.MutableComponent withStyle(net.minecraft.ChatFormatting);
+--- net.minecraft.network.chat.Style
+public final class net.minecraft.network.chat.Style {
+  public net.minecraft.network.chat.TextColor getColor();
+  public boolean isEmpty();
+--- net.minecraft.network.chat.TextColor
+public final class net.minecraft.network.chat.TextColor {
+  public static final com.mojang.serialization.Codec<net.minecraft.network.chat.TextColor> CODEC;
+  public int getValue();
+--- net.minecraft.world.entity.Entity
+public abstract class net.minecraft.world.entity.Entity implements net.minecraft.world.Nameable, net.minecraft.world.level.entity.EntityAccess, net.minecraft.world.scores.ScoreHolder, net.minecraft.network.syncher.SyncedDataHolder, net.minecraft.core.component.DataComponentGetter, net.minecraft.world.entity.ItemOwner, net.minecraft.world.entity.SlotProvider, net.minecraft.util.debug.DebugValueSource, net.minecraft.core.TypedInstance<net.minecraft.world.entity.EntityType<?>> {
+  public boolean addTag(java.lang.String);
+  public net.minecraft.network.chat.Component getName();
+  public java.util.UUID getUUID();
+  public java.lang.String getStringUUID();
+  public net.minecraft.world.phys.Vec3 position();
+  public final double getX();
+  public double getX(double);
+  public final double getY();
+  public double getY(double);
+  public final double getZ();
+  public double getZ(double);
+  public final boolean isRemoved();
+  public net.minecraft.world.entity.Entity$RemovalReason getRemovalReason();
+--- net.minecraft.server.players.PlayerList
+public abstract class net.minecraft.server.players.PlayerList {
+  public net.minecraft.server.level.ServerPlayer getPlayerByName(java.lang.String);
+  public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayersWithAddress(java.lang.String);
+  public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayers();
+  public java.util.Map<java.util.UUID, net.minecraft.server.level.ServerPlayer> getPlayersByUUID();
+--- net.minecraft.commands.Commands
+public class net.minecraft.commands.Commands {
+  public void performPrefixedCommand(net.minecraft.commands.CommandSourceStack, java.lang.String);
+  public static com.mojang.brigadier.builder.LiteralArgumentBuilder<net.minecraft.commands.CommandSourceStack> literal(java.lang.String);
+SIGNATURES_2_OK
 
 exit_code=0
-finished_at=2026-08-24T20:54:10Z
+finished_at=2026-08-24T20:56:55Z
 runner=alexhost-143-246
