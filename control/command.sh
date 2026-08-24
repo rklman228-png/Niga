@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-echo "=== HOST ==="
-date -u
-uname -a
-java -version 2>&1
-command -v gradle || true
-gradle --version 2>&1 | sed -n '1,30p' || true
-find /opt -maxdepth 3 -type f \( -name 'gradle' -o -name 'gradlew' \) -print 2>/dev/null | sed -n '1,30p'
+work=/tmp/brigada-meta
+mkdir -p "$work"
 
-echo "=== SERVER ==="
-systemctl is-active minecraft
-find /opt/minecraft/server/mods -maxdepth 1 -type f -printf '%f\n' | sort
-sha1sum /opt/minecraft/server/server.jar
-df -h /opt
+curl -fsSL --max-time 60 'https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml' -o "$work/loom.xml"
+curl -fsSL --max-time 60 'https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/maven-metadata.xml' -o "$work/fapi.xml"
 
-echo "=== FABRIC META ==="
-curl -fsSL --max-time 30 'https://meta.fabricmc.net/v2/versions/yarn/26.3-snapshot-9' | head -c 12000
-printf '\n'
-curl -fsSL --max-time 30 'https://meta.fabricmc.net/v2/versions/loader/26.3-snapshot-9' | head -c 16000
-printf '\n'
-curl -fsSL --max-time 30 'https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml' | tail -n 80
-echo "INSPECT_OK"
+echo "=== LOOM LATEST ==="
+grep -E '<latest>|<release>|<version>1\.(17|18|19)' "$work/loom.xml" | tail -n 60
+
+echo "=== FABRIC API 26.3 ==="
+grep -E '<version>.*26\.3' "$work/fapi.xml" | tail -n 40
+
+echo "=== EXAMPLE BUILD ==="
+curl -fsSL --max-time 60 'https://raw.githubusercontent.com/FabricMC/fabric-example-mod/26.2/build.gradle' | sed -n '1,240p'
+echo "=== EXAMPLE PROPS ==="
+curl -fsSL --max-time 60 'https://raw.githubusercontent.com/FabricMC/fabric-example-mod/26.2/gradle.properties' | sed -n '1,200p'
+echo "=== EXAMPLE SETTINGS ==="
+curl -fsSL --max-time 60 'https://raw.githubusercontent.com/FabricMC/fabric-example-mod/26.2/settings.gradle' | sed -n '1,160p'
+echo "META_OK"
