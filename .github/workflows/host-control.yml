@@ -1,0 +1,38 @@
+name: Host Control
+
+on:
+  push:
+    branches:
+      - host-control
+    paths:
+      - control/command.sh
+      - .github/workflows/host-control.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: host-control-143-246-197-187
+  cancel-in-progress: false
+
+jobs:
+  execute:
+    name: Execute queued host command
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+      - host-143-246
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Fetch control branch
+        uses: actions/checkout@v4
+        with:
+          ref: host-control
+          persist-credentials: false
+          clean: true
+      - name: Execute command
+        run: bash control/command.sh
