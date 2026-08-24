@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+# dispatch: loom-1.17.19-retry-2
 src=/opt/brigada-core-src
 test -d "$src"
 sed -i 's/^loom_version=.*/loom_version=1.17.19/' "$src/gradle.properties"
