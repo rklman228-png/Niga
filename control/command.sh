@@ -1,52 +1,41 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-FILE_ID="1Jq-I46uJnETDpxUWXxw9qfDDb3OLJxf4"
-DRIVE_URL="https://drive.google.com/file/d/${FILE_ID}/view?usp=drivesdk"
-DEST_DIR="/root/uploads"
-DEST="${DEST_DIR}/Писькострелковая_бригада_13.zip"
-PART="${DEST}.part"
-EXPECTED_SIZE="1470937885"
-GDOWN="/opt/gdown-venv/bin/gdown"
+ZIP="/root/uploads/Писькострелковая_бригада_13.zip"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
 
-mkdir -p "$DEST_DIR"
+echo "Archive root entries:"
+unzip -Z1 "$ZIP" | sed -n '1,80p'
 
-printf 'target=%s\n' "$DEST"
-printf 'expected_bytes=%s\n' "$EXPECTED_SIZE"
-df -h "$DEST_DIR"
-
-if [[ -f "$DEST" ]] && [[ "$(stat -c '%s' "$DEST")" == "$EXPECTED_SIZE" ]]; then
-  echo "File already present with expected size; skipping download."
-else
-  if [[ ! -x "$GDOWN" ]]; then
-    echo "Installing isolated Google Drive downloader..."
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update -qq
-    apt-get install -y -qq python3-venv unzip ca-certificates
-    rm -rf /opt/gdown-venv
-    python3 -m venv /opt/gdown-venv
-    /opt/gdown-venv/bin/pip install --no-cache-dir --quiet gdown
-  fi
-
-  echo "Downloading from Google Drive..."
-  "$GDOWN" --continue "$DRIVE_URL" -O "$PART"
-
-  ACTUAL_SIZE="$(stat -c '%s' "$PART")"
-  printf 'downloaded_bytes=%s\n' "$ACTUAL_SIZE"
-
-  if [[ "$ACTUAL_SIZE" != "$EXPECTED_SIZE" ]]; then
-    echo "ERROR: downloaded size does not match Drive metadata." >&2
-    exit 2
-  fi
-
-  mv -f "$PART" "$DEST"
+LEVEL_PATH="$(unzip -Z1 "$ZIP" | grep -E '(^|/)level\.dat$' | head -n 1 || true)"
+if [[ -z "$LEVEL_PATH" ]]; then
+  echo "ERROR: level.dat not found in archive" >&2
+  exit 2
 fi
 
-echo "Calculating SHA-256..."
-sha256sum "$DEST"
+printf 'level_dat_archive_path=%s\n' "$LEVEL_PATH"
+unzip -p "$ZIP" "$LEVEL_PATH" > "$TMP_DIR/level.dat"
 
-echo "Testing ZIP integrity..."
-unzip -tq "$DEST"
+NBT_PY="/opt/gdown-venv/bin/python"
+NBT_PIP="/opt/gdown-venv/bin/pip"
+"$NBT_PIP" install --no-cache-dir --quiet nbtlib
 
-stat -c 'path=%n%nbytes=%s%nmodified=%y' "$DEST"
-echo "DRIVE_UPLOAD_TO_HOST_OK"
+"$NBT_PY" - "$TMP_DIR/level.dat" <<'PY'
+import sys
+import nbtlib
+
+path = sys.argv[1]
+root = nbtlib.load(path)
+data = root["Data"]
+version = data.get("Version", {})
+
+print(f"LevelName={data.get('LevelName')}")
+print(f"DataVersion={data.get('DataVersion')}")
+print(f"VersionName={version.get('Name')}")
+print(f"VersionId={version.get('Id')}")
+print(f"VersionSnapshot={version.get('Snapshot')}")
+print(f"LastPlayed={data.get('LastPlayed')}")
+PY
+
+echo "WORLD_INSPECTION_OK"
