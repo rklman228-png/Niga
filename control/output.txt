@@ -1,16 +1,56 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 50s
+6 actionable tasks: 6 executed
 ● minecraft.service - Minecraft Fabric 26.3 Snapshot 9
      Loaded: loaded (/etc/systemd/system/minecraft.service; enabled; preset: enabled)
-     Active: activating (auto-restart) (Result: exit-code) since Mon 2026-08-24 21:19:27 UTC; 6s ago
- Invocation: 4f2e71bcf2f0482aa1ad2b0ef0d56bbf
-    Process: 2891304 ExecStart=/usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui (code=exited, status=1/FAILURE)
-   Main PID: 2891304 (code=exited, status=1/FAILURE)
-   Mem peak: 229.8M
-        CPU: 8.766s
+     Active: active (running) since Mon 2026-08-24 21:21:06 UTC; 15s ago
+ Invocation: bd6204d325554553b327eb1713abe131
+   Main PID: 2894942 (java)
+      Tasks: 24 (limit: 9485)
+     Memory: 332.6M (peak: 332.8M)
+        CPU: 26.815s
+     CGroup: /system.slice/minecraft.service
+             └─2894942 /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
 
-=== MODS ===
-total 2.5M
--rw-r--r-- 1 root root  61K Aug 24 21:19 brigada-core-0.1.0.jar
--rw-r--r-- 1 root root 2.5M Aug 24 21:19 fabric-api-0.158.1+26.3.jar
+Aug 24 21:21:11 test1 java[2894942]:            \-- mixinextras 0.5.4
+Aug 24 21:21:11 test1 java[2894942]:         - java 25
+Aug 24 21:21:11 test1 java[2894942]:         - minecraft 26.3-alpha.9
+Aug 24 21:21:12 test1 java[2894942]: [21:21:12] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 24 21:21:12 test1 java[2894942]: [21:21:12] [main/INFO]: Compatibility level set to JAVA_25
+Aug 24 21:21:17 test1 java[2894942]: [21:21:17] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 24 21:21:19 test1 java[2894942]: WARNING: A restricted method in java.lang.System has been called
+Aug 24 21:21:19 test1 java[2894942]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 24 21:21:19 test1 java[2894942]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 24 21:21:19 test1 java[2894942]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 
 === RECENT LOG ===
 Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
@@ -42,7 +82,155 @@ More details:
 minecraft.service: Main process exited, code=exited, status=1/FAILURE
 minecraft.service: Failed with result 'exit-code'.
 minecraft.service: Consumed 8.766s CPU time, 229.8M memory peak.
+minecraft.service: Scheduled restart job, restart counter is at 1.
+Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+[21:19:42] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+[21:19:42] [main/INFO]: Mappings not present!
+[21:19:43] [main/WARN]: Mod resolution failed
+[21:19:43] [main/INFO]: Immediate reason: [HARD_DEP_INCOMPATIBLE_PRESELECTED brigada_core 0.1.0 {depends minecraft @ [26.3-snapshot-9]}, ROOT_FORCELOAD_SINGLE brigada_core 0.1.0]
+[21:19:43] [main/INFO]: Reason: [HARD_DEP brigada_core 0.1.0 {depends minecraft @ [26.3-snapshot-9]}]
+[21:19:43] [main/INFO]: SERVER environment disabled: [fabric-renderer-api-v1, fabric-model-loading-api-v1, fabric-key-mapping-api-v1, fabric-screen-api-v1, fabric-sound-api-v1, fabric-rendering-v1, fabric-renderer-indigo]
+[21:19:43] [main/INFO]: Fix: add [], remove [], replace [[minecraft 26.3-alpha.9] -> add:minecraft 26.3-snapshot-9 ([[26.3-snapshot-9,26.3-snapshot-9]])]
+[21:19:43] [main/ERROR]: Incompatible mods found!
+net.fabricmc.loader.impl.FormattedException: Some of your mods are incompatible with the game or each other!
+A potential solution has been determined, this may resolve your problem:
+	 - Replace 'Minecraft' (minecraft) 26.3-alpha.9 with version 26.3-snapshot-9.
+More details:
+	 - Mod 'Brigada Core' (brigada_core) 0.1.0 requires version 26.3-snapshot-9 of 'Minecraft' (minecraft), but only the wrong version is present: 26.3-alpha.9!
+	at net.fabricmc.loader.impl.FormattedException.ofLocalized(FormattedException.java:51)
+	at net.fabricmc.loader.impl.FabricLoaderImpl.load(FabricLoaderImpl.java:202)
+	at net.fabricmc.loader.impl.launch.knot.Knot.init(Knot.java:142)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:66)
+	at net.fabricmc.loader.impl.launch.knot.KnotServer.main(KnotServer.java:23)
+	at net.fabricmc.loader.impl.launch.server.FabricServerLauncher.main(FabricServerLauncher.java:69)
+minecraft.service: Main process exited, code=exited, status=1/FAILURE
+minecraft.service: Failed with result 'exit-code'.
+minecraft.service: Consumed 9.010s CPU time, 149.6M memory peak.
+minecraft.service: Scheduled restart job, restart counter is at 2.
+Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+[21:19:58] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+[21:19:58] [main/INFO]: Mappings not present!
+[21:19:59] [main/WARN]: Mod resolution failed
+[21:19:59] [main/INFO]: Immediate reason: [HARD_DEP_INCOMPATIBLE_PRESELECTED brigada_core 0.1.0 {depends minecraft @ [26.3-snapshot-9]}, ROOT_FORCELOAD_SINGLE brigada_core 0.1.0]
+[21:19:59] [main/INFO]: Reason: [HARD_DEP brigada_core 0.1.0 {depends minecraft @ [26.3-snapshot-9]}]
+[21:19:59] [main/INFO]: SERVER environment disabled: [fabric-renderer-api-v1, fabric-model-loading-api-v1, fabric-key-mapping-api-v1, fabric-sound-api-v1, fabric-screen-api-v1, fabric-rendering-v1, fabric-renderer-indigo]
+[21:19:59] [main/INFO]: Fix: add [], remove [], replace [[minecraft 26.3-alpha.9] -> add:minecraft 26.3-snapshot-9 ([[26.3-snapshot-9,26.3-snapshot-9]])]
+[21:19:59] [main/ERROR]: Incompatible mods found!
+net.fabricmc.loader.impl.FormattedException: Some of your mods are incompatible with the game or each other!
+A potential solution has been determined, this may resolve your problem:
+	 - Replace 'Minecraft' (minecraft) 26.3-alpha.9 with version 26.3-snapshot-9.
+More details:
+	 - Mod 'Brigada Core' (brigada_core) 0.1.0 requires version 26.3-snapshot-9 of 'Minecraft' (minecraft), but only the wrong version is present: 26.3-alpha.9!
+	at net.fabricmc.loader.impl.FormattedException.ofLocalized(FormattedException.java:51)
+	at net.fabricmc.loader.impl.FabricLoaderImpl.load(FabricLoaderImpl.java:202)
+	at net.fabricmc.loader.impl.launch.knot.Knot.init(Knot.java:142)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:66)
+	at net.fabricmc.loader.impl.launch.knot.KnotServer.main(KnotServer.java:23)
+	at net.fabricmc.loader.impl.launch.server.FabricServerLauncher.main(FabricServerLauncher.java:69)
+minecraft.service: Main process exited, code=exited, status=1/FAILURE
+minecraft.service: Failed with result 'exit-code'.
+minecraft.service: Consumed 9.582s CPU time, 159.5M memory peak.
+minecraft.service: Scheduled restart job, restart counter is at 3.
+Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+2026-08-24T21:20:14.657836251Z main ERROR Cannot start ShutdownCallbackRegistry, already shutting down.
+[21:20:13] [INFO] [FabricLoader/GameProvider]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+[21:20:13] [INFO] [FabricLoader/Mappings]: Mappings not present!
+[21:20:14] [ERROR] [FabricLoader/]: Uncaught exception in thread "main"
+java.lang.RuntimeException: An exception occurred when launching the server!
+	at net.fabricmc.loader.impl.launch.server.FabricServerLauncher.main(FabricServerLauncher.java:71)
+Caused by: java.lang.ExceptionInInitializerError
+	at knot//net.fabricmc.loader.impl.game.minecraft.Log4jLogHandler.getLogger(Log4jLogHandler.java:58)
+	at knot//net.fabricmc.loader.impl.game.minecraft.Log4jLogHandler.log(Log4jLogHandler.java:51)
+	at net.fabricmc.loader.impl.util.log.BuiltinLogHandler.replay(BuiltinLogHandler.java:128)
+	at net.fabricmc.loader.impl.util.log.Log.init(Log.java:34)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.setupLogHandler(MinecraftGameProvider.java:420)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.initialize(MinecraftGameProvider.java:391)
+	at net.fabricmc.loader.impl.launch.knot.Knot.init(Knot.java:141)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:66)
+	at net.fabricmc.loader.impl.launch.knot.KnotServer.main(KnotServer.java:23)
+	at net.fabricmc.loader.impl.launch.server.FabricServerLauncher.main(FabricServerLauncher.java:69)
+Caused by: java.lang.IllegalStateException: Shutdown in progress
+	at java.base/java.lang.ApplicationShutdownHooks.add(ApplicationShutdownHooks.java:67)
+	at java.base/java.lang.Runtime.addShutdownHook(Runtime.java:230)
+	at knot//org.apache.logging.log4j.core.util.DefaultShutdownCallbackRegistry.addShutdownHook(DefaultShutdownCallbackRegistry.java:164)
+	at knot//org.apache.logging.log4j.core.util.DefaultShutdownCallbackRegistry.start(DefaultShutdownCallbackRegistry.java:150)
+	at knot//org.apache.logging.log4j.core.impl.Log4jContextFactory.initializeShutdownCallbackRegistry(Log4jContextFactory.java:133)
+	at knot//org.apache.logging.log4j.core.impl.Log4jContextFactory.<init>(Log4jContextFactory.java:96)
+	at knot//org.apache.logging.log4j.core.impl.Log4jContextFactory.<init>(Log4jContextFactory.java:61)
+	at knot//org.apache.logging.log4j.util.LazyUtil$SafeLazy.value(LazyUtil.java:113)
+	at knot//org.apache.logging.log4j.util.Lazy.get(Lazy.java:40)
+	at knot//org.apache.logging.log4j.core.impl.Log4jProvider.getLoggerContextFactory(Log4jProvider.java:97)
+	at knot//org.apache.logging.log4j.LogManager.<clinit>(LogManager.java:63)
+	... 10 more
+minecraft.service: Deactivated successfully.
+Stopped minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+minecraft.service: Consumed 5.720s CPU time, 95.2M memory peak.
+Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+[21:21:11] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+[21:21:11] [main/INFO]: Mappings not present!
+[21:21:11] [main/INFO]: Loading 42 mods:
+	- brigada_core 0.1.0
+	- fabric-api 0.158.1+26.3
+	   |-- fabric-api-base 2.0.5+3434d6d97a
+	   |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
+	   |-- fabric-biome-api-v1 20.0.6+3434d6d97a
+	   |-- fabric-block-api-v1 3.0.4+3434d6d97a
+	   |-- fabric-block-getter-api-v2 2.0.8+3434d6d97a
+	   |-- fabric-command-api-v2 3.1.1+3434d6d97a
+	   |-- fabric-content-registries-v0 14.2.3+3434d6d97a
+	   |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
+	   |-- fabric-crash-report-info-v1 1.0.6+3434d6d97a
+	   |-- fabric-creative-tab-api-v1 5.0.20+3434d6d97a
+	   |-- fabric-data-attachment-api-v1 2.2.28+3434d6d97a
+	   |-- fabric-data-generation-api-v1 27.1.5+3434d6d97a
+	   |-- fabric-debug-api-v1 1.0.3+3434d6d97a
+	   |-- fabric-dimensions-v1 5.1.16+3434d6d97a
+	   |-- fabric-entity-events-v1 6.0.3+3434d6d97a
+	   |-- fabric-events-interaction-v0 5.3.5+3434d6d97a
+	   |-- fabric-game-rule-api-v1 4.0.9+3434d6d97a
+	   |-- fabric-item-api-v1 14.5.1+3434d6d97a
+	   |-- fabric-key-mapping-api-v1 2.0.7+3434d6d97a
+	   |-- fabric-lifecycle-events-v1 4.1.6+3434d6d97a
+	   |-- fabric-loot-api-v3 4.0.2+3434d6d97a
+	   |-- fabric-menu-api-v1 2.0.24+3434d6d97a
+	   |-- fabric-message-api-v1 7.0.9+3434d6d97a
+	   |-- fabric-model-loading-api-v1 8.0.28+3434d6d97a
+	   |-- fabric-networking-api-v1 6.3.7+3434d6d97a
+	   |-- fabric-object-builder-api-v1 24.1.7+3434d6d97a
+	   |-- fabric-particles-v1 5.0.23+3434d6d97a
+	   |-- fabric-permission-api-v1 1.0.6+3434d6d97a
+	   |-- fabric-recipe-api-v1 10.0.5+3434d6d97a
+	   |-- fabric-registry-sync-v0 7.1.8+3434d6d97a
+	   |-- fabric-renderer-api-v1 17.0.8+3434d6d97a
+	   |-- fabric-renderer-indigo 9.1.15+3434d6d97a
+	   |-- fabric-rendering-fluids-v1 6.0.5+3434d6d97a
+	   |-- fabric-rendering-v1 27.0.9+3434d6d97a
+	   |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
+	   |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
+	   |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
+	   |-- fabric-screen-api-v1 5.2.1+3434d6d97a
+	   |-- fabric-serialization-api-v1 2.0.5+3434d6d97a
+	   |-- fabric-sound-api-v1 2.0.6+3434d6d97a
+	   |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+	   |-- fabric-transfer-api-v1 8.0.21+3434d6d97a
+	   \-- fabric-transitive-access-wideners-v1 8.1.13+3434d6d97a
+	- fabricloader 0.19.3
+	   \-- mixinextras 0.5.4
+	- java 25
+	- minecraft 26.3-alpha.9
+[21:21:12] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+[21:21:12] [main/INFO]: Compatibility level set to JAVA_25
+[21:21:17] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 
 exit_code=0
-finished_at=2026-08-24T21:19:34Z
+finished_at=2026-08-24T21:21:21Z
 runner=alexhost-143-246
