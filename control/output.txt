@@ -5,35 +5,34 @@ Daemon will be stopped at the end of the build
 Fabric Loom: 1.17.19
 
 > Task :clean
+
 > Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:69: error: variable definition is already defined in method start(MinecraftServer,ChallengeDifficulty,ServerPlayer,boolean)
+                difficulty, bag, random, definition -> definition.kind() == ChallengeKind.REPEATABLE_TASK
+                                         ^
+1 error
+
+> Task :compileJava FAILED
 
 [Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
 
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+FAILURE: Build failed with an exception.
 
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:69: error: variable definition is already defined in method start(MinecraftServer,ChallengeDifficulty,ServerPlayer,boolean)
+                  difficulty, bag, random, definition -> definition.kind() == ChallengeKind.REPEATABLE_TASK
+                                           ^
+  1 error
 
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
 
-BUILD SUCCESSFUL in 51s
-6 actionable tasks: 6 executed
+BUILD FAILED in 48s
+2 actionable tasks: 2 executed
 
-ARTIFACT
-6dd6d8c059d38d7216753ebbc9209e3243a0bd5cd03c9637de254a5e87f4d0b0  build/libs/brigada-core-0.1.0.jar
-
-exit_code=0
-finished_at=2026-08-24T22:30:40Z
+exit_code=1
+finished_at=2026-08-24T22:33:09Z
 runner=alexhost-143-246
