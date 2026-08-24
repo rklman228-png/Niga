@@ -1,49 +1,39 @@
-● minecraft.service - Minecraft Fabric 26.3 Snapshot 9
-     Loaded: loaded (/etc/systemd/system/minecraft.service; enabled; preset: enabled)
-     Active: active (running) since Mon 2026-08-24 21:39:16 UTC; 1min 10s ago
- Invocation: e68d935f411b4755b37f35275753cbc5
-   Main PID: 2934874 (java)
-      Tasks: 35 (limit: 9485)
-     Memory: 803.9M (peak: 804.1M)
-        CPU: 2min 21.069s
-     CGroup: /system.slice/minecraft.service
-             └─2934874 /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-Aug 24 21:40:15 test1 java[2934874]: [21:40:15] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-Aug 24 21:40:15 test1 java[2934874]: [21:40:15] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-Aug 24 21:40:15 test1 java[2934874]: [21:40:15] [Server thread/INFO]: Preparing level "world"
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Loading 0 persistent chunks...
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Preparing spawn area: 100%
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Time elapsed: 259 ms
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Done (2.656s)! For help, type "help"
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:overworld
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_end
-Aug 24 21:40:18 test1 java[2934874]: [21:40:18] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_nether
+> Configure project :
+Fabric Loom: 1.17.19
 
-=== FINAL CHECK ===
-	   |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
-	   |-- fabric-tag-api-v1 2.1.9+3434d6d97a
-WARNING: A restricted method in java.lang.System has been called
-WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
-WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
-WARNING: Restricted methods will be blocked in a future release unless native access is enabled
-WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
-WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
-WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[21:39:58] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-[21:39:58] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-[21:39:58] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-[21:39:58] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-[21:40:15] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[21:40:15] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
-[21:40:15] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-[21:40:15] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-[21:40:18] [Server thread/INFO]: Done (2.656s)! For help, type "help"
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
 
-=== PORT ===
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2934874,fd=161))                                                                                           
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 54s
+6 actionable tasks: 6 executed
+
+ARTIFACT
+a9487210beef3c2f925e3e9b26e41a7835f4f70e6bff7b9217e2df2b505ee982  build/libs/brigada-core-0.1.0.jar
 
 exit_code=0
-finished_at=2026-08-24T21:40:26Z
+finished_at=2026-08-24T21:42:15Z
 runner=alexhost-143-246
