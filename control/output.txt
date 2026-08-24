@@ -1,198 +1,69 @@
-=== LOOM LATEST ===
-    <latest>1.18.0-alpha.16</latest>
-    <release>1.18.0-alpha.16</release>
-      <version>1.17.0-alpha.4</version>
-      <version>1.17.0-alpha.5</version>
-      <version>1.17.0-alpha.6</version>
-      <version>1.17.0-alpha.7</version>
-      <version>1.17.0-alpha.8</version>
-      <version>1.17.0-alpha.9</version>
-      <version>1.17.0-alpha.10</version>
-      <version>1.17.0-alpha.11</version>
-      <version>1.17.0-alpha.12</version>
-      <version>1.17.0-alpha.13</version>
-      <version>1.17.0-alpha.14</version>
-      <version>1.17.0-alpha.15</version>
-      <version>1.17.0-alpha.16</version>
-      <version>1.17.0-alpha.17</version>
-      <version>1.17.0-alpha.18</version>
-      <version>1.17.0-alpha.19</version>
-      <version>1.17.1</version>
-      <version>1.17-SNAPSHOT</version>
-      <version>1.17.2</version>
-      <version>1.17.3</version>
-      <version>1.17.4</version>
-      <version>1.17.5</version>
-      <version>1.17.6</version>
-      <version>1.17.7</version>
-      <version>1.17.8</version>
-      <version>1.17.9</version>
-      <version>1.17.10</version>
-      <version>1.17.11</version>
-      <version>1.17.12</version>
-      <version>1.17.13</version>
-      <version>1.18.0-alpha.1</version>
-      <version>1.18.0-alpha.2</version>
-      <version>1.18.0-alpha.3</version>
-      <version>1.18.0-alpha.4</version>
-      <version>1.17.14</version>
-      <version>1.18.0-alpha.5</version>
-      <version>1.18.0-alpha.6</version>
-      <version>1.18.0-alpha.7</version>
-      <version>1.18.0-alpha.8</version>
-      <version>1.17.15</version>
-      <version>1.17.16</version>
-      <version>1.18.0-alpha.9</version>
-      <version>1.17.17</version>
-      <version>1.17.18</version>
-      <version>1.17.19</version>
-      <version>1.18.0-alpha.10</version>
-      <version>1.18.0-alpha.11</version>
-      <version>1.18.0-alpha.12</version>
-      <version>1.18.0-alpha.13</version>
-      <version>1.18.0-alpha.14</version>
-      <version>1.18.0-alpha.15</version>
-      <version>1.18.0-alpha.16</version>
-=== FABRIC API 26.3 ===
-      <version>0.26.3+1.16</version>
-      <version>0.26.3+1.17</version>
-      <version>0.153.1+26.3</version>
-      <version>0.153.2+26.3</version>
-      <version>0.154.0+26.3</version>
-      <version>0.154.1+26.3</version>
-      <version>0.154.2+26.3</version>
-      <version>0.154.3+26.3</version>
-      <version>0.155.0+26.3</version>
-      <version>0.155.1+26.3</version>
-      <version>0.155.2+26.3</version>
-      <version>0.155.3+26.3</version>
-      <version>0.156.0+26.3</version>
-      <version>0.156.1+26.3</version>
-      <version>0.156.2+26.3</version>
-      <version>0.156.3+26.3</version>
-      <version>0.157.0+26.3</version>
-      <version>0.157.1+26.3</version>
-      <version>0.157.2+26.3</version>
-      <version>0.158.0+26.3</version>
-      <version>0.158.1+26.3</version>
-=== EXAMPLE BUILD ===
-plugins {
-	id 'net.fabricmc.fabric-loom' version "${loom_version}"
-	id 'maven-publish'
-}
+=== WRAPPER ===
+distributionUrl=https\://services.gradle.org/distributions/gradle-9.6.1-bin.zip
+Downloading https://services.gradle.org/distributions/gradle-9.6.1-bin.zip
+.............10%.............20%..............30%.............40%..............50%.............60%.............70%..............80%.............90%..............100%
 
-repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
-}
+Welcome to Gradle 9.6.1!
 
-loom {
-	splitEnvironmentSourceSets()
+Here are the highlights of this release:
+ - Improved Configuration Cache hit rates
+ - Additional CLI rendering options
+ - Important project hierarchy lookup deprecations
 
-	mods {
-		"modid" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-}
+For more details see https://docs.gradle.org/9.6.1/release-notes.html
 
-dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-}
+------------------------------------------------------------
+Gradle 9.6.1
+------------------------------------------------------------
 
-processResources {
-	def version = project.version
-	inputs.property "version", version
+Build time:    2026-06-26 14:25:50 UTC
+Revision:      309d128bd9fe8c0b71311878fc660b9cbaa07c51
 
-	filesMatching("fabric.mod.json") {
-		expand "version": version
-	}
-}
+Kotlin:        2.3.21
+Groovy:        4.0.32
+Ant:           Apache Ant(TM) version 1.10.17 compiled on April 6 2026
+Launcher JVM:  25.0.4.1 (Debian 25.0.4.1+1-1-deb13u1-Debian)
+Daemon JVM:    /usr/lib/jvm/java-25-openjdk-amd64 (no Daemon JVM specified, using current Java home)
+OS:            Linux 6.12.96+deb13-amd64 amd64
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 25
-}
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
 
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
-}
+FAILURE: Build failed with an exception.
 
-jar {
-	def projectName = project.name
-	inputs.property "projectName", projectName
+* What went wrong:
+A problem occurred configuring root project 'brigada-core'.
+> Could not resolve all artifacts for configuration 'classpath'.
+   > Could not resolve net.fabricmc:fabric-loom:1.18.0-alpha.16.
+     Required by:
+         buildscript of root project 'brigada-core' > net.fabricmc.fabric-loom:net.fabricmc.fabric-loom.gradle.plugin:1.18.0-alpha.16
+      > No matching variant of net.fabricmc:fabric-loom:1.18.0-alpha.16 was found. The consumer was configured to find a library for use during runtime, compatible with Java 25, packaged as a jar, and its dependencies declared externally, as well as attribute 'org.gradle.plugin.api-version' with value '9.6.1' but:
+          - Variant 'apiElements' declares a library, compatible with Java 25, packaged as a jar, and its dependencies declared externally:
+              - Incompatible because this component declares a component for use during compile-time and the consumer needed a component for use during runtime
+              - Other compatible attribute:
+                  - Doesn't say anything about org.gradle.plugin.api-version (required '9.6.1')
+          - Variant 'runtimeElements' declares a library for use during runtime, compatible with Java 25, packaged as a jar, and its dependencies declared externally:
+              - Incompatible because this component declares a component, as well as attribute 'org.gradle.plugin.api-version' with value '9.7.0' and the consumer needed a component, as well as attribute 'org.gradle.plugin.api-version' with value '9.6.1'
+          - Variant 'sourcesElements' declares a component for use during runtime, and its dependencies declared externally:
+              - Incompatible because this component declares documentation and the consumer needed a library
+              - Other compatible attributes:
+                  - Doesn't say anything about its elements (required them packaged as a jar)
+                  - Doesn't say anything about its target Java version (required compatibility with Java 25)
+                  - Doesn't say anything about org.gradle.plugin.api-version (required '9.6.1')
 
-	from("LICENSE") {
-		rename { "${it}_$projectName"}
-	}
-}
+* Try:
+> No matching variant errors are explained in more detail at https://docs.gradle.org/9.6.1/userguide/variant_model.html#sub:variant-no-match.
+> Review the variant matching algorithm at https://docs.gradle.org/9.6.1/userguide/variant_attributes.html#sec:abm_algorithm.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
 
-// configure the maven publication
-publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			from components.java
-		}
-	}
+BUILD FAILED in 48s
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
-}
-=== EXAMPLE PROPS ===
-# Done to increase the memory available to gradle.
-org.gradle.jvmargs=-Xmx1G
-org.gradle.parallel=true
-
-# IntelliJ IDEA is not yet fully compatible with configuration cache, see: https://github.com/FabricMC/fabric-loom/issues/1349
-org.gradle.configuration-cache=false
-
-# Fabric Properties
-# check these on https://fabricmc.net/develop
-minecraft_version=26.2
-loader_version=0.19.3
-loom_version=1.17-SNAPSHOT
-
-# Mod Properties
-version=1.0.0
-group=com.example
-
-# Dependencies
-fabric_api_version=0.158.0+26.2
-=== EXAMPLE SETTINGS ===
-pluginManagement {
-	repositories {
-		maven {
-			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
-		}
-		mavenCentral()
-		gradlePluginPortal()
-	}
-}
-
-// Should match your modid
-rootProject.name = 'modid'
-META_OK
-
-exit_code=0
-finished_at=2026-08-24T20:36:13Z
+exit_code=1
+finished_at=2026-08-24T20:40:26Z
 runner=alexhost-143-246
