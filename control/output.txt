@@ -1,42 +1,48 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+● minecraft.service - Minecraft Fabric 26.3 Snapshot 9
+     Loaded: loaded (/etc/systemd/system/minecraft.service; enabled; preset: enabled)
+     Active: activating (auto-restart) (Result: exit-code) since Mon 2026-08-24 21:19:27 UTC; 6s ago
+ Invocation: 4f2e71bcf2f0482aa1ad2b0ef0d56bbf
+    Process: 2891304 ExecStart=/usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui (code=exited, status=1/FAILURE)
+   Main PID: 2891304 (code=exited, status=1/FAILURE)
+   Mem peak: 229.8M
+        CPU: 8.766s
 
-> Configure project :
-Fabric Loom: 1.17.19
+=== MODS ===
+total 2.5M
+-rw-r--r-- 1 root root  61K Aug 24 21:19 brigada-core-0.1.0.jar
+-rw-r--r-- 1 root root 2.5M Aug 24 21:19 fabric-api-0.158.1+26.3.jar
 
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 46s
-6 actionable tasks: 6 executed
-
-ARTIFACTS
-brigada-core-0.1.0.jar 62026 bytes
-brigada-core-0.1.0-sources.jar 27968 bytes
-3589385852c094a1c7711bb4d678d132385dddb9f2619c308d900af03262162b  build/libs/brigada-core-0.1.0-sources.jar
-709cb2b1a2c6e5aa954d76f0fd75386d5c665014d0ae18f65fb52c56a65d9079  build/libs/brigada-core-0.1.0.jar
+=== RECENT LOG ===
+Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+[21:19:21] [Server thread/INFO]: Stopping server
+minecraft.service: Deactivated successfully.
+Stopped minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+minecraft.service: Consumed 3min 36.545s CPU time, 637.5M memory peak.
+Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+[21:19:26] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+[21:19:26] [main/INFO]: Mappings not present!
+[21:19:27] [main/WARN]: Mod resolution failed
+[21:19:27] [main/INFO]: Immediate reason: [HARD_DEP_INCOMPATIBLE_PRESELECTED brigada_core 0.1.0 {depends minecraft @ [26.3-snapshot-9]}, ROOT_FORCELOAD_SINGLE brigada_core 0.1.0]
+[21:19:27] [main/INFO]: Reason: [HARD_DEP brigada_core 0.1.0 {depends minecraft @ [26.3-snapshot-9]}]
+[21:19:27] [main/INFO]: SERVER environment disabled: [fabric-model-loading-api-v1, fabric-renderer-api-v1, fabric-key-mapping-api-v1, fabric-screen-api-v1, fabric-sound-api-v1, fabric-rendering-v1, fabric-renderer-indigo]
+[21:19:27] [main/INFO]: Fix: add [], remove [], replace [[minecraft 26.3-alpha.9] -> add:minecraft 26.3-snapshot-9 ([[26.3-snapshot-9,26.3-snapshot-9]])]
+[21:19:27] [main/ERROR]: Incompatible mods found!
+net.fabricmc.loader.impl.FormattedException: Some of your mods are incompatible with the game or each other!
+A potential solution has been determined, this may resolve your problem:
+	 - Replace 'Minecraft' (minecraft) 26.3-alpha.9 with version 26.3-snapshot-9.
+More details:
+	 - Mod 'Brigada Core' (brigada_core) 0.1.0 requires version 26.3-snapshot-9 of 'Minecraft' (minecraft), but only the wrong version is present: 26.3-alpha.9!
+	at net.fabricmc.loader.impl.FormattedException.ofLocalized(FormattedException.java:51)
+	at net.fabricmc.loader.impl.FabricLoaderImpl.load(FabricLoaderImpl.java:202)
+	at net.fabricmc.loader.impl.launch.knot.Knot.init(Knot.java:142)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:66)
+	at net.fabricmc.loader.impl.launch.knot.KnotServer.main(KnotServer.java:23)
+	at net.fabricmc.loader.impl.launch.server.FabricServerLauncher.main(FabricServerLauncher.java:69)
+minecraft.service: Main process exited, code=exited, status=1/FAILURE
+minecraft.service: Failed with result 'exit-code'.
+minecraft.service: Consumed 8.766s CPU time, 229.8M memory peak.
 
 exit_code=0
-finished_at=2026-08-24T21:18:43Z
+finished_at=2026-08-24T21:19:34Z
 runner=alexhost-143-246
