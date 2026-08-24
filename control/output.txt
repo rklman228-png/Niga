@@ -1,67 +1,28 @@
-=== DOWNLOAD OFFICIAL 26.3 SNAPSHOT 9 SERVER ===
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 28 59.1M   28 17.0M    0     0  29.7M      0  0:00:01 --:--:--  0:00:01 29.7M100 59.1M  100 59.1M    0     0  45.3M      0  0:00:01  0:00:01 --:--:-- 45.3M
-server.jar: OK
-=== INSTALL WORLD ===
-Created symlink '/etc/systemd/system/multi-user.target.wants/minecraft.service' → '/etc/systemd/system/minecraft.service'.
-Rule added
-Rule added (v6)
-=== WAIT FOR STARTUP ===
-=== VERIFY ===
-● minecraft.service - Minecraft 26.3 Snapshot 9
-     Loaded: loaded (/etc/systemd/system/minecraft.service; enabled; preset: enabled)
-     Active: active (running) since Mon 2026-08-24 17:44:15 UTC; 1min 14s ago
- Invocation: df678655b92c4fffab87545c095b6dc4
-   Main PID: 2421779 (java)
-      Tasks: 34 (limit: 9485)
-     Memory: 954.2M (peak: 954.6M)
-        CPU: 1min 41.731s
-     CGroup: /system.slice/minecraft.service
-             └─2421779 /usr/bin/java -Xms2G -Xmx5G -jar server.jar nogui
-
-Aug 24 17:45:25 test1 java[2421779]: [17:45:25] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-Aug 24 17:45:25 test1 java[2421779]: [17:45:25] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-Aug 24 17:45:25 test1 java[2421779]: [17:45:25] [Server thread/INFO]: Preparing level "world"
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Loading 0 persistent chunks...
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Preparing spawn area: 100%
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Time elapsed: 29 ms
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Done (3.529s)! For help, type "help"
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:overworld
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_nether
-Aug 24 17:45:29 test1 java[2421779]: [17:45:29] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_end
-
+=== SERVICE ===
+active
+enabled
+=== PORT ===
 LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2421779,fd=75))                                                                                            
-
-[17:45:01] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[17:45:20] [Worker-Main-1/INFO]: Loaded 1866 advancements
+=== VERSION AND READY ===
 [17:45:22] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
-[17:45:22] [Server thread/INFO]: Loading properties
-[17:45:22] [Server thread/INFO]: Default game type: SURVIVAL
-[17:45:22] [Server thread/INFO]: Generating keypair
-[17:45:23] [Server thread/INFO]: Starting Minecraft server on *:25565
-[17:45:25] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[17:45:25] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
-[17:45:25] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-[17:45:25] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-[17:45:25] [Server thread/INFO]: Preparing level "world"
-[17:45:29] [Server thread/INFO]: Loading 0 persistent chunks...
-[17:45:29] [Server thread/INFO]: Preparing spawn area: 100%
-[17:45:29] [Server thread/INFO]: Time elapsed: 29 ms
 [17:45:29] [Server thread/INFO]: Done (3.529s)! For help, type "help"
-[17:45:29] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:overworld
-[17:45:29] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_nether
-[17:45:29] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_end
-
-9580afcd37c63cb01e81d5d9f836f21b4d21c540  /opt/minecraft/server/server.jar
-vanilla-26.3-snapshot-9
+=== SETTINGS ===
 enforce-whitelist=true
 level-name=world
 online-mode=false
 server-port=25565
 white-list=true
-SNAPSHOT9_SERVER_DEPLOY_COMMAND_FINISHED
+=== WHITELIST ===
+[
+  {"uuid":"d5c369db-55e6-30e8-aac1-b9f9bdb92beb","name":"Otezi"},
+  {"uuid":"2861cdcd-c1dd-3e01-818b-aacb305d5df3","name":"dochholodilnika"},
+  {"uuid":"ef3ced57-6d17-3c35-aca7-aa47e5aefb4b","name":"dochholodilnikagopgop"}
+]
+=== WORLD ===
+2.4G	/opt/minecraft/server/world
+  2524777      4 -rw-------   1 minecraft minecraft      512 Aug 24 17:45 /opt/minecraft/server/world/level.dat
+FINAL_SERVER_CHECK_OK
 
 exit_code=0
-finished_at=2026-08-24T17:45:32Z
+finished_at=2026-08-24T17:46:25Z
 runner=alexhost-143-246
