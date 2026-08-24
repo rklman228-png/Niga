@@ -1,50 +1,29 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-SOURCE_DIR="/opt/minecraft-build/Paper"
 SERVER="/opt/minecraft/server"
 ZIP="/root/uploads/Писькострелковая_бригада_13.zip"
+JAR_URL="https://piston-data.mojang.com/v1/objects/9580afcd37c63cb01e81d5d9f836f21b4d21c540/server.jar"
+JAR_SHA1="9580afcd37c63cb01e81d5d9f836f21b4d21c540"
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
-apt-get install -y -qq git curl unzip openjdk-25-jdk-headless ca-certificates
+apt-get install -y -qq curl unzip openjdk-25-jre-headless ca-certificates
 
-echo "=== BUILD PAPER LOCALLY ON VPS ==="
-cd "$SOURCE_DIR"
-git reset --hard
-git clean -fdx
-if [[ "$(git rev-parse --is-shallow-repository)" == "true" ]]; then
-  echo "Fetching missing Paper history..."
-  git fetch --unshallow --tags origin
-fi
-git fetch origin dev/26.3
-git checkout -f origin/dev/26.3
-git clean -fdx
-
-echo "Paper source commit:"
-git rev-parse HEAD
-grep -E '^(mcVersion|apiVersion|channel|updatingMinecraft)=' gradle.properties
-
-export GRADLE_OPTS="-Dorg.gradle.jvmargs=-Xmx4G -Dfile.encoding=UTF-8"
-./gradlew --no-daemon applyPatches
-./gradlew --no-daemon createPaperclipJar
-
-JAR="$(find paper-server/build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*sources*' ! -name '*javadoc*' ! -name '*dev-bundle*' -printf '%s %p\n' | sort -nr | head -n1 | cut -d' ' -f2-)"
-test -n "$JAR"
-test -s "$JAR"
-
-echo "=== DEPLOY SERVER ==="
+echo "=== DOWNLOAD OFFICIAL 26.3 SNAPSHOT 9 SERVER ==="
 systemctl stop minecraft 2>/dev/null || true
 mkdir -p "$SERVER"
-install -m 0644 "$JAR" "$SERVER/server.jar"
-git rev-parse HEAD > "$SERVER/paper-source-commit.txt"
-grep -E '^(mcVersion|apiVersion|channel|updatingMinecraft)=' gradle.properties > "$SERVER/paper-build.properties"
+curl -fL --retry 5 --retry-delay 2 "$JAR_URL" -o "$SERVER/server.jar"
+cd "$SERVER"
+echo "$JAR_SHA1  server.jar" | sha1sum -c -
+echo "vanilla-26.3-snapshot-9" > "$SERVER/server-core.txt"
 
+echo "=== INSTALL WORLD ==="
 TMP="$(mktemp -d /tmp/mcworld.XXXXXX)"
 unzip -q "$ZIP" -d "$TMP"
 WORLD_SRC="$(find "$TMP" -type f -name level.dat -printf '%h\n' | head -n1)"
 if [[ -z "$WORLD_SRC" ]]; then
-  echo "ERROR: level.dat not found in world archive" >&2
+  echo "ERROR: level.dat not found in archive" >&2
   exit 10
 fi
 
@@ -89,7 +68,7 @@ chown -R minecraft:minecraft "$SERVER"
 
 cat > /etc/systemd/system/minecraft.service <<'EOF'
 [Unit]
-Description=Minecraft Paper 26.3 Snapshot 9
+Description=Minecraft 26.3 Snapshot 9
 After=network-online.target
 Wants=network-online.target
 
@@ -116,8 +95,8 @@ if command -v ufw >/dev/null && ufw status | grep -q 'Status: active'; then
   ufw allow 25565/tcp
 fi
 
-echo "Waiting for server startup..."
-for i in $(seq 1 180); do
+echo "=== WAIT FOR STARTUP ==="
+for i in $(seq 1 240); do
   if grep -q 'Done (' "$SERVER/logs/latest.log" 2>/dev/null; then
     break
   fi
@@ -127,10 +106,14 @@ for i in $(seq 1 180); do
   sleep 1
 done
 
-echo "=== RESULT ==="
-systemctl is-active minecraft
-ss -ltnp | grep ':25565'
-tail -n 80 "$SERVER/logs/latest.log"
-sha256sum "$SERVER/server.jar"
-cat "$SERVER/paper-build.properties"
-echo "PAPER_SNAPSHOT9_SERVER_READY"
+echo "=== VERIFY ==="
+systemctl --no-pager --full status minecraft || true
+echo
+ss -ltnp | grep ':25565' || true
+echo
+tail -n 120 "$SERVER/logs/latest.log" 2>/dev/null || journalctl -u minecraft -n 120 --no-pager
+echo
+sha1sum "$SERVER/server.jar"
+cat "$SERVER/server-core.txt"
+grep -E '^(online-mode|white-list|enforce-whitelist|level-name|server-port)=' "$SERVER/server.properties"
+echo "SNAPSHOT9_SERVER_DEPLOY_COMMAND_FINISHED"
