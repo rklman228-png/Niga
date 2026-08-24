@@ -1,64 +1,16 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-lifecycle-events-v1/4.1.6+3434d6d97a/e521bd0a4ec3b249af75919f2f57df8594095e4e/fabric-lifecycle-events-v1-4.1.6+3434d6d97a.jar
+/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-entity-events-v1/6.0.3+3434d6d97a/18fcb4e5e6c7576cc5390732a50c677a124a41bd/fabric-entity-events-v1-6.0.3+3434d6d97a.jar
+/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-events-interaction-v0/5.3.5+3434d6d97a/ac5a2c2cf4fbf8b6c0a7a671fb0a0f4e4d106bd5/fabric-events-interaction-v0-5.3.5+3434d6d97a.jar
 
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 45s
-6 actionable tasks: 6 executed
-SERVICE
-active
-
-PORTS
-LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3147524,fd=161))                                                                                           
-
-PUBLIC_PACK
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.13.5
-Date: Mon, 24 Aug 2026 23:09:42 GMT
-Content-type: application/zip
-Content-Length: 12052
-
-HASH
-0416a32313a42b702cb728e7fcd610aa96b89971c400f66925e8797b484f33cf  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-
-LOG
-Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 23:03:36 test1 java[3132538]: [23:03:36] [Server thread/INFO]: Done (1.356s)! For help, type "help"
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 23:09:36 test1 java[3147524]: [23:09:36] [Server thread/INFO]: Done (2.718s)! For help, type "help"
+SERVER_EVENTS
+/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-entity-events-v1/6.0.3+3434d6d97a/18fcb4e5e6c7576cc5390732a50c677a124a41bd/fabric-entity-events-v1-6.0.3+3434d6d97a.jar
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AfterDamage.class
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AfterDeath.class
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AllowDamage.class
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AllowDeath.class
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$MobConversion.class
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents.class
 
 exit_code=0
-finished_at=2026-08-24T23:09:42Z
+finished_at=2026-08-24T23:24:19Z
 runner=alexhost-143-246
