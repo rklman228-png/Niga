@@ -1,11 +1,6 @@
 set -euo pipefail
-STAMP=$(date -u +%Y%m%dT%H%M%SZ)
-cp -a /opt/minecraft/server/mods/brigada-core-0.1.0.jar "/opt/minecraft/server/backups/brigada-core-0.1.0-$STAMP.jar"
-install -m 0644 /opt/brigada-core-src/build/libs/brigada-core-0.1.0.jar /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-systemctl restart minecraft.service
-sleep 75
-systemctl --no-pager --full status minecraft.service || true
-printf '\n=== EXPEDITION DEPLOY CHECK ===\n'
-journalctl -u minecraft.service --since '-3 minutes' --no-pager -o cat | grep -E 'Brigada|Loaded [0-9]+ .*challenges|Done|ERROR|WARN|Failed|Exception|structure|tag|dialog' | tail -n 260 || true
-printf '\n=== PORT ===\n'
-ss -ltnp | grep ':25565' || true
+MINE=/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
+for C in net.minecraft.server.players.PlayerList net.minecraft.server.players.UserWhiteList net.minecraft.world.entity.EntityType net.minecraft.world.entity.EntitySpawnReason net.minecraft.world.entity.monster.Vindicator net.minecraft.world.entity.monster.Evoker net.minecraft.server.level.ServerLevel; do
+ echo "=== $C ==="
+ javap -classpath "$MINE" "$C" 2>&1 | grep -E 'class |interface |White|white|create\(|addFresh|finalizeSpawn|moveTo|setPos|getUser|isWhite|EntitySpawnReason|VINDICATOR|EVOKER' | head -n 180 || true
+done
