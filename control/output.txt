@@ -1,147 +1,42 @@
-=== FABRIC SIGNATURES ===
---- net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
-Compiled from "ServerTickEvents.java"
-public final class net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents {
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$StartTick> START_SERVER_TICK;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$EndTick> END_SERVER_TICK;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$StartLevelTick> START_LEVEL_TICK;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$EndLevelTick> END_LEVEL_TICK;
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents
-Compiled from "ServerLivingEntityEvents.java"
-public final class net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents {
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDamage> ALLOW_DAMAGE;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDamage> AFTER_DAMAGE;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath> ALLOW_DEATH;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath> AFTER_DEATH;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$MobConversion> MOB_CONVERSION;
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents
-Compiled from "ServerPlayerEvents.java"
-public final class net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents {
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$CopyFrom> COPY_FROM;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AfterRespawn> AFTER_RESPAWN;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Join> JOIN;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Leave> LEAVE;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AllowDeath> ALLOW_DEATH;
-}
---- net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
-Compiled from "ServerPlayConnectionEvents.java"
-public final class net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents {
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Init> INIT;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Join> JOIN;
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Disconnect> DISCONNECT;
-}
---- net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
-Compiled from "CommandRegistrationCallback.java"
-public interface net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback {
-  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback> EVENT;
-  public abstract void register(com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>, net.minecraft.commands.CommandBuildContext, net.minecraft.commands.Commands$CommandSelection);
-}
-=== MC SELECTED METHODS ===
---- net.minecraft.server.level.ServerPlayer
-public class net.minecraft.server.level.ServerPlayer extends net.minecraft.world.entity.player.Player {
-  public void giveExperienceLevels(int);
-  public void die(net.minecraft.world.damagesource.DamageSource);
-  public void awardKillScore(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-  public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
-  public void awardStat(net.minecraft.stats.Stat<?>, int);
-  public int awardRecipes(java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<?>>);
-  public void awardRecipesByKey(java.util.List<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>>);
-  public void giveExperiencePoints(int);
-  public net.minecraft.server.level.ServerLevel level();
-  public net.minecraft.commands.CommandSourceStack createCommandSourceStack();
-  public void sendSystemMessage(net.minecraft.network.chat.Component);
-  public void sendSystemMessage(net.minecraft.network.chat.Component, boolean);
-  public net.minecraft.world.entity.item.ItemEntity drop(net.minecraft.world.item.ItemStack, boolean, net.minecraft.util.Prediction);
-  public void drop(boolean);
-  public net.minecraft.world.level.Level level();
---- net.minecraft.world.entity.item.ItemEntity
-public class net.minecraft.world.entity.item.ItemEntity extends net.minecraft.world.entity.Entity implements net.minecraft.world.entity.TraceableEntity {
-  public final boolean hurtClient(net.minecraft.world.damagesource.DamageSource);
-  public final boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-  public net.minecraft.network.chat.Component getName();
-  public net.minecraft.world.item.ItemStack getItem();
-  public void setItem(net.minecraft.world.item.ItemStack);
---- net.minecraft.world.item.ItemStack
-public final class net.minecraft.world.item.ItemStack implements net.minecraft.core.component.DataComponentHolder,net.minecraft.world.item.ItemInstance {
-  public static final com.mojang.serialization.MapCodec<net.minecraft.world.item.ItemStack> MAP_CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStack> CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStack> OPTIONAL_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> OPTIONAL_STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> OPTIONAL_UNTRUSTED_STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, java.util.List<net.minecraft.world.item.ItemStack>> OPTIONAL_LIST_STREAM_CODEC;
-  public net.minecraft.world.item.Item getItem();
-  public <T> T remove(net.minecraft.core.component.DataComponentType<? extends T>);
-  public int getCount();
-  public void setCount(int);
-  public boolean canBeHurtBy(net.minecraft.world.damagesource.DamageSource);
-  public net.minecraft.world.damagesource.DamageSource getDamageSource(net.minecraft.world.entity.LivingEntity);
---- net.minecraft.world.entity.player.Inventory
-public class net.minecraft.world.entity.player.Inventory implements net.minecraft.world.Container,net.minecraft.world.Nameable {
-  public boolean add(net.minecraft.world.item.ItemStack);
-  public boolean add(int, net.minecraft.world.item.ItemStack);
-  public void setItem(int, net.minecraft.world.item.ItemStack);
-  public void save(net.minecraft.world.level.storage.ValueOutput$TypedOutputList<net.minecraft.world.ItemStackWithSlot>);
-  public net.minecraft.world.item.ItemStack getItem(int);
-  public net.minecraft.network.chat.Component getName();
-  public void dropAll();
---- net.minecraft.server.level.ServerLevel
-public class net.minecraft.server.level.ServerLevel extends net.minecraft.world.level.Level implements net.minecraft.world.level.WorldGenLevel,net.minecraft.server.level.ServerEntityGetter {
-  public void save(net.minecraft.util.ProgressListener, boolean, boolean);
-  public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayers(java.util.function.Predicate<? super net.minecraft.server.level.ServerPlayer>);
-  public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayers(java.util.function.Predicate<? super net.minecraft.server.level.ServerPlayer>, int);
-  public void broadcastDamageEvent(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-  public void explode(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, net.minecraft.world.level.ExplosionDamageCalculator, double, double, double, float, boolean, net.minecraft.world.level.Level$ExplosionInteraction, net.minecraft.core.particles.ParticleOptions, net.minecraft.core.particles.ParticleOptions, net.minecraft.util.random.WeightedList<net.minecraft.core.particles.ExplosionParticleInfo>, net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>);
-  public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, double, double, double, int, double, double, double, double);
-  public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, boolean, boolean, double, double, double, int, double, double, double, double);
-  public <T extends net.minecraft.core.particles.ParticleOptions> boolean sendParticles(net.minecraft.server.level.ServerPlayer, T, boolean, boolean, double, double, double, int, double, double, double, double);
-  public net.minecraft.world.level.saveddata.maps.MapItemSavedData getMapData(net.minecraft.world.level.saveddata.maps.MapId);
-  public void setMapData(net.minecraft.world.level.saveddata.maps.MapId, net.minecraft.world.level.saveddata.maps.MapItemSavedData);
-  public net.minecraft.world.level.saveddata.maps.MapId getFreeMapId();
-  public void saveDebugReport(java.nio.file.Path) throws java.io.IOException;
-  public net.minecraft.world.level.saveddata.WeatherData getWeatherData();
---- net.minecraft.server.MinecraftServer
-public abstract class net.minecraft.server.MinecraftServer extends net.minecraft.util.thread.ReentrantBlockableEventLoop<net.minecraft.server.TickTask> implements net.minecraft.commands.CommandSource, net.minecraft.server.ServerInfo, net.minecraft.world.level.chunk.storage.ChunkIOErrorReporter {
-  public boolean saveAllChunks(boolean, boolean, boolean);
-  public boolean saveEverything(boolean, boolean, boolean);
-  public void sendSystemMessage(net.minecraft.network.chat.Component);
-  public net.minecraft.server.players.PlayerList getPlayerList();
-  public net.minecraft.commands.Commands getCommands();
-  public net.minecraft.commands.CommandSourceStack createCommandSourceStack();
-  public net.minecraft.world.level.saveddata.WeatherData getWeatherData();
-  public net.minecraft.core.RegistryAccess$Frozen registryAccess();
---- net.minecraft.world.entity.LivingEntity
-public abstract class net.minecraft.world.entity.LivingEntity extends net.minecraft.world.entity.Entity implements net.minecraft.world.entity.Attackable,net.minecraft.world.waypoints.WaypointTransmitter {
-  public int damageCooldownTime;
-  public void kill(net.minecraft.server.level.ServerLevel);
-  public void remove(net.minecraft.world.entity.Entity$RemovalReason);
-  public net.minecraft.world.entity.item.ItemEntity drop(net.minecraft.world.item.ItemStack, boolean, net.minecraft.util.Prediction);
-  public boolean isDeadOrDying();
-  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-  public void dealDefaultKnockback(net.minecraft.world.damagesource.DamageSource, float, boolean);
-  public float applyItemBlocking(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-  public net.minecraft.world.damagesource.DamageSource getLastDamageSource();
-  public net.minecraft.world.damagesource.DamageSource getLastDamageSource(int);
-  public void die(net.minecraft.world.damagesource.DamageSource);
-  public void dropFromLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, boolean, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>);
-  public void dropFromLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, boolean, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, java.util.function.Consumer<net.minecraft.world.item.ItemStack>);
-  public boolean dropFromEntityInteractLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.entity.Entity, net.minecraft.world.item.ItemInstance, java.util.function.BiConsumer<net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack>);
-  public boolean dropFromGiftLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, java.util.function.BiConsumer<net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack>);
-  public void knockback(double, double, double, net.minecraft.world.damagesource.DamageSource, float, boolean);
-  public void knockback(double, double, double, net.minecraft.world.damagesource.DamageSource, float);
-  public boolean causeFallDamage(double, float, net.minecraft.world.damagesource.DamageSource);
-  public net.minecraft.world.damagesource.CombatTracker getCombatTracker();
-  public void handleDamageEvent(net.minecraft.world.damagesource.DamageSource);
-  public net.minecraft.world.item.ItemStack getMainHandItem();
-  public void setItemInHand(net.minecraft.world.InteractionHand, net.minecraft.world.item.ItemStack);
-  public void causeExtraKnockback(net.minecraft.world.entity.Entity, float, net.minecraft.world.phys.Vec3, net.minecraft.world.damagesource.DamageSource, float, boolean);
-  public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
-  public net.minecraft.world.damagesource.DamageSource createDamageSource();
-JAVAP_OK
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 12s
+6 actionable tasks: 6 executed
+=== CATALOG BUILD ===
+brigada-core-0.1.0-sources.jar 9344 bytes
+brigada-core-0.1.0.jar 21970 bytes
+ce9cf0803df7170ad3bbffb8795f80bdc57a98c84e629c774f08033fdf795e94  build/libs/brigada-core-0.1.0-sources.jar
+91056d272e7d309d45a9616b6212a67c7c269bc3badf2d56b117970df6d6cf6d  build/libs/brigada-core-0.1.0.jar
+CATALOG_BUILD_OK
 
 exit_code=0
-finished_at=2026-08-24T20:49:51Z
+finished_at=2026-08-24T20:54:10Z
 runner=alexhost-143-246
