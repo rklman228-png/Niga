@@ -1,65 +1,62 @@
-=== net.minecraft.server.players.PlayerList ===
-public abstract class net.minecraft.server.players.PlayerList {
-  public boolean isWhiteListed(net.minecraft.server.players.NameAndId);
-  public net.minecraft.server.players.UserWhiteList getWhiteList();
-  public java.lang.String[] getWhiteListNames();
-  public void reloadWhiteList();
-  public boolean isUsingWhitelist();
-=== net.minecraft.server.players.UserWhiteList ===
-Compiled from "UserWhiteList.java"
-public class net.minecraft.server.players.UserWhiteList extends net.minecraft.server.players.StoredUserList<net.minecraft.server.players.NameAndId, net.minecraft.server.players.UserWhiteListEntry> {
-  public net.minecraft.server.players.UserWhiteList(java.io.File, net.minecraft.server.notifications.NotificationService);
-  public boolean isWhiteListed(net.minecraft.server.players.NameAndId);
-  public boolean add(net.minecraft.server.players.UserWhiteListEntry);
-  public java.lang.String[] getUserList();
-=== net.minecraft.world.entity.EntityType ===
-public class net.minecraft.world.entity.EntityType<T extends net.minecraft.world.entity.Entity> implements net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, net.minecraft.world.flag.FeatureElement {
-  public T spawn(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.LivingEntity, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason, boolean, boolean);
-  public T spawn(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason);
-  public T spawn(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason, boolean, boolean);
-  public T create(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason, boolean, boolean);
-  public T create(net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-  public T create(net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest);
-  public static java.util.Optional<net.minecraft.world.entity.Entity> create(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest);
-  public static java.util.Optional<net.minecraft.world.entity.Entity> create(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-  public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.entity.EntityType<?>, net.minecraft.nbt.CompoundTag, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor);
-  public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor);
-  public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor);
-  public static java.util.stream.Stream<net.minecraft.world.entity.Entity> loadEntitiesRecursive(net.minecraft.world.level.storage.ValueInput$ValueInputList, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-=== net.minecraft.world.entity.EntitySpawnReason ===
-Compiled from "EntitySpawnReason.java"
-public final class net.minecraft.world.entity.EntitySpawnReason extends java.lang.Enum<net.minecraft.world.entity.EntitySpawnReason> {
-  public static final net.minecraft.world.entity.EntitySpawnReason NATURAL;
-  public static final net.minecraft.world.entity.EntitySpawnReason CHUNK_GENERATION;
-  public static final net.minecraft.world.entity.EntitySpawnReason SPAWNER;
-  public static final net.minecraft.world.entity.EntitySpawnReason STRUCTURE;
-  public static final net.minecraft.world.entity.EntitySpawnReason BREEDING;
-  public static final net.minecraft.world.entity.EntitySpawnReason MOB_SUMMONED;
-  public static final net.minecraft.world.entity.EntitySpawnReason JOCKEY;
-  public static final net.minecraft.world.entity.EntitySpawnReason EVENT;
-  public static final net.minecraft.world.entity.EntitySpawnReason CONVERSION;
-  public static final net.minecraft.world.entity.EntitySpawnReason REINFORCEMENT;
-  public static final net.minecraft.world.entity.EntitySpawnReason TRIGGERED;
-  public static final net.minecraft.world.entity.EntitySpawnReason BUCKET;
-  public static final net.minecraft.world.entity.EntitySpawnReason SPAWN_ITEM_USE;
-  public static final net.minecraft.world.entity.EntitySpawnReason COMMAND;
-  public static final net.minecraft.world.entity.EntitySpawnReason DISPENSER;
-  public static final net.minecraft.world.entity.EntitySpawnReason PATROL;
-  public static final net.minecraft.world.entity.EntitySpawnReason TRIAL_SPAWNER;
-  public static final net.minecraft.world.entity.EntitySpawnReason LOAD;
-  public static final net.minecraft.world.entity.EntitySpawnReason DIMENSION_TRAVEL;
-  public static net.minecraft.world.entity.EntitySpawnReason[] values();
-  public static net.minecraft.world.entity.EntitySpawnReason valueOf(java.lang.String);
-  public static boolean isSpawner(net.minecraft.world.entity.EntitySpawnReason);
-  public static boolean ignoresLightRequirements(net.minecraft.world.entity.EntitySpawnReason);
-=== net.minecraft.world.entity.monster.Vindicator ===
-Error: class not found: net.minecraft.world.entity.monster.Vindicator
-=== net.minecraft.world.entity.monster.Evoker ===
-Error: class not found: net.minecraft.world.entity.monster.Evoker
-=== net.minecraft.server.level.ServerLevel ===
-public class net.minecraft.server.level.ServerLevel extends net.minecraft.world.level.Level implements net.minecraft.world.level.WorldGenLevel,net.minecraft.server.level.ServerEntityGetter {
-  public boolean addFreshEntity(net.minecraft.world.entity.Entity);
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=0
-finished_at=2026-08-24T21:34:47Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+
+> Task :compileJava
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:253: error: cannot find symbol
+        if (EntityType.EVOKER.spawn(level, located, EntitySpawnReason.STRUCTURE) != null) {
+                      ^
+  symbol:   variable EVOKER
+  location: class EntityType
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:256: error: cannot find symbol
+        if (EntityType.VINDICATOR.spawn(level, located.offset(3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
+                      ^
+  symbol:   variable VINDICATOR
+  location: class EntityType
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:259: error: cannot find symbol
+        if (EntityType.VINDICATOR.spawn(level, located.offset(-3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
+                      ^
+  symbol:   variable VINDICATOR
+  location: class EntityType
+3 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:253: error: cannot find symbol
+          if (EntityType.EVOKER.spawn(level, located, EntitySpawnReason.STRUCTURE) != null) {
+                        ^
+    symbol:   variable EVOKER
+    location: class EntityType
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:256: error: cannot find symbol
+          if (EntityType.VINDICATOR.spawn(level, located.offset(3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
+                        ^
+    symbol:   variable VINDICATOR
+    location: class EntityType
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:259: error: cannot find symbol
+          if (EntityType.VINDICATOR.spawn(level, located.offset(-3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
+                        ^
+    symbol:   variable VINDICATOR
+    location: class EntityType
+  3 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 46s
+2 actionable tasks: 2 executed
+
+exit_code=1
+finished_at=2026-08-24T21:36:54Z
 runner=alexhost-143-246
