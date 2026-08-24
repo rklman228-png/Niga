@@ -1,772 +1,113 @@
 Checking Java 25 toolchain...
-Selecting previously unselected package alsa-topology-conf.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 156247 files and directories currently installed.)
-Preparing to unpack .../00-alsa-topology-conf_1.2.5.1-3_all.deb ...
-Unpacking alsa-topology-conf (1.2.5.1-3) ...
-Selecting previously unselected package libasound2-data.
-Preparing to unpack .../01-libasound2-data_1.2.14-1_all.deb ...
-Unpacking libasound2-data (1.2.14-1) ...
-Selecting previously unselected package libasound2t64:amd64.
-Preparing to unpack .../02-libasound2t64_1.2.14-1_amd64.deb ...
-Unpacking libasound2t64:amd64 (1.2.14-1) ...
-Selecting previously unselected package alsa-ucm-conf.
-Preparing to unpack .../03-alsa-ucm-conf_1.2.14-1_all.deb ...
-Unpacking alsa-ucm-conf (1.2.14-1) ...
-Selecting previously unselected package ca-certificates-java.
-Preparing to unpack .../04-ca-certificates-java_20240118_all.deb ...
-Unpacking ca-certificates-java (20240118) ...
-Selecting previously unselected package java-common.
-Preparing to unpack .../05-java-common_0.76_all.deb ...
-Unpacking java-common (0.76) ...
-Selecting previously unselected package libavahi-common-data:amd64.
-Preparing to unpack .../06-libavahi-common-data_0.8-16_amd64.deb ...
-Unpacking libavahi-common-data:amd64 (0.8-16) ...
-Selecting previously unselected package libavahi-common3:amd64.
-Preparing to unpack .../07-libavahi-common3_0.8-16_amd64.deb ...
-Unpacking libavahi-common3:amd64 (0.8-16) ...
-Selecting previously unselected package libavahi-client3:amd64.
-Preparing to unpack .../08-libavahi-client3_0.8-16_amd64.deb ...
-Unpacking libavahi-client3:amd64 (0.8-16) ...
-Selecting previously unselected package libcups2t64:amd64.
-Preparing to unpack .../09-libcups2t64_2.4.10-3+deb13u2_amd64.deb ...
-Unpacking libcups2t64:amd64 (2.4.10-3+deb13u2) ...
-Selecting previously unselected package liblcms2-2:amd64.
-Preparing to unpack .../10-liblcms2-2_2.16-2+deb13u2_amd64.deb ...
-Unpacking liblcms2-2:amd64 (2.16-2+deb13u2) ...
-Selecting previously unselected package libnspr4:amd64.
-Preparing to unpack .../11-libnspr4_2%3a4.36-1_amd64.deb ...
-Unpacking libnspr4:amd64 (2:4.36-1) ...
-Selecting previously unselected package libnss3:amd64.
-Preparing to unpack .../12-libnss3_2%3a3.110-1+deb13u4_amd64.deb ...
-Unpacking libnss3:amd64 (2:3.110-1+deb13u4) ...
-Selecting previously unselected package libpcsclite1:amd64.
-Preparing to unpack .../13-libpcsclite1_2.3.3-1_amd64.deb ...
-Unpacking libpcsclite1:amd64 (2.3.3-1) ...
-Selecting previously unselected package openjdk-25-jre-headless:amd64.
-Preparing to unpack .../14-openjdk-25-jre-headless_25.0.4.1+1-1~deb13u1_amd64.deb ...
-Unpacking openjdk-25-jre-headless:amd64 (25.0.4.1+1-1~deb13u1) ...
-Selecting previously unselected package openjdk-25-jdk-headless:amd64.
-Preparing to unpack .../15-openjdk-25-jdk-headless_25.0.4.1+1-1~deb13u1_amd64.deb ...
-Unpacking openjdk-25-jdk-headless:amd64 (25.0.4.1+1-1~deb13u1) ...
-Setting up liblcms2-2:amd64 (2.16-2+deb13u2) ...
-Setting up java-common (0.76) ...
-Setting up libasound2-data (1.2.14-1) ...
-Setting up libasound2t64:amd64 (1.2.14-1) ...
-Setting up libnspr4:amd64 (2:4.36-1) ...
-Setting up libavahi-common-data:amd64 (0.8-16) ...
-Setting up libpcsclite1:amd64 (2.3.3-1) ...
-Setting up alsa-topology-conf (1.2.5.1-3) ...
-Setting up ca-certificates-java (20240118) ...
-No JRE found. Skipping Java certificates setup.
-Setting up alsa-ucm-conf (1.2.14-1) ...
-Setting up libavahi-common3:amd64 (0.8-16) ...
-Setting up libnss3:amd64 (2:3.110-1+deb13u4) ...
-Setting up libavahi-client3:amd64 (0.8-16) ...
-Setting up openjdk-25-jre-headless:amd64 (25.0.4.1+1-1~deb13u1) ...
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/java to provide /usr/bin/java (java) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jpackage to provide /usr/bin/jpackage (jpackage) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/keytool to provide /usr/bin/keytool (keytool) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/rmiregistry to provide /usr/bin/rmiregistry (rmiregistry) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/lib/jexec to provide /usr/bin/jexec (jexec) in auto mode
-Setting up libcups2t64:amd64 (2.4.10-3+deb13u2) ...
-Processing triggers for man-db (2.13.1-1) ...
-Processing triggers for libc-bin (2.41-12+deb13u3) ...
-Processing triggers for ca-certificates-java (20240118) ...
-Adding debian:ACCVRAIZ1.pem
-Adding debian:AC_RAIZ_FNMT-RCM.pem
-Adding debian:AC_RAIZ_FNMT-RCM_SERVIDORES_SEGUROS.pem
-Adding debian:ANF_Secure_Server_Root_CA.pem
-Adding debian:Actalis_Authentication_Root_CA.pem
-Adding debian:AffirmTrust_Commercial.pem
-Adding debian:AffirmTrust_Networking.pem
-Adding debian:AffirmTrust_Premium.pem
-Adding debian:AffirmTrust_Premium_ECC.pem
-Adding debian:Amazon_Root_CA_1.pem
-Adding debian:Amazon_Root_CA_2.pem
-Adding debian:Amazon_Root_CA_3.pem
-Adding debian:Amazon_Root_CA_4.pem
-Adding debian:Atos_TrustedRoot_2011.pem
-Adding debian:Atos_TrustedRoot_Root_CA_ECC_TLS_2021.pem
-Adding debian:Atos_TrustedRoot_Root_CA_RSA_TLS_2021.pem
-Adding debian:Autoridad_de_Certificacion_Firmaprofesional_CIF_A62634068.pem
-Adding debian:BJCA_Global_Root_CA1.pem
-Adding debian:BJCA_Global_Root_CA2.pem
-Adding debian:Baltimore_CyberTrust_Root.pem
-Adding debian:Buypass_Class_2_Root_CA.pem
-Adding debian:Buypass_Class_3_Root_CA.pem
-Adding debian:CA_Disig_Root_R2.pem
-Adding debian:CFCA_EV_ROOT.pem
-Adding debian:COMODO_Certification_Authority.pem
-Adding debian:COMODO_ECC_Certification_Authority.pem
-Adding debian:COMODO_RSA_Certification_Authority.pem
-Adding debian:Certainly_Root_E1.pem
-Adding debian:Certainly_Root_R1.pem
-Adding debian:Certigna.pem
-Adding debian:Certigna_Root_CA.pem
-Adding debian:Certum_EC-384_CA.pem
-Adding debian:Certum_Trusted_Network_CA.pem
-Adding debian:Certum_Trusted_Network_CA_2.pem
-Adding debian:Certum_Trusted_Root_CA.pem
-Adding debian:CommScope_Public_Trust_ECC_Root-01.pem
-Adding debian:CommScope_Public_Trust_ECC_Root-02.pem
-Adding debian:CommScope_Public_Trust_RSA_Root-01.pem
-Adding debian:CommScope_Public_Trust_RSA_Root-02.pem
-Adding debian:Comodo_AAA_Services_root.pem
-Adding debian:D-TRUST_BR_Root_CA_1_2020.pem
-Adding debian:D-TRUST_BR_Root_CA_2_2023.pem
-Adding debian:D-TRUST_EV_Root_CA_1_2020.pem
-Adding debian:D-TRUST_EV_Root_CA_2_2023.pem
-Adding debian:D-TRUST_Root_Class_3_CA_2_2009.pem
-Adding debian:D-TRUST_Root_Class_3_CA_2_EV_2009.pem
-Adding debian:DigiCert_Assured_ID_Root_CA.pem
-Adding debian:DigiCert_Assured_ID_Root_G2.pem
-Adding debian:DigiCert_Assured_ID_Root_G3.pem
-Adding debian:DigiCert_Global_Root_CA.pem
-Adding debian:DigiCert_Global_Root_G2.pem
-Adding debian:DigiCert_Global_Root_G3.pem
-Adding debian:DigiCert_High_Assurance_EV_Root_CA.pem
-Adding debian:DigiCert_TLS_ECC_P384_Root_G5.pem
-Adding debian:DigiCert_TLS_RSA4096_Root_G5.pem
-Adding debian:DigiCert_Trusted_Root_G4.pem
-Adding debian:Entrust.net_Premium_2048_Secure_Server_CA.pem
-Adding debian:Entrust_Root_Certification_Authority.pem
-Adding debian:Entrust_Root_Certification_Authority_-_EC1.pem
-Adding debian:Entrust_Root_Certification_Authority_-_G2.pem
-Adding debian:FIRMAPROFESIONAL_CA_ROOT-A_WEB.pem
-Adding debian:GDCA_TrustAUTH_R5_ROOT.pem
-Adding debian:GLOBALTRUST_2020.pem
-Adding debian:GTS_Root_R1.pem
-Adding debian:GTS_Root_R2.pem
-Adding debian:GTS_Root_R3.pem
-Adding debian:GTS_Root_R4.pem
-Adding debian:GlobalSign_ECC_Root_CA_-_R4.pem
-Adding debian:GlobalSign_ECC_Root_CA_-_R5.pem
-Adding debian:GlobalSign_Root_CA.pem
-Adding debian:GlobalSign_Root_CA_-_R3.pem
-Adding debian:GlobalSign_Root_CA_-_R6.pem
-Adding debian:GlobalSign_Root_E46.pem
-Adding debian:GlobalSign_Root_R46.pem
-Adding debian:Go_Daddy_Class_2_CA.pem
-Adding debian:Go_Daddy_Root_Certificate_Authority_-_G2.pem
-Adding debian:HARICA_TLS_ECC_Root_CA_2021.pem
-Adding debian:HARICA_TLS_RSA_Root_CA_2021.pem
-Adding debian:Hellenic_Academic_and_Research_Institutions_ECC_RootCA_2015.pem
-Adding debian:Hellenic_Academic_and_Research_Institutions_RootCA_2015.pem
-Adding debian:HiPKI_Root_CA_-_G1.pem
-Adding debian:Hongkong_Post_Root_CA_3.pem
-Adding debian:ISRG_Root_X1.pem
-Adding debian:ISRG_Root_X2.pem
-Adding debian:IdenTrust_Commercial_Root_CA_1.pem
-Adding debian:IdenTrust_Public_Sector_Root_CA_1.pem
-Adding debian:Izenpe.com.pem
-Adding debian:Microsec_e-Szigno_Root_CA_2009.pem
-Adding debian:Microsoft_ECC_Root_Certificate_Authority_2017.pem
-Adding debian:Microsoft_RSA_Root_Certificate_Authority_2017.pem
-Adding debian:NAVER_Global_Root_Certification_Authority.pem
-Adding debian:NetLock_Arany_=Class_Gold=_Főtanúsítvány.pem
-Adding debian:OISTE_WISeKey_Global_Root_GB_CA.pem
-Adding debian:OISTE_WISeKey_Global_Root_GC_CA.pem
-Adding debian:QuoVadis_Root_CA_1_G3.pem
-Adding debian:QuoVadis_Root_CA_2.pem
-Adding debian:QuoVadis_Root_CA_2_G3.pem
-Adding debian:QuoVadis_Root_CA_3.pem
-Adding debian:QuoVadis_Root_CA_3_G3.pem
-Adding debian:SSL.com_EV_Root_Certification_Authority_ECC.pem
-Adding debian:SSL.com_EV_Root_Certification_Authority_RSA_R2.pem
-Adding debian:SSL.com_Root_Certification_Authority_ECC.pem
-Adding debian:SSL.com_Root_Certification_Authority_RSA.pem
-Adding debian:SSL.com_TLS_ECC_Root_CA_2022.pem
-Adding debian:SSL.com_TLS_RSA_Root_CA_2022.pem
-Adding debian:SZAFIR_ROOT_CA2.pem
-Adding debian:Sectigo_Public_Server_Authentication_Root_E46.pem
-Adding debian:Sectigo_Public_Server_Authentication_Root_R46.pem
-Adding debian:SecureSign_Root_CA12.pem
-Adding debian:SecureSign_Root_CA14.pem
-Adding debian:SecureSign_Root_CA15.pem
-Adding debian:SecureTrust_CA.pem
-Adding debian:Secure_Global_CA.pem
-Adding debian:Security_Communication_ECC_RootCA1.pem
-Adding debian:Security_Communication_RootCA2.pem
-Adding debian:Starfield_Class_2_CA.pem
-Adding debian:Starfield_Root_Certificate_Authority_-_G2.pem
-Adding debian:Starfield_Services_Root_Certificate_Authority_-_G2.pem
-Adding debian:SwissSign_Gold_CA_-_G2.pem
-Adding debian:T-TeleSec_GlobalRoot_Class_2.pem
-Adding debian:T-TeleSec_GlobalRoot_Class_3.pem
-Adding debian:TUBITAK_Kamu_SM_SSL_Kok_Sertifikasi_-_Surum_1.pem
-Adding debian:TWCA_CYBER_Root_CA.pem
-Adding debian:TWCA_Global_Root_CA.pem
-Adding debian:TWCA_Root_Certification_Authority.pem
-Adding debian:Telekom_Security_TLS_ECC_Root_2020.pem
-Adding debian:Telekom_Security_TLS_RSA_Root_2023.pem
-Adding debian:TeliaSonera_Root_CA_v1.pem
-Adding debian:Telia_Root_CA_v2.pem
-Adding debian:TrustAsia_Global_Root_CA_G3.pem
-Adding debian:TrustAsia_Global_Root_CA_G4.pem
-Adding debian:Trustwave_Global_Certification_Authority.pem
-Adding debian:Trustwave_Global_ECC_P256_Certification_Authority.pem
-Adding debian:Trustwave_Global_ECC_P384_Certification_Authority.pem
-Adding debian:TunTrust_Root_CA.pem
-Adding debian:UCA_Extended_Validation_Root.pem
-Adding debian:UCA_Global_G2_Root.pem
-Adding debian:USERTrust_ECC_Certification_Authority.pem
-Adding debian:USERTrust_RSA_Certification_Authority.pem
-Adding debian:XRamp_Global_CA_Root.pem
-Adding debian:certSIGN_ROOT_CA.pem
-Adding debian:certSIGN_Root_CA_G2.pem
-Adding debian:e-Szigno_Root_CA_2017.pem
-Adding debian:ePKI_Root_Certification_Authority.pem
-Adding debian:emSign_ECC_Root_CA_-_C3.pem
-Adding debian:emSign_ECC_Root_CA_-_G3.pem
-Adding debian:emSign_Root_CA_-_C1.pem
-Adding debian:emSign_Root_CA_-_G1.pem
-Adding debian:vTrus_ECC_Root_CA.pem
-Adding debian:vTrus_Root_CA.pem
-done.
-Setting up openjdk-25-jdk-headless:amd64 (25.0.4.1+1-1~deb13u1) ...
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jar to provide /usr/bin/jar (jar) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jarsigner to provide /usr/bin/jarsigner (jarsigner) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/javac to provide /usr/bin/javac (javac) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/javadoc to provide /usr/bin/javadoc (javadoc) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/javap to provide /usr/bin/javap (javap) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jcmd to provide /usr/bin/jcmd (jcmd) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jdb to provide /usr/bin/jdb (jdb) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jdeprscan to provide /usr/bin/jdeprscan (jdeprscan) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jdeps to provide /usr/bin/jdeps (jdeps) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jfr to provide /usr/bin/jfr (jfr) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jimage to provide /usr/bin/jimage (jimage) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jinfo to provide /usr/bin/jinfo (jinfo) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jlink to provide /usr/bin/jlink (jlink) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jmap to provide /usr/bin/jmap (jmap) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jmod to provide /usr/bin/jmod (jmod) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jnativescan to provide /usr/bin/jnativescan (jnativescan) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jps to provide /usr/bin/jps (jps) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jrunscript to provide /usr/bin/jrunscript (jrunscript) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jshell to provide /usr/bin/jshell (jshell) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jstack to provide /usr/bin/jstack (jstack) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jstat to provide /usr/bin/jstat (jstat) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jstatd to provide /usr/bin/jstatd (jstatd) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver to provide /usr/bin/jwebserver (jwebserver) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/serialver to provide /usr/bin/serialver (serialver) in auto mode
-update-alternatives: using /usr/lib/jvm/java-25-openjdk-amd64/bin/jhsdb to provide /usr/bin/jhsdb (jhsdb) in auto mode
-
-Running kernel seems to be up-to-date.
-
-No services need to be restarted.
-
-No containers need to be restarted.
-
-No user sessions are running outdated binaries.
-
-No VM guests are running outdated hypervisor (qemu) binaries on this host.
 openjdk version "25.0.4.1" 2026-08-18
 OpenJDK Runtime Environment (build 25.0.4.1+1-1-deb13u1-Debian)
 OpenJDK 64-Bit Server VM (build 25.0.4.1+1-1-deb13u1-Debian, mixed mode, sharing)
 javac 25.0.4.1
-Cloning into '/opt/minecraft-build/Paper'...
+From https://github.com/PaperMC/Paper
+ * branch            dev/26.3   -> FETCH_HEAD
+ + b51aba9...126c75a dev/26.3   -> origin/dev/26.3  (forced update)
+Note: switching to 'FETCH_HEAD'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 126c75a Merge remote-tracking branch 'origin/main' into dev/26.3
+Removing .gradle/
+Removing build/
+Removing paper-api/build/
+Removing paper-generator.settings.gradle.kts
+Removing paper-server/.gradle/
+Removing paper-server/build/
+Removing test-plugin.settings.gradle.kts
 Pinned Paper source:
-b51aba90b1f160067634073fe3a31d2be61c8414
+126c75ae4aac41b48a285d05ccb7f258ec2043a3
 mcVersion=26.3-snapshot-9
 apiVersion=26.3
 channel=ALPHA
 updatingMinecraft=true
-Downloading https://services.gradle.org/distributions/gradle-9.4.1-bin.zip
-.............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
-
-Welcome to Gradle 9.4.1!
-
-Here are the highlights of this release:
- - Java 26 support
- - Non-class-based JVM tests
- - Enhanced console progress bar
-
-For more details see https://docs.gradle.org/9.4.1/release-notes.html
-
+Applying Paper patches...
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
-Calculating task graph as no cached configuration is available for tasks: createPaperclipJar
+Calculating task graph as no cached configuration is available for tasks: applyPatches
 
 > Configure project :paper-server
 paperweight-core v2.0.0-beta.21 (running on 'Linux')
 
-> Task :paper-api:processResources NO-SOURCE
-> Task :paper-api:generateApiVersioningFile
-> Task :paper-server:processLog4jPluginsResources NO-SOURCE
+> Task :paper-server:collectPaperATsFromPatches
+> Task :paper-server:mergePaperATs
 > Task :paper-server:downloadMcManifest
-> Task :paper-server:downloadMcVersionManifest
-> Task :paper-server:processResources
-> Task :paper-server:downloadServerJar
-> Task :paper-api:compileJava
+> Task :paper-server:downloadMcVersionManifest FROM-CACHE
+> Task :paper-server:downloadServerJar FROM-CACHE
+> Task :paper-server:downloadRuntimeClasspathSources
 > Task :paper-server:extractFromBundler
 
-> Task :paper-api:compileJava
-/opt/minecraft-build/Paper/paper-api/src/main/java/org/bukkit/World.java:2562: warning: [dep-ann] deprecated item is not annotated with @Deprecated
-    public FallingBlock spawnFallingBlock(@NotNull Location location, @NotNull BlockData data) throws IllegalArgumentException;
-                        ^
-/opt/minecraft-build/Paper/paper-api/src/main/java/org/bukkit/World.java:2811: warning: [dep-ann] deprecated item is not annotated with @Deprecated
-    public boolean isBedWorks();
-                   ^
-/opt/minecraft-build/Paper/paper-api/src/main/java/org/bukkit/event/player/PlayerBedEnterEvent.java:51: warning: [dep-ann] deprecated item is not annotated with @Deprecated
-    public BedEnterResult getBedEnterResult() {
-                          ^
-/opt/minecraft-build/Paper/paper-api/src/main/java/org/bukkit/event/player/PlayerBedEnterEvent.java:143: warning: [dep-ann] deprecated item is not annotated with @Deprecated
-    public enum BedEnterResult {
-           ^
-/opt/minecraft-build/Paper/paper-api/src/main/java/io/papermc/paper/event/player/PlayerBedFailEnterEvent.java:42: warning: [dep-ann] deprecated item is not annotated with @Deprecated
-    public FailReason getFailReason() {
-                      ^
-/opt/minecraft-build/Paper/paper-api/src/main/java/io/papermc/paper/event/player/PlayerBedFailEnterEvent.java:105: warning: [dep-ann] deprecated item is not annotated with @Deprecated
-    public enum FailReason {
-           ^
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-Note: Some input files use or override a deprecated API that is marked for removal.
-Note: Recompile with -Xlint:removal for details.
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-6 warnings
+> Task :paper-server:setupMacheResources
+Copy initial sources...
 
-> Task :paper-api:classes
-> Task :paper-api:jar
+> Task :paper-server:downloadMcLibrariesSources
+> Task :paper-server:indexLibraryFiles
 
-> Task :paper-server:compileLog4jPluginsJava
-Note: GraalVmProcessor: writing GraalVM metadata for 1 Java classes to `META-INF/native-image/log4j-generated/io.papermc.paper/paper-server/reflect-config.json`.
-Note: PluginProcessor: writing plugin descriptor for 1 Log4j Plugins to `META-INF/org/apache/logging/log4j/core/config/plugins/Log4j2Plugins.dat`.
+> Task :paper-server:setupMacheResources
+Setup git repo...
 
-> Task :paper-server:compileJava
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:3: error: package net.minecraft.server.level does not exist
-import net.minecraft.server.level.ServerLevel;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:4: error: package net.minecraft.server.level does not exist
-import net.minecraft.server.level.ServerPlayer;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:5: error: package net.minecraft.world.entity does not exist
-import net.minecraft.world.entity.Display;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:6: error: package net.minecraft.world.entity does not exist
-import net.minecraft.world.entity.Entity;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:7: error: package net.minecraft.world.entity does not exist
-import net.minecraft.world.entity.ExperienceOrb;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:8: error: package net.minecraft.world.entity.decoration does not exist
-import net.minecraft.world.entity.decoration.ItemFrame;
-                                            ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:9: error: package net.minecraft.world.entity.decoration.painting does not exist
-import net.minecraft.world.entity.decoration.painting.Painting;
-                                                     ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:10: error: package net.minecraft.world.entity.item does not exist
-import net.minecraft.world.entity.item.ItemEntity;
-                                      ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:23: error: cannot find symbol
-    public static int getEntityTrackingRange(final Entity entity, final int defaultRange) {
-                                                   ^
-  symbol:   class Entity
-  location: class TrackingRange
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotConfig.java:17: error: package net.minecraft.core.registries does not exist
-import net.minecraft.core.registries.BuiltInRegistries;
-                                    ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotConfig.java:18: error: package net.minecraft.resources does not exist
-import net.minecraft.resources.Identifier;
-                              ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotConfig.java:19: error: package net.minecraft.server does not exist
-import net.minecraft.server.MinecraftServer;
-                           ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotConfig.java:20: error: package net.minecraft.world.entity.ai.attributes does not exist
-import net.minecraft.world.entity.ai.attributes.Attributes;
-                                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotConfig.java:21: error: package net.minecraft.world.entity.ai.attributes does not exist
-import net.minecraft.world.entity.ai.attributes.RangedAttribute;
-                                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotConfig.java:205: error: cannot find symbol
-    public static Map<Identifier, Integer> forcedStats = new HashMap<>();
-                      ^
-  symbol:   class Identifier
-  location: class SpigotConfig
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/WatchdogThread.java:3: error: cannot find symbol
-import io.papermc.paper.FeatureHooks;
-                       ^
-  symbol:   class FeatureHooks
-  location: package io.papermc.paper
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/WatchdogThread.java:10: error: package net.minecraft.server does not exist
-import net.minecraft.server.MinecraftServer;
-                           ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:3: error: package net.minecraft.core does not exist
-import net.minecraft.core.BlockPos;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:4: error: package net.minecraft.world.entity does not exist
-import net.minecraft.world.entity.Entity;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:5: error: package net.minecraft.world.level does not exist
-import net.minecraft.world.level.ChunkPos;
-                                ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:6: error: package net.minecraft.world.level does not exist
-import net.minecraft.world.level.Level;
-                                ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:7: error: package net.minecraft.world.phys does not exist
-import net.minecraft.world.phys.AABB;
-                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:8: error: package net.minecraft.world.phys does not exist
-import net.minecraft.world.phys.Vec3;
-                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:33: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final BlockPos pos, final String reason) {
-                                              ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:33: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final BlockPos pos, final String reason) {
-                                                                 ^
-  symbol:   class BlockPos
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:42: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final BlockPos pos, final int blockRadius, final String reason) {
-                                              ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:42: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final BlockPos pos, final int blockRadius, final String reason) {
-                                                                 ^
-  symbol:   class BlockPos
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:51: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final ChunkPos pos, final String reason) {
-                                              ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:51: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final ChunkPos pos, final String reason) {
-                                                                 ^
-  symbol:   class ChunkPos
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:60: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final int chunkX, final int chunkZ, final String reason) {
-                                              ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:69: error: cannot find symbol
-    public static void ensureTickThread(final Entity entity, final String reason) {
-                                              ^
-  symbol:   class Entity
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:78: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final AABB aabb, final String reason) {
-                                              ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:78: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final AABB aabb, final String reason) {
-                                                                 ^
-  symbol:   class AABB
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:87: error: cannot find symbol
-    public static void ensureTickThread(final Level world, final double blockX, final double blockZ, final String reason) {
-                                              ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:129: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final BlockPos pos) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:129: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final BlockPos pos) {
-                                                                   ^
-  symbol:   class BlockPos
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:133: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final BlockPos pos, final int blockRadius) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:133: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final BlockPos pos, final int blockRadius) {
-                                                                   ^
-  symbol:   class BlockPos
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:137: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final ChunkPos pos) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:137: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final ChunkPos pos) {
-                                                                   ^
-  symbol:   class ChunkPos
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:141: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final Vec3 pos) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:141: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final Vec3 pos) {
-                                                                   ^
-  symbol:   class Vec3
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:145: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final int chunkX, final int chunkZ) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:149: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final AABB aabb) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:149: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final AABB aabb) {
-                                                                   ^
-  symbol:   class AABB
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:153: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final double blockX, final double blockZ) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:157: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final Vec3 position, final Vec3 deltaMovement, final int buffer) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:157: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final Vec3 position, final Vec3 deltaMovement, final int buffer) {
-                                                                   ^
-  symbol:   class Vec3
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:157: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final Vec3 position, final Vec3 deltaMovement, final int buffer) {
-                                                                                        ^
-  symbol:   class Vec3
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:161: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final int fromChunkX, final int fromChunkZ, final int toChunkX, final int toChunkZ) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:165: error: cannot find symbol
-    public static boolean isTickThreadFor(final Level world, final int chunkX, final int chunkZ, final int radius) {
-                                                ^
-  symbol:   class Level
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/ca/spottedleaf/moonrise/common/util/TickThread.java:169: error: cannot find symbol
-    public static boolean isTickThreadFor(final Entity entity) {
-                                                ^
-  symbol:   class Entity
-  location: class TickThread
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/RestartCommand.java:5: error: package net.minecraft.server does not exist
-import net.minecraft.server.MinecraftServer;
-                           ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/RestartCommand.java:6: error: package net.minecraft.server.level does not exist
-import net.minecraft.server.level.ServerPlayer;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/AsyncCatcher.java:3: error: package net.minecraft.server does not exist
-import net.minecraft.server.MinecraftServer;
-                           ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotCommand.java:5: error: package net.minecraft.server does not exist
-import net.minecraft.server.MinecraftServer;
-                           ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/SpigotCommand.java:6: error: package net.minecraft.server.level does not exist
-import net.minecraft.server.level.ServerLevel;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/LimitStream.java:6: error: package net.minecraft.nbt does not exist
-import net.minecraft.nbt.NbtAccounter;
-                        ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/LimitStream.java:10: error: cannot find symbol
-    private final NbtAccounter limit;
-                  ^
-  symbol:   class NbtAccounter
-  location: class LimitStream
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/LimitStream.java:12: error: cannot find symbol
-    public LimitStream(InputStream is, NbtAccounter limit) {
-                                       ^
-  symbol:   class NbtAccounter
-  location: class LimitStream
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:4: error: package net.minecraft.core does not exist
-import net.minecraft.core.Direction;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:5: error: package net.minecraft.core does not exist
-import net.minecraft.core.Position;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:6: error: package net.minecraft.core.dispenser does not exist
-import net.minecraft.core.dispenser.BlockSource;
-                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:7: error: package net.minecraft.server.level does not exist
-import net.minecraft.server.level.ServerLevel;
-                                 ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:8: error: package net.minecraft.world.item does not exist
-import net.minecraft.world.item.ItemStack;
-                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:9: error: package net.minecraft.world.item does not exist
-import net.minecraft.world.item.Items;
-                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:10: error: package net.minecraft.world.item does not exist
-import net.minecraft.world.item.ProjectileItem;
-                               ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:11: error: package net.minecraft.world.level.block does not exist
-import net.minecraft.world.level.block.DispenserBlock;
-                                      ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:12: error: package net.minecraft.world.level.block.entity does not exist
-import net.minecraft.world.level.block.entity.DispenserBlockEntity;
-                                             ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:32: error: cannot find symbol
-    private final DispenserBlockEntity dispenserBlock;
-                  ^
-  symbol:   class DispenserBlockEntity
-  location: class CraftBlockProjectileSource
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/projectiles/CraftBlockProjectileSource.java:34: error: cannot find symbol
-    public CraftBlockProjectileSource(DispenserBlockEntity dispenserBlock) {
-                                      ^
-  symbol:   class DispenserBlockEntity
-  location: class CraftBlockProjectileSource
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftCrashReport.java:8: error: package net.minecraft does not exist
-import net.minecraft.CrashReportDetail;
-                    ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftCrashReport.java:9: error: package net.minecraft.server does not exist
-import net.minecraft.server.MinecraftServer;
-                           ^
+> Task :paper-server:importPaperLibraryFiles
+Importing 13 classes from library sources...
 
-> Task :paper-server:log4jPluginsClasses
+> Task :paper-server:macheRemapJar
+> Task :paper-server:extractMacheResources
+> Task :paper-server:applyResourcePatches
+> Task :paper-server:macheDecompileJar
 
-> Task :paper-server:compileJava
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftCrashReport.java:17: error: cannot find symbol
-public class CraftCrashReport implements CrashReportDetail<Object> {
-                                         ^
-  symbol: class CrashReportDetail
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftInput.java:7: error: package net.minecraft.world.entity.player does not exist
-    private final net.minecraft.world.entity.player.Input input;
-                                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftInput.java:9: error: package net.minecraft.world.entity.player does not exist
-    public CraftInput(net.minecraft.world.entity.player.Input input) {
-                                                       ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluidCollisionMode.java:3: error: package net.minecraft.world.level.ClipContext does not exist
-import net.minecraft.world.level.ClipContext.Fluid;
-                                            ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluidCollisionMode.java:10: error: cannot find symbol
-    public static Fluid toFluid(FluidCollisionMode fluidCollisionMode) {
-                  ^
-  symbol:   class Fluid
-  location: class CraftFluidCollisionMode
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:4: error: package net.minecraft.core does not exist
-import net.minecraft.core.Holder;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:5: error: package net.minecraft.core.registries does not exist
-import net.minecraft.core.registries.Registries;
-                                    ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/util/OldEnumHolderable.java:6: error: package net.minecraft.core does not exist
-import net.minecraft.core.Holder;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/HolderableBase.java:4: error: package net.minecraft.core does not exist
-import net.minecraft.core.Holder;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/util/Holderable.java:10: error: package net.minecraft.core does not exist
-import net.minecraft.core.Holder;
-                         ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/util/Holderable.java:11: error: package net.minecraft.resources does not exist
-import net.minecraft.resources.RegistryOps;
-                              ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:10: error: package net.minecraft.world.level.material does not exist
-public class CraftFluid extends OldEnumHolderable<Fluid, net.minecraft.world.level.material.Fluid> implements Fluid {
-                                                                                           ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:14: error: package net.minecraft.world.level.material does not exist
-    public static Fluid minecraftToBukkit(net.minecraft.world.level.material.Fluid minecraft) {
-                                                                            ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:18: error: package net.minecraft.world.level.material does not exist
-    public static net.minecraft.world.level.material.Fluid bukkitToMinecraft(Fluid bukkit) {
-                                                    ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:22: error: cannot find symbol
-    public CraftFluid(final Holder<net.minecraft.world.level.material.Fluid> holder) {
-                            ^
-  symbol:   class Holder
-  location: class CraftFluid
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftFluid.java:22: error: package net.minecraft.world.level.material does not exist
-    public CraftFluid(final Holder<net.minecraft.world.level.material.Fluid> holder) {
-                                                                     ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/util/OldEnumHolderable.java:21: error: cannot find symbol
-    protected OldEnumHolderable(final Holder<M> holder, final int ordinal) {
-                                      ^
-  symbol:   class Holder
-  location: class OldEnumHolderable<A,M>
-  where A,M are type-variables:
-    A extends OldEnum<A> declared in class OldEnumHolderable
-    M extends Object declared in class OldEnumHolderable
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/HolderableBase.java:9: error: cannot find symbol
-    protected final Holder<M> holder;
-                    ^
-  symbol:   class Holder
-  location: class HolderableBase<M>
-  where M is a type-variable:
-    M extends Object declared in class HolderableBase
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/HolderableBase.java:11: error: cannot find symbol
-    protected HolderableBase(final Holder<M> holder) {
-                                   ^
-  symbol:   class Holder
-  location: class HolderableBase<M>
-  where M is a type-variable:
-    M extends Object declared in class HolderableBase
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/registry/HolderableBase.java:17: error: cannot find symbol
-    public final Holder<M> getHolder() {
-                 ^
-  symbol:   class Holder
-  location: class HolderableBase<M>
-  where M is a type-variable:
-    M extends Object declared in class HolderableBase
-/opt/minecraft-build/Paper/paper-server/src/main/java/io/papermc/paper/util/Holderable.java:24: error: cannot find symbol
-    Holder<M> getHolder();
-    ^
-  symbol:   class Holder
-  location: interface Holderable<M>
-  where M is a type-variable:
-    M extends Object declared in interface Holderable
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftParticle.java:7: error: package net.minecraft.core.particles does not exist
-import net.minecraft.core.particles.BlockParticleOption;
-                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftParticle.java:8: error: package net.minecraft.core.particles does not exist
-import net.minecraft.core.particles.ColorParticleOption;
-                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftParticle.java:9: error: package net.minecraft.core.particles does not exist
-import net.minecraft.core.particles.DustColorTransitionOptions;
-                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftParticle.java:10: error: package net.minecraft.core.particles does not exist
-import net.minecraft.core.particles.DustParticleOptions;
-                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftParticle.java:11: error: package net.minecraft.core.particles does not exist
-import net.minecraft.core.particles.GeyserBaseParticleOptions;
-                                   ^
-/opt/minecraft-build/Paper/paper-server/src/main/java/org/bukkit/craftbukkit/CraftParticle.java:12: error: package net.minecraft.core.particles does not exist
-import net.minecraft.core.particles.GeyserParticleOptions;
-                                   ^
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-Note: Some input files use or override a deprecated API that is marked for removal.
-Note: Recompile with -Xlint:removal for details.
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-100 errors
+> Task :paper-server:applyResourcePatches
+Applied 3 patches
 
-> Task :paper-server:compileJava FAILED
+> Task :paper-server:setupMacheSources
+Setting up Paper commit 37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9 to use as base for constructing Git repo...
 
-[Incubating] Problems report is available at: file:///opt/minecraft-build/Paper/build/reports/problems/problems-report.html
+paper.libs.org.eclipse.jgit.transport.UploadPackInternalServerErrorException
+	at paper.libs.org.eclipse.jgit.transport.UploadPack.upload(UploadPack.java:790)
+	at paper.libs.org.eclipse.jgit.transport.InternalFetchConnection$2.run(InternalFetchConnection.java:77)
+Caused by: paper.libs.org.eclipse.jgit.errors.MissingObjectException: Missing unknown 37dc5450d9b7acb2e367e8f1fbe0f07bb01334d9
+	at paper.libs.org.eclipse.jgit.internal.storage.file.WindowCursor.open(WindowCursor.java:149)
+	at paper.libs.org.eclipse.jgit.lib.ObjectReader.open(ObjectReader.java:216)
+	at paper.libs.org.eclipse.jgit.revwalk.RevWalk.parseAny(RevWalk.java:1163)
+	at paper.libs.org.eclipse.jgit.revwalk.RevWalk.parseCommit(RevWalk.java:1074)
+	at paper.libs.org.eclipse.jgit.transport.UploadPack.computeShallowsAndUnshallows(UploadPack.java:1470)
+	at paper.libs.org.eclipse.jgit.transport.UploadPack.service(UploadPack.java:1075)
+	at paper.libs.org.eclipse.jgit.transport.UploadPack.uploadWithExceptionPropagation(UploadPack.java:859)
+	at paper.libs.org.eclipse.jgit.transport.UploadPack.upload(UploadPack.java:767)
+	... 1 more
+
+> Task :paper-server:setupMacheSources FAILED
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':paper-server:compileJava'.
-> Compilation failed; see the compiler output below.
-  /opt/minecraft-build/Paper/paper-server/src/main/java/org/spigotmc/TrackingRange.java:3: error: package net.minecraft.server.level does not exist
-  import net.minecraft.server.level.ServerLevel;
-                                   ^
-  100 errors
+Execution failed for task ':paper-server:setupMacheSources'.
+> paper.libs.org.eclipse.jgit.api.errors.TransportException: Short read of block.
 
 * Try:
-> Check your code and dependencies to fix the compilation error(s)
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
 
-BUILD FAILED in 10m 17s
-10 actionable tasks: 10 executed
+BUILD FAILED in 13m 25s
+16 actionable tasks: 14 executed, 2 from cache
 Configuration cache entry stored.
 
 exit_code=1
-finished_at=2026-08-24T16:47:01Z
+finished_at=2026-08-24T17:02:02Z
 runner=alexhost-143-246
