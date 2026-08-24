@@ -1,69 +1,47 @@
-=== WRAPPER ===
-distributionUrl=https\://services.gradle.org/distributions/gradle-9.6.1-bin.zip
-Downloading https://services.gradle.org/distributions/gradle-9.6.1-bin.zip
-.............10%.............20%..............30%.............40%..............50%.............60%.............70%..............80%.............90%..............100%
-
-Welcome to Gradle 9.6.1!
-
-Here are the highlights of this release:
- - Improved Configuration Cache hit rates
- - Additional CLI rendering options
- - Important project hierarchy lookup deprecations
-
-For more details see https://docs.gradle.org/9.6.1/release-notes.html
-
-
-------------------------------------------------------------
-Gradle 9.6.1
-------------------------------------------------------------
-
-Build time:    2026-06-26 14:25:50 UTC
-Revision:      309d128bd9fe8c0b71311878fc660b9cbaa07c51
-
-Kotlin:        2.3.21
-Groovy:        4.0.32
-Ant:           Apache Ant(TM) version 1.10.17 compiled on April 6 2026
-Launcher JVM:  25.0.4.1 (Debian 25.0.4.1+1-1-deb13u1-Debian)
-Daemon JVM:    /usr/lib/jvm/java-25-openjdk-amd64 (no Daemon JVM specified, using current Java home)
-OS:            Linux 6.12.96+deb13-amd64 amd64
-
+=== TOOLCHAIN ===
+minecraft_version=26.3-snapshot-9
+loader_version=0.19.3
+loom_version=1.17.19
+fabric_api_version=0.158.1+26.3
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
 [Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
 
-FAILURE: Build failed with an exception.
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
-* What went wrong:
-A problem occurred configuring root project 'brigada-core'.
-> Could not resolve all artifacts for configuration 'classpath'.
-   > Could not resolve net.fabricmc:fabric-loom:1.18.0-alpha.16.
-     Required by:
-         buildscript of root project 'brigada-core' > net.fabricmc.fabric-loom:net.fabricmc.fabric-loom.gradle.plugin:1.18.0-alpha.16
-      > No matching variant of net.fabricmc:fabric-loom:1.18.0-alpha.16 was found. The consumer was configured to find a library for use during runtime, compatible with Java 25, packaged as a jar, and its dependencies declared externally, as well as attribute 'org.gradle.plugin.api-version' with value '9.6.1' but:
-          - Variant 'apiElements' declares a library, compatible with Java 25, packaged as a jar, and its dependencies declared externally:
-              - Incompatible because this component declares a component for use during compile-time and the consumer needed a component for use during runtime
-              - Other compatible attribute:
-                  - Doesn't say anything about org.gradle.plugin.api-version (required '9.6.1')
-          - Variant 'runtimeElements' declares a library for use during runtime, compatible with Java 25, packaged as a jar, and its dependencies declared externally:
-              - Incompatible because this component declares a component, as well as attribute 'org.gradle.plugin.api-version' with value '9.7.0' and the consumer needed a component, as well as attribute 'org.gradle.plugin.api-version' with value '9.6.1'
-          - Variant 'sourcesElements' declares a component for use during runtime, and its dependencies declared externally:
-              - Incompatible because this component declares documentation and the consumer needed a library
-              - Other compatible attributes:
-                  - Doesn't say anything about its elements (required them packaged as a jar)
-                  - Doesn't say anything about its target Java version (required compatibility with Java 25)
-                  - Doesn't say anything about org.gradle.plugin.api-version (required '9.6.1')
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
 
-* Try:
-> No matching variant errors are explained in more detail at https://docs.gradle.org/9.6.1/userguide/variant_model.html#sub:variant-no-match.
-> Review the variant matching algorithm at https://docs.gradle.org/9.6.1/userguide/variant_attributes.html#sec:abm_algorithm.
-> Run with --stacktrace option to get the stack trace.
-> Run with --info or --debug option to get more log output.
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 48s
+BUILD SUCCESSFUL in 1m 16s
+6 actionable tasks: 6 executed
+=== ARTIFACTS ===
+brigada-core-0.1.0-sources.jar 1394 bytes
+brigada-core-0.1.0.jar 2682 bytes
+3772fb88d7074498f14eaf1539a8d7cb9b6fdd2e6adaa095e948411ac9a69681  build/libs/brigada-core-0.1.0-sources.jar
+8723a48514cee52f2ce146aa1a8475656eb43858fc19e9b3f75762d49fd071f9  build/libs/brigada-core-0.1.0.jar
+BOOTSTRAP_BUILD_OK
 
-exit_code=1
-finished_at=2026-08-24T20:40:26Z
+exit_code=0
+finished_at=2026-08-24T20:46:00Z
 runner=alexhost-143-246
