@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-# dispatch: loom-1.17.19-retry-2
 src=/opt/brigada-core-src
-test -d "$src"
-sed -i 's/^loom_version=.*/loom_version=1.17.19/' "$src/gradle.properties"
 cd "$src"
-echo "=== TOOLCHAIN ==="
-grep -E '^(minecraft|loader|loom|fabric_api)_version=' gradle.properties
-./gradlew --no-daemon clean build
-echo "=== ARTIFACTS ==="
-find build/libs -maxdepth 1 -type f -printf '%f %s bytes\n' | sort
-sha256sum build/libs/*.jar
-echo "BOOTSTRAP_BUILD_OK"
+
+echo "=== LOOM CACHE ==="
+find /root/.gradle/caches/fabric-loom -type f 2>/dev/null | sed -n '1,120p'
+
+echo "=== FABRIC API EVENT CLASSES ==="
+find /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api -type f -name '*.jar' -print0 |
+  xargs -0 -r -n1 sh -c 'jar tf "$0" 2>/dev/null | grep -E "(ServerTickEvents|ServerPlayerEvents|ServerLivingEntityEvents|ServerPlayConnectionEvents|CommandRegistrationCallback)\.class$" && echo "JAR=$0"' |
+  sed -n '1,200p'
+
+echo "=== MINECRAFT JARS ==="
+find /root/.gradle/caches -type f -name '*.jar' | grep -E '26\.3-snapshot-9|minecraft.*26\.3|minecraft.*project' | sed -n '1,120p'
+
+echo "INTROSPECT_OK"
