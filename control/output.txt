@@ -1,59 +1,61 @@
-SERVICES
-active
-active
-
-PORTS
-LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3209028,fd=163))                                                                                           
-
-NEW_WORLD
-2.4M	/opt/minecraft/server/world
-level.dat 2026-08-24T23:34:09.6831409080
-level.dat_old 2026-08-24T23:33:48.6069591610
-session.lock 2026-08-24T23:33:38.3148704550
-
-BACKUP
-/opt/minecraft/server/backups/fresh-world-20260824T233253Z
-2.4G	/opt/minecraft/server/backups/fresh-world-20260824T233253Z/world
-
-PACK
-aaf35e9b54f624f8373d0e407cbe9739d982e85a  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.13.5
-Date: Mon, 24 Aug 2026 23:34:24 GMT
-Content-type: application/zip
-Content-Length: 21839
-
-MOD
-6e95fd40b4d8b8425f323af9d4563aaa6d322e47f200c44041339d95c02a4995  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-
-PROPERTIES
-level-name=world
-level-seed=
-require-resource-pack=false
-resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
-resource-pack-id=73e66563-b99b-4a91-9152-655b7dc02498
-resource-pack-prompt={"text"\:"Скачать оформление сервера?","color"\:"gold","bold"\:true}
-resource-pack-sha1=aaf35e9b54f624f8373d0e407cbe9739d982e85a
-
-LOG
-Aug 24 23:03:35 test1 java[3132538]: [23:03:35] [Server thread/INFO]: Preparing level "world"
-Aug 24 23:03:36 test1 java[3132538]: [23:03:36] [Server thread/INFO]: Preparing spawn area: 100%
-Aug 24 23:03:36 test1 java[3132538]: [23:03:36] [Server thread/INFO]: Done (1.356s)! For help, type "help"
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 23:09:33 test1 java[3147524]: [23:09:33] [Server thread/INFO]: Preparing level "world"
-Aug 24 23:09:36 test1 java[3147524]: [23:09:36] [Server thread/INFO]: Preparing spawn area: 100%
-Aug 24 23:09:36 test1 java[3147524]: [23:09:36] [Server thread/INFO]: Done (2.718s)! For help, type "help"
-Aug 24 23:33:36 test1 java[3209028]: [23:33:36] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 23:33:36 test1 java[3209028]: [23:33:36] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 23:33:36 test1 java[3209028]: [23:33:36] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+STATE
+{
+  "schemaVersion": 1,
+  "completedChallengeBags": {},
+  "parcelInboxes": {},
+  "rewardInboxes": {},
+  "deaths": [
+    {
+      "id": "c2c05447-d451-4f0c-998a-c26daaef2430",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787615078465,
+      "dimension": "minecraft:overworld",
+      "x": -17.817150010179574,
+      "y": 69.0,
+      "z": -7.129528005468582,
+      "deathCause": "Otezi hit the ground too hard",
+      "items": [
+        {
+          "entityId": "1757073d-1b51-4d53-b5b2-7bddd644c9d8",
+          "encodedStack": "{\"id\":\"minecraft:crafting_table\",\"count\":1}",
+          "displayName": "Crafting Table",
+          "count": 1,
+          "status": "LOST",
+          "lossCause": "сгорел, исчез или был уничтожен",
+          "colorRgb": 16777215,
+          "collapseTicks": 6,
+          "lossNotified": true,
+          "lastX": -17.31757188227445,
+          "lastY": 70.59680000180005,
+          "lastZ": -7.70287354996547
+        }
+      ]
+    }
+  ],
+  "completedExpeditionStructures": []
+}
+DEATH_LOGS
 Aug 24 23:33:36 test1 java[3209028]: [23:33:36] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 23:33:49 test1 java[3209028]: [23:33:49] [Server thread/INFO]: Preparing level "world"
-Aug 24 23:34:09 test1 java[3209028]: [23:34:09] [Server thread/INFO]: Preparing spawn area: 100%
-Aug 24 23:34:09 test1 java[3209028]: [23:34:09] [Server thread/INFO]: Done (19.436s)! For help, type "help"
+Aug 24 23:42:28 test1 java[3209028]: [23:42:28] [Server thread/INFO]: Otezi[/81.25.76.34:30730] logged in with entity id 25 at (-13.5, 76.0, 15.5)
+Aug 24 23:42:28 test1 java[3209028]: [23:42:28] [Server thread/INFO]: System chat: Otezi joined the game
+Aug 24 23:44:38 test1 java[3209028]: [23:44:38] [Server thread/INFO]: System chat: Otezi fell from a high place
+Aug 24 23:46:05 test1 java[3209028]: [23:46:05] [Server thread/INFO]: Otezi lost connection: Disconnected
+Aug 24 23:46:05 test1 java[3209028]: [23:46:05] [Server thread/INFO]: System chat: Otezi left the game
+
+PLAYERS
+Aug 24 23:42:28 test1 java[3209028]: [23:42:28] [Server thread/INFO]: Otezi[/81.25.76.34:30730] logged in with entity id 25 at (-13.5, 76.0, 15.5)
+Aug 24 23:42:28 test1 java[3209028]: [23:42:28] [Server thread/INFO]: System chat: Otezi joined the game
+Aug 24 23:46:05 test1 java[3209028]: [23:46:05] [Server thread/INFO]: System chat: Otezi left the game
+
+WORLD_ITEMS
+/opt/minecraft/server/world/level.dat 442
+/opt/minecraft/server/world/level.dat_old 439
+/opt/minecraft/server/world/session.lock 3
+
+PACK_HTTP_LOG
+Aug 24 23:34:24 test1 python3[3127448]: 143.246.197.187 - - [24/Aug/2026 23:34:24] "HEAD /world-ui-26.3-snapshot-9.zip HTTP/1.1" 200 -
+Aug 24 23:41:59 test1 python3[3127448]: 81.25.76.34 - - [24/Aug/2026 23:41:59] "GET /world-ui-26.3-snapshot-9.zip HTTP/1.1" 200 -
 
 exit_code=0
-finished_at=2026-08-24T23:34:24Z
+finished_at=2026-08-24T23:46:19Z
 runner=alexhost-143-246
