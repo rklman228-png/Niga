@@ -1,16 +1,14 @@
-/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-lifecycle-events-v1/4.1.6+3434d6d97a/e521bd0a4ec3b249af75919f2f57df8594095e4e/fabric-lifecycle-events-v1-4.1.6+3434d6d97a.jar
-/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-entity-events-v1/6.0.3+3434d6d97a/18fcb4e5e6c7576cc5390732a50c677a124a41bd/fabric-entity-events-v1-6.0.3+3434d6d97a.jar
-/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-events-interaction-v0/5.3.5+3434d6d97a/ac5a2c2cf4fbf8b6c0a7a671fb0a0f4e4d106bd5/fabric-events-interaction-v0-5.3.5+3434d6d97a.jar
+Compiled from "ServerLivingEntityEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath {
+  public abstract boolean allowDeath(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource, float);
+}
+Compiled from "ServerLivingEntityEvents.java"
+public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath {
+  public abstract void afterDeath(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
+}
 
-SERVER_EVENTS
-/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-entity-events-v1/6.0.3+3434d6d97a/18fcb4e5e6c7576cc5390732a50c677a124a41bd/fabric-entity-events-v1-6.0.3+3434d6d97a.jar
-net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AfterDamage.class
-net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AfterDeath.class
-net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AllowDamage.class
-net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$AllowDeath.class
-net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents$MobConversion.class
-net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents.class
+PICKUP_CANDIDATES
 
 exit_code=0
-finished_at=2026-08-24T23:24:19Z
+finished_at=2026-08-24T23:26:05Z
 runner=alexhost-143-246
