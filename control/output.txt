@@ -1,28 +1,28 @@
-=== SERVICE ===
+=== STOP CURRENT SERVER ===
+=== INSTALL OFFICIAL FABRIC SERVER ===
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  207k  100  207k    0     0   813k      0 --:--:-- --:--:-- --:--:--  812k
+Loading Fabric Installer: 1.1.2
+Installing Fabric Loader 0.19.3(26.3-snapshot-9) on the server
+Downloading required files
+Downloading library org.ow2.asm:asm:9.10.1
+Downloading library org.ow2.asm:asm-analysis:9.10.1
+Downloading library org.ow2.asm:asm-commons:9.10.1
+Downloading library org.ow2.asm:asm-tree:9.10.1
+Downloading library org.ow2.asm:asm-util:9.10.1
+Downloading library net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7
+Downloading library net.fabricmc:fabric-loader:0.19.3
+Generating server launch JAR
+Downloading Minecraft server
+Existing server jar valid, not downloading
+Done
+Done, start server by running fabric-server-launch.jar
+=== WAIT FOR FABRIC STARTUP ===
+=== VERIFY FABRIC ===
 active
 enabled
-=== PORT ===
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2421779,fd=75))                                                                                            
-=== VERSION AND READY ===
-[17:45:22] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
-[17:45:29] [Server thread/INFO]: Done (3.529s)! For help, type "help"
-=== SETTINGS ===
-enforce-whitelist=true
-level-name=world
-online-mode=false
-server-port=25565
-white-list=true
-=== WHITELIST ===
-[
-  {"uuid":"d5c369db-55e6-30e8-aac1-b9f9bdb92beb","name":"Otezi"},
-  {"uuid":"2861cdcd-c1dd-3e01-818b-aacb305d5df3","name":"dochholodilnika"},
-  {"uuid":"ef3ced57-6d17-3c35-aca7-aa47e5aefb4b","name":"dochholodilnikagopgop"}
-]
-=== WORLD ===
-2.4G	/opt/minecraft/server/world
-  2524777      4 -rw-------   1 minecraft minecraft      512 Aug 24 17:45 /opt/minecraft/server/world/level.dat
-FINAL_SERVER_CHECK_OK
 
-exit_code=0
-finished_at=2026-08-24T17:46:25Z
+exit_code=1
+finished_at=2026-08-24T17:52:53Z
 runner=alexhost-143-246
