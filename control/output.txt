@@ -5,58 +5,35 @@ Daemon will be stopped at the end of the build
 Fabric Loom: 1.17.19
 
 > Task :clean
-
 > Task :compileJava
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:253: error: cannot find symbol
-        if (EntityType.EVOKER.spawn(level, located, EntitySpawnReason.STRUCTURE) != null) {
-                      ^
-  symbol:   variable EVOKER
-  location: class EntityType
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:256: error: cannot find symbol
-        if (EntityType.VINDICATOR.spawn(level, located.offset(3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
-                      ^
-  symbol:   variable VINDICATOR
-  location: class EntityType
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:259: error: cannot find symbol
-        if (EntityType.VINDICATOR.spawn(level, located.offset(-3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
-                      ^
-  symbol:   variable VINDICATOR
-  location: class EntityType
-3 errors
-
-> Task :compileJava FAILED
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
 
 [Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
 
-FAILURE: Build failed with an exception.
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:253: error: cannot find symbol
-          if (EntityType.EVOKER.spawn(level, located, EntitySpawnReason.STRUCTURE) != null) {
-                        ^
-    symbol:   variable EVOKER
-    location: class EntityType
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:256: error: cannot find symbol
-          if (EntityType.VINDICATOR.spawn(level, located.offset(3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
-                        ^
-    symbol:   variable VINDICATOR
-    location: class EntityType
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:259: error: cannot find symbol
-          if (EntityType.VINDICATOR.spawn(level, located.offset(-3, 0, 0), EntitySpawnReason.STRUCTURE) != null) {
-                        ^
-    symbol:   variable VINDICATOR
-    location: class EntityType
-  3 errors
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
 
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 46s
-2 actionable tasks: 2 executed
+BUILD SUCCESSFUL in 53s
+6 actionable tasks: 6 executed
 
-exit_code=1
-finished_at=2026-08-24T21:36:54Z
+ARTIFACT
+854ca85cdd1f2cd34566c3fa7dc48abd7806988b813723f702d1ce22eeaba81c  build/libs/brigada-core-0.1.0.jar
+
+exit_code=0
+finished_at=2026-08-24T21:38:36Z
 runner=alexhost-143-246
