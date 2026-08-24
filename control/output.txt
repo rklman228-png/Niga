@@ -1,15 +1,10 @@
-=== net.minecraft.network.chat.FontDescription$Resource ===
-Compiled from "FontDescription.java"
-public final class net.minecraft.network.chat.FontDescription$Resource extends java.lang.Record implements net.minecraft.network.chat.FontDescription {
-  public net.minecraft.network.chat.FontDescription$Resource(net.minecraft.resources.Identifier);
-  public final java.lang.String toString();
-  public final int hashCode();
-  public final boolean equals(java.lang.Object);
-  public net.minecraft.resources.Identifier id();
-}
-=== net.minecraft.network.chat.FontDescription$Unifont ===
-Error: class not found: net.minecraft.network.chat.FontDescription$Unifont
 
-exit_code=1
-finished_at=2026-08-24T21:14:44Z
+gzip: stdin: invalid compressed data--crc error
+
+gzip: stdin: invalid compressed data--length error
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+
+exit_code=2
+finished_at=2026-08-24T21:17:01Z
 runner=alexhost-143-246
