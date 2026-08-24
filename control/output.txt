@@ -1,184 +1,44 @@
-=== net.minecraft.server.level.ServerLevel ===
-public class net.minecraft.server.level.ServerLevel extends net.minecraft.world.level.Level implements net.minecraft.world.level.WorldGenLevel,net.minecraft.server.level.ServerEntityGetter {
-  public net.minecraft.world.level.StructureManager structureManager();
-  public <T extends net.minecraft.world.entity.Entity> java.util.List<? extends T> getEntities(net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, java.util.function.Predicate<? super T>);
-  public <T extends net.minecraft.world.entity.Entity> void getEntities(net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, java.util.function.Predicate<? super T>, java.util.List<? super T>);
-  public <T extends net.minecraft.world.entity.Entity> void getEntities(net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, java.util.function.Predicate<? super T>, java.util.List<? super T>, int);
-  public void addRespawnedPlayer(net.minecraft.server.level.ServerPlayer);
-  public net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager getStructureManager();
-  public net.minecraft.core.BlockPos findNearestMapStructure(net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure>, net.minecraft.core.BlockPos, int, boolean);
-  public net.minecraft.core.BlockPos findNearestMapStructure(net.minecraft.core.HolderSet<net.minecraft.world.level.levelgen.structure.Structure>, net.minecraft.core.BlockPos, int, boolean);
-  public void setRespawnData(net.minecraft.world.level.storage.LevelData$RespawnData);
-  public net.minecraft.world.level.storage.LevelData$RespawnData getRespawnData();
-  public void clearBlockEvents(net.minecraft.world.level.levelgen.structure.BoundingBox);
-  protected net.minecraft.world.level.entity.LevelEntityGetter<net.minecraft.world.entity.Entity> getEntities();
-  public void onStructureStartsAvailable(net.minecraft.world.level.chunk.ChunkAccess);
-  public boolean isPositionTickingWithEntitiesLoaded(long);
-  public boolean isPositionEntityTicking(net.minecraft.core.BlockPos);
-  public net.minecraft.CrashReportCategory fillReportDetails(net.minecraft.CrashReport);
-  public void onBlockEntityAdded(net.minecraft.world.level.block.entity.BlockEntity);
-=== net.minecraft.world.level.StructureManager ===
-Compiled from "StructureManager.java"
-public class net.minecraft.world.level.StructureManager {
-  public net.minecraft.world.level.StructureManager(net.minecraft.world.level.LevelAccessor, net.minecraft.world.level.levelgen.WorldOptions, net.minecraft.world.level.levelgen.structure.StructureCheck);
-  public net.minecraft.world.level.StructureManager forWorldGenRegion(net.minecraft.server.level.WorldGenRegion);
-  public java.util.List<net.minecraft.world.level.levelgen.structure.StructureStart> startsForStructure(net.minecraft.world.level.ChunkPos, java.util.function.Predicate<net.minecraft.world.level.levelgen.structure.Structure>);
-  public java.util.List<net.minecraft.world.level.levelgen.structure.StructureStart> startsForStructure(net.minecraft.core.SectionPos, net.minecraft.world.level.levelgen.structure.Structure);
-  public void fillStartsForStructure(net.minecraft.world.level.levelgen.structure.Structure, it.unimi.dsi.fastutil.longs.LongSet, java.util.function.Consumer<net.minecraft.world.level.levelgen.structure.StructureStart>);
-  public net.minecraft.world.level.levelgen.structure.StructureStart getStartForStructure(net.minecraft.core.SectionPos, net.minecraft.world.level.levelgen.structure.Structure, net.minecraft.world.level.chunk.StructureAccess);
-  public void setStartForStructure(net.minecraft.core.SectionPos, net.minecraft.world.level.levelgen.structure.Structure, net.minecraft.world.level.levelgen.structure.StructureStart, net.minecraft.world.level.chunk.StructureAccess);
-  public void addReferenceForStructure(net.minecraft.core.SectionPos, net.minecraft.world.level.levelgen.structure.Structure, long, net.minecraft.world.level.chunk.StructureAccess);
-  public boolean shouldGenerateStructures();
-  public net.minecraft.world.level.levelgen.structure.StructureStart getStructureAt(net.minecraft.core.BlockPos, net.minecraft.world.level.levelgen.structure.Structure);
-  public net.minecraft.world.level.levelgen.structure.StructureStart getStructureWithPieceAt(net.minecraft.core.BlockPos, net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure>);
-  public net.minecraft.world.level.levelgen.structure.StructureStart getStructureWithPieceAt(net.minecraft.core.BlockPos, net.minecraft.core.HolderSet<net.minecraft.world.level.levelgen.structure.Structure>);
-  public net.minecraft.world.level.levelgen.structure.StructureStart getStructureWithPieceAt(net.minecraft.core.BlockPos, java.util.function.Predicate<net.minecraft.core.Holder<net.minecraft.world.level.levelgen.structure.Structure>>);
-  public net.minecraft.world.level.levelgen.structure.StructureStart getStructureWithPieceAt(net.minecraft.core.BlockPos, net.minecraft.world.level.levelgen.structure.Structure);
-  public boolean structureHasPieceAt(net.minecraft.core.BlockPos, net.minecraft.world.level.levelgen.structure.StructureStart);
-  public boolean hasAnyStructureAt(net.minecraft.core.BlockPos);
-  public java.util.Map<net.minecraft.world.level.levelgen.structure.Structure, it.unimi.dsi.fastutil.longs.LongSet> getAllStructuresAt(net.minecraft.core.BlockPos);
-  public net.minecraft.world.level.levelgen.structure.StructureCheckResult checkStructurePresence(net.minecraft.world.level.ChunkPos, net.minecraft.world.level.levelgen.structure.Structure, net.minecraft.world.level.levelgen.structure.placement.StructurePlacement, boolean);
-  public void addReference(net.minecraft.world.level.levelgen.structure.StructureStart);
-=== net.minecraft.world.level.levelgen.structure.StructureStart ===
-Compiled from "StructureStart.java"
-public final class net.minecraft.world.level.levelgen.structure.StructureStart {
-  public static final net.minecraft.world.level.levelgen.structure.StructureStart INVALID_START;
-  public net.minecraft.world.level.levelgen.structure.StructureStart(net.minecraft.world.level.levelgen.structure.Structure, net.minecraft.world.level.ChunkPos, int, net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer);
-  public static net.minecraft.world.level.levelgen.structure.StructureStart loadStaticStart(net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext, net.minecraft.nbt.CompoundTag, long);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox getBoundingBox();
-  public void placeInChunk(net.minecraft.world.level.WorldGenLevel, net.minecraft.world.level.StructureManager, net.minecraft.world.level.chunk.ChunkGenerator, net.minecraft.util.RandomSource, net.minecraft.world.level.levelgen.structure.BoundingBox, net.minecraft.world.level.ChunkPos);
-  public net.minecraft.nbt.CompoundTag createTag(net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext, net.minecraft.world.level.ChunkPos);
-  public net.minecraft.world.level.levelgen.structure.Structure getStructure();
-  public java.util.List<net.minecraft.world.level.levelgen.structure.StructurePiece> getPieces();
-=== net.minecraft.world.level.levelgen.structure.BoundingBox ===
-Compiled from "BoundingBox.java"
-public class net.minecraft.world.level.levelgen.structure.BoundingBox {
-  public static final com.mojang.serialization.Codec<net.minecraft.world.level.levelgen.structure.BoundingBox> CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.levelgen.structure.BoundingBox> STREAM_CODEC;
-  public net.minecraft.world.level.levelgen.structure.BoundingBox(net.minecraft.core.BlockPos);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox(int, int, int, int, int, int);
-  public static net.minecraft.world.level.levelgen.structure.BoundingBox fromCorners(net.minecraft.core.Vec3i, net.minecraft.core.Vec3i);
-  public static net.minecraft.world.level.levelgen.structure.BoundingBox infinite();
-  public static net.minecraft.world.level.levelgen.structure.BoundingBox orientBox(int, int, int, int, int, int, int, int, int, net.minecraft.core.Direction);
-  public boolean intersects(net.minecraft.world.level.levelgen.structure.BoundingBox);
-  public static java.util.Optional<net.minecraft.world.level.levelgen.structure.BoundingBox> encapsulatingPositions(java.lang.Iterable<net.minecraft.core.BlockPos>);
-  public static java.util.Optional<net.minecraft.world.level.levelgen.structure.BoundingBox> encapsulatingBoxes(java.lang.Iterable<net.minecraft.world.level.levelgen.structure.BoundingBox>);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox encapsulate(net.minecraft.world.level.levelgen.structure.BoundingBox);
-  public static net.minecraft.world.level.levelgen.structure.BoundingBox encapsulating(net.minecraft.world.level.levelgen.structure.BoundingBox, net.minecraft.world.level.levelgen.structure.BoundingBox);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox encapsulate(net.minecraft.core.BlockPos);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox move(int, int, int);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox move(net.minecraft.core.Vec3i);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox moved(int, int, int);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox inflatedBy(int);
-  public net.minecraft.world.level.levelgen.structure.BoundingBox inflatedBy(int, int, int);
-=== net.minecraft.tags.StructureTags ===
-Compiled from "StructureTags.java"
-public interface net.minecraft.tags.StructureTags {
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> EYE_OF_ENDER_LOCATED;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> DOLPHIN_LOCATED;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_WOODLAND_EXPLORER_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_OCEAN_EXPLORER_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_SAVANNA_VILLAGE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_DESERT_VILLAGE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_PLAINS_VILLAGE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_TAIGA_VILLAGE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_SNOWY_VILLAGE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_JUNGLE_EXPLORER_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_SWAMP_EXPLORER_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_TREASURE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_TRIAL_CHAMBERS_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ANCIENT_CITY_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_MINESHAFT_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_DESERT_PYRAMID_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_OCEAN_RUIN_WARM_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> CATS_SPAWN_IN;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> CATS_SPAWN_AS_BLACK;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> VILLAGE;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> MINESHAFT;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> SHIPWRECK;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> OCEAN_RUIN;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_BAMBOO_JUNGLE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_CHERRY_GROVE_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_BIRCH_FOREST_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_DAPPLED_FOREST_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_FLOWER_FOREST_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_PALE_GARDEN_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_SWAMP_MAPS;
-  public static final net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure> ON_ABANDONED_CAMP_WINDSWEPT_FOREST_MAPS;
-=== net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity ===
-Compiled from "RandomizableContainerBlockEntity.java"
-public abstract class net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity extends net.minecraft.world.level.block.entity.BaseContainerBlockEntity implements net.minecraft.world.RandomizableContainer {
-  protected net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> lootTable;
-  protected long lootTableSeed;
-  protected net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-  public net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> getLootTable();
-  public void setLootTable(net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>);
-  public long getLootTableSeed();
-  public void setLootTableSeed(long);
-  public boolean isEmpty();
-=== net.minecraft.world.level.block.entity.BaseContainerBlockEntity ===
-Compiled from "BaseContainerBlockEntity.java"
-public abstract class net.minecraft.world.level.block.entity.BaseContainerBlockEntity extends net.minecraft.world.level.block.entity.BlockEntity implements net.minecraft.world.Container,net.minecraft.world.MenuProvider,net.minecraft.world.Nameable {
-  protected net.minecraft.world.level.block.entity.BaseContainerBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-  public boolean isEmpty();
-  protected net.minecraft.world.level.storage.loot.LootContext getLootContext(net.minecraft.server.level.ServerLevel);
-=== net.minecraft.world.level.storage.loot.LootTable ===
-Compiled from "LootTable.java"
-public class net.minecraft.world.level.storage.loot.LootTable implements net.minecraft.world.level.storage.loot.Validatable {
-  public static final com.mojang.serialization.Codec<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> KEY_CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.world.level.storage.loot.LootTable> DIRECT_CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.LootTable>> CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.core.HolderSet<net.minecraft.world.level.storage.loot.LootTable>> LIST_CODEC;
-  public static final net.minecraft.world.level.storage.loot.LootTable EMPTY;
-  public void getRandomItemsRaw(net.minecraft.world.level.storage.loot.LootParams, java.util.function.Consumer<net.minecraft.world.item.ItemStack>);
-  public void getRandomItemsRaw(net.minecraft.world.level.storage.loot.LootContext, java.util.function.Consumer<net.minecraft.world.item.ItemStack>);
-  public void getRandomItems(net.minecraft.world.level.storage.loot.LootParams, long, java.util.function.Consumer<net.minecraft.world.item.ItemStack>);
-  public void getRandomItems(net.minecraft.world.level.storage.loot.LootParams, java.util.function.Consumer<net.minecraft.world.item.ItemStack>);
-  public void getRandomItems(net.minecraft.world.level.storage.loot.LootContext, java.util.function.Consumer<net.minecraft.world.item.ItemStack>);
-  public it.unimi.dsi.fastutil.objects.ObjectArrayList<net.minecraft.world.item.ItemStack> getRandomItems(net.minecraft.world.level.storage.loot.LootParams, net.minecraft.util.RandomSource);
-  public it.unimi.dsi.fastutil.objects.ObjectArrayList<net.minecraft.world.item.ItemStack> getRandomItems(net.minecraft.world.level.storage.loot.LootParams, long);
-  public it.unimi.dsi.fastutil.objects.ObjectArrayList<net.minecraft.world.item.ItemStack> getRandomItems(net.minecraft.world.level.storage.loot.LootParams);
-  public void validate(net.minecraft.world.level.storage.loot.ValidationContext);
-  public void fill(net.minecraft.world.Container, net.minecraft.world.level.storage.loot.LootParams, long);
-  public static net.minecraft.world.level.storage.loot.LootTable$Builder lootTable();
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-=== STRUCTURE TAG FILES ===
-data/minecraft/tags/worldgen/structure/abandoned_camp.json
-data/minecraft/tags/worldgen/structure/cats_spawn_as_black.json
-data/minecraft/tags/worldgen/structure/cats_spawn_in.json
-data/minecraft/tags/worldgen/structure/dolphin_located.json
-data/minecraft/tags/worldgen/structure/eye_of_ender_located.json
-data/minecraft/tags/worldgen/structure/mineshaft.json
-data/minecraft/tags/worldgen/structure/ocean_ruin.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_birch_forest.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_cherry_grove.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_dappled_forest.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_flower_forest.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_pale_garden.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_swamp.json
-data/minecraft/tags/worldgen/structure/on_ancient_city_maps.json
-data/minecraft/tags/worldgen/structure/on_desert_pyramid_maps.json
-data/minecraft/tags/worldgen/structure/on_desert_village_maps.json
-data/minecraft/tags/worldgen/structure/on_jungle_explorer_maps.json
-data/minecraft/tags/worldgen/structure/on_mineshaft_maps.json
-data/minecraft/tags/worldgen/structure/on_ocean_explorer_maps.json
-data/minecraft/tags/worldgen/structure/on_ocean_ruin_warm_maps.json
-data/minecraft/tags/worldgen/structure/on_plains_village_maps.json
-data/minecraft/tags/worldgen/structure/on_savanna_village_maps.json
-data/minecraft/tags/worldgen/structure/on_snowy_village_maps.json
-data/minecraft/tags/worldgen/structure/on_taiga_village_maps.json
-data/minecraft/tags/worldgen/structure/on_treasure_maps.json
-data/minecraft/tags/worldgen/structure/on_trial_chambers_maps.json
-data/minecraft/tags/worldgen/structure/on_woodland_explorer_maps.json
-data/minecraft/tags/worldgen/structure/ruined_portal.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_windswept.json
-data/minecraft/tags/worldgen/structure/village.json
-data/minecraft/tags/worldgen/structure/shipwreck.json
-data/minecraft/tags/worldgen/structure/on_swamp_explorer_maps.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_bamboo_jungle.json
+> Configure project :
+Fabric Loom: 1.17.19
 
-exit_code=0
-finished_at=2026-08-24T21:24:54Z
+> Task :clean
+
+> Task :compileJava
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:76: error: random has protected access in Level
+        int wanted = 2 + level.random.nextInt(4);
+                              ^
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:225: error: random has protected access in Level
+        RandomSource random = level.random;
+                                   ^
+2 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:76: error: random has protected access in Level
+          int wanted = 2 + level.random.nextInt(4);
+                                ^
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:225: error: random has protected access in Level
+          RandomSource random = level.random;
+                                     ^
+  2 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 43s
+2 actionable tasks: 2 executed
+
+exit_code=1
+finished_at=2026-08-24T21:29:47Z
 runner=alexhost-143-246
