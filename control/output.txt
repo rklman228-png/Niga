@@ -1,47 +1,25 @@
-=== TOOLCHAIN ===
-minecraft_version=26.3-snapshot-9
-loader_version=0.19.3
-loom_version=1.17.19
-fabric_api_version=0.158.1+26.3
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+=== LOOM CACHE ===
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-client.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-extracted_server.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-server.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/mojang_minecraft_info.json
+/root/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-deobf/26.3-snapshot-9/minecraft-merged-deobf-26.3-snapshot-9.jar
+/root/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-deobf/26.3-snapshot-9/minecraft-merged-deobf-26.3-snapshot-9.jar.backup
+/root/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-deobf/26.3-snapshot-9/minecraft-merged-deobf-26.3-snapshot-9.pom
+/root/.gradle/caches/fabric-loom/mojang_versions_manifest.json
+=== FABRIC API EVENT CLASSES ===
+net/fabricmc/fabric/api/event/lifecycle/v1/ServerTickEvents.class
+JAR=/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-lifecycle-events-v1/4.1.6+3434d6d97a/e521bd0a4ec3b249af75919f2f57df8594095e4e/fabric-lifecycle-events-v1-4.1.6+3434d6d97a.jar
+net/fabricmc/fabric/api/command/v2/CommandRegistrationCallback.class
+net/fabricmc/fabric/api/client/command/v2/ClientCommandRegistrationCallback.class
+JAR=/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-command-api-v2/3.1.1+3434d6d97a/17628aafb841ee2884cda47b6cd7cfc860405077/fabric-command-api-v2-3.1.1+3434d6d97a.jar
+net/fabricmc/fabric/api/entity/event/v1/ServerLivingEntityEvents.class
+net/fabricmc/fabric/api/entity/event/v1/ServerPlayerEvents.class
+JAR=/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-entity-events-v1/6.0.3+3434d6d97a/18fcb4e5e6c7576cc5390732a50c677a124a41bd/fabric-entity-events-v1-6.0.3+3434d6d97a.jar
+net/fabricmc/fabric/api/networking/v1/ServerPlayConnectionEvents.class
+JAR=/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-networking-api-v1/6.3.7+3434d6d97a/27c68ff64e57969cd2158fe95768f4a65703112e/fabric-networking-api-v1-6.3.7+3434d6d97a.jar
 
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 1m 16s
-6 actionable tasks: 6 executed
-=== ARTIFACTS ===
-brigada-core-0.1.0-sources.jar 1394 bytes
-brigada-core-0.1.0.jar 2682 bytes
-3772fb88d7074498f14eaf1539a8d7cb9b6fdd2e6adaa095e948411ac9a69681  build/libs/brigada-core-0.1.0-sources.jar
-8723a48514cee52f2ce146aa1a8475656eb43858fc19e9b3f75762d49fd071f9  build/libs/brigada-core-0.1.0.jar
-BOOTSTRAP_BUILD_OK
-
-exit_code=0
-finished_at=2026-08-24T20:46:00Z
+exit_code=123
+finished_at=2026-08-24T20:48:01Z
 runner=alexhost-143-246
