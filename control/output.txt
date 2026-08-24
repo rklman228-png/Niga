@@ -5,40 +5,38 @@ Daemon will be stopped at the end of the build
 Fabric Loom: 1.17.19
 
 > Task :clean
-
 > Task :compileJava
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:76: error: random has protected access in Level
-        int wanted = 2 + level.random.nextInt(4);
-                              ^
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:225: error: random has protected access in Level
-        RandomSource random = level.random;
-                                   ^
-2 errors
-
-> Task :compileJava FAILED
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
 
 [Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
 
-FAILURE: Build failed with an exception.
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:76: error: random has protected access in Level
-          int wanted = 2 + level.random.nextInt(4);
-                                ^
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:225: error: random has protected access in Level
-          RandomSource random = level.random;
-                                     ^
-  2 errors
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
 
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 43s
-2 actionable tasks: 2 executed
+BUILD SUCCESSFUL in 39s
+6 actionable tasks: 6 executed
 
-exit_code=1
-finished_at=2026-08-24T21:29:47Z
+ARTIFACTS
+brigada-core-0.1.0.jar 75082 bytes
+brigada-core-0.1.0-sources.jar 34728 bytes
+b6f0e11998f7d6ad8fe9d8252796072a89b8d10e501366215eea11e5979ee24e  build/libs/brigada-core-0.1.0-sources.jar
+354ec36790426a5a236c1e9cbfca29a3b4b6b4ef689a81f30bfc000c2f015af4  build/libs/brigada-core-0.1.0.jar
+
+exit_code=0
+finished_at=2026-08-24T21:31:07Z
 runner=alexhost-143-246
