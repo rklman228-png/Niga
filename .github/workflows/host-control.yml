@@ -9,7 +9,7 @@ on:
       - .github/workflows/host-control.yml
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: host-control-143-246-197-187
@@ -32,7 +32,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: host-control
-          persist-credentials: false
+          persist-credentials: true
           clean: true
-      - name: Execute command
-        run: bash control/command.sh
+      - name: Execute command and publish output
+        run: |
+          set +e
+          bash control/command.sh 2>&1 | tee control/output.txt
+          command_status=${PIPESTATUS[0]}
+          set -e
+
+          {
+            printf '\nexit_code=%s\n' "$command_status"
+            printf 'finished_at=%s\n' "$(date -u +%FT%TZ)"
+            printf 'runner=%s\n' "$RUNNER_NAME"
+          } >> control/output.txt
+
+          git config user.name "host-control-runner"
+          git config user.email "host-control@users.noreply.github.com"
+          git add control/output.txt
+
+          if ! git diff --cached --quiet; then
+            git commit -m "host-control: publish command output [skip ci]"
+            git push origin HEAD:host-control
+          fi
+
+          exit "$command_status"
