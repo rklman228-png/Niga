@@ -28,12 +28,28 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 43s
+BUILD SUCCESSFUL in 49s
 6 actionable tasks: 6 executed
+Created symlink '/etc/systemd/system/multi-user.target.wants/brigada-pack.service' → '/etc/systemd/system/brigada-pack.service'.
+Rule added
+Rule added (v6)
 
-ARTIFACT
-86d976d7e81d9f528a44b585609271b3a48154647a9bc358ab7399a485f46b85  build/libs/brigada-core-0.1.0.jar
+BUILD
+161c3814db511537bb0e0fde965169a37cbbd2481566d579589d610ccfd8df88  build/libs/brigada-core-0.1.0.jar
+
+PACK
+9252797b4ec1056975af2111b1e3f01791e3e819  /opt/minecraft/resourcepack/Brigada13-26.3-snapshot-9.zip
+
+HTTP
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.13.5
+Date: Mon, 24 Aug 2026 23:00:48 GMT
+Content-type: application/zip
+Content-Length: 12052
+
+SERVICE
+active
 
 exit_code=0
-finished_at=2026-08-24T22:58:45Z
+finished_at=2026-08-24T23:00:48Z
 runner=alexhost-143-246
