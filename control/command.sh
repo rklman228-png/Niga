@@ -9,11 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 echo "Checking Java 25 toolchain..."
 apt-get update -qq
-if ! apt-get install -y -qq git openjdk-25-jdk-headless ca-certificates; then
-  echo "ERROR: openjdk-25-jdk-headless is unavailable from configured Debian repositories." >&2
-  apt-cache search '^openjdk-[0-9]+-jdk-headless$' || true
-  exit 2
-fi
+apt-get install -y -qq git openjdk-25-jdk-headless ca-certificates
 
 java -version
 javac -version
@@ -36,6 +32,11 @@ git rev-parse HEAD
 grep -E '^(mcVersion|apiVersion|channel|updatingMinecraft)=' gradle.properties
 
 export GRADLE_OPTS="-Dorg.gradle.jvmargs=-Xmx4G -Dfile.encoding=UTF-8"
+
+echo "Applying Paper patches..."
+./gradlew --no-daemon applyPatches
+
+echo "Building Paperclip jar..."
 ./gradlew --no-daemon createPaperclipJar
 
 JAR="$(find paper-server/build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*sources*' ! -name '*javadoc*' -printf '%s %p\n' | sort -nr | head -n1 | cut -d' ' -f2-)"
