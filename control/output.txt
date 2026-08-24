@@ -1,116 +1,212 @@
-=== CALLBACKS ===
---- net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$EndTick
-Compiled from "ServerTickEvents.java"
-public interface net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents$EndTick {
-  public abstract void onEndTick(net.minecraft.server.MinecraftServer);
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath
-Compiled from "ServerLivingEntityEvents.java"
-public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath {
-  public abstract boolean allowDeath(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource, float);
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDamage
-Compiled from "ServerLivingEntityEvents.java"
-public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDamage {
-  public abstract void afterDamage(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource, float, float, boolean);
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath
-Compiled from "ServerLivingEntityEvents.java"
-public interface net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath {
-  public abstract void afterDeath(net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AfterRespawn
-Compiled from "ServerPlayerEvents.java"
-public interface net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AfterRespawn {
-  public abstract void afterRespawn(net.minecraft.server.level.ServerPlayer, net.minecraft.server.level.ServerPlayer, boolean);
-}
---- net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Join
-Compiled from "ServerPlayerEvents.java"
-public interface net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Join {
-  public abstract void onJoin(net.minecraft.server.level.ServerPlayer);
-}
---- net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Join
-Compiled from "ServerPlayConnectionEvents.java"
-public interface net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents$Join {
-  public abstract void onPlayReady(net.minecraft.server.network.ServerGamePacketListenerImpl, net.fabricmc.fabric.api.networking.v1.PacketSender, net.minecraft.server.MinecraftServer);
-}
-=== SERIALIZATION / UI ===
---- net.minecraft.core.RegistryAccess
-public interface net.minecraft.core.RegistryAccess extends net.minecraft.core.HolderLookup$Provider {
---- net.minecraft.core.HolderLookup$Provider
-public interface net.minecraft.core.HolderLookup$Provider extends net.minecraft.core.HolderGetter$Provider {
-  public default <V> net.minecraft.resources.RegistryOps<V> createSerializationContext(com.mojang.serialization.DynamicOps<V>);
---- net.minecraft.resources.RegistryOps
-public class net.minecraft.resources.RegistryOps<T> extends net.minecraft.resources.DelegatingOps<T> {
---- net.minecraft.world.item.ItemStack
-public final class net.minecraft.world.item.ItemStack implements net.minecraft.core.component.DataComponentHolder,net.minecraft.world.item.ItemInstance {
-  public static final com.mojang.serialization.MapCodec<net.minecraft.world.item.ItemStack> MAP_CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStack> CODEC;
-  public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStack> OPTIONAL_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> OPTIONAL_STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> OPTIONAL_UNTRUSTED_STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStack> STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, java.util.List<net.minecraft.world.item.ItemStack>> OPTIONAL_LIST_STREAM_CODEC;
-  public boolean isEmpty();
-  public net.minecraft.world.item.ItemStack copy();
-  public net.minecraft.network.chat.Component getHoverName();
-  public net.minecraft.network.chat.Component getStyledHoverName();
-  public int getCount();
-  public void setCount(int);
---- net.minecraft.network.chat.Component
-public interface net.minecraft.network.chat.Component extends com.mojang.brigadier.Message,net.minecraft.network.chat.FormattedText {
-  public default java.lang.String getString();
-  public default java.lang.String getString(int);
-  public default net.minecraft.network.chat.MutableComponent copy();
-  public static net.minecraft.network.chat.MutableComponent literal(java.lang.String);
-  public static net.minecraft.network.chat.MutableComponent translatable(java.lang.String);
-  public static net.minecraft.network.chat.MutableComponent translatable(java.lang.String, java.lang.Object...);
-  public static net.minecraft.network.chat.MutableComponent translatableEscape(java.lang.String, java.lang.Object...);
-  public static net.minecraft.network.chat.MutableComponent translatableWithFallback(java.lang.String, java.lang.String);
-  public static net.minecraft.network.chat.MutableComponent translatableWithFallback(java.lang.String, java.lang.String, java.lang.Object...);
---- net.minecraft.network.chat.MutableComponent
-public final class net.minecraft.network.chat.MutableComponent implements net.minecraft.network.chat.Component {
-  public net.minecraft.network.chat.MutableComponent append(java.lang.String);
-  public net.minecraft.network.chat.MutableComponent append(net.minecraft.network.chat.Component);
-  public net.minecraft.network.chat.MutableComponent withStyle(java.util.function.UnaryOperator<net.minecraft.network.chat.Style>);
-  public net.minecraft.network.chat.MutableComponent withStyle(net.minecraft.network.chat.Style);
-  public net.minecraft.network.chat.MutableComponent withStyle(net.minecraft.ChatFormatting...);
-  public net.minecraft.network.chat.MutableComponent withStyle(net.minecraft.ChatFormatting);
---- net.minecraft.network.chat.Style
-public final class net.minecraft.network.chat.Style {
-  public net.minecraft.network.chat.TextColor getColor();
-  public boolean isEmpty();
---- net.minecraft.network.chat.TextColor
-public final class net.minecraft.network.chat.TextColor {
-  public static final com.mojang.serialization.Codec<net.minecraft.network.chat.TextColor> CODEC;
-  public int getValue();
---- net.minecraft.world.entity.Entity
-public abstract class net.minecraft.world.entity.Entity implements net.minecraft.world.Nameable, net.minecraft.world.level.entity.EntityAccess, net.minecraft.world.scores.ScoreHolder, net.minecraft.network.syncher.SyncedDataHolder, net.minecraft.core.component.DataComponentGetter, net.minecraft.world.entity.ItemOwner, net.minecraft.world.entity.SlotProvider, net.minecraft.util.debug.DebugValueSource, net.minecraft.core.TypedInstance<net.minecraft.world.entity.EntityType<?>> {
-  public boolean addTag(java.lang.String);
-  public net.minecraft.network.chat.Component getName();
-  public java.util.UUID getUUID();
-  public java.lang.String getStringUUID();
-  public net.minecraft.world.phys.Vec3 position();
-  public final double getX();
-  public double getX(double);
-  public final double getY();
-  public double getY(double);
-  public final double getZ();
-  public double getZ(double);
-  public final boolean isRemoved();
-  public net.minecraft.world.entity.Entity$RemovalReason getRemovalReason();
---- net.minecraft.server.players.PlayerList
-public abstract class net.minecraft.server.players.PlayerList {
-  public net.minecraft.server.level.ServerPlayer getPlayerByName(java.lang.String);
-  public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayersWithAddress(java.lang.String);
-  public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayers();
-  public java.util.Map<java.util.UUID, net.minecraft.server.level.ServerPlayer> getPlayersByUUID();
---- net.minecraft.commands.Commands
-public class net.minecraft.commands.Commands {
-  public void performPrefixedCommand(net.minecraft.commands.CommandSourceStack, java.lang.String);
-  public static com.mojang.brigadier.builder.LiteralArgumentBuilder<net.minecraft.commands.CommandSourceStack> literal(java.lang.String);
-SIGNATURES_2_OK
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=0
-finished_at=2026-08-24T20:56:55Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean UP-TO-DATE
+
+> Task :compileJava
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/reward/RewardService.java:10: error: cannot find symbol
+import net.minecraft.resources.ResourceLocation;
+                              ^
+  symbol:   class ResourceLocation
+  location: package net.minecraft.resources
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:11: error: cannot find symbol
+import net.minecraft.resources.ResourceLocation;
+                              ^
+  symbol:   class ResourceLocation
+  location: package net.minecraft.resources
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:23: error: cannot find symbol
+    private static final ResourceLocation NOTICE_LOW = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_low");
+                         ^
+  symbol:   class ResourceLocation
+  location: class HudService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:24: error: cannot find symbol
+    private static final ResourceLocation NOTICE_HIGH = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_high");
+                         ^
+  symbol:   class ResourceLocation
+  location: class HudService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:159: error: cannot find symbol
+                victim.getServer().getPlayerList().getPlayers().forEach(online -> online.sendSystemMessage(
+                      ^
+  symbol:   method getServer()
+  location: variable victim of type LivingEntity
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:170: error: cannot find symbol
+                complete(victim.getServer(), definition, state);
+                               ^
+  symbol:   method getServer()
+  location: variable victim of type LivingEntity
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:172: error: cannot find symbol
+                victim.getServer().getPlayerList().getPlayers().forEach(online -> online.sendSystemMessage(
+                      ^
+  symbol:   method getServer()
+  location: variable victim of type LivingEntity
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:199: error: cannot find symbol
+            complete(victim.getServer(), definition, state);
+                           ^
+  symbol:   method getServer()
+  location: variable victim of type LivingEntity
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/reward/RewardService.java:48: error: cannot find symbol
+                ResourceLocation id = ResourceLocation.parse(reward.itemId());
+                ^
+  symbol:   class ResourceLocation
+  location: class RewardService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/reward/RewardService.java:48: error: cannot find symbol
+                ResourceLocation id = ResourceLocation.parse(reward.itemId());
+                                      ^
+  symbol:   variable ResourceLocation
+  location: class RewardService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:23: error: cannot find symbol
+    private static final ResourceLocation NOTICE_LOW = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_low");
+                                                       ^
+  symbol:   variable ResourceLocation
+  location: class HudService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:24: error: cannot find symbol
+    private static final ResourceLocation NOTICE_HIGH = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_high");
+                                                        ^
+  symbol:   variable ResourceLocation
+  location: class HudService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:62: error: cannot find symbol
+                player.displayClientMessage(activity, true);
+                      ^
+  symbol:   method displayClientMessage(Component,boolean)
+  location: variable player of type ServerPlayer
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:88: error: cannot find symbol
+        ResourceLocation font = hasActivity() ? NOTICE_HIGH : NOTICE_LOW;
+        ^
+  symbol:   class ResourceLocation
+  location: class HudService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/parcel/ParcelService.java:62: error: cannot find symbol
+        ServerPlayer recipient = sender.getServer().getPlayerList().getPlayerByName(recipientName);
+                                       ^
+  symbol:   method getServer()
+  location: variable sender of type ServerPlayer
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:28: error: cannot find symbol
+                            player.getServer().getCommands().performPrefixedCommand(
+                                  ^
+  symbol:   method getServer()
+  location: variable player of type ServerPlayer
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:40: error: cannot find symbol
+                                    challenges.cancel(player.getServer());
+                                                            ^
+  symbol:   method getServer()
+  location: variable player of type ServerPlayer
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:59: error: cannot find symbol
+        return challenges.start(player.getServer(), difficulty, player) ? 1 : 0;
+                                      ^
+  symbol:   method getServer()
+  location: variable player of type ServerPlayer
+18 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/reward/RewardService.java:10: error: cannot find symbol
+  import net.minecraft.resources.ResourceLocation;
+                                ^
+    symbol:   class ResourceLocation
+    location: package net.minecraft.resources
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:11: error: cannot find symbol
+  import net.minecraft.resources.ResourceLocation;
+                                ^
+    symbol:   class ResourceLocation
+    location: package net.minecraft.resources
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:23: error: cannot find symbol
+      private static final ResourceLocation NOTICE_LOW = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_low");
+                           ^
+    symbol:   class ResourceLocation
+    location: class HudService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:24: error: cannot find symbol
+      private static final ResourceLocation NOTICE_HIGH = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_high");
+                           ^
+    symbol:   class ResourceLocation
+    location: class HudService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/reward/RewardService.java:48: error: cannot find symbol
+                  ResourceLocation id = ResourceLocation.parse(reward.itemId());
+                  ^
+    symbol:   class ResourceLocation
+    location: class RewardService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/reward/RewardService.java:48: error: cannot find symbol
+                  ResourceLocation id = ResourceLocation.parse(reward.itemId());
+                                        ^
+    symbol:   variable ResourceLocation
+    location: class RewardService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:23: error: cannot find symbol
+      private static final ResourceLocation NOTICE_LOW = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_low");
+                                                         ^
+    symbol:   variable ResourceLocation
+    location: class HudService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:24: error: cannot find symbol
+      private static final ResourceLocation NOTICE_HIGH = ResourceLocation.fromNamespaceAndPath(BrigadaCore.MOD_ID, "notice_high");
+                                                          ^
+    symbol:   variable ResourceLocation
+    location: class HudService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:88: error: cannot find symbol
+          ResourceLocation font = hasActivity() ? NOTICE_HIGH : NOTICE_LOW;
+          ^
+    symbol:   class ResourceLocation
+    location: class HudService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:159: error: cannot find symbol
+                  victim.getServer().getPlayerList().getPlayers().forEach(online -> online.sendSystemMessage(
+                        ^
+    symbol:   method getServer()
+    location: variable victim of type LivingEntity
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:170: error: cannot find symbol
+                  complete(victim.getServer(), definition, state);
+                                 ^
+    symbol:   method getServer()
+    location: variable victim of type LivingEntity
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:172: error: cannot find symbol
+                  victim.getServer().getPlayerList().getPlayers().forEach(online -> online.sendSystemMessage(
+                        ^
+    symbol:   method getServer()
+    location: variable victim of type LivingEntity
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:199: error: cannot find symbol
+              complete(victim.getServer(), definition, state);
+                             ^
+    symbol:   method getServer()
+    location: variable victim of type LivingEntity
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/hud/HudService.java:62: error: cannot find symbol
+                  player.displayClientMessage(activity, true);
+                        ^
+    symbol:   method displayClientMessage(Component,boolean)
+    location: variable player of type ServerPlayer
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/parcel/ParcelService.java:62: error: cannot find symbol
+          ServerPlayer recipient = sender.getServer().getPlayerList().getPlayerByName(recipientName);
+                                         ^
+    symbol:   method getServer()
+    location: variable sender of type ServerPlayer
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:28: error: cannot find symbol
+                              player.getServer().getCommands().performPrefixedCommand(
+                                    ^
+    symbol:   method getServer()
+    location: variable player of type ServerPlayer
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:40: error: cannot find symbol
+                                      challenges.cancel(player.getServer());
+                                                              ^
+    symbol:   method getServer()
+    location: variable player of type ServerPlayer
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:59: error: cannot find symbol
+          return challenges.start(player.getServer(), difficulty, player) ? 1 : 0;
+                                        ^
+    symbol:   method getServer()
+    location: variable player of type ServerPlayer
+  18 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 1m
+2 actionable tasks: 1 executed, 1 up-to-date
+
+exit_code=1
+finished_at=2026-08-24T21:11:26Z
 runner=alexhost-143-246
