@@ -1,0 +1,37 @@
+::group::identity
+uid=0(root) gid=0(root) groups=0(root)
+user=root
+hostname=test1
+::endgroup::
+::group::system
+Linux test1 6.12.96+deb13-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.12.96-1 (2026-07-20) x86_64 GNU/Linux
+kvm
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+NAME="Debian GNU/Linux"
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
+DEBIAN_VERSION_FULL=13.6
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+::endgroup::
+::group::resources
+cpus=4
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       1.1Gi       1.4Gi        52Mi       5.5Gi       6.6Gi
+Swap:          511Mi          0B       511Mi
+Filesystem     Type  Size  Used Avail Use% Mounted on
+/dev/sda1      ext4   79G   22G   54G  29% /
+::endgroup::
+::group::services
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+::endgroup::
+HOST_CONTROL_OK
+
+exit_code=0
+finished_at=2026-08-24T16:19:50Z
+runner=alexhost-143-246
