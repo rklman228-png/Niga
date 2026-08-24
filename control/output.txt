@@ -28,50 +28,37 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 43s
+BUILD SUCCESSFUL in 45s
 6 actionable tasks: 6 executed
-SERVICES
-active
+SERVICE
 active
 
 PORTS
 LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3132538,fd=161))                                                                                           
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3147524,fd=161))                                                                                           
 
-HASHES
-2e092be6437adcceb45b26afe63c3bbaf119f423f71fef0505a8f6d473c15989  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-9252797b4ec1056975af2111b1e3f01791e3e819  /opt/minecraft/resourcepack/Brigada13-26.3-snapshot-9.zip
+PUBLIC_PACK
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.13.5
+Date: Mon, 24 Aug 2026 23:09:42 GMT
+Content-type: application/zip
+Content-Length: 12052
 
-PROPERTIES
-require-resource-pack=false
-resource-pack=http\://143.246.197.187\:8088/Brigada13-26.3-snapshot-9.zip
-resource-pack-id=b13b13b1-3b13-4b13-8b13-b13b13b13b13
-resource-pack-prompt={"text"\:"Скачать оформление Бригады №13?","color"\:"gold","bold"\:true}
-resource-pack-sha1=9252797b4ec1056975af2111b1e3f01791e3e819
+HASH
+0416a32313a42b702cb728e7fcd610aa96b89971c400f66925e8797b484f33cf  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
 
 LOG
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 21:43:42 test1 java[2942986]: [21:43:42] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 21:43:59 test1 java[2942986]: [21:43:59] [Server thread/INFO]: Done (3.076s)! For help, type "help"
-Aug 24 22:35:52 test1 java[3067175]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
-Aug 24 22:35:52 test1 java[3067175]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
-Aug 24 22:35:52 test1 java[3067175]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 24 22:36:35 test1 java[3067175]: [22:36:35] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
-Aug 24 22:36:59 test1 java[3067175]: [22:36:59] [Server thread/INFO]: Done (3.459s)! For help, type "help"
-Aug 24 23:02:48 test1 java[3132538]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
-Aug 24 23:02:48 test1 java[3132538]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
-Aug 24 23:02:48 test1 java[3132538]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
 Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
 Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
 Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
 Aug 24 23:03:21 test1 java[3132538]: [23:03:21] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
 Aug 24 23:03:36 test1 java[3132538]: [23:03:36] [Server thread/INFO]: Done (1.356s)! For help, type "help"
+Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+Aug 24 23:09:19 test1 java[3147524]: [23:09:19] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
+Aug 24 23:09:36 test1 java[3147524]: [23:09:36] [Server thread/INFO]: Done (2.718s)! For help, type "help"
 
 exit_code=0
-finished_at=2026-08-24T23:03:53Z
+finished_at=2026-08-24T23:09:42Z
 runner=alexhost-143-246
