@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-sleep 75
 
-echo "=== FABRIC FINAL ==="
+echo "=== HOST ==="
+date -u
+uname -a
+java -version 2>&1
+command -v gradle || true
+gradle --version 2>&1 | sed -n '1,30p' || true
+find /opt -maxdepth 3 -type f \( -name 'gradle' -o -name 'gradlew' \) -print 2>/dev/null | sed -n '1,30p'
+
+echo "=== SERVER ==="
 systemctl is-active minecraft
-systemctl is-enabled minecraft
-ss -ltnp | grep ':25565'
-tail -n 120 /opt/minecraft/server/logs/latest.log
+find /opt/minecraft/server/mods -maxdepth 1 -type f -printf '%f\n' | sort
+sha1sum /opt/minecraft/server/server.jar
+df -h /opt
 
-echo "=== IDENTITY ==="
-grep -E 'Loading Minecraft .*Fabric Loader|Starting minecraft server version|Done \(' /opt/minecraft/server/logs/latest.log
-echo "mods_count=$(find /opt/minecraft/server/mods -maxdepth 1 -type f -name '*.jar' | wc -l)"
-grep -E '^(online-mode|white-list|enforce-whitelist|server-port)=' /opt/minecraft/server/server.properties
-cat /opt/minecraft/server/whitelist.json
-echo "FABRIC_FINAL_CHECK_OK"
+echo "=== FABRIC META ==="
+curl -fsSL --max-time 30 'https://meta.fabricmc.net/v2/versions/yarn/26.3-snapshot-9' | head -c 12000
+printf '\n'
+curl -fsSL --max-time 30 'https://meta.fabricmc.net/v2/versions/loader/26.3-snapshot-9' | head -c 16000
+printf '\n'
+curl -fsSL --max-time 30 'https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml' | tail -n 80
+echo "INSPECT_OK"
