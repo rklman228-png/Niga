@@ -1,42 +1,53 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+● minecraft.service - Minecraft Fabric 26.3 Snapshot 9
+     Loaded: loaded (/etc/systemd/system/minecraft.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-08-24 21:31:45 UTC; 1min 15s ago
+ Invocation: ac2d97ff77c74896b43fa60391d81bad
+   Main PID: 2918572 (java)
+      Tasks: 33 (limit: 9485)
+     Memory: 1.4G (peak: 1.4G)
+        CPU: 2min 17.968s
+     CGroup: /system.slice/minecraft.service
+             └─2918572 /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
 
-> Configure project :
-Fabric Loom: 1.17.19
+Aug 24 21:32:41 test1 java[2918572]: [21:32:41] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+Aug 24 21:32:41 test1 java[2918572]: [21:32:41] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+Aug 24 21:32:41 test1 java[2918572]: [21:32:41] [Server thread/INFO]: Preparing level "world"
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Loading 0 persistent chunks...
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Preparing spawn area: 100%
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Time elapsed: 390 ms
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Done (2.422s)! For help, type "help"
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:overworld
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_end
+Aug 24 21:32:43 test1 java[2918572]: [21:32:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Писькострелковая бригада №13]'/minecraft:the_nether
 
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
+=== EXPEDITION DEPLOY CHECK ===
+	   |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
+	   |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[21:32:26] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+[21:32:26] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+[21:32:26] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+[21:32:26] [main/INFO]: Brigada Core initialized for Minecraft 26.3 Snapshot 9
+[21:32:35] [Minecraft Services Discovery/ERROR]: Failed to request Minecraft Services public key
+com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to Connect timed out
+	at knot//com.mojang.authlib.minecraft.client.MinecraftClient.getWithEtag(MinecraftClient.java:81)
+Caused by: java.net.SocketTimeoutException: Connect timed out
+[21:32:41] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[21:32:41] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[21:32:41] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[21:32:41] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[21:32:43] [Server thread/INFO]: Done (2.422s)! For help, type "help"
 
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 39s
-6 actionable tasks: 6 executed
-
-ARTIFACTS
-brigada-core-0.1.0.jar 75082 bytes
-brigada-core-0.1.0-sources.jar 34728 bytes
-b6f0e11998f7d6ad8fe9d8252796072a89b8d10e501366215eea11e5979ee24e  build/libs/brigada-core-0.1.0-sources.jar
-354ec36790426a5a236c1e9cbfca29a3b4b6b4ef689a81f30bfc000c2f015af4  build/libs/brigada-core-0.1.0.jar
+=== PORT ===
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2918572,fd=162))                                                                                           
 
 exit_code=0
-finished_at=2026-08-24T21:31:07Z
+finished_at=2026-08-24T21:33:01Z
 runner=alexhost-143-246
