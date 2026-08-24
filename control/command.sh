@@ -1,7 +1,21 @@
 set -euo pipefail
-echo PROJECT
-ls -la /opt/brigada-core-src
-find /opt/brigada-core-src -maxdepth 3 -type f \( -name 'gradlew' -o -name 'gradle-wrapper.properties' -o -name 'build.gradle' \) -print
-echo GRADLE
-find /root/.gradle /opt /usr/local /usr -type f -path '*/bin/gradle' -perm -u+x 2>/dev/null | head -30
-find /root/.gradle/wrapper/dists -maxdepth 5 -type f -name gradle 2>/dev/null | head -30
+SRC=/opt/brigada-core-src
+cd "$SRC"
+./gradlew --no-daemon clean build
+JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*sources*' ! -name '*dev*' | head -n 1)
+test -n "$JAR"
+BACKUP="/opt/minecraft/server/backups/brigada-core-0.1.0-$(date -u +%Y%m%dT%H%M%SZ).jar"
+cp /opt/minecraft/server/mods/brigada-core-0.1.0.jar "$BACKUP"
+install -m 0644 "$JAR" /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+systemctl restart minecraft.service
+sleep 12
+echo STATUS
+systemctl is-active minecraft.service
+echo FABRIC_FILES
+ls -l /opt/minecraft/server/fabric-server-launch.jar /opt/minecraft/server/mods/fabric-api-0.158.1+26.3.jar /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+echo PAUSE_BUTTON
+unzip -p /opt/minecraft/server/mods/brigada-core-0.1.0.jar data/minecraft/tags/dialog/pause_screen_additions.json
+echo SHA256
+sha256sum /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+echo LOG
+journalctl -u minecraft.service -n 160 --no-pager | grep -E 'Fabric|World Core|Done \(|ERROR|Exception' | tail -n 60
