@@ -1,13 +1,10 @@
 set -euo pipefail
-SRC=/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java
+J=/opt/minecraft/server/mods/brigada-core-0.1.0.jar
+OUT=/tmp/challenge.javap
+javap -classpath "$J" -c -p dev.brigada13.core.challenge.ChallengeService > "$OUT"
 
-echo '=== eventZones refs ==='
-grep -n 'eventZones' "$SRC" || true
-for n in $(grep -n 'eventZones' "$SRC" | cut -d: -f1 | head -n 12); do
-  a=$((n-14)); [ $a -lt 1 ] && a=1; b=$((n+24));
-  echo "--- lines $a-$b ---"
-  sed -n "${a},${b}p" "$SRC"
-done
+echo '=== eventZones bytecode refs ==='
+grep -n -B45 -A80 'eventZones' "$OUT" | head -n 520 || true
 
-echo '=== mechanic enum ==='
-cat /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/MiniEventMechanic.java || true
+echo '=== likely zone/ring helpers ==='
+grep -nE 'Zone|zone|ring|Circle|circle|hold|Hold|split|Split|extraction|Extraction|Particle|particle' "$OUT" | tail -n 220 || true
