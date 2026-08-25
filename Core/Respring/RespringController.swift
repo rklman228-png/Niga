@@ -7,7 +7,7 @@ final class RespringController: ObservableObject {
     func respring() { active = true }
 }
 
-private let nigaRespringHTML = """
+private let nigaRespringHTML = #"""
 <html><body><iframe id='f' sandbox='allow-scripts allow-modals allow-forms allow-popups allow-presentation'></iframe><script>
 const f=document.getElementById('f');
 f.srcdoc=`<html><body><script>
@@ -16,7 +16,7 @@ for(let i=0;i<500;i++){let d=document.createElement('div');d.style='position:abs
 setInterval(()=>{navigator.share({title:'R',text:'R'.repeat(100000)}).catch(()=>{});let x=new Uint8Array(10485760);crypto.getRandomValues(x)},0);
 <\/script></body></html>`;
 </script></body></html>
-"""
+"""#
 
 struct RespringView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView { WKWebView() }
