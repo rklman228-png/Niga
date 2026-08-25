@@ -41,6 +41,7 @@ final class SpringBoardWindowingManager: ObservableObject {
     @Published var requestInFlight = false
     @Published var lastResult = "No SpringBoard request sent yet."
     @Published var serviceDetails = "Not probed"
+    @Published var gateDetails = "Hard-gate probe not run yet"
     @Published var hasAcknowledgedMode = false
     @Published var lastAcknowledgedAt: Date?
 
@@ -59,6 +60,7 @@ final class SpringBoardWindowingManager: ObservableObject {
     func connect() {
         granted = niga_sbs_windowing_service_available()
         serviceDetails = copyDiagnostics()
+        gateDetails = copyGateDiagnostics()
         if granted {
             status = hasAcknowledgedMode
                 ? "SpringBoard service ready · last ack: \(mode.title)"
@@ -70,6 +72,10 @@ final class SpringBoardWindowingManager: ObservableObject {
 
     func refresh() {
         connect()
+    }
+
+    func refreshGateProbe() {
+        gateDetails = copyGateDiagnostics()
     }
 
     func apply(_ newMode: SpringBoardWindowingMode,
@@ -101,7 +107,8 @@ final class SpringBoardWindowingManager: ObservableObject {
                     UserDefaults.standard.set(newMode.rawValue, forKey: Self.lastModeKey)
                     UserDefaults.standard.set(self.lastAcknowledgedAt, forKey: Self.lastAckKey)
                     self.status = "SpringBoard acknowledged \(newMode.title)"
-                    self.lastResult = "SpringBoardServices completion received for mode \(newMode.rawValue). SpringBoard's own app-switcher service executed the request."
+                    self.lastResult = "SpringBoardServices completion received for mode \(newMode.rawValue). No forced respring was performed."
+                    self.refreshGateProbe()
                     completion(.success(()))
                 } else {
                     self.status = "SpringBoard request failed"
@@ -171,6 +178,12 @@ final class SpringBoardWindowingManager: ObservableObject {
 
     private func copyDiagnostics() -> String {
         guard let ptr = niga_sbs_copy_diagnostics() else { return "No diagnostics" }
+        defer { niga_sbs_free_string(ptr) }
+        return String(cString: ptr)
+    }
+
+    private func copyGateDiagnostics() -> String {
+        guard let ptr = niga_sbs_copy_gate_diagnostics() else { return "No hard-gate diagnostics" }
         defer { niga_sbs_free_string(ptr) }
         return String(cString: ptr)
     }
