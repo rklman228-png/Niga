@@ -1,23 +1,6 @@
----- level
-level-name=world
----- cache
-[
-  {
-    "uuid": "e02c4080-561e-3e81-8fe5-cff21a05a45d",
-    "name": "WorldKeeper",
-    "expiresOn": "2026-09-25 03:08:09 +0000"
-  },
-  {
-    "uuid": "d5c369db-55e6-30e8-aac1-b9f9bdb92beb",
-    "name": "Otezi",
-    "expiresOn": "2026-09-25 02:17:28 +0000"
-  }
-]
----- playerdata
-find: ‘world/playerdata’: No such file or directory
----- known state
-{}
+WorkingDirectory=/opt/minecraft/server
+User=minecraft
 
 exit_code=0
-finished_at=2026-08-25T03:11:53Z
+finished_at=2026-08-25T03:12:21Z
 runner=alexhost-143-246
