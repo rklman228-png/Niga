@@ -1,21 +1,7 @@
 active
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=784296,fd=163))                                                                                            
     PID ELAPSED %CPU %MEM   RSS    VSZ STAT CMD
- 784296     159  171 22.8 1861644 9079192 Ssl /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
-online-mode=false
-require-resource-pack=true
-resource-pack-sha1=f059e501378d247ef30d1ddb2038891400665465
-    "name": "Otezi",
-Aug 25 07:21:06 test1 java[784296]: [07:21:06] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
-Aug 25 07:21:06 test1 java[784296]: [07:21:06] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
-Aug 25 07:21:06 test1 java[784296]: [07:21:06] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
-Aug 25 07:21:06 test1 java[784296]: [07:21:06] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 07:21:17 test1 java[784296]: [07:21:17] [Worker-Main-3/INFO]: Loaded 1866 advancements
-Aug 25 07:21:22 test1 java[784296]: [07:21:22] [Server thread/INFO]: Done (2.841s)! For help, type "help"
-Aug 25 07:21:27 test1 java[784296]: [07:21:27] [Server thread/INFO]: Started fake player WorldKeeper
-Aug 25 07:21:27 test1 java[784296]: [07:21:27] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5198ms or 103 ticks behind
-Aug 25 07:21:52 test1 java[784296]: [07:21:52] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 10095ms or 201 ticks behind
+ 784296     358 97.9 22.9 1869600 9079192 Ssl /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
 
 exit_code=0
-finished_at=2026-08-25T07:23:04Z
+finished_at=2026-08-25T07:26:23Z
 runner=alexhost-143-246
