@@ -33,7 +33,7 @@ struct WindowingControlView: View {
                             VStack(alignment: .trailing, spacing: 2) {
                                 Text(springboard.mode.title)
                                     .font(.subheadline.weight(.semibold))
-                                    .foregroundStyle(springboard.mode == .stageManager ? .red : .primary)
+                                    .foregroundStyle(springboard.mode == .stageManager ? Color.red : Color.primary)
                                 Text(date, style: .time)
                                     .font(.caption2)
                                     .foregroundStyle(.secondary)
