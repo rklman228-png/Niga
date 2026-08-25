@@ -1,35 +1,10 @@
-=== server health ===
-active
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2362265,fd=165))                                                                                           
-5f7237646143883edbd53db1a505301031f51c2bc0ac5b2597e03f93da4a65ef  /opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
-service_started=Tue 2026-08-25 18:39:45 UTC
-Aug 25 18:40:45 test1 java[2362265]: [18:40:45] [Server thread/INFO]: Done (3.331s)! For help, type "help"
-Aug 25 18:40:51 test1 java[2362265]: [18:40:51] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5132ms or 102 ticks behind
-Aug 25 18:41:14 test1 java[2362265]: [18:41:14] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 8713ms or 174 ticks behind
-=== live balance snapshot ===
-59336102d937ed7e3b9d3e1a2a0c7c00865f6afa010f76cee841f41d44e688e4  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
-ce2783f0d42d82b739a457ed114d54cc0e93805fbb749cafd6f1a1cd22d9d07c  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java
-e512388e2233ac7de789fc23e296e1eb56052ad3da5cca9ab0bbe37e7fc603d0  /opt/actions-runner/_work/Niga/Niga/control/generated/WorldMenuServiceMixin.java
-172a751f8b54b887adb98f6c291007e89d87dad1d05c063352671208fc6e0f06  /opt/actions-runner/_work/Niga/Niga/control/generated/item_icons.json
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:222:                tickSplitPressure(level, definition, state);
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:401:        double healthMultiplier = switch (definition.difficulty()) {
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:406:        double damageMultiplier = switch (definition.difficulty()) {
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:424:            if (maxHealth != null && healthMultiplier != 1.0) {
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:425:                maxHealth.setBaseValue(maxHealth.getBaseValue() * healthMultiplier);
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:429:            if (attack != null && damageMultiplier != 1.0)
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:430:                attack.setBaseValue(attack.getBaseValue() * damageMultiplier);
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:438:    public static int splitSoloPointTicks(ChallengeDefinition definition) {
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:446:    private static int splitDuoTicks(ChallengeDefinition definition) {
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:456:        int desired = state.singleMode ? splitSoloPointTicks(definition) * 2 : splitDuoTicks(definition);
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:462:            int point = splitSoloPointTicks(definition);
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:476:    private static void tickSplitPressure(ServerLevel level, ChallengeDefinition definition,
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:535:    private static void reinforceHardVillageRaid(ServerLevel level, ChallengeDefinition definition,
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java:702:            reinforceHardVillageRaid(level, definition, state);
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java:26:import org.spongepowered.asm.mixin.injection.ModifyConstant;
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java:105:    @ModifyConstant(method = "tickSplit", constant = @Constant(intValue = 100), require = 0)
-/opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java:113:            return ChallengeRuntimeFixes.splitSoloPointTicks(definition);
-BRIGADA_BALANCE_HEALTH_OK
+=== local source repo ===
+/opt/brigada-core-src is not a git repo
+=== auth helpers ===
+=== non-writing remote check ===
+remote: Repository not found.
+fatal: repository 'https://github.com/rklman228-png/Plagin_1.git/' not found
 
-exit_code=0
-finished_at=2026-08-25T18:44:09Z
+exit_code=128
+finished_at=2026-08-25T18:47:07Z
 runner=alexhost-143-246
