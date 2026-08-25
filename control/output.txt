@@ -1,11 +1,14 @@
+=== wait for Done ===
 === service ===
 active
 LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=1931884,fd=163))                                                                                           
-=== fresh startup ===
+=== startup/runtime ===
 Aug 25 15:26:48 test1 java[1931884]:         - brigada_hotfix 1.0.0
 Aug 25 15:27:37 test1 java[1931884]: [15:27:37] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 25 15:27:43 test1 java[1931884]: [15:27:43] [Server thread/INFO]: Done (4.689s)! For help, type "help"
 === hard checks ===
+HARD_BORDER_TELEPORT_RUNTIME_OK
 
-exit_code=1
-finished_at=2026-08-25T15:27:40Z
+exit_code=0
+finished_at=2026-08-25T15:28:24Z
 runner=alexhost-143-246
