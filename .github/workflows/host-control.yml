@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: host-control-143-246-197-187
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   execute:
@@ -23,7 +23,7 @@ jobs:
       - linux
       - x64
       - host-143-246
-    timeout-minutes: 120
+    timeout-minutes: 30
     defaults:
       run:
         shell: bash
