@@ -1,12 +1,7 @@
 active
-State  Recv-Q Send-Q Local Address:Port  Peer Address:Port
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*   
-Aug 25 06:39:23 test1 java[605240]: [06:39:23] [Server thread/INFO]: Done (2.467s)! For help, type "help"
-Aug 25 06:39:27 test1 java[605240]: [06:39:27] [Server thread/INFO]: Started fake player WorldKeeper
-Aug 25 06:39:27 test1 java[605240]: [06:39:27] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3670ms or 73 ticks behind
-Aug 25 06:39:53 test1 java[605240]: [06:39:53] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 11083ms or 221 ticks behind
-ee72fbdd7010d6959845d9a830c07d749c9d0a1e8fb11bed26bd083fde739ccb  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+    PID ELAPSED %CPU %MEM   RSS    VSZ STAT CMD
+ 605240     252  115 22.7 1853300 9078164 Ssl /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
 
 exit_code=0
-finished_at=2026-08-25T06:41:53Z
+finished_at=2026-08-25T06:42:42Z
 runner=alexhost-143-246
