@@ -1,4 +1,4 @@
-/tmp/tmp.vmsLLzLpFp/source-min.tar.gz: OK
+/tmp/tmp.k4cg1oo9IE/source-min.tar.gz: OK
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 
@@ -8,90 +8,40 @@ Fabric Loom: 1.17.19
 > Task :clean UP-TO-DATE
 
 > Task :compileJava
-/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:797: error: cannot find symbol
-            BlockState desired = y == topY ? Blocks.LIME_STAINED_GLASS.defaultBlockState()
-                                                   ^
-  symbol:   variable LIME_STAINED_GLASS
-  location: class Blocks
-/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:798: error: cannot find symbol
-                    : y >= topY - 3 ? Blocks.BROWN_STAINED_GLASS.defaultBlockState()
-                                            ^
-  symbol:   variable BROWN_STAINED_GLASS
-  location: class Blocks
-/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:799: error: cannot find symbol
-                    : Blocks.GRAY_STAINED_GLASS.defaultBlockState();
-                            ^
-  symbol:   variable GRAY_STAINED_GLASS
-  location: class Blocks
-/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:806: error: cannot find symbol
-        return state.is(Blocks.GRAY_STAINED_GLASS)
-                              ^
-  symbol:   variable GRAY_STAINED_GLASS
-  location: class Blocks
-/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:807: error: cannot find symbol
-                || state.is(Blocks.BROWN_STAINED_GLASS)
-                                  ^
-  symbol:   variable BROWN_STAINED_GLASS
-  location: class Blocks
-/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:808: error: cannot find symbol
-                || state.is(Blocks.LIME_STAINED_GLASS);
-                                  ^
-  symbol:   variable LIME_STAINED_GLASS
-  location: class Blocks
-Note: /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: /tmp/tmp.k4cg1oo9IE/project/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
-6 errors
 
-> Task :compileJava FAILED
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
 
-[Incubating] Problems report is available at: file:///tmp/tmp.vmsLLzLpFp/project/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///tmp/tmp.k4cg1oo9IE/project/build/reports/problems/problems-report.html
 
-FAILURE: Build failed with an exception.
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  Note: /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-  Note: Recompile with -Xlint:deprecation for details.
-  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:797: error: cannot find symbol
-              BlockState desired = y == topY ? Blocks.LIME_STAINED_GLASS.defaultBlockState()
-                                                     ^
-    symbol:   variable LIME_STAINED_GLASS
-    location: class Blocks
-  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:798: error: cannot find symbol
-                      : y >= topY - 3 ? Blocks.BROWN_STAINED_GLASS.defaultBlockState()
-                                              ^
-    symbol:   variable BROWN_STAINED_GLASS
-    location: class Blocks
-  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:799: error: cannot find symbol
-                      : Blocks.GRAY_STAINED_GLASS.defaultBlockState();
-                              ^
-    symbol:   variable GRAY_STAINED_GLASS
-    location: class Blocks
-  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:806: error: cannot find symbol
-          return state.is(Blocks.GRAY_STAINED_GLASS)
-                                ^
-    symbol:   variable GRAY_STAINED_GLASS
-    location: class Blocks
-  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:807: error: cannot find symbol
-                  || state.is(Blocks.BROWN_STAINED_GLASS)
-                                    ^
-    symbol:   variable BROWN_STAINED_GLASS
-    location: class Blocks
-  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:808: error: cannot find symbol
-                  || state.is(Blocks.LIME_STAINED_GLASS);
-                                    ^
-    symbol:   variable LIME_STAINED_GLASS
-    location: class Blocks
-  6 errors
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
 
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 51s
-2 actionable tasks: 1 executed, 1 up-to-date
+BUILD SUCCESSFUL in 1m
+6 actionable tasks: 5 executed, 1 up-to-date
+active
+State Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+jar_sha=ee72fbdd7010d6959845d9a830c07d749c9d0a1e8fb11bed26bd083fde739ccb
+pack_sha=fc55b75f0efea782552198678273ff84dc7138a6
+served_sha=fc55b75f0efea782552198678273ff84dc7138a6
+Failed to parse timestamp: 20260825T063829Z
 
 exit_code=1
-finished_at=2026-08-25T06:33:56Z
+finished_at=2026-08-25T06:38:45Z
 runner=alexhost-143-246
