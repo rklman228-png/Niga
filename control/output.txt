@@ -1,515 +1,222 @@
-===== tickExtraction =====
-  private void tickExtraction(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-    Code:
-         0: aload         4
-         2: getfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
-         5: ifne          60
-         8: aload         4
-        10: getfield      #750                // Field dev/brigada13/core/state/ActiveChallengeState.eventEntities:Ljava/util/List;
-        13: invokeinterface #771,  1          // InterfaceMethod java/util/List.isEmpty:()Z
-        18: ifeq          60
-        21: aload         4
-        23: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
-        26: aload         4
-        28: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
-        31: if_icmpge     60
-        34: aload_0
-        35: aload_2
-        36: aload_3
-        37: aload         4
-        39: bipush        6
-        41: aload         4
-        43: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
-        46: aload         4
-        48: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
-        51: isub
-        52: invokestatic  #581                // Method java/lang/Math.min:(II)I
-        55: iconst_0
-        56: invokevirtual #737                // Method spawnGroup:(Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;IZ)I
-        59: pop
-        60: aload         4
-        62: getfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
-        65: ifne          124
-        68: aload         4
-        70: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
-        73: aload         4
-        75: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
-        78: if_icmplt     124
-        81: aload         4
-        83: iconst_1
-        84: putfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
-        87: aload         4
-        89: iconst_0
-        90: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-        93: aload_1
-        94: aload         4
-        96: ldc_w         #794                // String Груз добыт. Вернитесь в центральную точку!
-        99: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
-       102: iconst_2
-       103: anewarray     #133                // class net/minecraft/ChatFormatting
-       106: dup
-       107: iconst_0
-       108: getstatic     #350                // Field net/minecraft/ChatFormatting.AQUA:Lnet/minecraft/ChatFormatting;
-       111: aastore
-       112: dup
-       113: iconst_1
-       114: getstatic     #320                // Field net/minecraft/ChatFormatting.BOLD:Lnet/minecraft/ChatFormatting;
-       117: aastore
-       118: invokevirtual #323                // Method net/minecraft/network/chat/MutableComponent.withStyle:([Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
-       121: invokestatic  #634                // Method broadcast:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/state/ActiveChallengeState;Lnet/minecraft/network/chat/Component;)V
-       124: aload         4
-       126: getfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
-       129: ifne          153
-       132: aload         4
-       134: aload         4
-       136: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
-       139: aload         4
-       141: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
-       144: iconst_1
-       145: isub
-       146: invokestatic  #581                // Method java/lang/Math.min:(II)I
-       149: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
-       152: return
-       153: aload_2
-       154: aload         4
-       156: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
-       159: aload         4
-       161: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
-       164: iconst_1
-       165: iadd
-       166: aload         4
-       168: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-       171: iconst_5
-       172: getstatic     #796                // Field net/minecraft/core/particles/ParticleTypes.HAPPY_VILLAGER:Lnet/minecraft/core/particles/SimpleParticleType;
-       175: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
-       178: aload_1
-       179: aload_2
-       180: aload         4
-       182: aload         4
-       184: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
-       187: aload         4
-       189: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-       192: iconst_5
-       193: invokestatic  #806                // Method allParticipantsNear:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;III)Z
-       196: istore        5
-       198: aload         4
-       200: iload         5
-       202: ifeq          215
-       205: aload         4
-       207: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       210: iconst_2
-       211: iadd
-       212: goto          216
-       215: iconst_0
-       216: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       219: aload         4
-       221: aload         4
-       223: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
-       226: aload         4
-       228: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
-       231: iconst_1
-       232: isub
-       233: aload         4
-       235: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       238: bipush        20
-       240: idiv
-       241: iadd
-       242: invokestatic  #581                // Method java/lang/Math.min:(II)I
-       245: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
-       248: aload         4
-       250: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       253: bipush        100
-       255: if_icmplt     266
-       258: aload_0
-       259: aload_1
-       260: aload_3
-       261: aload         4
-       263: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
-       266: return
-
-  private void tickSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-===== tickSplit =====
-  private void tickSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-    Code:
-         0: aload         4
-         2: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
-         5: bipush        8
-         7: isub
-         8: istore        5
-        10: aload         4
-        12: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
-        15: bipush        8
-        17: iadd
-        18: istore        6
-        20: aload_2
-        21: iload         5
-        23: aload         4
-        25: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
-        28: iconst_1
-        29: iadd
-        30: aload         4
-        32: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-        35: iconst_4
-        36: getstatic     #810                // Field net/minecraft/core/particles/ParticleTypes.END_ROD:Lnet/minecraft/core/particles/SimpleParticleType;
-        39: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
-        42: aload_2
-        43: iload         6
-        45: aload         4
-        47: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
-        50: iconst_1
-        51: iadd
-        52: aload         4
-        54: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-        57: iconst_4
-        58: getstatic     #813                // Field net/minecraft/core/particles/ParticleTypes.ENCHANTED_HIT:Lnet/minecraft/core/particles/SimpleParticleType;
-        61: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
-        64: aload         4
-        66: getfield      #248                // Field dev/brigada13/core/state/ActiveChallengeState.singleMode:Z
-        69: ifeq          224
-        72: aload_1
-        73: aload_2
-        74: aload         4
-        76: aload         4
-        78: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
-        81: ifne          89
-        84: iload         5
-        86: goto          91
-        89: iload         6
-        91: aload         4
-        93: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-        96: iconst_4
-        97: invokestatic  #816                // Method participantNear:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;III)Z
-       100: istore        7
-       102: aload         4
-       104: iload         7
-       106: ifeq          119
-       109: aload         4
-       111: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       114: iconst_2
-       115: iadd
-       116: goto          120
-       119: iconst_0
-       120: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       123: aload         4
-       125: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       128: bipush        100
-       130: if_icmplt     177
-       133: aload         4
-       135: dup
-       136: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
-       139: iconst_1
-       140: iadd
-       141: putfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
-       144: aload         4
-       146: iconst_0
-       147: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       150: aload         4
-       152: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
-       155: iconst_1
-       156: if_icmpne     177
-       159: aload_1
-       160: aload         4
-       162: ldc_w         #819                // String Первая точка закреплена — переходи ко второй.
-       165: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
-       168: getstatic     #350                // Field net/minecraft/ChatFormatting.AQUA:Lnet/minecraft/ChatFormatting;
-       171: invokevirtual #138                // Method net/minecraft/network/chat/MutableComponent.withStyle:(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
-       174: invokestatic  #634                // Method broadcast:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/state/ActiveChallengeState;Lnet/minecraft/network/chat/Component;)V
-       177: aload         4
-       179: aload         4
-       181: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
-       184: aload         4
-       186: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
-       189: bipush        100
-       191: imul
-       192: aload         4
-       194: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       197: iadd
-       198: invokestatic  #581                // Method java/lang/Math.min:(II)I
-       201: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
-       204: aload         4
-       206: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
-       209: iconst_2
-       210: if_icmplt     221
-       213: aload_0
-       214: aload_1
-       215: aload_3
-       216: aload         4
-       218: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
-       221: goto          303
-       224: aload_1
-       225: aload_2
-       226: aload         4
-       228: iload         5
-       230: iload         6
-       232: aload         4
-       234: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-       237: iconst_4
-       238: invokestatic  #821                // Method participantsSplit:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;IIII)Z
-       241: istore        7
-       243: aload         4
-       245: iload         7
-       247: ifeq          260
-       250: aload         4
-       252: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       255: iconst_2
-       256: iadd
-       257: goto          261
-       260: iconst_0
-       261: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       264: aload         4
-       266: aload         4
-       268: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
-       271: aload         4
-       273: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       276: invokestatic  #581                // Method java/lang/Math.min:(II)I
-       279: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
-       282: aload         4
-       284: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       287: aload         4
-       289: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
-       292: if_icmplt     303
-       295: aload_0
-       296: aload_1
-       297: aload_3
-       298: aload         4
-       300: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
-       303: return
-
-  private void tickElite(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-===== tickHold =====
-  private void tickHold(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState, int, boolean);
-    Code:
-         0: aload_2
-         1: aload         4
-         3: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
-         6: aload         4
-         8: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
-        11: iconst_1
-        12: iadd
-        13: aload         4
-        15: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-        18: bipush        7
-        20: getstatic     #796                // Field net/minecraft/core/particles/ParticleTypes.HAPPY_VILLAGER:Lnet/minecraft/core/particles/SimpleParticleType;
-        23: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
-        26: aload_1
-        27: aload_2
-        28: aload         4
-        30: aload         4
-        32: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
-        35: aload         4
-        37: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
-        40: bipush        7
-        42: invokestatic  #806                // Method allParticipantsNear:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;III)Z
-        45: istore        7
-        47: aload         4
-        49: iload         7
-        51: ifeq          64
-        54: aload         4
-        56: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-        59: iconst_2
-        60: iadd
-        61: goto          75
-        64: iconst_0
-        65: aload         4
-        67: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-        70: iconst_4
-        71: isub
-        72: invokestatic  #705                // Method java/lang/Math.max:(II)I
-        75: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-        78: iload         6
-        80: ifeq          196
-        83: aload         4
-        85: getfield      #611                // Field dev/brigada13/core/state/ActiveChallengeState.eventElapsedTicks:I
-        88: sipush        200
-        91: irem
-        92: ifne          196
-        95: aload         4
-        97: getfield      #750                // Field dev/brigada13/core/state/ActiveChallengeState.eventEntities:Ljava/util/List;
-       100: invokeinterface #161,  1          // InterfaceMethod java/util/List.size:()I
-       105: bipush        10
-       107: if_icmpge     196
-       110: getstatic     #856                // Field dev/brigada13/core/challenge/ChallengeService$1.$SwitchMap$dev$brigada13$core$challenge$ChallengeDifficulty:[I
-       113: aload_3
-       114: invokevirtual #859                // Method dev/brigada13/core/challenge/ChallengeDefinition.difficulty:()Ldev/brigada13/core/challenge/ChallengeDifficulty;
-       117: invokevirtual #863                // Method dev/brigada13/core/challenge/ChallengeDifficulty.ordinal:()I
-       120: iaload
-       121: tableswitch   { // 1 to 3
-                       1: 158
-                       2: 162
-                       3: 166
-                 default: 148
-            }
-       148: new           #723                // class java/lang/MatchException
-       151: dup
-       152: aconst_null
-       153: aconst_null
-       154: invokespecial #725                // Method java/lang/MatchException."<init>":(Ljava/lang/String;Ljava/lang/Throwable;)V
-       157: athrow
-       158: iconst_2
-       159: goto          168
-       162: iconst_4
-       163: goto          168
-       166: bipush        6
-       168: istore        8
-       170: aload_0
-       171: aload_2
-       172: aload_3
-       173: aload         4
-       175: iload         8
-       177: aload         4
-       179: getfield      #248                // Field dev/brigada13/core/state/ActiveChallengeState.singleMode:Z
-       182: ifeq          189
-       185: iconst_0
-       186: goto          190
-       189: iconst_2
-       190: iadd
-       191: iconst_0
-       192: invokevirtual #737                // Method spawnGroup:(Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;IZ)I
-       195: pop
-       196: aload         4
-       198: aload         4
-       200: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
-       203: aload         4
-       205: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       208: invokestatic  #581                // Method java/lang/Math.min:(II)I
-       211: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
-       214: aload         4
-       216: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
-       219: iload         5
-       221: if_icmplt     232
-       224: aload_0
-       225: aload_1
-       226: aload_3
-       227: aload         4
-       229: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
-       232: return
-
-  private void tickMulti(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-===== renderZone =====
-  private static void renderZone(net.minecraft.server.level.ServerLevel, int, int, int, int, net.minecraft.core.particles.ParticleOptions);
-    Code:
-         0: iconst_0
-         1: istore        6
-         3: iload         6
-         5: sipush        360
-         8: if_icmpge     76
-        11: iload         6
-        13: i2d
-        14: invokestatic  #1350               // Method java/lang/Math.toRadians:(D)D
-        17: dstore        7
-        19: aload_0
-        20: aload         5
-        22: iload_1
-        23: i2d
-        24: ldc2_w        #474                // double 0.5d
-        27: dadd
-        28: dload         7
-        30: invokestatic  #1353               // Method java/lang/Math.cos:(D)D
-        33: iload         4
-        35: i2d
-        36: dmul
-        37: dadd
-        38: iload_2
-        39: i2d
-        40: ldc2_w        #1316               // double 0.15d
-        43: dadd
-        44: iload_3
-        45: i2d
-        46: ldc2_w        #474                // double 0.5d
-        49: dadd
-        50: dload         7
-        52: invokestatic  #1356               // Method java/lang/Math.sin:(D)D
-        55: iload         4
-        57: i2d
-        58: dmul
-        59: dadd
-        60: iconst_1
-        61: dconst_0
-        62: ldc2_w        #1359               // double 0.05d
-        65: dconst_0
-        66: dconst_0
-        67: invokestatic  #1361               // Method dev/brigada13/core/particle/ParticleOptimizer.emit:(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)V
-        70: iinc          6, 30
-        73: goto          3
-        76: return
-
-  private static boolean allParticipantsInside(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState);
-===== participantsSplit =====
-  private static boolean participantsSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState, int, int, int, int);
-    Code:
-         0: iconst_0
-         1: istore        7
-         3: iconst_0
-         4: istore        8
-         6: aload_2
-         7: getfield      #265                // Field dev/brigada13/core/state/ActiveChallengeState.contribution:Ljava/util/Map;
-        10: invokeinterface #375,  1          // InterfaceMethod java/util/Map.keySet:()Ljava/util/Set;
-        15: invokeinterface #555,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
-        20: astore        9
-        22: aload         9
-        24: invokeinterface #256,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
-        29: ifeq          131
-        32: aload         9
-        34: invokeinterface #261,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
-        39: checkcast     #505                // class java/lang/String
-        42: astore        10
-        44: aload_0
-        45: invokevirtual #385                // Method net/minecraft/server/MinecraftServer.getPlayerList:()Lnet/minecraft/server/players/PlayerList;
-        48: aload         10
-        50: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
-        53: astore        11
-        55: aload         11
-        57: ifnull        69
-        60: aload         11
-        62: invokevirtual #198                // Method net/minecraft/server/level/ServerPlayer.level:()Lnet/minecraft/server/level/ServerLevel;
-        65: aload_1
-        66: if_acmpeq     71
-        69: iconst_0
-        70: ireturn
-        71: iload         7
-        73: aload         11
-        75: iload_3
-        76: iload         5
-        78: invokestatic  #466                // Method horizontalDistanceSquared:(Lnet/minecraft/server/level/ServerPlayer;II)D
-        81: iload         6
-        83: iload         6
-        85: imul
-        86: i2d
-        87: dcmpg
-        88: ifgt          95
-        91: iconst_1
-        92: goto          96
-        95: iconst_0
-        96: ior
-        97: istore        7
-        99: iload         8
-       101: aload         11
-       103: iload         4
-       105: iload         5
-       107: invokestatic  #466                // Method horizontalDistanceSquared:(Lnet/minecraft/server/level/ServerPlayer;II)D
-       110: iload         6
-       112: iload         6
-       114: imul
-       115: i2d
-       116: dcmpg
-       117: ifgt          124
-       120: iconst_1
-       121: goto          125
-       124: iconst_0
-       125: ior
-       126: istore        8
-       128: goto          22
-       131: iload         7
-       133: ifeq          145
-       136: iload         8
-       138: ifeq          145
-       141: iconst_1
-       142: goto          146
-       145: iconst_0
-       146: ireturn
-
-  private static double horizontalDistanceSquared(net.minecraft.server.level.ServerPlayer, int, int);
+=== hotfix source ===
+60:    public static void register() {
+61:        ServerLivingEntityEvents.ALLOW_DAMAGE.register(RuntimeFixes::allowDamage);
+62:        ServerLivingEntityEvents.AFTER_DAMAGE.register(RuntimeFixes::afterDamage);
+63:        ServerTickEvents.END_SERVER_TICK.register(RuntimeFixes::tick);
+82:        return state.eventEntities.contains(id) || (state.targetEntityId != null && state.targetEntityId.equals(id));
+85:    public static void onComplete(MinecraftServer server, ActiveChallengeState state) {
+90:            play(player.level(), player.getX(), player.getY(), player.getZ(),
+92:            play(player.level(), player.getX(), player.getY(), player.getZ(),
+107:                stabiliseEventMobs(level, state);
+136:        if (state.boundaryBlocks == null || state.boundaryBlocks.isEmpty()) return;
+138:        for (long packed : new ArrayList<>(state.boundaryBlocks)) {
+146:        state.boundaryBlocks.clear();
+147:        state.boundaryBottomY = 0;
+148:        state.boundaryTopY = 0;
+185:    private static void stabiliseEventMobs(ServerLevel level, ActiveChallengeState state) {
+186:        Set<UUID> ids = new HashSet<>(state.eventEntities);
+242:            objectiveMob.setPersistenceRequired();
+245:        for (UUID id : state.eventEntities) {
+277:        if (raw instanceof Mob mob) mob.setPersistenceRequired();
+302:        DustParticleOptions boundary = new DustParticleOptions(0xFF365E, 1.05F);
+307:            boundaryPoint(level, boundary, x, state.arenaMinZ, state.arenaY);
+308:            boundaryPoint(level, boundary, x, state.arenaMaxZ, state.arenaY);
+311:            boundaryPoint(level, boundary, state.arenaMinX, z, state.arenaY);
+312:            boundaryPoint(level, boundary, state.arenaMaxX, z, state.arenaY);
+323:            ring(level, new DustParticleOptions(0xFFD34E, 1.2F), target.getX(), target.getY() + 0.12,
+327:            ring(level, new DustParticleOptions(0xFF4C6A, 1.25F), target.getX(), target.getY() + 0.12,
+335:    private static void boundaryPoint(ServerLevel level, DustParticleOptions particle, int x, int z, int anchorY) {
+358:    private static void ring(ServerLevel level, DustParticleOptions particle,
+405:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.2F, 0.95F);
+406:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_TWINKLE, 1.0F, 1.12F);
+411:        play(level, (state.arenaMinX + state.arenaMaxX + 1.0) * 0.5, state.arenaY + 1.0,
+415:    private static void play(ServerLevel level, double x, double y, double z,
+=== hotfix mixin ===
+23:import org.spongepowered.asm.mixin.injection.Inject;
+25:import org.spongepowered.asm.mixin.injection.Redirect;
+42:    @Redirect(method = "locate",
+50:    @Inject(method = "tickEvent", at = @At("HEAD"), require = 0)
+76:    @Redirect(method = "tickEvent",
+84:    @Inject(method = "complete", at = @At("HEAD"), require = 0)
+=== menu bytecode methods ===
+  private final dev.brigada13.core.death.DeathItemService deaths;
+  public dev.brigada13.core.menu.WorldMenuService(dev.brigada13.core.challenge.ChallengeService, dev.brigada13.core.expedition.ExpeditionService, dev.brigada13.core.parcel.ParcelService, dev.brigada13.core.reward.RewardService, dev.brigada13.core.death.DeathItemService);
+  public void claimRewardItem(net.minecraft.server.level.ServerPlayer, java.util.UUID, int);
+  public void openDeaths(net.minecraft.server.level.ServerPlayer);
+  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
+  private static net.minecraft.server.dialog.ActionButton inertWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String);
+  private static net.minecraft.network.chat.Component decorateWithItem(net.minecraft.network.chat.Component, java.lang.String);
+  private static char itemIcon(java.lang.String);
+  private static char iconFor(java.lang.String);
+  private static net.minecraft.network.chat.Style lambda$decorateWithItem$1(net.minecraft.network.chat.Style);
+  private static net.minecraft.network.chat.Style lambda$decorateWithItem$0(net.minecraft.network.chat.Style);
+=== menu source candidates / resource pack ===
+/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:46:  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:54:/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:55:/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:56:/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:57:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:58:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:59:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:60:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:61:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:62:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:63:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:64:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:65:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:66:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:67:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:68:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:69:/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:70:/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_work/Niga/Niga/control/output.txt:71:/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_work/Niga/Niga/control/command.sh:11:javap -classpath "$J" -p dev.brigada13.core.menu.WorldMenuService | grep -E 'buttonWithItem|item|Item|glyph|icon|Icon|openDeaths' || true
+/opt/actions-runner/_work/Niga/Niga/control/command.sh:14:grep -RIn --exclude='*.jar' --exclude='*.log' -E 'item_icons|itemGlyph|buttonWithItem|Здесь только вещи' /opt /root 2>/dev/null | head -n 160 || true
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:169:2026-08-25T17:20:23.0697194Z   private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:177:2026-08-25T17:20:25.8457227Z /opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:178:2026-08-25T17:20:25.8467311Z /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:179:2026-08-25T17:20:25.8491324Z /opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:180:2026-08-25T17:20:25.8497833Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:181:2026-08-25T17:20:25.8503871Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:182:2026-08-25T17:20:25.8512428Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:183:2026-08-25T17:20:25.8519226Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:184:2026-08-25T17:20:25.8524510Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:185:2026-08-25T17:20:25.8532203Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:186:2026-08-25T17:20:25.8538469Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:187:2026-08-25T17:20:25.8570766Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:188:2026-08-25T17:20:25.8575342Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:189:2026-08-25T17:20:25.8580373Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:190:2026-08-25T17:20:25.8587141Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:191:2026-08-25T17:20:25.8592052Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:192:2026-08-25T17:20:25.8602371Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:193:2026-08-25T17:20:25.8612290Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:194:2026-08-25T17:20:25.8621283Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:195:2026-08-25T17:20:26.1418693Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:196:2026-08-25T17:20:26.1424759Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:197:2026-08-25T17:20:26.1498941Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:198:2026-08-25T17:20:26.1536180Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:199:2026-08-25T17:20:26.1541106Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:200:2026-08-25T17:20:26.1574698Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:201:2026-08-25T17:20:26.1581986Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:202:2026-08-25T17:20:26.1682821Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:203:2026-08-25T17:20:26.1690804Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:204:2026-08-25T17:20:26.1696367Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:205:2026-08-25T17:20:26.1723986Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:206:2026-08-25T17:20:26.1730181Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:46:  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:207:2026-08-25T17:20:26.1750430Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:54:/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:208:2026-08-25T17:20:26.1760887Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:55:/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:209:2026-08-25T17:20:26.1777525Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:56:/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:210:2026-08-25T17:20:26.1785506Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:57:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:211:2026-08-25T17:20:26.1797169Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:58:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:70:2026-08-25T17:20:23.0697031Z   private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:78:2026-08-25T17:20:25.8457087Z /opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:79:2026-08-25T17:20:25.8467222Z /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:80:2026-08-25T17:20:25.8491268Z /opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:81:2026-08-25T17:20:25.8496444Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:82:2026-08-25T17:20:25.8503837Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:83:2026-08-25T17:20:25.8512384Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:84:2026-08-25T17:20:25.8519161Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:85:2026-08-25T17:20:25.8524406Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:86:2026-08-25T17:20:25.8532165Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:87:2026-08-25T17:20:25.8538415Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:88:2026-08-25T17:20:25.8570703Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:89:2026-08-25T17:20:25.8575305Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:90:2026-08-25T17:20:25.8580227Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:91:2026-08-25T17:20:25.8587099Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:92:2026-08-25T17:20:25.8591897Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:93:2026-08-25T17:20:25.8602321Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:94:2026-08-25T17:20:25.8612167Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:95:2026-08-25T17:20:25.8621229Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:96:2026-08-25T17:20:26.1418597Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:97:2026-08-25T17:20:26.1424727Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:98:2026-08-25T17:20:26.1497361Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:99:2026-08-25T17:20:26.1536119Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:100:2026-08-25T17:20:26.1541076Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:101:2026-08-25T17:20:26.1574628Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:102:2026-08-25T17:20:26.1581934Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:103:2026-08-25T17:20:26.1682520Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:104:2026-08-25T17:20:26.1690750Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:105:2026-08-25T17:20:26.1696336Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:106:2026-08-25T17:20:26.1723935Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:107:2026-08-25T17:20:26.1730066Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:46:  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:108:2026-08-25T17:20:26.1744275Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:54:/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:109:2026-08-25T17:20:26.1760849Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:55:/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:110:2026-08-25T17:20:26.1777265Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:56:/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
+=== server resource pack config ===
+require-resource-pack=true
+resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
+resource-pack-id=fc9e76d5-cfc6-4d60-b30c-6a43dc6ffa65
+resource-pack-prompt={"text"\:"Ресурсы интерфейса обязательны для игры на сервере.","color"\:"gold"}
+resource-pack-sha1=f059e501378d247ef30d1ddb2038891400665465
+2026-08-25 07:20 557736 /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+2026-08-25 07:20 557736 /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+2026-08-25 07:10 557736 /opt/brigada-build.S59Xz5/source/resource-pack/world-ui-26.3-snapshot-9.zip
+2026-08-25 07:10 557736 /opt/brigada-build.OjP6eY/source/resource-pack/world-ui-26.3-snapshot-9.zip
+2026-08-25 06:38 556885 /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip
+2026-08-25 06:38 556885 /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip
+2026-08-25 04:42 212659 /opt/brigada-pack-wj64ym/world-ui.zip
+2026-08-25 04:42 212659 /opt/brigada-hotfix-src/resource-pack/world-ui-26.3-snapshot-9.zip
+2026-08-25 04:42 212659 /opt/brigada-core-src/resource-pack/world-ui-26.3-snapshot-9.zip
+2026-08-25 04:15 212091 /opt/brigada-pack-ChxXEo/world-ui.zip
+2026-08-24 23:29 21839 /opt/brigada-build-Igmrwx/resource-pack/world-ui-26.3-snapshot-9.zip
+2026-08-24 23:24 257 /opt/brigada-hotfix-src/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:24 257 /opt/brigada-core-src/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:24 257 /opt/brigada-build-rFXZ1G/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:24 257 /opt/brigada-build-n0QScY/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:24 257 /opt/brigada-build-OquGiE/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:24 257 /opt/brigada-build-J6Mk9p/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:24 257 /opt/brigada-build-Igmrwx/resource-pack/WorldUI/pack.mcmeta
+2026-08-24 23:05 12673 /opt/brigada-hotfix-src/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:05 12673 /opt/brigada-core-src/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:05 12673 /opt/brigada-build-rFXZ1G/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:05 12673 /opt/brigada-build-n0QScY/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:05 12673 /opt/brigada-build-OquGiE/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:05 12673 /opt/brigada-build-J6Mk9p/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:05 12673 /opt/brigada-build-Igmrwx/resource-pack/WorldUI/pack.png.b64
+2026-08-24 23:00 12052 /opt/minecraft/server/backups/fresh-world-20260824T233253Z/previous-ui-pack.zip
+2026-08-24 23:00 12052 /opt/minecraft/server/backups/fresh-world-20260824T233253Z/previous-ui-pack.zip
+2026-08-24 22:54 9380 /opt/brigada-hotfix-src/resource-pack/WorldUI/pack.png
+2026-08-24 22:54 9380 /opt/brigada-core-src/resource-pack/WorldUI/pack.png
+2026-08-24 22:54 9380 /opt/brigada-build-rFXZ1G/resource-pack/WorldUI/pack.png
+2026-08-24 22:54 9380 /opt/brigada-build-n0QScY/resource-pack/WorldUI/pack.png
+2026-08-24 22:54 9380 /opt/brigada-build-OquGiE/resource-pack/WorldUI/pack.png
+2026-08-24 22:54 9380 /opt/brigada-build-J6Mk9p/resource-pack/WorldUI/pack.png
+2026-08-24 22:54 9380 /opt/brigada-build-Igmrwx/resource-pack/WorldUI/pack.png
+2026-08-24 16:36 116 /opt/minecraft-build/Paper/.git/packed-refs
+2026-08-02 09:19 3372273 /opt/3proxy/.git/objects/pack/pack-a52883de54eae38bcb055ff26996162f30c72879.pack
+2026-08-02 09:19 28632 /opt/3proxy/.git/objects/pack/pack-a52883de54eae38bcb055ff26996162f30c72879.rev
+2026-08-02 09:19 2249 /opt/3proxy/.git/packed-refs
+2026-08-02 09:19 201132 /opt/3proxy/.git/objects/pack/pack-a52883de54eae38bcb055ff26996162f30c72879.idx
 
 exit_code=0
-finished_at=2026-08-25T16:41:17Z
+finished_at=2026-08-25T17:22:11Z
 runner=alexhost-143-246
