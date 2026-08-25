@@ -1,7 +1,6 @@
 import Foundation
 import Combine
 import Darwin
-import MachO
 
 @MainActor
 final class GestaltManager: ObservableObject {
@@ -26,10 +25,10 @@ final class GestaltManager: ObservableObject {
     @Published var deviceClassCanaryStatus = "Not run"
     @Published var deviceClassCanaryLastEffective: Int?
     @Published var deviceClassCanaryArmed = false
+    @Published var deviceClassLocatorDiagnostics = "Locator not run yet"
 
     private var handle: Int64 = -1
     private var lastSnapshotURL: URL?
-    private var cacheDataOffsets: [String: Int] = [:]
 
     private init() {
         let defaults = UserDefaults.standard
@@ -69,8 +68,6 @@ final class GestaltManager: ObservableObject {
         granted = handle >= 0
         status = granted ? "MobileGestalt access granted" : "Sandbox escape failed: \(handle)"
         if granted {
-            // Canary recovery MUST happen before any normal probes load
-            // SpringBoardFoundation/MobileGestalt state in this new process.
             if UserDefaults.standard.bool(forKey: Self.canaryArmedKey) {
                 completeDeviceClassCanaryIfNeeded()
                 return
@@ -97,8 +94,10 @@ final class GestaltManager: ObservableObject {
             identityGuard = "DANGER: raw DeviceClassNumber is currently iPad (3)"
         } else if next[.ipadIdentity] == true {
             identityGuard = "WARNING: iPad identity override is ON"
-        } else {
+        } else if rawDeviceClassNumber == 1 {
             identityGuard = "Phone identity preserved"
+        } else {
+            identityGuard = "Phone identity preserved; raw DeviceClass locator unresolved"
         }
         deviceClassCanaryArmed = UserDefaults.standard.bool(forKey: Self.canaryArmedKey)
         reloadBackups()
@@ -125,7 +124,6 @@ final class GestaltManager: ObservableObject {
 
     func applyExperiment(_ preset: WindowExperimentPreset) throws {
         try mutate(label: preset.title) { extra in
-            // Phone-safe experiments never touch raw DeviceClassNumber.
             extra.removeObject(forKey: WindowCapability.ipadIdentity.rawValue)
             for cap in WindowCapability.phoneSafeWindowing {
                 extra.removeObject(forKey: cap.rawValue)
@@ -140,10 +138,6 @@ final class GestaltManager: ObservableObject {
 
     // MARK: - DeviceClass cold-start canary
 
-    /// Writes only the raw DeviceClassNumber (1 -> 3), records the exact original
-    /// value, then closes Niga. On the next launch connect() measures
-    /// SBFEffectiveDeviceClass before restoring the original raw value and closes
-    /// Niga again. A third launch is clean and displays the persisted result.
     func runDeviceClassCanary() throws {
         guard granted else { throw notGrantedError() }
         guard !UserDefaults.standard.bool(forKey: Self.canaryArmedKey) else {
@@ -154,7 +148,7 @@ final class GestaltManager: ObservableObject {
         let dict = try load()
         guard let cacheData = mutableCacheData(in: dict),
               let offset = cacheDataSafeOffset(Self.deviceClassKey, in: cacheData) else {
-            throw NSError(domain: "Niga.DeviceClassCanary", code: 21, userInfo: [NSLocalizedDescriptionKey: "Could not locate DeviceClassNumber safely inside CacheData on this build. Nothing was changed."])
+            throw NSError(domain: "Niga.DeviceClassCanary", code: 21, userInfo: [NSLocalizedDescriptionKey: "Could not locate DeviceClassNumber safely inside CacheData on this build. Nothing was changed.\n\n\(deviceClassLocatorDiagnostics)"])
         }
 
         let original = cacheData.bytes.load(fromByteOffset: offset, as: Int.self)
@@ -213,7 +207,6 @@ final class GestaltManager: ObservableObject {
         deviceClassCanaryArmed = true
         deviceClassCanaryStatus = "Cold-start canary recovery in progress…"
 
-        // Measure FIRST. This process has just launched and the raw class is still 3.
         let observed = Int(niga_sbs_effective_device_class())
         let target = (defaults.object(forKey: Self.canaryOriginalKey) as? NSNumber)?.intValue ?? 1
 
@@ -234,14 +227,10 @@ final class GestaltManager: ObservableObject {
                 : "Canary measured effective class \(observed), then restored raw DeviceClassNumber to \(target)."
             status = "Canary measured + DeviceClass restored"
 
-            // Exit so the next Niga process is clean too. Otherwise this process
-            // may retain a cached iPad device class even though the plist is fixed.
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 Darwin.exit(0)
             }
         } catch {
-            // Deliberately keep the armed marker so every future Niga launch retries
-            // recovery before doing anything else.
             deviceClassCanaryStatus = "RECOVERY FAILED: \(error.localizedDescription). Do not reboot. Keep Niga open and use Force Restore Phone DeviceClass."
             status = "DeviceClass canary recovery FAILED"
             identityGuard = "DANGER: automatic DeviceClass recovery failed"
@@ -261,7 +250,7 @@ final class GestaltManager: ObservableObject {
         let dict = try load()
         guard let cacheData = mutableCacheData(in: dict),
               let offset = cacheDataSafeOffset(Self.deviceClassKey, in: cacheData) else {
-            throw NSError(domain: "Niga.DeviceClassCanary", code: 23, userInfo: [NSLocalizedDescriptionKey: "Could not locate DeviceClassNumber for recovery."])
+            throw NSError(domain: "Niga.DeviceClassCanary", code: 23, userInfo: [NSLocalizedDescriptionKey: "Could not locate DeviceClassNumber for recovery.\n\n\(deviceClassLocatorDiagnostics)"])
         }
         cacheData.mutableBytes.storeBytes(of: value, toByteOffset: offset, as: Int.self)
         let data = try PropertyListSerialization.data(fromPropertyList: dict, format: .binary, options: 0)
@@ -294,81 +283,25 @@ final class GestaltManager: ObservableObject {
             dict["CacheData"] = mutable
             return mutable
         }
+        deviceClassLocatorDiagnostics = "FAILED: MobileGestalt plist has no CacheData blob of a supported NSData/Data type."
         return nil
     }
 
-    // Mond's current iOS 27 MobileGestalt cache locator: find the hashed key in
-    // libMobileGestalt's cstrings, find its metadata entry in __const, then read
-    // the CacheData slot index from the metadata record. We bounds-check before use.
-    private func cacheDataOffset(_ key: String) -> Int {
-        if let cached = cacheDataOffsets[key] { return cached }
-
-        let libMG = "/usr/lib/libMobileGestalt.dylib"
-        dlopen(libMG, RTLD_GLOBAL)
-
-        var header: UnsafePointer<mach_header_64>?
-        for i in 0..<_dyld_image_count() {
-            guard let imageName = _dyld_get_image_name(i) else { continue }
-            if String(cString: imageName) == libMG {
-                header = unsafeBitCast(_dyld_get_image_header(i), to: UnsafePointer<mach_header_64>.self)
-                break
-            }
-        }
-        guard let header else {
-            cacheDataOffsets[key] = 0
-            return 0
-        }
-
-        var textSize = 0
-        guard let cstring = getsectiondata(header, "__TEXT", "__cstring", &textSize) else {
-            cacheDataOffsets[key] = 0
-            return 0
-        }
-        let cstr = cstring.withMemoryRebound(to: CChar.self, capacity: textSize) { $0 }
-
-        var keyPtr = cstr
-        var found = false
-        while Int(keyPtr - cstr) < textSize {
-            if String(cString: keyPtr) == key {
-                found = true
-                break
-            }
-            keyPtr += strlen(keyPtr) + 1
-        }
-        guard found else {
-            cacheDataOffsets[key] = 0
-            return 0
-        }
-
-        var constSize = 0
-        var ptr = getsectiondata(header, "__AUTH_CONST", "__const", &constSize)?
-            .withMemoryRebound(to: UInt.self, capacity: constSize / MemoryLayout<UInt>.size) { $0 }
-        if ptr == nil {
-            ptr = getsectiondata(header, "__DATA_CONST", "__const", &constSize)?
-                .withMemoryRebound(to: UInt.self, capacity: constSize / MemoryLayout<UInt>.size) { $0 }
-        }
-
-        guard let ptr else {
-            cacheDataOffsets[key] = 0
-            return 0
-        }
-
-        for i in 0..<(constSize / MemoryLayout<UInt>.size) {
-            if ptr[i] == UInt(bitPattern: keyPtr) {
-                let offset = Int((ptr.advanced(by: i).withMemoryRebound(to: UInt16.self, capacity: 1) { $0[0x9a / 2] }) << 3)
-                cacheDataOffsets[key] = offset
-                return offset
-            }
-        }
-
-        cacheDataOffsets[key] = 0
-        return 0
-    }
-
     private func cacheDataSafeOffset(_ key: String, in data: NSMutableData) -> Int? {
-        let offset = cacheDataOffset(key)
+        let offset = key.withCString { ptr in
+            Int(niga_mg_cache_data_offset(ptr, data.length))
+        }
+        deviceClassLocatorDiagnostics = copyLocatorDiagnostics()
         guard offset > 0, offset <= data.length - MemoryLayout<Int>.size else { return nil }
         return offset
+    }
+
+    private func copyLocatorDiagnostics() -> String {
+        guard let ptr = niga_mg_copy_locator_diagnostics() else {
+            return "Locator returned no diagnostics"
+        }
+        defer { niga_mg_free_locator_string(ptr) }
+        return String(cString: ptr)
     }
 
     // MARK: - Backups / ordinary MobileGestalt mutations
