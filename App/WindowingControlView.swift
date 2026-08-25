@@ -15,14 +15,41 @@ struct WindowingControlView: View {
         NavigationStack {
             List {
                 Section("Status") {
-                    statusRow("MobileGestalt", detail: gestalt.status, ok: gestalt.granted)
-                    statusRow("SpringBoard prefs", detail: springboard.status, ok: springboard.granted)
+                    statusRow("MobileGestalt", detail: gestalt.status, ok: gestalt.granted, busy: false)
+                    statusRow("SpringBoard prefs", detail: springboard.status, ok: springboard.granted, busy: springboard.isDiscovering)
 
-                    Button("Reconnect both") {
-                        reconnect()
+                    if springboard.isDiscovering {
+                        HStack(spacing: 10) {
+                            ProgressView()
+                            Text("Resolving the real iOS 27 SpringBoard system container…")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
-                    Text("Current system mode: \(springboard.mode.title)")
+                    if !springboard.resolvedPath.isEmpty {
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("Resolved prefs")
+                                .font(.caption.weight(.semibold))
+                            Text(springboard.resolvedPath)
+                                .font(.caption2.monospaced())
+                                .textSelection(.enabled)
+                            if !springboard.accessSource.isEmpty {
+                                Text(springboard.accessSource)
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+
+                    HStack {
+                        Button("Reconnect") { reconnect() }
+                        Button("Rediscover prefs") { springboard.rediscover() }
+                    }
+
+                    Text(springboard.granted
+                         ? "Current system mode: \(springboard.mode.title)"
+                         : "Current system mode: not readable yet")
                         .font(.subheadline.weight(.semibold))
                 }
 
@@ -33,33 +60,42 @@ struct WindowingControlView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Label("Enable Windowed Apps + Respring", systemImage: "macwindow.on.rectangle")
                                 .font(.headline)
-                            Text("Turns on the same SpringBoard mode Apple uses for free resizable app windows, while keeping iPhone identity.")
+                            Text("Uses Apple's Windowed Apps mode while the device identity stays iPhone.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    .disabled(!springboard.granted || springboard.isDiscovering || !gestalt.granted)
 
                     Button {
                         applyStageManager()
                     } label: {
                         VStack(alignment: .leading, spacing: 4) {
                             Label("Try Stage Manager + Respring", systemImage: "rectangle.3.group")
-                            Text("Alternative system mode. This is no longer just a MobileGestalt capability toggle.")
+                            Text("Alternative native multitasking mode; still keeps the iPad identity override off.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    .disabled(!springboard.granted || springboard.isDiscovering || !gestalt.granted)
 
                     Button(role: .destructive) {
                         restoreFullScreen()
                     } label: {
                         Label("Return to stock full-screen + Respring", systemImage: "arrow.uturn.backward")
                     }
+                    .disabled(springboard.isDiscovering)
                 }
 
-                Section("What was missing in v0.5") {
-                    Text("v0.5 enabled device capabilities but never switched SpringBoard's own multitasking mode. This build writes and verifies SBMedusaMultitaskingEnabled / SBChamoisWindowingEnabled using the same mode logic used by Apple's Control Center module, then resprings SpringBoard.")
+                Section("iOS 27 prefs resolver") {
+                    Text("Your v0.6.1 result -3 proved /var/mobile/Library/Preferences is outside bad_query's exposed path set on this beta. This build first asks ContainerManager for SpringBoard's UUID-backed class-12 system container, then falls back to an inode/metadata scan of Data/System and Shared/SystemGroup.")
                         .font(.footnote)
+
+                    DisclosureGroup("Resolver diagnostics") {
+                        Text(springboard.discoveryDetails)
+                            .font(.caption2.monospaced())
+                            .textSelection(.enabled)
+                    }
                 }
 
                 Section("Open a specific app") {
@@ -102,12 +138,15 @@ struct WindowingControlView: View {
                     Button("Restore original SpringBoard prefs", role: .destructive) {
                         run { try springboard.restoreOriginal() }
                     }
+                    .disabled(!springboard.granted)
+
                     Button("Restore original SpringBoard prefs + Respring", role: .destructive) {
                         run {
                             try springboard.restoreOriginal()
                             respring.respring()
                         }
                     }
+                    .disabled(!springboard.granted)
                 }
             }
             .navigationTitle("Real Windowing")
@@ -116,10 +155,7 @@ struct WindowingControlView: View {
                     Button("Done") { dismiss() }
                 }
             }
-            .onAppear {
-                reconnect()
-                springboard.refresh()
-            }
+            .onAppear { reconnect() }
             .sheet(item: $selectedApp) { app in
                 QuickWindowAppView(app: app)
                     .environmentObject(profiles)
@@ -132,14 +168,18 @@ struct WindowingControlView: View {
         }
     }
 
-    private func statusRow(_ title: String, detail: String, ok: Bool) -> some View {
+    private func statusRow(_ title: String, detail: String, ok: Bool, busy: Bool) -> some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                 Text(detail).font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
-            Circle().fill(ok ? Color.green : Color.secondary).frame(width: 10, height: 10)
+            if busy {
+                ProgressView().controlSize(.small)
+            } else {
+                Circle().fill(ok ? Color.green : Color.secondary).frame(width: 10, height: 10)
+            }
         }
     }
 
@@ -154,15 +194,19 @@ struct WindowingControlView: View {
 
     private func reconnect() {
         if !gestalt.granted { gestalt.connect() }
-        if !springboard.granted { springboard.connect() }
+        if !springboard.granted && !springboard.isDiscovering { springboard.connect() }
         if springboard.granted { springboard.refresh() }
     }
 
     private func applyWindowedApps() {
         run {
             reconnect()
-            guard gestalt.granted else { throw NSError(domain: "Niga", code: 10, userInfo: [NSLocalizedDescriptionKey: gestalt.status]) }
-            guard springboard.granted else { throw NSError(domain: "Niga", code: 11, userInfo: [NSLocalizedDescriptionKey: springboard.status]) }
+            guard gestalt.granted else {
+                throw NSError(domain: "Niga", code: 10, userInfo: [NSLocalizedDescriptionKey: gestalt.status])
+            }
+            guard springboard.granted else {
+                throw NSError(domain: "Niga", code: 11, userInfo: [NSLocalizedDescriptionKey: springboard.status])
+            }
             try gestalt.applyExperiment(.stageAllMedusa)
             try springboard.apply(.windowedApps)
             respring.respring()
@@ -172,8 +216,12 @@ struct WindowingControlView: View {
     private func applyStageManager() {
         run {
             reconnect()
-            guard gestalt.granted else { throw NSError(domain: "Niga", code: 12, userInfo: [NSLocalizedDescriptionKey: gestalt.status]) }
-            guard springboard.granted else { throw NSError(domain: "Niga", code: 13, userInfo: [NSLocalizedDescriptionKey: springboard.status]) }
+            guard gestalt.granted else {
+                throw NSError(domain: "Niga", code: 12, userInfo: [NSLocalizedDescriptionKey: gestalt.status])
+            }
+            guard springboard.granted else {
+                throw NSError(domain: "Niga", code: 13, userInfo: [NSLocalizedDescriptionKey: springboard.status])
+            }
             try gestalt.applyExperiment(.stageAllMedusa)
             try springboard.apply(.stageManager)
             respring.respring()
@@ -239,7 +287,7 @@ private struct QuickWindowAppView: View {
                             .font(.headline)
                     }
 
-                    Text("Niga starts the target app, keeps a short background execution task alive, then attempts the per-app FrontBoard frame/orientation update while the target is foreground. If SpringBoard's Windowed Apps mode is active, this is the direct path into the requested size rather than making you manually return to Niga first.")
+                    Text("Starts the target app and immediately attempts the per-app FrontBoard frame/orientation update. The result below now reports whether the frame actually changed, not merely whether the selector returned.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
