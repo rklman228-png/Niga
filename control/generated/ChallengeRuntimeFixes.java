@@ -27,6 +27,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.monster.cubemob.MagmaCube;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.block.Block;
@@ -104,6 +106,13 @@ public final class ChallengeRuntimeFixes {
     }
 
     private static void onEntityLoad(Entity entity, ServerLevel level) {
+        if (entity instanceof Projectile projectile && isForbiddenChallengeProjectile(entity)) {
+            Entity owner = projectile.getOwner();
+            if (owner instanceof ServerPlayer player && isChallengeParticipant(player)) {
+                entity.discard();
+                return;
+            }
+        }
         if (!(entity instanceof MagmaCube cube) || !cube.isAlive()) return;
         ActiveChallengeState state = activeEvent();
         if (state == null || eventLevel(level.getServer(), state) != level) return;
@@ -173,6 +182,9 @@ public final class ChallengeRuntimeFixes {
     }
 
     private static boolean allowDamage(LivingEntity entity, DamageSource source, float amount) {
+        if (source.getEntity() instanceof ServerPlayer attacker
+                && isChallengeParticipant(attacker)
+                && isForbiddenChallengeItem(attacker.getMainHandItem())) return false;
         ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
         if (!isTrackedEventEntity(state, entity.getUUID())) return true;
         if (source.is(DamageTypes.FALL)) return false;
@@ -206,6 +218,7 @@ public final class ChallengeRuntimeFixes {
 
     private static void tick(MinecraftServer server) {
         tick++;
+        enforceChallengeRestrictions(server);
         ActiveChallengeState state = activeEvent();
         if (state != null) {
             if (magmaLineageEvent != state.startedAtEpochMillis) {
@@ -219,7 +232,7 @@ public final class ChallengeRuntimeFixes {
                 confineParticipants(server, level, state);
                 scaleEventMobs(level, definition, state);
                 stabiliseEventMobs(level, state);
-                tickSplitPressure(level, definition, state);
+                tickContinuousPressure(level, definition, state);
                 fixDefense(level, definition, state);
                 fixElite(level, definition, state);
                 soundProgress(level, definition, state);
@@ -235,6 +248,56 @@ public final class ChallengeRuntimeFixes {
         }
         tickWavePulses();
         tickBursts(server);
+    }
+
+    private static void enforceChallengeRestrictions(MinecraftServer server) {
+        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
+        if (state == null || state.contribution == null || state.contribution.isEmpty()) return;
+        for (String name : state.contribution.keySet()) {
+            ServerPlayer player = server.getPlayerList().getPlayerByName(name);
+            if (player == null) continue;
+            if (player.isUsingItem() && isForbiddenChallengeItem(player.getUseItem())) {
+                player.stopUsingItem();
+            }
+            if (player.isFallFlying()) player.stopFallFlying();
+        }
+    }
+
+    private static boolean isChallengeParticipant(ServerPlayer player) {
+        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
+        return state != null && state.contribution != null
+                && state.contribution.containsKey(player.getName().getString());
+    }
+
+    private static boolean isForbiddenChallengeItem(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) return false;
+        Identifier key = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (key == null) return false;
+        return switch (key.toString()) {
+            case "minecraft:golden_apple", "minecraft:enchanted_golden_apple",
+                    "minecraft:potion", "minecraft:splash_potion", "minecraft:lingering_potion",
+                    "minecraft:ender_pearl", "minecraft:chorus_fruit",
+                    "minecraft:wind_charge", "minecraft:firework_rocket",
+                    "minecraft:elytra", "minecraft:mace", "minecraft:trident" -> true;
+            default -> false;
+        };
+    }
+
+    private static boolean isForbiddenChallengeProjectile(Entity entity) {
+        Identifier key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        if (key == null) return false;
+        return switch (key.toString()) {
+            case "minecraft:ender_pearl", "minecraft:wind_charge",
+                    "minecraft:potion", "minecraft:firework_rocket" -> true;
+            default -> false;
+        };
+    }
+
+    private static boolean continuousPressureMechanic(MiniEventMechanic mechanic) {
+        return switch (mechanic) {
+            case HOLD_ZONE, SPLIT_OBJECTIVES, EXTRACTION, NO_DEATH_GAUNTLET -> true;
+            case WAVES, HUNT_TARGETS, DEFEND_OBJECTIVE, ELITE_BOSS, MULTI_PHASE_ASSAULT -> false;
+        };
     }
 
     private static ActiveChallengeState activeEvent() {
@@ -400,18 +463,18 @@ public final class ChallengeRuntimeFixes {
         }
         double healthMultiplier = switch (definition.difficulty()) {
             case EASY -> 1.00;
-            case NORMAL -> 1.15;
-            case HARD -> 1.30;
+            case NORMAL -> 1.25;
+            case HARD -> 1.50;
         };
         double damageMultiplier = switch (definition.difficulty()) {
             case EASY -> 1.00;
-            case NORMAL -> 1.15;
-            case HARD -> 1.42;
+            case NORMAL -> 1.65;
+            case HARD -> 2.50;
         };
         double speedMultiplier = switch (definition.difficulty()) {
             case EASY -> 1.00;
-            case NORMAL -> 1.03;
-            case HARD -> 1.06;
+            case NORMAL -> 1.06;
+            case HARD -> 1.10;
         };
 
         for (UUID id : new ArrayList<>(state.eventEntities)) {
@@ -430,7 +493,7 @@ public final class ChallengeRuntimeFixes {
                 double baseAttack = attack.getBaseValue();
                 // Hard should hurt, but naturally brutal mobs must not become accidental one-shot machines.
                 double appliedMultiplier = definition.difficulty() == ChallengeDifficulty.HARD && baseAttack >= 16.0
-                        ? 1.18 : damageMultiplier;
+                        ? 1.75 : damageMultiplier;
                 attack.setBaseValue(baseAttack * appliedMultiplier);
             }
             var speed = mob.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -478,9 +541,9 @@ public final class ChallengeRuntimeFixes {
         BrigadaCore.stateStore().save();
     }
 
-    private static void tickSplitPressure(ServerLevel level, ChallengeDefinition definition,
+    private static void tickContinuousPressure(ServerLevel level, ChallengeDefinition definition,
                                           ActiveChallengeState state) {
-        if (definition.mechanic() != MiniEventMechanic.SPLIT_OBJECTIVES) return;
+        if (!continuousPressureMechanic(definition.mechanic())) return;
         if (splitPressureEvent != state.startedAtEpochMillis) {
             splitPressureEvent = state.startedAtEpochMillis;
             splitPressureElapsed = -1;
@@ -488,16 +551,16 @@ public final class ChallengeRuntimeFixes {
         if (state.eventElapsedTicks < 40) return;
 
         int interval = switch (definition.difficulty()) {
-            case EASY -> 240;
-            case NORMAL -> 160;
-            case HARD -> 120;
+            case EASY -> 200;
+            case NORMAL -> 120;
+            case HARD -> 80;
         };
         if (splitPressureElapsed >= 0 && state.eventElapsedTicks - splitPressureElapsed < interval) return;
 
         int cap = switch (definition.difficulty()) {
-            case EASY -> 6;
-            case NORMAL -> 10;
-            case HARD -> 14;
+            case EASY -> 8;
+            case NORMAL -> 14;
+            case HARD -> 20;
         };
         int alive = 0;
         for (UUID id : state.eventEntities) {
@@ -508,8 +571,8 @@ public final class ChallengeRuntimeFixes {
 
         int amount = switch (definition.difficulty()) {
             case EASY -> 2;
-            case NORMAL -> 3;
-            case HARD -> 4;
+            case NORMAL -> 4;
+            case HARD -> 6;
         } + (state.singleMode ? 0 : 1);
         amount = Math.min(amount, cap - alive);
         spawnPressureGroup(level, definition, state, amount);
@@ -865,6 +928,10 @@ public final class ChallengeRuntimeFixes {
         }
 
         if (age == 44) {
+            ParticleOptimizer.emit(level, ParticleTypes.FIREWORK,
+                    px, py + 2.2, pz, 180, 3.8, 2.7, 3.8, 0.24);
+            play(level, px, py + 1.0, pz, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 4.2F, 0.96F);
+            play(level, px, py + 1.0, pz, SoundEvents.FIREWORK_ROCKET_TWINKLE, 3.4F, 1.04F);
             ParticleOptimizer.emit(level, ParticleTypes.PORTAL,
                     px, py + 1.6, pz, 180, 3.5, 2.4, 3.5, 0.28);
             ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
