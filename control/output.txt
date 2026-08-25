@@ -1,19 +1,91 @@
-=== magma class ===
-net/minecraft/world/entity/monster/cubemob/MagmaCube.class
-net/minecraft/world/entity/monster/cubemob/Slime.class
-=== registry methods ===
-  public abstract net.minecraft.resources.Identifier getKey(T);
-  public abstract int getId(T);
-  public abstract T getValue(net.minecraft.resources.ResourceKey<T>);
-  public abstract T getValue(net.minecraft.resources.Identifier);
-  public default T getValueOrThrow(net.minecraft.resources.ResourceKey<T>);
-  public net.minecraft.resources.Identifier getKey(T);
-  public int getId(T);
-  public T getValue(net.minecraft.resources.ResourceKey<T>);
-  public java.util.Iterator<T> iterator();
-  public T getValue(net.minecraft.resources.Identifier);
-  private static <T> T getValueFromNullable(net.minecraft.core.Holder$Reference<T>);
+RuntimeFixes patched
+ChallengeServiceMixin patched
+=== patched source checks ===
+31:import net.minecraft.world.entity.monster.cubemob.MagmaCube;
+70:        ServerEntityEvents.ENTITY_LOAD.register(RuntimeFixes::onEntityLoad);
+72:        dumpItemRegistry();
+75:    private static void dumpItemRegistry() {
+91:        if (!(entity instanceof MagmaCube cube) || !cube.isAlive()) return;
+139:                    SoundEvents.BEACON_ACTIVATE, 1.45F, 1.38F);
+247:            if (mob instanceof MagmaCube) {
+405:    public static void renderGroundZone(ServerLevel level, int centerX, int anchorY, int centerZ,
+525:        play(level, player.getX(), player.getY(), player.getZ(), SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 4.0F, 0.92F);
+87:                    target = "Ldev/brigada13/core/challenge/ChallengeService;renderZone(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V"),
+89:    private void renderGroundObjectiveZone(ServerLevel level, int x, int y, int z, int radius,
+{
+  "required": true,
+  "package": "dev.brigada13.hotfix.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["ChallengeServiceMixin", "WorldMenuServiceMixin"],
+  "injectors": {"defaultRequire": 1}
+}
+=== build hotfix on VPS ===
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 56s
+6 actionable tasks: 6 executed
+26545fcea0459a1e4f58341cdbee52e7d94b052fdb991591dd9f99e63b89cb50  build/libs/brigada-hotfix-0.1.0.jar
+dev/brigada13/hotfix/RuntimeFixes$1.class
+dev/brigada13/hotfix/RuntimeFixes$CompletionBurst.class
+dev/brigada13/hotfix/RuntimeFixes.class
+dev/brigada13/hotfix/mixin/ChallengeServiceMixin.class
+dev/brigada13/hotfix/mixin/WorldMenuServiceMixin.class
+brigada_hotfix.mixins.json
+brigada_hotfix.mixins.json.bak-20260825T173020Z
+=== first restart: registry dump ===
+Aug 25 17:31:27 test1 java[2192250]:         - brigada_hotfix 1.0.0
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Done (2.190s)! For help, type "help"
+1658 /opt/minecraft/server/brigada-item-registry.tsv
+=== regenerate item font for the whole vanilla registry ===
+registry=1658 providers=1474 missing=184
+missing_sample=minecraft:air minecraft:tuff_brick_slab minecraft:tuff_brick_stairs minecraft:tuff_brick_wall minecraft:sulfur_brick_slab minecraft:sulfur_brick_stairs minecraft:sulfur_brick_wall minecraft:cinnabar_brick_slab minecraft:cinnabar_brick_stairs minecraft:cinnabar_brick_wall minecraft:waxed_copper_block minecraft:waxed_exposed_copper minecraft:waxed_weathered_copper minecraft:waxed_oxidized_copper minecraft:waxed_chiseled_copper minecraft:waxed_exposed_chiseled_copper minecraft:waxed_weathered_chiseled_copper minecraft:waxed_oxidized_chiseled_copper minecraft:waxed_cut_copper minecraft:waxed_exposed_cut_copper minecraft:waxed_weathered_cut_copper minecraft:waxed_oxidized_cut_copper minecraft:waxed_cut_copper_stairs minecraft:waxed_exposed_cut_copper_stairs minecraft:waxed_weathered_cut_copper_stairs minecraft:waxed_oxidized_cut_copper_stairs minecraft:waxed_cut_copper_slab minecraft:waxed_exposed_cut_copper_slab minecraft:waxed_weathered_cut_copper_slab minecraft:waxed_oxidized_cut_copper_slab minecraft:stripped_oak_wood minecraft:stripped_spruce_wood minecraft:stripped_birch_wood minecraft:stripped_jungle_wood minecraft:stripped_acacia_wood minecraft:stripped_cherry_wood minecraft:stripped_dark_oak_wood minecraft:stripped_pale_oak_wood minecraft:stripped_mangrove_wood minecraft:stripped_poplar_wood minecraft:stripped_crimson_hyphae minecraft:stripped_warped_hyphae minecraft:oak_wood minecraft:spruce_wood minecraft:birch_wood minecraft:jungle_wood minecraft:acacia_wood minecraft:cherry_wood minecraft:pale_oak_wood minecraft:dark_oak_wood minecraft:mangrove_wood minecraft:poplar_wood minecraft:crimson_hyphae minecraft:warped_hyphae minecraft:petrified_oak_slab minecraft:stone_brick_slab minecraft:mud_brick_slab minecraft:prismarine_brick_slab minecraft:smooth_quartz minecraft:smooth_red_sandstone minecraft:smooth_sandstone minecraft:decorated_pot minecraft:snow_block minecraft:infested_stone minecraft:infested_cobblestone minecraft:infested_stone_bricks minecraft:infested_mossy_stone_bricks minecraft:infested_cracked_stone_bricks minecraft:infested_chiseled_stone_bricks minecraft:infested_deepslate minecraft:waxed_copper_bars minecraft:waxed_exposed_copper_bars minecraft:waxed_weathered_copper_bars minecraft:waxed_oxidized_copper_bars minecraft:waxed_copper_chain minecraft:waxed_exposed_copper_chain minecraft:waxed_weathered_copper_chain minecraft:waxed_oxidized_copper_chain minecraft:stone_brick_stairs minecraft:mud_brick_stairs
+pack_sha1=437b4d4d403c0ca85b3c165da0c86a6a50010124
+pack_id=db9ca03c-c500-459f-9545-5b69fc634fae
+150893
+437b4d4d403c0ca85b3c165da0c86a6a50010124  -
+=== final restart ===
+=== final verification ===
+active
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2194127,fd=163))                                                                                           
+require-resource-pack=true
+resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
+resource-pack-id=db9ca03c-c500-459f-9545-5b69fc634fae
+resource-pack-prompt={"text"\:"Ресурсы интерфейса обязательны для игры на сервере.","color"\:"gold"}
+resource-pack-sha1=437b4d4d403c0ca85b3c165da0c86a6a50010124
+26545fcea0459a1e4f58341cdbee52e7d94b052fdb991591dd9f99e63b89cb50  /opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
+437b4d4d403c0ca85b3c165da0c86a6a50010124  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+Aug 25 17:32:32 test1 java[2194127]:         - brigada_hotfix 1.0.0
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Done (1.834s)! For help, type "help"
+FULL_EVENT_UI_FIX_OK
 
 exit_code=0
-finished_at=2026-08-25T17:26:56Z
+finished_at=2026-08-25T17:33:28Z
 runner=alexhost-143-246
