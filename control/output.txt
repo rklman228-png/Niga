@@ -1,56 +1,10 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+net/minecraft/world/inventory/AbstractContainerMenu.class
+net/minecraft/world/inventory/ClickAction.class
+  protected static boolean stillValid(net.minecraft.world.inventory.ContainerLevelAccess, net.minecraft.world.entity.player.Player, net.minecraft.world.level.block.Block);
+  public abstract net.minecraft.world.item.ItemStack quickMoveStack(net.minecraft.world.entity.player.Player, int);
+  public void clicked(int, int, net.minecraft.world.inventory.ContainerInput, net.minecraft.world.entity.player.Player);
+  public abstract boolean stillValid(net.minecraft.world.entity.player.Player);
 
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-
-> Task :compileJava
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:26: error: cannot find symbol
-import net.minecraft.world.inventory.ClickType;
-                                    ^
-  symbol:   class ClickType
-  location: package net.minecraft.world.inventory
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:335: error: cannot find symbol
-        public void clicked(int slotId, int button, ClickType clickType, Player player) {
-                                                    ^
-  symbol:   class ClickType
-  location: class ActionMenu
-Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-2 errors
-
-> Task :compileJava FAILED
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-  Note: Recompile with -Xlint:deprecation for details.
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:26: error: cannot find symbol
-  import net.minecraft.world.inventory.ClickType;
-                                      ^
-    symbol:   class ClickType
-    location: package net.minecraft.world.inventory
-  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:335: error: cannot find symbol
-          public void clicked(int slotId, int button, ClickType clickType, Player player) {
-                                                      ^
-    symbol:   class ClickType
-    location: class ActionMenu
-  2 errors
-
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
-
-BUILD FAILED in 39s
-2 actionable tasks: 2 executed
-
-exit_code=1
-finished_at=2026-08-25T01:36:40Z
+exit_code=0
+finished_at=2026-08-25T01:37:50Z
 runner=alexhost-143-246
