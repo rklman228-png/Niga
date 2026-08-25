@@ -1,19 +1,23 @@
-=== service ===
-active
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=1881924,fd=163))                                                                                           
-=== full startup marker ===
-Aug 25 15:02:44 test1 java[1881924]:         - brigada_hotfix 1.0.0
-Aug 25 15:03:32 test1 java[1881924]: [15:03:32] [Server thread/INFO]: Starting Minecraft server on *:25565
-Aug 25 15:03:35 test1 java[1881924]: [15:03:35] [Server thread/INFO]: Done (2.571s)! For help, type "help"
-=== post-start problems ===
-Aug 25 15:03:33 test1 java[1881924]: [15:03:33] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-Aug 25 15:03:33 test1 java[1881924]: [15:03:33] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
-Aug 25 15:03:33 test1 java[1881924]: [15:03:33] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-Aug 25 15:03:33 test1 java[1881924]: [15:03:33] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-Aug 25 15:03:40 test1 java[1881924]: [15:03:40] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 4019ms or 80 ticks behind
-Aug 25 15:04:03 test1 java[1881924]: [15:04:03] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 8410ms or 168 ticks behind
-RUNTIME_V2_OK
+cp=/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
+=== ServerPlayer teleport ===
+  public net.minecraft.server.network.ServerGamePacketListenerImpl connection;
+  public net.minecraft.server.level.ServerPlayer teleport(net.minecraft.world.level.portal.TeleportTransition);
+  public void teleportTo(double, double, double);
+  public void teleportRelative(double, double, double);
+  public boolean teleportTo(net.minecraft.server.level.ServerLevel, double, double, double, java.util.Set<net.minecraft.world.entity.Relative>, float, float, boolean);
+  public net.minecraft.world.entity.Entity teleport(net.minecraft.world.level.portal.TeleportTransition);
+=== ServerGamePacketListenerImpl teleport ===
+  public void resetPosition();
+  public void teleport(double, double, double, float, float);
+  public void teleport(net.minecraft.world.entity.PositionMoveRotation, java.util.Set<net.minecraft.world.entity.Relative>);
+=== Entity movement ===
+  public final void setPos(net.minecraft.world.phys.Vec3);
+  public void setPos(double, double, double);
+  public net.minecraft.world.entity.Entity getRootVehicle();
+  public net.minecraft.world.phys.Vec3 getDeltaMovement();
+  public void setDeltaMovement(net.minecraft.world.phys.Vec3);
+  public void setDeltaMovement(double, double, double);
 
 exit_code=0
-finished_at=2026-08-25T15:04:37Z
+finished_at=2026-08-25T15:22:19Z
 runner=alexhost-143-246
