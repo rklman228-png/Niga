@@ -39,6 +39,37 @@ static NSInteger integer0(id obj, NSString *selectorName, NSInteger fallback) {
     return send(obj, sel);
 }
 
+static CGRect rect0(id obj, NSString *selectorName, CGRect fallback) {
+    SEL sel = NSSelectorFromString(selectorName);
+    if (!obj || ![obj respondsToSelector:sel]) return fallback;
+    CGRect (*send)(id, SEL) = (void *)objc_msgSend;
+    return send(obj, sel);
+}
+
+static BOOL setRect(id obj, NSString *selectorName, CGRect value) {
+    SEL sel = NSSelectorFromString(selectorName);
+    if (!obj || ![obj respondsToSelector:sel]) return NO;
+    void (*send)(id, SEL, CGRect) = (void *)objc_msgSend;
+    send(obj, sel, value);
+    return YES;
+}
+
+static BOOL setInteger(id obj, NSString *selectorName, NSInteger value) {
+    SEL sel = NSSelectorFromString(selectorName);
+    if (!obj || ![obj respondsToSelector:sel]) return NO;
+    void (*send)(id, SEL, NSInteger) = (void *)objc_msgSend;
+    send(obj, sel, value);
+    return YES;
+}
+
+static BOOL setBool(id obj, NSString *selectorName, BOOL value) {
+    SEL sel = NSSelectorFromString(selectorName);
+    if (!obj || ![obj respondsToSelector:sel]) return NO;
+    void (*send)(id, SEL, BOOL) = (void *)objc_msgSend;
+    send(obj, sel, value);
+    return YES;
+}
+
 static char *jsonReturn(NSDictionary *report) {
     NSError *error = nil;
     NSData *json = [NSJSONSerialization dataWithJSONObject:report options:(NSJSONWritingPrettyPrinted | NSJSONWritingSortedKeys) error:&error];
@@ -57,18 +88,21 @@ static int targetPID(NSString *bundleID, NSMutableDictionary *report) {
         report[@"error"] = @"Could not create RBSProcessIdentity";
         return -1;
     }
+
     Class predicateClass = NSClassFromString(@"RBSProcessPredicate");
     id predicate = send1(predicateClass, @"predicateMatchingIdentity:", identity);
     if (!predicate) {
         report[@"error"] = @"Could not create RBSProcessPredicate";
         return -1;
     }
+
     Class handleClass = NSClassFromString(@"RBSProcessHandle");
     id handle = send2(handleClass, @"handleForPredicate:error:", predicate, nil);
     if (!handle) {
         report[@"error"] = @"Target is not running or process-handle lookup is blocked";
         return -1;
     }
+
     NSInteger pid = integer0(handle, @"pid", -1);
     report[@"targetPID"] = @(pid);
     return (int)pid;
@@ -80,8 +114,7 @@ static NSInteger scenePID(id scene) {
     if (pid > 0) return pid;
 
     id handle = send0(scene, @"clientHandle");
-    pid = integer0(handle, @"pid", -1);
-    return pid;
+    return integer0(handle, @"pid", -1);
 }
 
 static NSString *sceneIdentifier(id scene) {
@@ -99,11 +132,15 @@ char *niga_scene_apply_profile(const char *bundle_id,
     @autoreleasepool {
         NSMutableDictionary *report = [NSMutableDictionary dictionary];
         NSString *bundleID = bundle_id ? [NSString stringWithUTF8String:bundle_id] : @"";
+        CGRect requestedFrame = CGRectMake(x, y, width, height);
+
         report[@"bundleID"] = bundleID;
-        report[@"requestedFrame"] = NSStringFromCGRect(CGRectMake(x, y, width, height));
+        report[@"requestedFrame"] = NSStringFromCGRect(requestedFrame);
         report[@"requestedOrientation"] = @(orientation);
         report[@"alwaysOnTop"] = @(always_on_top);
         report[@"applied"] = @NO;
+        report[@"frameSetterCalled"] = @NO;
+        report[@"orientationSetterCalled"] = @NO;
 
         if (bundleID.length == 0) {
             report[@"error"] = @"Bundle ID is empty";
@@ -144,8 +181,15 @@ char *niga_scene_apply_profile(const char *bundle_id,
             report[@"error"] = @"No external FBScene for the running target is visible to this signed process";
             return jsonReturn(report);
         }
+
         report[@"sceneIdentifier"] = sceneIdentifier(matchedScene);
         report[@"sceneClass"] = NSStringFromClass([matchedScene class]);
+
+        id beforeSettings = send0(matchedScene, @"settings");
+        CGRect beforeFrame = rect0(beforeSettings, @"frame", CGRectNull);
+        if (!CGRectIsNull(beforeFrame)) report[@"beforeFrame"] = NSStringFromCGRect(beforeFrame);
+        NSInteger beforeOrientation = integer0(beforeSettings, @"interfaceOrientation", -1);
+        if (beforeOrientation >= 0) report[@"beforeOrientation"] = @(beforeOrientation);
 
         SEL updateSel = NSSelectorFromString(@"updateSettingsWithBlock:");
         if (![matchedScene respondsToSelector:updateSel]) {
@@ -153,31 +197,64 @@ char *niga_scene_apply_profile(const char *bundle_id,
             return jsonReturn(report);
         }
 
-        CGRect frame = CGRectMake(x, y, width, height);
         NSInteger interfaceOrientation = orientation;
         if (interfaceOrientation < 1 || interfaceOrientation > 4) interfaceOrientation = 0;
 
+        __block BOOL frameSetterCalled = NO;
+        __block BOOL orientationSetterCalled = NO;
+        __block NSString *mutationError = nil;
+
         void (^settingsBlock)(id) = ^(id settings) {
             @try {
-                [settings setValue:[NSValue valueWithCGRect:frame] forKey:@"frame"];
+                frameSetterCalled = setRect(settings, @"setFrame:", requestedFrame);
+                setBool(settings, @"setForeground:", YES);
+
                 if (interfaceOrientation != 0) {
-                    [settings setValue:@(interfaceOrientation) forKey:@"interfaceOrientation"];
-                    [settings setValue:@(interfaceOrientation) forKey:@"deviceOrientation"];
+                    BOOL interfaceSet = setInteger(settings, @"setInterfaceOrientation:", interfaceOrientation);
+                    BOOL deviceSet = setInteger(settings, @"setDeviceOrientation:", interfaceOrientation);
+                    orientationSetterCalled = interfaceSet || deviceSet;
                 }
+
                 if (always_on_top) {
-                    [settings setValue:@(1000) forKey:@"level"];
+                    setInteger(settings, @"setLevel:", 1000);
                 }
-            } @catch (__unused NSException *exception) {
+            } @catch (NSException *exception) {
+                mutationError = [NSString stringWithFormat:@"Settings mutation threw %@: %@", exception.name, exception.reason ?: @""];
             }
         };
 
         @try {
             void (*update)(id, SEL, id) = (void *)objc_msgSend;
             update(matchedScene, updateSel, settingsBlock);
-            report[@"applied"] = @YES;
-            report[@"note"] = @"FrontBoard accepted the update call. Visual effect still depends on SpringBoard policy and entitlements.";
         } @catch (NSException *exception) {
             report[@"error"] = [NSString stringWithFormat:@"Scene update threw %@: %@", exception.name, exception.reason ?: @""];
+            return jsonReturn(report);
+        }
+
+        report[@"frameSetterCalled"] = @(frameSetterCalled);
+        report[@"orientationSetterCalled"] = @(orientationSetterCalled);
+        if (mutationError) report[@"mutationError"] = mutationError;
+
+        id afterSettings = send0(matchedScene, @"settings");
+        CGRect afterFrame = rect0(afterSettings, @"frame", CGRectNull);
+        NSInteger afterOrientation = integer0(afterSettings, @"interfaceOrientation", -1);
+
+        if (!CGRectIsNull(afterFrame)) report[@"afterFrame"] = NSStringFromCGRect(afterFrame);
+        if (afterOrientation >= 0) report[@"afterOrientation"] = @(afterOrientation);
+
+        BOOL frameMatches = frameSetterCalled && !CGRectIsNull(afterFrame) && CGRectEqualToRect(afterFrame, requestedFrame);
+        BOOL orientationMatches = (interfaceOrientation == 0) || (afterOrientation == interfaceOrientation);
+
+        report[@"frameVerified"] = @(frameMatches);
+        report[@"orientationVerified"] = @(orientationMatches);
+        report[@"applied"] = @(frameMatches && orientationMatches);
+
+        if (frameMatches && orientationMatches) {
+            report[@"note"] = @"FrontBoard re-read matches the requested frame/orientation. SpringBoard may still animate or clamp the visible window afterwards.";
+        } else if (!frameSetterCalled) {
+            report[@"error"] = @"The mutable scene settings object does not expose setFrame: in this runtime/signature.";
+        } else {
+            report[@"error"] = @"FrontBoard accepted the update call but the re-read scene settings do not match the requested geometry. SpringBoard policy or signing likely rejected/clamped it.";
         }
 
         return jsonReturn(report);
