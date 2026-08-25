@@ -1,6 +1,21 @@
 set -euo pipefail
-J=/root/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-deobf/26.3-snapshot-9/minecraft-merged-deobf-26.3-snapshot-9.jar
-for C in net.minecraft.network.chat.ClickEvent net.minecraft.network.chat.ClickEvent\$RunCommand net.minecraft.core.Holder net.minecraft.network.protocol.common.ClientboundClearDialogPacket net.minecraft.server.dialog.NoticeDialog; do
- echo "===== $C"
- javap -classpath "$J" -p "$C" 2>/dev/null || true
-done
+cd /opt/brigada-core-src
+git fetch origin main
+git checkout main
+git merge --ff-only origin/main
+./gradlew --no-daemon clean build
+install -m 0644 build/libs/brigada-core-0.1.0.jar /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+PACK=/opt/minecraft/server-resource-pack/world-ui-26.3-snapshot-9.zip
+cd /opt/brigada-core-src/resource-pack/WorldUI
+zip -qr "$PACK.new" .
+mv "$PACK.new" "$PACK"
+SHA1=$(sha1sum "$PACK" | awk '{print $1}')
+sed -i "s/^resource-pack-sha1=.*/resource-pack-sha1=$SHA1/" /opt/minecraft/server/server.properties
+sed -i "s/^require-resource-pack=.*/require-resource-pack=true/" /opt/minecraft/server/server.properties
+systemctl restart minecraft.service
+sleep 15
+echo "PACK_SHA1=$SHA1"
+sha256sum /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+systemctl is-active minecraft.service
+systemctl show minecraft.service -p NRestarts --value
+journalctl -u minecraft.service -n 100 --no-pager
