@@ -1,14 +1,14 @@
-PACK_SHA1=8102e16d4a088661eb692338ace24c56d63b43c0
 active
 0
-a07a429fc135cbdfcd3414bbe0137522000eb4e261944d15e808555cdc44b947  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+8102e16d4a088661eb692338ace24c56d63b43c0  -
 8102e16d4a088661eb692338ace24c56d63b43c0  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-Aug 25 04:42:25 test1 java[132410]:            |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
-Aug 25 04:42:25 test1 java[132410]:            |-- fabric-tag-api-v1 2.1.9+3434d6d97a
-Aug 25 04:42:58 test1 java[132410]: [04:42:58] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
 Aug 25 04:43:14 test1 java[132410]: [04:43:14] [Server thread/INFO]: Done (1.936s)! For help, type "help"
 Aug 25 04:43:15 test1 java[132410]: [04:43:15] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 04:43:17 test1 java[132410]: [04:43:17] [Server thread/INFO]: System chat: WorldKeeper joined the game
+Aug 25 04:43:18 test1 java[132410]: [04:43:18] [Server thread/INFO]: Started fake player WorldKeeper
+Aug 25 04:43:18 test1 java[132410]: [04:43:18] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3655ms or 73 ticks behind
+Aug 25 04:43:39 test1 java[132410]: [04:43:39] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 6148ms or 122 ticks behind
 
 exit_code=0
-finished_at=2026-08-25T04:43:16Z
+finished_at=2026-08-25T04:44:56Z
 runner=alexhost-143-246
