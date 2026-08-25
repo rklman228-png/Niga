@@ -1,64 +1,9 @@
----- startup markers
-Aug 25 03:03:57 test1 java[3763014]: [03:03:57] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
-Aug 25 03:04:18 test1 java[3763014]: [03:04:18] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 03:04:28 test1 java[3763014]: [03:04:28] [Server thread/INFO]: Done (1.315s)! For help, type "help"
-Aug 25 03:04:29 test1 java[3763014]: [03:04:29] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
-Aug 25 03:04:31 test1 java[3763014]: [03:04:31] [Server thread/INFO]: System chat: WorldKeeper joined the game
-Aug 25 03:04:31 test1 java[3763014]: [03:04:31] [Server thread/INFO]: Started fake player WorldKeeper
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
----- recent errors
----- state temp
-total 40
-drwxr-x--- 2 minecraft minecraft  4096 Aug 25 01:50 .
-drwxr-xr-x 3 minecraft minecraft  4096 Aug 24 21:21 ..
--rw-r----- 1 minecraft minecraft 14144 Aug 25 01:51 state.json
--rw-r--r-- 1 minecraft minecraft 14799 Aug 25 01:50 state.json.before-challenge-fix
--rw-r--r-- 1 minecraft minecraft     0 Aug 25 01:50 state.json.tmp
----- status
+STATE_MTIME_BEFORE=1787622702
+STATE_MTIME_AFTER=1787627247
 active
 0
-fe93d19b623937caecff386402e54b8a2fa9b4b2670c1ead1c09d021d20c799c  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-d5165af07a2889e7e187b282f6fa0efed195370a  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+Aug 25 03:07:56 test1 java[3776283]: [03:07:56] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
 
 exit_code=0
-finished_at=2026-08-25T03:06:41Z
+finished_at=2026-08-25T03:08:03Z
 runner=alexhost-143-246
