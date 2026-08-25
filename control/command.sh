@@ -1,28 +1,19 @@
 set -euo pipefail
-SINCE='2026-08-25 15:26:40'
+MC=/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
 
-echo '=== wait for Done ==='
-for i in $(seq 1 90); do
-  if ! systemctl is-active --quiet minecraft; then
-    echo SERVICE_DIED
-    exit 1
-  fi
-  if journalctl -u minecraft --since "$SINCE" --no-pager | grep -q 'Done ('; then
-    break
-  fi
-  sleep 1
-done
+echo '=== MagmaCube / Slime ==='
+javap -classpath "$MC" net.minecraft.world.entity.monster.MagmaCube 2>/dev/null | head -n 100 || true
+javap -classpath "$MC" net.minecraft.world.entity.monster.Slime 2>/dev/null | grep -E 'getSize|setSize|remove|split|finalizeSpawn|isTiny|canSpawn' || true
 
-echo '=== service ==='
-systemctl is-active minecraft
-ss -ltnp | grep ':25565 '
+echo '=== Heightmap ==='
+javap -classpath "$MC" net.minecraft.world.level.levelgen.Heightmap\$Types 2>/dev/null | head -n 80 || true
+javap -classpath "$MC" net.minecraft.server.level.ServerLevel 2>/dev/null | grep -E 'getHeight\(|getHeightmapPos|playSound|sendParticles' | head -n 80 || true
 
-echo '=== startup/runtime ==='
-journalctl -u minecraft --since "$SINCE" --no-pager | grep -E 'brigada_hotfix|Starting Minecraft server|Done \(|ERROR|Exception|MixinApplyError|InjectionError|InvalidMixin|NoSuchMethodError' | tail -n 200 || true
+echo '=== Fabric ServerEntityEvents ==='
+FAB=$(find /root/.gradle/caches -type f -name '*.jar' | while read f; do jar tf "$f" 2>/dev/null | grep -q 'net/fabricmc/fabric/api/event/lifecycle/v1/ServerEntityEvents.class' && { echo "$f"; break; }; done)
+echo "fabric=$FAB"
+[ -n "$FAB" ] && javap -classpath "$FAB:$MC" net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents || true
+[ -n "$FAB" ] && javap -classpath "$FAB:$MC" 'net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$Load' || true
 
-echo '=== hard checks ==='
-test "$(systemctl is-active minecraft)" = active
-ss -ltn | grep -q ':25565 '
-journalctl -u minecraft --since "$SINCE" --no-pager | grep -q 'Done ('
-! journalctl -u minecraft --since "$SINCE" --no-pager | grep -Eqi 'InjectionError|InvalidMixin|MixinApplyError|Could not execute entrypoint|ModResolutionException|Exception in server tick loop|Failed to start the minecraft server|NoSuchMethodError'
-echo HARD_BORDER_TELEPORT_RUNTIME_OK
+echo '=== current hotfix key methods ==='
+grep -nE 'tickMeaningfulParticles|boundaryPoint|verticalCorner|ring\(|onComplete|emitFireworkBurst|play\(|stabiliseEventMobs|register\(' /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java | head -n 120
