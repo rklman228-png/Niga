@@ -1,5 +1,278 @@
-fatal: not a git repository (or any of the parent directories): .git
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=128
-finished_at=2026-08-25T05:10:46Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+
+> Task :compileJava
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:17: error: cannot find symbol
+import dev.brigada13.core.state.ParcelDraftState;
+                               ^
+  symbol:   class ParcelDraftState
+  location: package dev.brigada13.core.state
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:119: error: cannot find symbol
+        expedition.difficulty = difficulty.name();
+                  ^
+  symbol:   variable difficulty
+  location: variable expedition of type ActiveExpeditionState
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:383: error: cannot find symbol
+            return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                         ^
+  symbol:   variable difficulty
+  location: variable expedition of type ActiveExpeditionState
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:383: error: cannot find symbol
+            return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                                                                    ^
+  symbol:   variable difficulty
+  location: variable expedition of type ActiveExpeditionState
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/BrigadaCore.java:38: error: constructor WorldMenuService in class WorldMenuService cannot be applied to given types;
+        WorldMenuService worldMenuService = new WorldMenuService(challengeService, rewardService, deathItemService);
+                                            ^
+  required: ChallengeService,ExpeditionService,ParcelService,RewardService,DeathItemService
+  found:    ChallengeService,RewardService,DeathItemService
+  reason: actual and formal argument lists differ in length
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:133: error: cannot find symbol
+                    ServerPlayer player = context.getSource().getPlayerOrException(); parcels.addHeldToDraft(player); menus.openParcelDraft(player); return 1;
+                                                                                             ^
+  symbol:   method addHeldToDraft(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:136: error: cannot find symbol
+                    ServerPlayer player = context.getSource().getPlayerOrException(); parcels.addHotbarToDraft(player); menus.openParcelDraft(player); return 1;
+                                                                                             ^
+  symbol:   method addHotbarToDraft(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:140: error: cannot find symbol
+                    if (parcels.sendDraft(player)) menus.openParcels(player); else menus.openParcelDraft(player); return 1;
+                               ^
+  symbol:   method sendDraft(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:143: error: cannot find symbol
+                    ServerPlayer player = context.getSource().getPlayerOrException(); parcels.cancelDraft(player); menus.openParcels(player); return 1;
+                                                                                             ^
+  symbol:   method cancelDraft(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:148: error: cannot find symbol
+                    parcels.claimParcel(player, id); menus.openParcelInbox(player);
+                           ^
+  symbol:   method claimParcel(ServerPlayer,UUID)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:151: error: cannot find symbol
+                    parcels.rejectParcel(player, id); menus.openParcelInbox(player);
+                           ^
+  symbol:   method rejectParcel(ServerPlayer,UUID)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:157: error: cannot find symbol
+                    ServerPlayer player = context.getSource().getPlayerOrException(); parcels.rejectAll(player); menus.openParcelInbox(player); return 1;
+                                                                                             ^
+  symbol:   method rejectAll(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:249: error: cannot find symbol
+                ItemStack stack = rewards.stack(reward);
+                                         ^
+  symbol:   method stack(ItemReward)
+  location: variable rewards of type RewardService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:300: error: cannot find symbol
+        int incoming = parcels.inbox(player).size();
+                              ^
+  symbol:   method inbox(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:311: error: cannot find symbol
+        for (String name : parcels.knownRecipients(player)) {
+                                  ^
+  symbol:   method knownRecipients(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:321: error: cannot find symbol
+        if (parcels.beginDraft(player, recipient)) openParcelDraft(player);
+                   ^
+  symbol:   method beginDraft(ServerPlayer,String)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:326: error: cannot find symbol
+        ParcelDraftState draft = parcels.draft(player);
+        ^
+  symbol:   class ParcelDraftState
+  location: class WorldMenuService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:326: error: cannot find symbol
+        ParcelDraftState draft = parcels.draft(player);
+                                        ^
+  symbol:   method draft(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:333: error: cannot find symbol
+        List<ItemStack> stacks = parcels.draftStacks(player);
+                                        ^
+  symbol:   method draftStacks(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:351: error: cannot find symbol
+        List<ParcelRecord> inbox = parcels.inbox(player);
+                                          ^
+  symbol:   method inbox(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:368: error: cannot find symbol
+        ParcelRecord parcel = parcels.inbox(player).stream().filter(candidate -> candidate.id().equals(id)).findFirst().orElse(null);
+                                     ^
+  symbol:   method inbox(ServerPlayer)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:399: error: cannot find symbol
+        for (ItemStack stack : parcels.parcelStacks(player, parcel)) {
+                                      ^
+  symbol:   method parcelStacks(ServerPlayer,ParcelRecord)
+  location: variable parcels of type ParcelService
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:408: error: cannot find symbol
+            return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                         ^
+  symbol:   variable difficulty
+  location: variable expedition of type ActiveExpeditionState
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:408: error: cannot find symbol
+            return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                                                                    ^
+  symbol:   variable difficulty
+  location: variable expedition of type ActiveExpeditionState
+Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+24 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/BrigadaCore.java:38: error: constructor WorldMenuService in class WorldMenuService cannot be applied to given types;
+          WorldMenuService worldMenuService = new WorldMenuService(challengeService, rewardService, deathItemService);
+                                              ^
+    required: ChallengeService,ExpeditionService,ParcelService,RewardService,DeathItemService
+    found:    ChallengeService,RewardService,DeathItemService
+    reason: actual and formal argument lists differ in length
+  Note: Recompile with -Xlint:deprecation for details.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:17: error: cannot find symbol
+  import dev.brigada13.core.state.ParcelDraftState;
+                                 ^
+    symbol:   class ParcelDraftState
+    location: package dev.brigada13.core.state
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:119: error: cannot find symbol
+          expedition.difficulty = difficulty.name();
+                    ^
+    symbol:   variable difficulty
+    location: variable expedition of type ActiveExpeditionState
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:383: error: cannot find symbol
+              return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                           ^
+    symbol:   variable difficulty
+    location: variable expedition of type ActiveExpeditionState
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:383: error: cannot find symbol
+              return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                                                                      ^
+    symbol:   variable difficulty
+    location: variable expedition of type ActiveExpeditionState
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:326: error: cannot find symbol
+          ParcelDraftState draft = parcels.draft(player);
+          ^
+    symbol:   class ParcelDraftState
+    location: class WorldMenuService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:408: error: cannot find symbol
+              return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                           ^
+    symbol:   variable difficulty
+    location: variable expedition of type ActiveExpeditionState
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:408: error: cannot find symbol
+              return ChallengeDifficulty.valueOf(expedition.difficulty == null ? "NORMAL" : expedition.difficulty);
+                                                                                                      ^
+    symbol:   variable difficulty
+    location: variable expedition of type ActiveExpeditionState
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:133: error: cannot find symbol
+                      ServerPlayer player = context.getSource().getPlayerOrException(); parcels.addHeldToDraft(player); menus.openParcelDraft(player); return 1;
+                                                                                               ^
+    symbol:   method addHeldToDraft(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:136: error: cannot find symbol
+                      ServerPlayer player = context.getSource().getPlayerOrException(); parcels.addHotbarToDraft(player); menus.openParcelDraft(player); return 1;
+                                                                                               ^
+    symbol:   method addHotbarToDraft(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:140: error: cannot find symbol
+                      if (parcels.sendDraft(player)) menus.openParcels(player); else menus.openParcelDraft(player); return 1;
+                                 ^
+    symbol:   method sendDraft(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:143: error: cannot find symbol
+                      ServerPlayer player = context.getSource().getPlayerOrException(); parcels.cancelDraft(player); menus.openParcels(player); return 1;
+                                                                                               ^
+    symbol:   method cancelDraft(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:148: error: cannot find symbol
+                      parcels.claimParcel(player, id); menus.openParcelInbox(player);
+                             ^
+    symbol:   method claimParcel(ServerPlayer,UUID)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:151: error: cannot find symbol
+                      parcels.rejectParcel(player, id); menus.openParcelInbox(player);
+                             ^
+    symbol:   method rejectParcel(ServerPlayer,UUID)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/command/BrigadaCommands.java:157: error: cannot find symbol
+                      ServerPlayer player = context.getSource().getPlayerOrException(); parcels.rejectAll(player); menus.openParcelInbox(player); return 1;
+                                                                                               ^
+    symbol:   method rejectAll(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:249: error: cannot find symbol
+                  ItemStack stack = rewards.stack(reward);
+                                           ^
+    symbol:   method stack(ItemReward)
+    location: variable rewards of type RewardService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:300: error: cannot find symbol
+          int incoming = parcels.inbox(player).size();
+                                ^
+    symbol:   method inbox(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:311: error: cannot find symbol
+          for (String name : parcels.knownRecipients(player)) {
+                                    ^
+    symbol:   method knownRecipients(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:321: error: cannot find symbol
+          if (parcels.beginDraft(player, recipient)) openParcelDraft(player);
+                     ^
+    symbol:   method beginDraft(ServerPlayer,String)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:326: error: cannot find symbol
+          ParcelDraftState draft = parcels.draft(player);
+                                          ^
+    symbol:   method draft(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:333: error: cannot find symbol
+          List<ItemStack> stacks = parcels.draftStacks(player);
+                                          ^
+    symbol:   method draftStacks(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:351: error: cannot find symbol
+          List<ParcelRecord> inbox = parcels.inbox(player);
+                                            ^
+    symbol:   method inbox(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:368: error: cannot find symbol
+          ParcelRecord parcel = parcels.inbox(player).stream().filter(candidate -> candidate.id().equals(id)).findFirst().orElse(null);
+                                       ^
+    symbol:   method inbox(ServerPlayer)
+    location: variable parcels of type ParcelService
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:399: error: cannot find symbol
+          for (ItemStack stack : parcels.parcelStacks(player, parcel)) {
+                                        ^
+    symbol:   method parcelStacks(ServerPlayer,ParcelRecord)
+    location: variable parcels of type ParcelService
+  24 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 43s
+2 actionable tasks: 2 executed
+
+exit_code=1
+finished_at=2026-08-25T05:13:25Z
 runner=alexhost-143-246
