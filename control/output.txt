@@ -1,6 +1,35 @@
-=== sound references ===
-=== build mappings hint ===
+=== ServerLivingEntityEvents API ===
+/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-entity-events-v1/6.0.3+3434d6d97a/18fcb4e5e6c7576cc5390732a50c677a124a41bd/fabric-entity-events-v1-6.0.3+3434d6d97a.jar
+Compiled from "ServerLivingEntityEvents.java"
+public final class net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDamage> ALLOW_DAMAGE;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDamage> AFTER_DAMAGE;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AllowDeath> ALLOW_DEATH;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$AfterDeath> AFTER_DEATH;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents$MobConversion> MOB_CONVERSION;
+  static {};
+}
+=== mapped server classes ===
+cp=/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
+  protected int fallFlyTicks;
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public int getLogicalHeight();
+  public static final net.minecraft.sounds.SoundEvent BEACON_ACTIVATE;
+  public static final net.minecraft.sounds.SoundEvent EXPERIENCE_ORB_PICKUP;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_BLAST;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_BLAST_FAR;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_LARGE_BLAST;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_LARGE_BLAST_FAR;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_LAUNCH;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_SHOOT;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_TWINKLE;
+  public static final net.minecraft.sounds.SoundEvent FIREWORK_ROCKET_TWINKLE_FAR;
+  public static final net.minecraft.sounds.SoundEvent PLAYER_LEVELUP;
+  public static final net.minecraft.core.Holder$Reference<net.minecraft.sounds.SoundEvent> RAID_HORN;
+  public static final net.minecraft.sounds.SoundEvent UI_TOAST_CHALLENGE_COMPLETE;
+  public static final net.minecraft.sounds.SoundEvent UI_TOAST_IN;
+  public static final net.minecraft.sounds.SoundEvent UI_TOAST_OUT;
 
 exit_code=0
-finished_at=2026-08-25T14:48:57Z
+finished_at=2026-08-25T14:52:31Z
 runner=alexhost-143-246
