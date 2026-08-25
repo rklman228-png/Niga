@@ -1,6 +1,6 @@
 import Foundation
 
-enum WindowCapability: String, CaseIterable, Identifiable, Codable {
+enum WindowCapability: String, CaseIterable, Identifiable, Codable, Hashable {
     case stageManager = "qeaj75wk3HF4DwQ8qbIi7g"
     case capA = "mG0AnH/Vy1veoqoLRAIgTA"
     case capB = "UCG5MkVahJxG1YULbbd5Bg"
