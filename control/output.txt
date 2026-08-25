@@ -1,46 +1,11 @@
-=== teleport border source check ===
-106:                confineParticipants(server, level, state);
-152:    private static void confineParticipants(MinecraftServer server, ServerLevel level, ActiveChallengeState state) {
-178:            // Hard invisible wall: teleportTo sends an immediate correction to the owning client,
-180:            player.teleportTo(x, player.getY(), z);
-=== incremental build ===
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :compileJava
-> Task :processResources UP-TO-DATE
-> Task :classes
-> Task :processIncludeJars UP-TO-DATE
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 55s
-5 actionable tasks: 3 executed, 2 up-to-date
-937f1244c819b0e897b84c5891d7941425b4e890ac2d98198f2e4fda8ca06b1b  /opt/brigada-hotfix-src/build/libs/brigada-hotfix-0.1.0.jar
-=== deploy ===
-937f1244c819b0e897b84c5891d7941425b4e890ac2d98198f2e4fda8ca06b1b  /opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
-=== verify ===
+=== service ===
 active
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=1931884,fd=163))                                                                                           
+=== fresh startup ===
+Aug 25 15:26:48 test1 java[1931884]:         - brigada_hotfix 1.0.0
+Aug 25 15:27:37 test1 java[1931884]: [15:27:37] [Server thread/INFO]: Starting Minecraft server on *:25565
+=== hard checks ===
 
 exit_code=1
-finished_at=2026-08-25T15:26:42Z
+finished_at=2026-08-25T15:27:40Z
 runner=alexhost-143-246
