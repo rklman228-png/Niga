@@ -1,11 +1,72 @@
-active
-b8113bc9d093e50ae0f9e2ae0af453cac89f1d30  -
-b8113bc9d093e50ae0f9e2ae0af453cac89f1d30  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*   
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*   
-Aug 25 05:21:38 test1 java[255586]: [05:21:38] [Server thread/INFO]: Done (1.613s)! For help, type "help"
-Aug 25 05:21:40 test1 java[255586]: [05:21:40] [Server thread/INFO]: Started fake player WorldKeeper
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=0
-finished_at=2026-08-25T05:23:21Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+
+> Task :compileJava
+/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:970: error: no suitable method found for sendParticles(ParticleType<ColorParticleOption>,double,double,double,int,double,double,double,double)
+                if (local < 2) player.level().sendParticles(ParticleTypes.FLASH,
+                                             ^
+    method ServerLevel.<T#1>sendParticles(T#1,double,double,double,int,double,double,double,double) is not applicable
+      (inference variable T#1 has incompatible bounds
+        upper bounds: ParticleOptions
+        lower bounds: ParticleType<ColorParticleOption>)
+    method ServerLevel.<T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+      (cannot infer type-variable(s) T#2
+        (actual and formal argument lists differ in length))
+    method ServerLevel.<T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+      (cannot infer type-variable(s) T#3
+        (actual and formal argument lists differ in length))
+  where T#1,T#2,T#3 are type-variables:
+    T#1 extends ParticleOptions declared in method <T#1>sendParticles(T#1,double,double,double,int,double,double,double,double)
+    T#2 extends ParticleOptions declared in method <T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double)
+    T#3 extends ParticleOptions declared in method <T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double)
+Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+  /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:970: error: no suitable method found for sendParticles(ParticleType<ColorParticleOption>,double,double,double,int,double,double,double,double)
+                  if (local < 2) player.level().sendParticles(ParticleTypes.FLASH,
+                                               ^
+      method ServerLevel.<T#1>sendParticles(T#1,double,double,double,int,double,double,double,double) is not applicable
+        (inference variable T#1 has incompatible bounds
+          upper bounds: ParticleOptions
+          lower bounds: ParticleType<ColorParticleOption>)
+      method ServerLevel.<T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+        (cannot infer type-variable(s) T#2
+          (actual and formal argument lists differ in length))
+      method ServerLevel.<T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+        (cannot infer type-variable(s) T#3
+          (actual and formal argument lists differ in length))
+    where T#1,T#2,T#3 are type-variables:
+      T#1 extends ParticleOptions declared in method <T#1>sendParticles(T#1,double,double,double,int,double,double,double,double)
+      T#2 extends ParticleOptions declared in method <T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double)
+      T#3 extends ParticleOptions declared in method <T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double)
+  Note: Recompile with -Xlint:deprecation for details.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  1 error
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 43s
+2 actionable tasks: 2 executed
+
+exit_code=1
+finished_at=2026-08-25T05:41:27Z
 runner=alexhost-143-246
