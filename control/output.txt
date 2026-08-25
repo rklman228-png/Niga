@@ -1,70 +1,352 @@
-=== eventZones refs ===
-159:            state.eventZones.put(key(player), 0);
---- lines 145-183 ---
-                        .withStyle(ChatFormatting.RED));
-                return false;
-            }
-            definition = located.definition();
-        } else {
-            definition = BrigadaCore.challenges().randomUnseen(difficulty, bag, random,
-                    candidate -> candidate.kind() == ChallengeKind.REPEATABLE_TASK);
-        }
-
-        ActiveChallengeState state = new ActiveChallengeState(definition.id(), System.currentTimeMillis());
-        state.singleMode = solo;
-        for (ServerPlayer player : players) {
-            state.contribution.put(key(player), 0.0);
-            state.counters.put(key(player) + ":progress", 0);
-            state.eventZones.put(key(player), 0);
-        }
-        if (located != null && definition.kind() == ChallengeKind.MINI_EVENT) {
-            configureArena(state, requester.level(), located);
-        }
-        BrigadaCore.stateStore().state().activeChallenge = state;
-        BrigadaCore.stateStore().save();
-
-        MutableComponent message = Component.literal(solo ? "Одиночное испытание: " : "Испытание: ")
-                .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD)
-                .append(Component.literal(objectiveText(definition, state)).withStyle(ChatFormatting.WHITE));
-        if (definition.kind() == ChallengeKind.MINI_EVENT) {
-            message.append(Component.literal(" Координаты: " + state.arenaX + " " + state.arenaY + " " + state.arenaZ + ".")
-                    .withStyle(ChatFormatting.AQUA));
-        }
-        players.forEach(player -> {
-            player.sendSystemMessage(message);
-            player.connection.send(ClientboundClearDialogPacket.INSTANCE);
-        });
-        return true;
-    }
-
-    public void cancel(MinecraftServer server) {
-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-        if (state == null) return;
-=== mechanic enum ===
-package dev.brigada13.core.challenge;
-
-public enum MiniEventMechanic {
-    WAVES("Волны"),
-    HOLD_ZONE("Удержание"),
-    HUNT_TARGETS("Охота"),
-    DEFEND_OBJECTIVE("Оборона"),
-    EXTRACTION("Извлечение"),
-    SPLIT_OBJECTIVES("Раздельные цели"),
-    ELITE_BOSS("Элитная цель"),
-    NO_DEATH_GAUNTLET("Испытание без смертей"),
-    MULTI_PHASE_ASSAULT("Многоэтапный штурм");
-
-    private final String title;
-
-    MiniEventMechanic(String title) {
-        this.title = title;
-    }
-
-    public String title() {
-        return title;
-    }
-}
+=== eventZones bytecode refs ===
+305-       245: aload_2
+306-       246: aload         8
+307-       248: aload_0
+308-       249: getfield      #10                 // Field random:Ljava/util/Random;
+309-       252: invokedynamic #222,  0            // InvokeDynamic #6:test:()Ljava/util/function/Predicate;
+310-       257: invokevirtual #226                // Method dev/brigada13/core/challenge/ChallengeCatalog.randomUnseen:(Ldev/brigada13/core/challenge/ChallengeDifficulty;Ljava/util/List;Ljava/util/Random;Ljava/util/function/Predicate;)Ldev/brigada13/core/challenge/ChallengeDefinition;
+311-       260: astore        9
+312-       262: new           #232                // class dev/brigada13/core/state/ActiveChallengeState
+313-       265: dup
+314-       266: aload         9
+315-       268: invokevirtual #234                // Method dev/brigada13/core/challenge/ChallengeDefinition.id:()Ljava/lang/String;
+316-       271: invokestatic  #239                // Method java/lang/System.currentTimeMillis:()J
+317-       274: invokespecial #245                // Method dev/brigada13/core/state/ActiveChallengeState."<init>":(Ljava/lang/String;J)V
+318-       277: astore        12
+319-       279: aload         12
+320-       281: iload         4
+321-       283: putfield      #248                // Field dev/brigada13/core/state/ActiveChallengeState.singleMode:Z
+322-       286: aload         7
+323-       288: invokeinterface #252,  1          // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+324-       293: astore        13
+325-       295: aload         13
+326-       297: invokeinterface #256,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+327-       302: ifeq          385
+328-       305: aload         13
+329-       307: invokeinterface #261,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+330-       312: checkcast     #85                 // class net/minecraft/server/level/ServerPlayer
+331-       315: astore        14
+332-       317: aload         12
+333-       319: getfield      #265                // Field dev/brigada13/core/state/ActiveChallengeState.contribution:Ljava/util/Map;
+334-       322: aload         14
+335-       324: invokestatic  #268                // Method key:(Lnet/minecraft/server/level/ServerPlayer;)Ljava/lang/String;
+336-       327: dconst_0
+337-       328: invokestatic  #272                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+338-       331: invokeinterface #278,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+339-       336: pop
+340-       337: aload         12
+341-       339: getfield      #282                // Field dev/brigada13/core/state/ActiveChallengeState.counters:Ljava/util/Map;
+342-       342: aload         14
+343-       344: invokestatic  #268                // Method key:(Lnet/minecraft/server/level/ServerPlayer;)Ljava/lang/String;
+344-       347: invokedynamic #285,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+345-       352: iconst_0
+346-       353: invokestatic  #288                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+347-       356: invokeinterface #278,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+348-       361: pop
+349-       362: aload         12
+350:       364: getfield      #293                // Field dev/brigada13/core/state/ActiveChallengeState.eventZones:Ljava/util/Map;
+351-       367: aload         14
+352-       369: invokestatic  #268                // Method key:(Lnet/minecraft/server/level/ServerPlayer;)Ljava/lang/String;
+353-       372: iconst_0
+354-       373: invokestatic  #288                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+355-       376: invokeinterface #278,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+356-       381: pop
+357-       382: goto          295
+358-       385: aload         10
+359-       387: ifnull        412
+360-       390: aload         9
+361-       392: invokevirtual #296                // Method dev/brigada13/core/challenge/ChallengeDefinition.kind:()Ldev/brigada13/core/challenge/ChallengeKind;
+362-       395: getstatic     #300                // Field dev/brigada13/core/challenge/ChallengeKind.MINI_EVENT:Ldev/brigada13/core/challenge/ChallengeKind;
+363-       398: if_acmpne     412
+364-       401: aload         12
+365-       403: aload_3
+366-       404: invokevirtual #198                // Method net/minecraft/server/level/ServerPlayer.level:()Lnet/minecraft/server/level/ServerLevel;
+367-       407: aload         10
+368-       409: invokestatic  #306                // Method configureArena:(Ldev/brigada13/core/state/ActiveChallengeState;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/challenge/ChallengeService$LocatedEvent;)V
+369-       412: invokestatic  #102                // Method dev/brigada13/core/BrigadaCore.stateStore:()Ldev/brigada13/core/state/StateStore;
+370-       415: invokevirtual #108                // Method dev/brigada13/core/state/StateStore.state:()Ldev/brigada13/core/state/BrigadaState;
+371-       418: aload         12
+372-       420: putfield      #114                // Field dev/brigada13/core/state/BrigadaState.activeChallenge:Ldev/brigada13/core/state/ActiveChallengeState;
+373-       423: invokestatic  #102                // Method dev/brigada13/core/BrigadaCore.stateStore:()Ldev/brigada13/core/state/StateStore;
+374-       426: invokevirtual #310                // Method dev/brigada13/core/state/StateStore.save:()V
+375-       429: iload         4
+376-       431: ifeq          440
+377-       434: ldc_w         #313                // String Одиночное испытание:
+378-       437: goto          443
+379-       440: ldc_w         #315                // String Испытание:
+380-       443: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+381-       446: iconst_2
+382-       447: anewarray     #133                // class net/minecraft/ChatFormatting
+383-       450: dup
+384-       451: iconst_0
+385-       452: getstatic     #317                // Field net/minecraft/ChatFormatting.GOLD:Lnet/minecraft/ChatFormatting;
+386-       455: aastore
+387-       456: dup
+388-       457: iconst_1
+389-       458: getstatic     #320                // Field net/minecraft/ChatFormatting.BOLD:Lnet/minecraft/ChatFormatting;
+390-       461: aastore
+391-       462: invokevirtual #323                // Method net/minecraft/network/chat/MutableComponent.withStyle:([Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+392-       465: aload         9
+393-       467: aload         12
+394-       469: invokestatic  #326                // Method objectiveText:(Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)Ljava/lang/String;
+395-       472: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+396-       475: getstatic     #330                // Field net/minecraft/ChatFormatting.WHITE:Lnet/minecraft/ChatFormatting;
+397-       478: invokevirtual #138                // Method net/minecraft/network/chat/MutableComponent.withStyle:(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+398-       481: invokevirtual #333                // Method net/minecraft/network/chat/MutableComponent.append:(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;
+399-       484: astore        13
+400-       486: aload         9
+401-       488: invokevirtual #296                // Method dev/brigada13/core/challenge/ChallengeDefinition.kind:()Ldev/brigada13/core/challenge/ChallengeKind;
+402-       491: getstatic     #300                // Field dev/brigada13/core/challenge/ChallengeKind.MINI_EVENT:Ldev/brigada13/core/challenge/ChallengeKind;
+403-       494: if_acmpne     559
+404-       497: aload         13
+405-       499: aload         12
+406-       501: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+407-       504: aload         12
+408-       506: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
+409-       509: aload         12
+410-       511: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+411-       514: invokedynamic #347,  0            // InvokeDynamic #8:makeConcatWithConstants:(III)Ljava/lang/String;
+412-       519: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+413-       522: getstatic     #350                // Field net/minecraft/ChatFormatting.AQUA:Lnet/minecraft/ChatFormatting;
+414-       525: invokevirtual #138                // Method net/minecraft/network/chat/MutableComponent.withStyle:(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+415-       528: invokevirtual #333                // Method net/minecraft/network/chat/MutableComponent.append:(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;
+416-       531: pop
+417-       532: aload         13
+418-       534: aload         9
+419-       536: aload         12
+420-       538: invokestatic  #353                // Method eventInstruction:(Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)Ljava/lang/String;
+421-       541: invokedynamic #356,  0            // InvokeDynamic #9:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+422-       546: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+423-       549: getstatic     #357                // Field net/minecraft/ChatFormatting.YELLOW:Lnet/minecraft/ChatFormatting;
+424-       552: invokevirtual #138                // Method net/minecraft/network/chat/MutableComponent.withStyle:(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+425-       555: invokevirtual #333                // Method net/minecraft/network/chat/MutableComponent.append:(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;
+426-       558: pop
+427-       559: aload         7
+428-       561: aload         13
+429-       563: invokedynamic #360,  0            // InvokeDynamic #10:accept:(Lnet/minecraft/network/chat/MutableComponent;)Ljava/util/function/Consumer;
+430-       568: invokeinterface #364,  2          // InterfaceMethod java/util/List.forEach:(Ljava/util/function/Consumer;)V
+=== likely zone/ring helpers ===
+2684:        91: ldc_w         #1102               // String bastion
+2685:        94: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2688:       101: ldc_w         #1108               // String end_city
+2689:       104: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2696:  private static java.lang.String themeId(dev.brigada13.core.challenge.ChallengeDefinition);
+2699:         1: invokevirtual #234                // Method dev/brigada13/core/challenge/ChallengeDefinition.id:()Ljava/lang/String;
+2700:         4: ldc_w         #1110               // String /
+2701:         7: invokevirtual #1112               // Method java/lang/String.split:(Ljava/lang/String;)[Ljava/lang/String;
+2711:        23: ldc_w         #1116               // String outpost
+2717:         1: invokestatic  #1094               // Method themeId:(Ldev/brigada13/core/challenge/ChallengeDefinition;)Ljava/lang/String;
+2722:         8: invokevirtual #1118               // Method java/lang/String.hashCode:()I
+2741:       133: ldc_w         #1121               // String village
+2742:       136: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2748:       148: ldc_w         #1116               // String outpost
+2749:       151: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2755:       163: ldc_w         #1104               // String ruined_portal
+2756:       166: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2762:       178: ldc_w         #1123               // String mineshaft
+2763:       181: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2769:       193: ldc_w         #1125               // String shipwreck
+2770:       196: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2776:       208: ldc_w         #1127               // String ocean_ruin
+2777:       211: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2783:       223: ldc_w         #1129               // String desert_pyramid
+2784:       226: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2790:       239: ldc_w         #1131               // String igloo
+2791:       242: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2797:       255: ldc_w         #1133               // String swamp_hut
+2798:       258: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2804:       271: ldc_w         #1135               // String trail_ruins
+2805:       274: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2811:       287: ldc_w         #1137               // String trial
+2812:       290: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2818:       303: ldc_w         #1139               // String jungle_temple
+2819:       306: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2825:       319: ldc_w         #1141               // String monument
+2826:       322: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2832:       335: ldc_w         #1143               // String stronghold
+2833:       338: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+2868:         4: invokestatic  #1094               // Method themeId:(Ldev/brigada13/core/challenge/ChallengeDefinition;)Ljava/lang/String;
+2869:         7: invokevirtual #1145               // Method dev/brigada13/core/challenge/ChallengeCatalog.requireTheme:(Ljava/lang/String;)Ldev/brigada13/core/challenge/StructureTheme;
+2893:        70: invokespecial #725                // Method java/lang/MatchException."<init>":(Ljava/lang/String;Ljava/lang/Throwable;)V
+2927:       150: checkcast     #505                // class java/lang/String
+2930:       157: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+2939:       185: checkcast     #505                // class java/lang/String
+2940:       188: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+2990:       302: invokevirtual #1188               // Method dev/brigada13/core/challenge/StructureTheme.title:()Ljava/lang/String;
+2991:       305: invokedynamic #1191,  0           // InvokeDynamic #32:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+2992:       310: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+3066:        12: ldc_w         #1203               // String minecraft:iron_golem
+3067:        15: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+3078:        40: ldc_w         #1205               // String Сердце обороны
+3079:        43: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+3249:        68: checkcast     #505                // class java/lang/String
+3254:        79: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+3579:  private static void renderZone(net.minecraft.server.level.ServerLevel, int, int, int, int, net.minecraft.core.particles.ParticleOptions);
+3621:        67: invokestatic  #1361               // Method dev/brigada13/core/particle/ParticleOptimizer.emit:(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)V
+3638:        30: checkcast     #505                // class java/lang/String
+3643:        41: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+3714:        38: checkcast     #505                // class java/lang/String
+3719:        49: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+3781:        61: invokestatic  #1383               // Method java/lang/String.valueOf:(C)Ljava/lang/String;
+3782:        64: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+3837:        33: checkcast     #505                // class java/lang/String
+3842:        44: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+3875:        23: checkcast     #505                // class java/lang/String
+3876:        26: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+3899:  private static boolean participantsSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState, int, int, int, int);
+3915:        39: checkcast     #505                // class java/lang/String
+3920:        50: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+4009:  private void resetEvent(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState, java.lang.String);
+4032:        50: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4108:        24: invokestatic  #326                // Method objectiveText:(Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)Ljava/lang/String;
+4113:        36: ldc_w         #436                // String Соло ·
+4115:        42: ldc_w         #438                // String Дуо ·
+4117:        47: invokedynamic #440,  0            // InvokeDynamic #13:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+4118:        52: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4124:        67: invokestatic  #447                // Method bar:(DI)Ljava/lang/String;
+4125:        70: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4130:        85: ldc_w         #1406               // String   100%
+4131:        88: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4155:       148: checkcast     #505                // class java/lang/String
+4163:       165: invokevirtual #1412               // Method dev/brigada13/core/reward/RewardService.enqueue:(Ljava/lang/String;Ljava/lang/String;Ldev/brigada13/core/challenge/RewardSpec;)V
+4194:       239: ldc           #170                // String SOLO_
+4196:       244: ldc           #172                // String DUO_
+4199:       250: invokevirtual #174                // Method dev/brigada13/core/challenge/ChallengeDifficulty.name:()Ljava/lang/String;
+4200:       253: invokedynamic #180,  0            // InvokeDynamic #4:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+4205:       272: invokevirtual #234                // Method dev/brigada13/core/challenge/ChallengeDefinition.id:()Ljava/lang/String;
+4218:       306: invokedynamic #1426,  0           // InvokeDynamic #41:accept:(Ljava/lang/String;)Ljava/util/function/Consumer;
+4226:         4: ldc_w         #502                // String mode
+4228:        12: checkcast     #505                // class java/lang/String
+4230:        16: ldc_w         #496                // String boss_duo_damage
+4232:        20: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4260:        88: ldc_w         #922                // String split_kills
+4262:        92: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4264:        98: ldc_w         #524                // String split_collect
+4266:       102: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4268:       108: ldc_w         #1445               // String together_condition
+4270:       112: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4320:  private static java.lang.String bar(double, int);
+4333:        17: ldc_w         #1460               // String ■
+4335:        21: invokevirtual #1462               // Method java/lang/String.repeat:(I)Ljava/lang/String;
+4336:        24: ldc_w         #1465               // String □
+4340:        30: invokevirtual #1462               // Method java/lang/String.repeat:(I)Ljava/lang/String;
+4341:        33: invokedynamic #180,  0            // InvokeDynamic #4:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+4344:  public static java.lang.String objectiveText(dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+4348:         4: ldc_w         #502                // String mode
+4350:        12: checkcast     #505                // class java/lang/String
+4352:        16: ldc_w         #496                // String boss_duo_damage
+4354:        20: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4359:        33: ldc_w         #1467               // String Убить визера · нанести 80%
+4361:        39: ldc_w         #1469               // String Убить визера · каждому нанести 20%
+4363:        43: ldc_w         #922                // String split_kills
+4365:        47: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4367:        53: ldc_w         #524                // String split_collect
+4369:        57: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4377:        73: ldc_w         #1471               // String target_ru
+4378:        76: ldc_w         #1473               // String цель
+4380:        84: checkcast     #505                // class java/lang/String
+4382:        89: ldc_w         #922                // String split_kills
+4384:        93: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4386:        99: ldc_w         #1475               // String Убить
+4388:       105: ldc_w         #1477               // String Собрать
+4396:       122: ldc_w         #776                // String
+4398:       128: ldc_w         #1479               // String  каждому
+4399:       131: invokedynamic #1481,  0           // InvokeDynamic #44:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
+4410:       158: invokevirtual #1487               // Method dev/brigada13/core/challenge/ChallengeDefinition.title:()Ljava/lang/String;
+4411:       161: invokedynamic #1488,  0           // InvokeDynamic #45:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+4414:       168: invokevirtual #1487               // Method dev/brigada13/core/challenge/ChallengeDefinition.title:()Ljava/lang/String;
+4417:  private static java.lang.String eventInstruction(dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+4440:        66: invokespecial #725                // Method java/lang/MatchException."<init>":(Ljava/lang/String;Ljava/lang/Throwable;)V
+4442:        70: ldc_w         #1489               // String уничтожай подсвеченных врагов; каждая волна появляется один раз, следующая — после полной зачистки.
+4444:        76: ldc_w         #1491               // String стой в зелёном кругу. Вне круга прогресс откатывается; подкрепления будут приходить до конца удержания.
+4446:        82: ldc_w         #1493               // String найди и уничтожь все подсвеченные цели внутри закрытой зоны.
+4448:        88: ldc_w         #1495               // String не дай уничтожить «Сердце обороны» и полностью зачисти все волны.
+4450:        94: ldc_w         #1497               // String уничтожь подсвеченных врагов, затем вернись в зелёный круг в центре зоны.
+4455:       107: ldc_w         #1499               // String удерживай две отмеченные точки по очереди.
+4457:       113: ldc_w         #1501               // String разделитесь и одновременно удерживайте две отмеченные точки.
+4462:       126: ldc_w         #1503               // String уничтожь подсвеченного командира, нанеся ему лично не меньше 60% урона.
+4464:       132: ldc_w         #1505               // String уничтожьте подсвеченного командира; каждый должен нанести не меньше требуемой доли урона.
+4466:       138: ldc_w         #1507               // String полностью зачисти все волны без смерти; смерть перезапускает событие.
+4468:       144: ldc_w         #1509               // String пройди три фазы: зачистка подсвеченных целей, удержание зелёного круга и убийство командира.
+4508:        91: checkcast     #505                // class java/lang/String
+4509:        94: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+4526:       134: new           #1528               // class net/minecraft/core/particles/DustParticleOptions
+4530:       144: invokespecial #1532               // Method net/minecraft/core/particles/DustParticleOptions."<init>":(IF)V
+4532:       149: new           #1528               // class net/minecraft/core/particles/DustParticleOptions
+4536:       159: invokespecial #1532               // Method net/minecraft/core/particles/DustParticleOptions."<init>":(IF)V
+4622:       323: invokestatic  #1361               // Method dev/brigada13/core/particle/ParticleOptimizer.emit:(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)V
+4630:  private static boolean isMiniEventId(java.lang.String);
+4634:         4: invokevirtual #428                // Method dev/brigada13/core/challenge/ChallengeCatalog.require:(Ljava/lang/String;)Ldev/brigada13/core/challenge/ChallengeDefinition;
+4646:        28: ldc_w         #1561               // String event/
+4647:        31: invokevirtual #1563               // Method java/lang/String.startsWith:(Ljava/lang/String;)Z
+4666:        17: ldc_w         #1569               // String minimum_each_percent
+4668:        25: checkcast     #505                // class java/lang/String
+4669:        28: invokestatic  #829                // Method java/lang/Double.parseDouble:(Ljava/lang/String;)D
+4676:         4: ldc_w         #1571               // String each
+4678:        12: checkcast     #505                // class java/lang/String
+4679:        15: invokestatic  #694                // Method java/lang/Integer.parseInt:(Ljava/lang/String;)I
+4691:  private static int holdTarget(dev.brigada13.core.challenge.ChallengeDefinition);
+4708:        42: invokespecial #725                // Method java/lang/MatchException."<init>":(Ljava/lang/String;Ljava/lang/Throwable;)V
+4717:  private static java.lang.String soloDescription(dev.brigada13.core.challenge.ChallengeDefinition);
+4721:         4: ldc_w         #502                // String mode
+4723:        12: checkcast     #505                // class java/lang/String
+4725:        16: ldc_w         #496                // String boss_duo_damage
+4727:        20: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4729:        26: ldc_w         #1573               // String Призови нового Визера, нанеси лично не меньше 80% и сам добей.
+4731:        30: ldc_w         #922                // String split_kills
+4733:        34: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4735:        40: ldc_w         #524                // String split_collect
+4737:        44: invokevirtual #504                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+4743:        56: invokestatic  #326                // Method objectiveText:(Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)Ljava/lang/String;
+4744:        59: invokedynamic #1579,  0           // InvokeDynamic #47:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+4750:        75: ldc_w         #1580               // String Доберись до ванильной структуры и войди в зону испытания. Волны и условия адаптированы под одного игрока.
+4752:        79: ldc_w         #1582               // String Общий парный объём задания перенесён на одного игрока.
+4797:        69: invokevirtual #1590               // Method com/mojang/authlib/GameProfile.name:()Ljava/lang/String;
+4798:        72: ldc_w         #1593               // String WorldKeeper
+4799:        75: invokevirtual #1595               // Method java/lang/String.equalsIgnoreCase:(Ljava/lang/String;)Z
+4814:         1: ldc_w         #1598               // String
+4815:         4: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4835:        53: ldc_w         #1598               // String
+4836:        56: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4844:        73: checkcast     #505                // class java/lang/String
+4850:        92: invokedynamic #1603,  0           // InvokeDynamic #48:makeConcatWithConstants:(Ljava/lang/String;J)Ljava/lang/String;
+4851:        97: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4871:        30: checkcast     #505                // class java/lang/String
+4876:        41: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+4889:         1: getfield      #1055               // Field dev/brigada13/core/state/ActiveChallengeState.arenaDimension:Ljava/lang/String;
+4896:        14: getfield      #1055               // Field dev/brigada13/core/state/ActiveChallengeState.arenaDimension:Ljava/lang/String;
+4897:        17: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+4902:  private static java.lang.String key(net.minecraft.server.level.ServerPlayer);
+4906:         4: invokevirtual #1590               // Method com/mojang/authlib/GameProfile.name:()Ljava/lang/String;
+4908:        10: invokevirtual #1625               // Method java/lang/String.toLowerCase:(Ljava/util/Locale;)Ljava/lang/String;
+4926:  private static int lambda$overallProgress$1(int, dev.brigada13.core.state.ActiveChallengeState, java.lang.String);
+4932:         6: invokedynamic #285,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+4949:  private static void lambda$complete$3(java.lang.String, net.minecraft.server.level.ServerPlayer);
+4953:         2: invokedynamic #1629,  0           // InvokeDynamic #49:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+4954:         7: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+4969:  private static java.util.List lambda$complete$2(java.lang.String);
+4997:  private static java.lang.Double lambda$resetEvent$0(java.lang.String, java.lang.Double);
+5076:        12: invokevirtual #234                // Method dev/brigada13/core/challenge/ChallengeDefinition.id:()Ljava/lang/String;
+5088:  private static java.lang.Double lambda$handleBossDeath$2(java.lang.String, java.lang.Double);
+5106:  private static java.lang.Double lambda$handleBossDeath$0(java.lang.String, java.lang.Double);
+5112:  private static boolean lambda$afterDeath$0(dev.brigada13.core.state.ActiveChallengeState, int, java.lang.String);
+5117:         5: invokedynamic #285,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+5142:  private static boolean lambda$tickTask$0(dev.brigada13.core.state.ActiveChallengeState, int, java.lang.String);
+5147:         5: invokedynamic #285,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+5184:         1: ldc_w         #1663               // String Испытание отменено.
+5185:         4: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+5191:  private void lambda$cancel$0(net.minecraft.server.MinecraftServer, java.lang.String);
+5201:        16: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+5236:  private static java.util.List lambda$start$0(java.lang.String);
+5269:         3: ldc_w         #1694               // String minecraft:gray_stained_glass
+5270:         6: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+5275:        23: ldc_w         #1696               // String minecraft:brown_stained_glass
+5276:        26: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+5281:        43: ldc_w         #1698               // String minecraft:lime_stained_glass
+5282:        46: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+5288:        64: ldc_w         #1702               // String brigada_core:navigation
+5289:        67: invokestatic  #528                // Method net/minecraft/resources/Identifier.parse:(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
 
 exit_code=0
-finished_at=2026-08-25T16:39:21Z
+finished_at=2026-08-25T16:40:01Z
 runner=alexhost-143-246
