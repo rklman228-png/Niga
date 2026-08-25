@@ -1,5 +1,8 @@
 set -euo pipefail
-echo INDEXES
-find /root/.gradle /opt/minecraft -type f \( -path '*/assets/indexes/*.json' -o -name '26.json' -o -name '26.3-snapshot-9.json' \) 2>/dev/null | head -30
-echo TEXTURES
-find /root/.gradle /opt/minecraft -type f \( -iname 'compass*.png' -o -iname 'recovery_compass*.png' -o -iname 'bundle*.png' -o -iname 'netherite_sword*.png' \) 2>/dev/null | head -60
+echo PROPERTIES
+grep -E '^(resource-pack|resource-pack-id|resource-pack-sha1|require-resource-pack)' /opt/minecraft/server/server.properties || true
+echo PACKS
+find /opt/minecraft /var/www /srv -maxdepth 5 -type f -name '*world-ui*.zip' -o -name '*resource*pack*.zip' 2>/dev/null | sort
+echo HTTP
+systemctl list-units --type=service --all | grep -Ei 'http|pack|python' || true
+ss -ltnp | grep ':8088' || true
