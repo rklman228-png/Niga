@@ -1,42 +1,47 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+Archive:  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip.new
+    testing: assets/                  OK
+    testing: assets/brigada_core/     OK
+    testing: assets/brigada_core/font/   OK
+    testing: assets/brigada_core/font/icons.json   OK
+    testing: assets/brigada_core/textures/   OK
+    testing: assets/brigada_core/textures/font/   OK
+    testing: assets/brigada_core/textures/font/icons.png   OK
+    testing: pack.mcmeta              OK
+    testing: pack.png.b64             OK
+    testing: pack.png                 OK
+No errors detected in compressed data of /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip.new.
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "brigada_core:font/icons.png",
+      "ascent": 14,
+      "height": 16,
+      "chars": [""]
+    }
+  ]
+}
+     1175  2026-08-25 01:17   assets/brigada_core/textures/font/icons.png
+PACK
+24beb2a019b28fe9a1ffaba8573ffd69112f589b  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+24beb2a019b28fe9a1ffaba8573ffd69112f589b  /tmp/world-ui-http-check.zip
+    testing: pack.png                 OK
+No errors detected in compressed data of /tmp/world-ui-http-check.zip.
+STATUS
+active
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3334973,fd=163))                                                                                           
+READY
+Aug 24 23:59:48 test1 java[3270005]: [23:59:48] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 00:00:10 test1 java[3270005]: [00:00:10] [Server thread/INFO]: Done (4.167s)! For help, type "help"
+Aug 25 00:23:46 test1 java[3329903]: [00:23:46] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 25 00:23:47 test1 java[3329903]:         - brigada_core 0.1.0
+Aug 25 00:24:25 test1 java[3329903]: [00:24:25] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 00:24:40 test1 java[3329903]: [00:24:40] [Server thread/INFO]: Done (2.099s)! For help, type "help"
+Aug 25 00:25:54 test1 java[3334973]: [00:25:54] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 25 00:25:55 test1 java[3334973]:         - brigada_core 0.1.0
+Aug 25 00:26:27 test1 java[3334973]: [00:26:27] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 00:26:42 test1 java[3334973]: [00:26:42] [Server thread/INFO]: Done (1.581s)! For help, type "help"
 
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :compileJava
-Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars UP-TO-DATE
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 47s
-5 actionable tasks: 4 executed, 1 up-to-date
-BUILD_AND_PACK
-3c30394f380a0ec08d5d7cbfa09905da3e459a958ebcec8842980045e7a05d3f  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-35d417056c41ad039c6dedc6c3470b5d0e6f8fae  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-caution: filename not matched:  assets/brigada_core/font/icons.json
-
-exit_code=11
-finished_at=2026-08-25T00:24:52Z
+exit_code=0
+finished_at=2026-08-25T00:27:00Z
 runner=alexhost-143-246
