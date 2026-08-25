@@ -1,44 +1,20 @@
-=== compile hotfix v2 final ===
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :sourcesJar
-> Task :compileTestJava NO-SOURCE
-> Task :jar
-> Task :processTestResources NO-SOURCE
-> Task :assemble
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 52s
-6 actionable tasks: 6 executed
-7da93f3deeee87fa89df670653d4c2c7eca06dae2fbb84e46127b959f94da777  build/libs/brigada-hotfix-0.1.0.jar
-dev/brigada13/hotfix/RuntimeFixes$1.class
-dev/brigada13/hotfix/RuntimeFixes$CompletionBurst.class
-dev/brigada13/hotfix/RuntimeFixes.class
-dev/brigada13/hotfix/mixin/ChallengeServiceMixin.class
-brigada_hotfix.mixins.json
-BUILD_V2_OK
+=== deploy v2 ===
+7da93f3deeee87fa89df670653d4c2c7eca06dae2fbb84e46127b959f94da777  /opt/brigada-hotfix-src/build/libs/brigada-hotfix-0.1.0.jar
+7da93f3deeee87fa89df670653d4c2c7eca06dae2fbb84e46127b959f94da777  /opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
+=== verify service ===
+active
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=1881924,fd=163))                                                                                           
+=== startup ===
+Aug 25 15:02:44 test1 java[1881924]:         - brigada_core 0.1.0
+Aug 25 15:02:44 test1 java[1881924]:         - brigada_hotfix 1.0.0
+Aug 25 15:02:44 test1 java[1881924]:            \-- mixinextras 0.5.4
+Aug 25 15:02:45 test1 java[1881924]: [15:02:45] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 25 15:02:48 test1 java[1881924]: [15:02:48] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 15:03:32 test1 java[1881924]: [15:03:32] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
+Aug 25 15:03:32 test1 java[1881924]: [15:03:32] [Server thread/INFO]: Starting Minecraft server on *:25565
+=== hard checks ===
+DEPLOY_V2_OK
 
 exit_code=0
-finished_at=2026-08-25T15:00:54Z
+finished_at=2026-08-25T15:03:34Z
 runner=alexhost-143-246
