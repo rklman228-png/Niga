@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-enum SystemContainerRoot: String, CaseIterable, Identifiable {
+enum SystemContainerRoot: String, CaseIterable, Identifiable, Hashable {
     case dataSystem = "/var/containers/Data/System"
     case sharedSystemGroup = "/var/containers/Shared/SystemGroup"
 
