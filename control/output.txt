@@ -1,10 +1,11 @@
-server_sha=faebd5b6f4ed24153b3de3492b1afec4cf473a686a1424326a885df55a54d28e
-fe93d19b623937caecff386402e54b8a2fa9b4b2670c1ead1c09d021d20c799c  2026-08-25 03:02:24.142157024 +0000  /opt/brigada-build-Igmrwx
-80aa4646f7073253bf2ca47c16399bd7912378006d04697dd652de114f30c380  2026-08-25 04:10:02.237892980 +0000  /opt/brigada-build-J6Mk9p
-30ada2825157648859d4868a293394617ddb0879ec7fbabaf761220a83309d7b  2026-08-25 04:15:44.708802945 +0000  /opt/brigada-build-OquGiE
-a07a429fc135cbdfcd3414bbe0137522000eb4e261944d15e808555cdc44b947  2026-08-25 04:41:07.901679357 +0000  /opt/brigada-build-n0QScY
-7e4717efd454de1580d9617a38fb0cbe3001d25cdd9115d6f0c97a1f998c3e79  2026-08-25 05:43:39.705259643 +0000  /opt/brigada-core-src
+=== auth probes ===
+control/command.sh: line 6: gh: command not found
+git_credential_helper==== private repo access ===
+remote: Repository not found.
+fatal: repository 'https://github.com/rklman228-png/Plagin_1.git/' not found
+=== runner checkout auth config ===
+http.https://github.com/.extraheader AUTHORIZATION: REDACTED
 
 exit_code=0
-finished_at=2026-08-25T14:21:39Z
+finished_at=2026-08-25T14:22:15Z
 runner=alexhost-143-246
