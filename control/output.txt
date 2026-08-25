@@ -1,17 +1,7 @@
-=== 25565 ===
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2194127,fd=163))                                                                                           
-pid=2194127
-=== cgroup ===
-0::/system.slice/minecraft.service
-=== cmd ===
-/usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui 
-=== candidate units ===
-  brigada-pack.service                                       loaded    active   running Brigada 13 resource pack HTTP server
-  minecraft.service                                          loaded    active   running Minecraft Fabric 26.3 Snapshot 9
-=== unit files ===
-brigada-pack.service                                       enabled         enabled
-minecraft.service                                          enabled         enabled
+=== restart minecraft.service ===
+=== verify ===
+active
 
-exit_code=0
-finished_at=2026-08-25T18:20:06Z
+exit_code=1
+finished_at=2026-08-25T18:20:52Z
 runner=alexhost-143-246
