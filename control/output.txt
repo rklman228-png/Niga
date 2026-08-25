@@ -1,50 +1,71 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+Compiled from "Inventory.java"
+public class net.minecraft.world.entity.player.Inventory implements net.minecraft.world.Container,net.minecraft.world.Nameable {
+  public static final int POP_TIME_DURATION;
+  public static final int INVENTORY_SIZE;
+  public static final int SELECTION_SIZE;
+  public static final int SLOT_OFFHAND;
+  public static final int SLOT_BODY_ARMOR;
+  public static final int SLOT_SADDLE;
+  public static final int NOT_FOUND_INDEX;
+  public static final it.unimi.dsi.fastutil.ints.Int2ObjectMap<net.minecraft.world.entity.EquipmentSlot> EQUIPMENT_SLOT_MAPPING;
+  private static final net.minecraft.network.chat.Component DEFAULT_NAME;
+  private final net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> items;
+  private int selected;
+  public final net.minecraft.world.entity.player.Player player;
+  private final net.minecraft.world.entity.EntityEquipment equipment;
+  private int timesChanged;
+  public net.minecraft.world.entity.player.Inventory(net.minecraft.world.entity.player.Player, net.minecraft.world.entity.EntityEquipment);
+  public int getSelectedSlot();
+  public void setSelectedSlot(int);
+  public net.minecraft.world.item.ItemStack getSelectedItem();
+  public net.minecraft.world.item.ItemStack setSelectedItem(net.minecraft.world.item.ItemStack);
+  public static int getSelectionSize();
+  public net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getNonEquipmentItems();
+  private boolean hasRemainingSpaceForItem(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
+  public int getFreeSlot();
+  public void addAndPickItem(net.minecraft.world.item.ItemStack);
+  public void pickSlot(int);
+  public static boolean isHotbarSlot(int);
+  public int findSlotMatchingItem(net.minecraft.world.item.ItemStack);
+  public static boolean isUsableForCrafting(net.minecraft.world.item.ItemStack);
+  public int findSlotMatchingCraftingIngredient(net.minecraft.core.Holder<net.minecraft.world.item.Item>, net.minecraft.world.item.ItemStack);
+  public int getSuitableHotbarSlot();
+  public int clearOrCountMatchingItems(java.util.function.Predicate<net.minecraft.world.item.ItemStack>, int, net.minecraft.world.Container);
+  private int addResource(net.minecraft.world.item.ItemStack);
+  private int addResource(int, net.minecraft.world.item.ItemStack);
+  public int getSlotWithRemainingSpace(net.minecraft.world.item.ItemStack);
+  public void tick();
+  public boolean add(net.minecraft.world.item.ItemStack);
+  public boolean add(int, net.minecraft.world.item.ItemStack);
+  public void placeItemBackInInventory(net.minecraft.world.item.ItemStack, net.minecraft.util.Prediction);
+  public void placeItemBackInInventory(net.minecraft.world.item.ItemStack, boolean, net.minecraft.util.Prediction);
+  public net.minecraft.network.protocol.game.ClientboundSetPlayerInventoryPacket createInventoryUpdatePacket(int);
+  public net.minecraft.world.item.ItemStack removeItem(int, int);
+  public void removeItem(net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.item.ItemStack removeItemNoUpdate(int);
+  public void setItem(int, net.minecraft.world.item.ItemStack);
+  public void save(net.minecraft.world.level.storage.ValueOutput$TypedOutputList<net.minecraft.world.ItemStackWithSlot>);
+  public void load(net.minecraft.world.level.storage.ValueInput$TypedInputList<net.minecraft.world.ItemStackWithSlot>);
+  public int getContainerSize();
+  public boolean isEmpty();
+  public net.minecraft.world.item.ItemStack getItem(int);
+  public net.minecraft.network.chat.Component getName();
+  public void dropAll();
+  public void setChanged();
+  public int getTimesChanged();
+  public boolean stillValid(net.minecraft.world.entity.player.Player);
+  public boolean contains(net.minecraft.world.item.ItemStack);
+  public boolean contains(net.minecraft.tags.TagKey<net.minecraft.world.item.Item>);
+  public boolean contains(java.util.function.Predicate<net.minecraft.world.item.ItemStack>);
+  public void replaceWith(net.minecraft.world.entity.player.Inventory);
+  public void clearContent();
+  public void fillStackedContents(net.minecraft.world.entity.player.StackedItemContents);
+  public net.minecraft.world.item.ItemStack removeFromSelected(boolean);
+  private static java.lang.String lambda$add$0(net.minecraft.world.item.ItemStack) throws java.lang.Exception;
+  static {};
+}
+net/minecraft/util/Prediction.class
 
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-
-> Task :compileJava
-/opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/parcel/ParcelService.java:226: error: no suitable method found for placeItemBackInInventory(ItemStack)
-            player.getInventory().placeItemBackInInventory(stack);
-                                 ^
-    method Inventory.placeItemBackInInventory(ItemStack,Prediction) is not applicable
-      (actual and formal argument lists differ in length)
-    method Inventory.placeItemBackInInventory(ItemStack,boolean,Prediction) is not applicable
-      (actual and formal argument lists differ in length)
-Note: /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-1 error
-
-> Task :compileJava FAILED
-
-[Incubating] Problems report is available at: file:///opt/brigada-build-Igmrwx/build/reports/problems/problems-report.html
-
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  Note: /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-  /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/parcel/ParcelService.java:226: error: no suitable method found for placeItemBackInInventory(ItemStack)
-              player.getInventory().placeItemBackInInventory(stack);
-                                   ^
-      method Inventory.placeItemBackInInventory(ItemStack,Prediction) is not applicable
-        (actual and formal argument lists differ in length)
-      method Inventory.placeItemBackInInventory(ItemStack,boolean,Prediction) is not applicable
-        (actual and formal argument lists differ in length)
-  Note: Recompile with -Xlint:deprecation for details.
-  1 error
-
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
-
-BUILD FAILED in 32s
-2 actionable tasks: 2 executed
-
-exit_code=1
-finished_at=2026-08-25T02:59:57Z
+exit_code=0
+finished_at=2026-08-25T03:00:27Z
 runner=alexhost-143-246
