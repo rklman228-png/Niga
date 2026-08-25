@@ -1,6 +1,12 @@
-/opt/brigada-build.wZDUDU/source-min.tar.gz: FAILED
-sha256sum: WARNING: 1 computed checksum did NOT match
+d5255dd611ea26cd7ac77e7cf46357cb9df98960
+240000 control/payload.part00
+240000 control/payload.part01
+134216 control/payload.part02
+614216 total
+7d5a8500b2ef58bcaab54d0c8f9dac4260c6befeb78a7fe9ac5dee4561d2ea46  control/payload.part00
+09155a3dcfc459318eb97422bd4b221eb9120be5e9c1d96ce233a0b022f54cf2  control/payload.part01
+f89e45f8504af20a48ac7231e67e3a3c001ca72e1b0688677079a2629d518de4  control/payload.part02
 
-exit_code=1
-finished_at=2026-08-25T07:17:01Z
+exit_code=0
+finished_at=2026-08-25T07:18:09Z
 runner=alexhost-143-246
