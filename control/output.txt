@@ -1,6 +1,15 @@
-INDEXES
-TEXTURES
+PROPERTIES
+require-resource-pack=false
+resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
+resource-pack-id=73e66563-b99b-4a91-9152-655b7dc02498
+resource-pack-prompt={"text"\:"Скачать оформление сервера?","color"\:"gold","bold"\:true}
+resource-pack-sha1=aaf35e9b54f624f8373d0e407cbe9739d982e85a
+PACKS
+/opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+HTTP
+  brigada-pack.service                                       loaded    active   running Brigada 13 resource pack HTTP server
+LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
 
 exit_code=0
-finished_at=2026-08-25T00:14:06Z
+finished_at=2026-08-25T00:18:31Z
 runner=alexhost-143-246
