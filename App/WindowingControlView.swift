@@ -9,6 +9,7 @@ struct WindowingControlView: View {
 
     @State private var error: String?
     @State private var selectedApp: InstalledContainer?
+    @State private var showCanaryConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -16,6 +17,14 @@ struct WindowingControlView: View {
                 Section("Status") {
                     statusRow("MobileGestalt", detail: gestalt.status, ok: gestalt.granted)
                     statusRow("SpringBoardServices", detail: springboard.status, ok: springboard.granted)
+
+                    HStack {
+                        Text("Raw DeviceClassNumber")
+                        Spacer()
+                        Text(gestalt.rawDeviceClassNumber.map(String.init) ?? "unavailable")
+                            .font(.subheadline.monospaced().weight(.semibold))
+                            .foregroundStyle(gestalt.rawDeviceClassNumber == 1 ? Color.green : (gestalt.rawDeviceClassNumber == nil ? Color.secondary : Color.red))
+                    }
 
                     if springboard.requestInFlight {
                         HStack(spacing: 10) {
@@ -68,7 +77,7 @@ struct WindowingControlView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    .disabled(!gestalt.granted || !springboard.granted || springboard.requestInFlight)
+                    .disabled(!gestalt.granted || !springboard.granted || springboard.requestInFlight || gestalt.deviceClassCanaryArmed)
 
                     Button(role: .destructive) {
                         restoreFullScreen()
@@ -81,34 +90,82 @@ struct WindowingControlView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    .disabled(!springboard.granted || springboard.requestInFlight)
+                    .disabled(!springboard.granted || springboard.requestInFlight || gestalt.deviceClassCanaryArmed)
 
                     Button {
                         resetWindowLayout()
                     } label: {
                         Label("Reset SpringBoard window layout", systemImage: "rectangle.3.group.bubble")
                     }
-                    .disabled(!springboard.granted || springboard.requestInFlight)
+                    .disabled(!springboard.granted || springboard.requestInFlight || gestalt.deviceClassCanaryArmed)
 
                     VStack(alignment: .leading, spacing: 5) {
-                        Label("Stage Manager mode 2 disabled in v0.9", systemImage: "exclamationmark.shield.fill")
+                        Label("Stage Manager mode 2 remains disabled", systemImage: "exclamationmark.shield.fill")
                             .font(.headline)
                             .foregroundStyle(.red)
-                        Text("The mode-2 test coincided with an abnormally long restart on the target device. Niga will not dispatch mode 2 from this screen while we isolate the real gate.")
+                        Text("The mode-2 test coincided with an abnormally long restart. We already have a better lead now, so there is no reason to dispatch mode 2 again.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
 
-                Section("Hard gate found") {
-                    Text("The restore-image SpringBoard code shows a second gate after the mode preference: SBWindowScene asks SBPlatformController whether the device is Medusa-capable. SBPlatformController zeros its Medusa capabilities unless SBFEffectiveDeviceClass() is iPad-class (2). If that gate is false, the switcher falls straight back to single-app context even when mode 1 was acknowledged.")
+                Section("DeviceClass cold-start canary") {
+                    if gestalt.deviceClassCanaryLastEffective == 2 {
+                        Label("PASS — raw iPad class maps to effective SpringBoard class 2", systemImage: "checkmark.seal.fill")
+                            .font(.headline)
+                            .foregroundStyle(.green)
+                    } else if let observed = gestalt.deviceClassCanaryLastEffective {
+                        Label("Canary returned effective class \(observed)", systemImage: "xmark.octagon.fill")
+                            .font(.headline)
+                            .foregroundStyle(.orange)
+                    }
+
+                    Text(gestalt.deviceClassCanaryStatus)
+                        .font(.caption)
+                        .foregroundStyle(gestalt.deviceClassCanaryArmed ? .red : .secondary)
+
+                    Text("This test does NOT restart SpringBoard. It temporarily writes the same raw DeviceClassNumber used by current iPadOS-mode tweaks (iPhone 1 → iPad 3), closes only Niga, measures SBFEffectiveDeviceClass in a fresh Niga process, restores raw class 1 immediately, then closes Niga once more so the next launch is clean.")
                         .font(.footnote)
 
-                    Text("The probe below runs inside Niga, not inside SpringBoard, so it is diagnostic evidence rather than a claim that both processes see identical values.")
+                    Button {
+                        showCanaryConfirm = true
+                    } label: {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Label("Run DeviceClass canary", systemImage: "testtube.2")
+                                .font(.headline)
+                            Text("Niga will close. Reopen it; it will measure + restore and close again. Reopen a second time to read the result.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .disabled(!gestalt.granted || gestalt.deviceClassCanaryArmed || gestalt.rawDeviceClassNumber != 1)
+
+                    Button(role: .destructive) {
+                        do {
+                            try gestalt.forceRestorePhoneDeviceClass()
+                            springboard.refreshGateProbe()
+                        } catch {
+                            self.error = error.localizedDescription
+                        }
+                    } label: {
+                        Label("Force restore raw iPhone class (1)", systemImage: "cross.case.fill")
+                    }
+                    .disabled(!gestalt.granted)
+
+                    Text("Do not reboot the phone while the canary is armed. Automatic recovery runs at the very start of the next Niga launch; the force-restore button is the fallback if that recovery ever reports an error.")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+
+                Section("Hard gate found") {
+                    Text("Your v0.9 result confirms the chain: SpringBoard acknowledges mode 1, but SBFEffectiveDeviceClass is phone-class and SBFIsFlexibleWindowingUIAvailable is false. The restore-image code then forces a single-app context because SBPlatformController has zero Medusa capability.")
+                        .font(.footnote)
+
+                    Text("The probe below runs inside Niga, not inside SpringBoard. v1.0 also checks whether Apple's native FBSSystemService + SBSRelaunchAction route exists, but it does not invoke that relaunch route yet.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
 
-                    Button("Refresh hard-gate probe") {
+                    Button("Refresh hard-gate + relaunch probe") {
                         springboard.refreshGateProbe()
                     }
 
@@ -117,8 +174,8 @@ struct WindowingControlView: View {
                         .textSelection(.enabled)
                 }
 
-                Section("What to do after an ACK") {
-                    Text("Do not use the old forced WebKit respring. v0.9 intentionally performs no automatic restart. If we need to test a fresh SpringBoard initialization, use a normal iPhone restart from iOS after noting the ACK/probe result here.")
+                Section("Next step after a passing canary") {
+                    Text("If the canary reports effective class 2 while raw DeviceClassNumber is back at 1, we have proven the lower-layer gate can be crossed. The next build can combine that temporary class with a native SpringBoard-only relaunch attempt, then restore the phone class instead of globally leaving iPadOS identity enabled.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -168,11 +225,26 @@ struct WindowingControlView: View {
             }
             .onAppear {
                 if !gestalt.granted { gestalt.connect() }
-                springboard.connect()
+                if !gestalt.deviceClassCanaryArmed {
+                    gestalt.refresh()
+                    springboard.connect()
+                }
             }
             .sheet(item: $selectedApp) { app in
                 QuickWindowAppView(app: app)
                     .environmentObject(profiles)
+            }
+            .alert("Run DeviceClass canary?", isPresented: $showCanaryConfirm) {
+                Button("Cancel", role: .cancel) {}
+                Button("Run canary") {
+                    do {
+                        try gestalt.runDeviceClassCanary()
+                    } catch {
+                        self.error = error.localizedDescription
+                    }
+                }
+            } message: {
+                Text("SpringBoard will NOT be restarted. Niga will write raw class 3, verify it, and close. Reopen Niga immediately. On that launch it measures the effective class, restores raw class 1, verifies recovery, and closes again. Reopen once more for the result. Do not reboot between those launches.")
             }
             .alert("Niga", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
                 Button("OK") {}
