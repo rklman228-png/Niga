@@ -1,6 +1,7 @@
 import Foundation
+import Combine
 
-enum WindowOrientation: String, Codable, CaseIterable, Identifiable {
+enum WindowOrientation: String, Codable, CaseIterable, Identifiable, Hashable {
     case automatic, portrait, landscape
     var id: String { rawValue }
 }
