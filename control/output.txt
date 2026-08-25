@@ -1,120 +1,53 @@
-bytes 50674
-d03c84b4d9d48cf18e505da1b1214a9fbceff6d4ae12d12f85d1d375d3cec6aa  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
-462-            PREPARED_COMBAT_MOBS.clear();
-463-        }
-464:        double healthMultiplier = switch (definition.difficulty()) {
-465-            case EASY -> 1.00;
-466-            case NORMAL -> 1.25;
-467-            case HARD -> 1.50;
-468-        };
-469-        double damageMultiplier = switch (definition.difficulty()) {
-470-            case EASY -> 1.00;
-471-            case NORMAL -> 1.65;
-472-            case HARD -> 2.50;
-473-        };
-474-        double speedMultiplier = switch (definition.difficulty()) {
-475-            case EASY -> 1.00;
-476-            case NORMAL -> 1.06;
-185-        if (source.getEntity() instanceof ServerPlayer attacker
-186-                && isChallengeParticipant(attacker)
-187:                && isForbiddenChallengeItem(attacker.getMainHandItem())) return false;
-188-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-189-        if (!isTrackedEventEntity(state, entity.getUUID())) return true;
-190-        if (source.is(DamageTypes.FALL)) return false;
-191-        if (source.is(DamageTypes.ON_FIRE) && entity.level() instanceof ServerLevel level
-192-                && level.canSeeSky(entity.blockPosition())) return false;
-193-        return true;
-194-    }
-195-
-196-    private static boolean isTrackedEventEntity(ActiveChallengeState state, UUID id) {
-197-        if (state == null || !state.arenaLocked) return false;
-198-        try {
-199-            if (BrigadaCore.challenges().require(state.challengeId).kind() != ChallengeKind.MINI_EVENT) return false;
-200-        } catch (RuntimeException ignored) {
-201-            return false;
-202-        }
-203-        return state.eventEntities.contains(id) || (state.targetEntityId != null && state.targetEntityId.equals(id));
-204-    }
-205-
-206-    public static void onComplete(MinecraftServer server, ActiveChallengeState state) {
-207-        if (state == null || state.contribution == null) return;
-208-        for (String participant : state.contribution.keySet()) {
-209-            ServerPlayer player = server.getPlayerList().getPlayerByName(participant);
-210-            if (player == null) continue;
-211-            play(player.level(), player.getX(), player.getY(), player.getZ(),
---
-257-            ServerPlayer player = server.getPlayerList().getPlayerByName(name);
-258-            if (player == null) continue;
-259:            if (player.isUsingItem() && isForbiddenChallengeItem(player.getUseItem())) {
-260-                player.stopUsingItem();
-261-            }
-262-            if (player.isFallFlying()) player.stopFallFlying();
-263-        }
-264-    }
-265-
-266-    private static boolean isChallengeParticipant(ServerPlayer player) {
-267-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-268-        return state != null && state.contribution != null
-269-                && state.contribution.containsKey(player.getName().getString());
-270-    }
-271-
-272:    private static boolean isForbiddenChallengeItem(ItemStack stack) {
-273-        if (stack == null || stack.isEmpty()) return false;
-274-        Identifier key = BuiltInRegistries.ITEM.getKey(stack.getItem());
-275-        if (key == null) return false;
-276-        return switch (key.toString()) {
-277-            case "minecraft:golden_apple", "minecraft:enchanted_golden_apple",
-278-                    "minecraft:potion", "minecraft:splash_potion", "minecraft:lingering_potion",
-279-                    "minecraft:ender_pearl", "minecraft:chorus_fruit",
-280-                    "minecraft:wind_charge", "minecraft:firework_rocket",
-281-                    "minecraft:elytra", "minecraft:mace", "minecraft:trident" -> true;
-282-            default -> false;
-283-        };
-294-    }
-295-
-296:    private static boolean continuousPressureMechanic(MiniEventMechanic mechanic) {
-297-        return switch (mechanic) {
-298-            case HOLD_ZONE, SPLIT_OBJECTIVES, EXTRACTION, NO_DEATH_GAUNTLET -> true;
-299-            case WAVES, HUNT_TARGETS, DEFEND_OBJECTIVE, ELITE_BOSS, MULTI_PHASE_ASSAULT -> false;
-300-        };
-301-    }
-302-
-303-    private static ActiveChallengeState activeEvent() {
-304-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-305-        if (state == null || !state.arenaLocked || state.arenaDimension == null) return null;
-306-        try {
-307-            return BrigadaCore.challenges().require(state.challengeId).kind() == ChallengeKind.MINI_EVENT ? state : null;
-308-        } catch (RuntimeException ignored) {
-309-            return null;
-310-        }
-311-    }
-312-
-313-    private static ServerLevel eventLevel(MinecraftServer server, ActiveChallengeState state) {
-314-        return server.getLevel(ResourceKey.create(Registries.DIMENSION, Identifier.parse(state.arenaDimension)));
---
-544-    private static void tickContinuousPressure(ServerLevel level, ChallengeDefinition definition,
-545-                                          ActiveChallengeState state) {
-546:        if (!continuousPressureMechanic(definition.mechanic())) return;
-547-        if (splitPressureEvent != state.startedAtEpochMillis) {
-548-            splitPressureEvent = state.startedAtEpochMillis;
-549-            splitPressureElapsed = -1;
-550-        }
-551-        if (state.eventElapsedTicks < 40) return;
-552-
-553-        int interval = switch (definition.difficulty()) {
-554-            case EASY -> 200;
-555-            case NORMAL -> 120;
-556-            case HARD -> 80;
-557-        };
-558-        if (splitPressureElapsed >= 0 && state.eventElapsedTicks - splitPressureElapsed < interval) return;
-559-
-560-        int cap = switch (definition.difficulty()) {
-561-            case EASY -> 8;
-562-            case NORMAL -> 14;
-563-            case HARD -> 20;
-564-        };
-HARDCORE_RUNTIME_SNAPSHOT_OK
+heavy-hitter safety threshold moved 16 -> 25; raid mobs now get full Hard x2.5
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 58s
+6 actionable tasks: 6 executed
+20fe54bb336bdf0fb6c66b8a52e2d65df12dc063651b80bf15b19fd9012edcdf  build/libs/brigada-hotfix-0.1.0.jar
+active
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2450893,fd=163))                                                                                           
+20fe54bb336bdf0fb6c66b8a52e2d65df12dc063651b80bf15b19fd9012edcdf  /opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
+Aug 25 19:28:20 test1 java[2450893]: [19:28:20] [Server thread/INFO]: Done (2.337s)! For help, type "help"
+495-            var attack = mob.getAttribute(Attributes.ATTACK_DAMAGE);
+496-            if (attack != null && damageMultiplier != 1.0) {
+497:                double baseAttack = attack.getBaseValue();
+498-                // Hard should hurt, but naturally brutal mobs must not become accidental one-shot machines.
+499-                double appliedMultiplier = definition.difficulty() == ChallengeDifficulty.HARD && baseAttack >= 25.0
+500-                        ? 1.75 : damageMultiplier;
+501-                attack.setBaseValue(baseAttack * appliedMultiplier);
+502-            }
+503-            var speed = mob.getAttribute(Attributes.MOVEMENT_SPEED);
+504-            if (speed != null && speedMultiplier != 1.0)
+FULL_HARD_RAID_DAMAGE_ACTIVE
 
 exit_code=0
-finished_at=2026-08-25T19:22:26Z
+finished_at=2026-08-25T19:28:21Z
 runner=alexhost-143-246
