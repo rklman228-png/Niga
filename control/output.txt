@@ -1,4 +1,18 @@
+/opt/minecraft/server/mods/brigada-core-0.1.0.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T223546Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T235858Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T213915Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260825T002339Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T235518Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T230242Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T230836Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T213145Z.jar
+/opt/minecraft/server/backups/brigada-core-0.1.0-20260824T214302Z.jar
+openjdk version "25.0.4.1" 2026-08-18
+OpenJDK Runtime Environment (build 25.0.4.1+1-1-deb13u1-Debian)
+OpenJDK 64-Bit Server VM (build 25.0.4.1+1-1-deb13u1-Debian, mixed mode, sharing)
+active
 
 exit_code=0
-finished_at=2026-08-25T05:51:00Z
+finished_at=2026-08-25T06:21:53Z
 runner=alexhost-143-246
