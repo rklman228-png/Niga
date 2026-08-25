@@ -3,7 +3,6 @@ import SwiftUI
 struct WindowingControlView: View {
     @EnvironmentObject var gestalt: GestaltManager
     @EnvironmentObject var springboard: SpringBoardWindowingManager
-    @EnvironmentObject var respring: RespringController
     @EnvironmentObject var scanner: AppContainerScanner
     @EnvironmentObject var profiles: ProfileStore
     @Environment(\.dismiss) private var dismiss
@@ -34,10 +33,17 @@ struct WindowingControlView: View {
                             VStack(alignment: .trailing, spacing: 2) {
                                 Text(springboard.mode.title)
                                     .font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(springboard.mode == .stageManager ? .red : .primary)
                                 Text(date, style: .time)
                                     .font(.caption2)
                                     .foregroundStyle(.secondary)
                             }
+                        }
+
+                        if springboard.mode == .stageManager {
+                            Label("Stage Manager was the last acknowledged mode. Use Return to stock full-screen below before more experiments.", systemImage: "exclamationmark.triangle.fill")
+                                .font(.caption)
+                                .foregroundStyle(.red)
                         }
                     } else {
                         Text("No mode has been acknowledged by SpringBoard from this Niga install yet.")
@@ -50,27 +56,14 @@ struct WindowingControlView: View {
                     }
                 }
 
-                Section("Actually enable windowing") {
+                Section("Safe Windowed Apps test") {
                     Button {
                         applyWindowedApps()
                     } label: {
                         VStack(alignment: .leading, spacing: 4) {
-                            Label("Enable Windowed Apps + Respring", systemImage: "macwindow.on.rectangle")
+                            Label("Enable Windowed Apps (mode 1)", systemImage: "macwindow.on.rectangle")
                                 .font(.headline)
-                            Text("Keeps iPhone identity, enables the phone-safe multitasking capabilities, then asks SpringBoard itself to enter Windowed Apps mode.")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    .disabled(!gestalt.granted || !springboard.granted || springboard.requestInFlight)
-
-                    Button {
-                        applyStageManager()
-                    } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Label("Try Stage Manager + Respring", systemImage: "rectangle.3.group")
-                                .font(.headline)
-                            Text("Same native SpringBoard service, mode 2. The iPad identity override stays off.")
+                            Text("Keeps the iPad identity override off, applies the phone-safe MobileGestalt capability set, and asks SpringBoard itself for Windowed Apps. No forced respring.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -80,7 +73,13 @@ struct WindowingControlView: View {
                     Button(role: .destructive) {
                         restoreFullScreen()
                     } label: {
-                        Label("Return to stock full-screen + Respring", systemImage: "arrow.uturn.backward")
+                        VStack(alignment: .leading, spacing: 4) {
+                            Label("Return to stock full-screen (mode 0)", systemImage: "arrow.uturn.backward")
+                                .font(.headline)
+                            Text("Asks SpringBoard for stock full-screen mode and clears Niga's phone-safe MobileGestalt experiment flags. No forced respring.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                     .disabled(!springboard.granted || springboard.requestInFlight)
 
@@ -90,11 +89,38 @@ struct WindowingControlView: View {
                         Label("Reset SpringBoard window layout", systemImage: "rectangle.3.group.bubble")
                     }
                     .disabled(!springboard.granted || springboard.requestInFlight)
+
+                    VStack(alignment: .leading, spacing: 5) {
+                        Label("Stage Manager mode 2 disabled in v0.9", systemImage: "exclamationmark.shield.fill")
+                            .font(.headline)
+                            .foregroundStyle(.red)
+                        Text("The mode-2 test coincided with an abnormally long restart on the target device. Niga will not dispatch mode 2 from this screen while we isolate the real gate.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
-                Section("Why this is different") {
-                    Text("v0.6/v0.7 tried to edit SpringBoard preferences on disk. Your DB3 proved that path is outside the sandbox escape we actually have. This build does not need that plist: it calls Apple's own SpringBoardServices requestUpdateSwitcherWindowingMode path, so SpringBoard changes its SBAppSwitcherDefaults itself.")
+                Section("Hard gate found") {
+                    Text("The restore-image SpringBoard code shows a second gate after the mode preference: SBWindowScene asks SBPlatformController whether the device is Medusa-capable. SBPlatformController zeros its Medusa capabilities unless SBFEffectiveDeviceClass() is iPad-class (2). If that gate is false, the switcher falls straight back to single-app context even when mode 1 was acknowledged.")
                         .font(.footnote)
+
+                    Text("The probe below runs inside Niga, not inside SpringBoard, so it is diagnostic evidence rather than a claim that both processes see identical values.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    Button("Refresh hard-gate probe") {
+                        springboard.refreshGateProbe()
+                    }
+
+                    Text(springboard.gateDetails)
+                        .font(.caption2.monospaced())
+                        .textSelection(.enabled)
+                }
+
+                Section("What to do after an ACK") {
+                    Text("Do not use the old forced WebKit respring. v0.9 intentionally performs no automatic restart. If we need to test a fresh SpringBoard initialization, use a normal iPhone restart from iOS after noting the ACK/probe result here.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
 
                 Section("SpringBoard service diagnostics") {
@@ -132,14 +158,6 @@ struct WindowingControlView: View {
                         }
                         .buttonStyle(.plain)
                     }
-                }
-
-                Section("Apply / Recovery") {
-                    Button("Respring now") { respring.respring() }
-                        .fontWeight(.semibold)
-                    Text("The main mode buttons respring only after the SpringBoardServices completion callback arrives. A timeout/error will leave you here instead of pretending the mode was applied.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
                 }
             }
             .navigationTitle("Real Windowing")
@@ -183,30 +201,7 @@ struct WindowingControlView: View {
             }
             try gestalt.applyExperiment(.stageAllMedusa)
             springboard.apply(.windowedApps) { result in
-                switch result {
-                case .success:
-                    respring.respring()
-                case .failure(let failure):
-                    error = failure.localizedDescription
-                }
-            }
-        } catch {
-            self.error = error.localizedDescription
-        }
-    }
-
-    private func applyStageManager() {
-        do {
-            if !gestalt.granted { gestalt.connect() }
-            guard gestalt.granted else {
-                throw NSError(domain: "Niga", code: 12, userInfo: [NSLocalizedDescriptionKey: gestalt.status])
-            }
-            try gestalt.applyExperiment(.stageAllMedusa)
-            springboard.apply(.stageManager) { result in
-                switch result {
-                case .success:
-                    respring.respring()
-                case .failure(let failure):
+                if case .failure(let failure) = result {
                     error = failure.localizedDescription
                 }
             }
@@ -221,7 +216,6 @@ struct WindowingControlView: View {
             case .success:
                 do {
                     if gestalt.granted { try gestalt.applyExperiment(.clear) }
-                    respring.respring()
                 } catch {
                     self.error = error.localizedDescription
                 }
