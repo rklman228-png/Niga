@@ -7,9 +7,14 @@
 #import <string.h>
 
 static void *gSpringBoardServicesHandle;
+static void *gSpringBoardFoundationHandle;
+static void *gFrontBoardServicesHandle;
 
 typedef void (*SBSUpdateWindowingModeFn)(uint64_t mode, void (^completion)(void));
 typedef void (*SBSResetLayoutAttributesFn)(void (^completion)(void));
+typedef uint64_t (*SBFEffectiveDeviceClassFn)(void);
+typedef bool (*SBFBoolFunctionFn)(void);
+typedef bool (*OSVariantInternalDiagnosticsFn)(const char *subsystem);
 
 static void *NigaLoadSpringBoardServices(void)
 {
@@ -21,6 +26,30 @@ static void *NigaLoadSpringBoardServices(void)
         );
     });
     return gSpringBoardServicesHandle;
+}
+
+static void *NigaLoadSpringBoardFoundation(void)
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        gSpringBoardFoundationHandle = dlopen(
+            "/System/Library/PrivateFrameworks/SpringBoardFoundation.framework/SpringBoardFoundation",
+            RTLD_NOW | RTLD_LOCAL
+        );
+    });
+    return gSpringBoardFoundationHandle;
+}
+
+static void *NigaLoadFrontBoardServices(void)
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        gFrontBoardServicesHandle = dlopen(
+            "/System/Library/PrivateFrameworks/FrontBoardServices.framework/FrontBoardServices",
+            RTLD_NOW | RTLD_LOCAL
+        );
+    });
+    return gFrontBoardServicesHandle;
 }
 
 static SBSUpdateWindowingModeFn NigaUpdateFunction(void)
@@ -169,6 +198,88 @@ char *niga_sbs_copy_diagnostics(void)
             classReset ? @"yes" : @"NO"
         ];
         return strdup(text.UTF8String ?: "diagnostics unavailable");
+    }
+}
+
+char *niga_sbs_copy_gate_diagnostics(void)
+{
+    @autoreleasepool {
+        void *sbf = NigaLoadSpringBoardFoundation();
+        void *fbs = NigaLoadFrontBoardServices();
+
+        SBFEffectiveDeviceClassFn effectiveClassFn = sbf
+            ? (SBFEffectiveDeviceClassFn)dlsym(sbf, "SBFEffectiveDeviceClass")
+            : NULL;
+        SBFBoolFunctionFn flexibleUIFn = sbf
+            ? (SBFBoolFunctionFn)dlsym(sbf, "SBFIsFlexibleWindowingUIAvailable")
+            : NULL;
+
+        NSInteger effectiveClass = effectiveClassFn ? (NSInteger)effectiveClassFn() : -999;
+        NSInteger flexibleUI = flexibleUIFn ? (flexibleUIFn() ? 1 : 0) : -1;
+
+        Class emulationClass = NSClassFromString(@"FBSDeviceEmulationConfiguration");
+        SEL isEmulatedSEL = NSSelectorFromString(@"isEmulatedDevice");
+        SEL emulatedClassSEL = NSSelectorFromString(@"emulatedDeviceClass");
+        BOOL canReadEmulation = emulationClass && [emulationClass respondsToSelector:isEmulatedSEL];
+        BOOL canReadEmulatedClass = emulationClass && [emulationClass respondsToSelector:emulatedClassSEL];
+
+        NSInteger isEmulated = -1;
+        NSInteger emulatedClass = -999;
+        if (canReadEmulation) {
+            BOOL (*sendBool)(id, SEL) = (void *)objc_msgSend;
+            isEmulated = sendBool((id)emulationClass, isEmulatedSEL) ? 1 : 0;
+        }
+        if (canReadEmulatedClass) {
+            int (*sendInt)(id, SEL) = (void *)objc_msgSend;
+            emulatedClass = sendInt((id)emulationClass, emulatedClassSEL);
+        }
+
+        OSVariantInternalDiagnosticsFn internalFn =
+            (OSVariantInternalDiagnosticsFn)dlsym(RTLD_DEFAULT, "os_variant_has_internal_diagnostics");
+        NSInteger internalDiagnostics = -1;
+        if (internalFn) {
+            internalDiagnostics = internalFn("com.apple.frontboardservices") ? 1 : 0;
+        }
+
+        NSString *effectiveClassText = effectiveClassFn
+            ? [NSString stringWithFormat:@"%ld%@", (long)effectiveClass,
+               effectiveClass == 2 ? @" (iPad-class)" : @" (not iPad-class)"]
+            : @"symbol unavailable";
+        NSString *flexibleText = flexibleUIFn
+            ? (flexibleUI ? @"YES" : @"NO")
+            : @"symbol unavailable";
+        NSString *emulatedText = isEmulated < 0 ? @"unavailable" : (isEmulated ? @"YES" : @"NO");
+        NSString *emulatedClassText = canReadEmulatedClass
+            ? [NSString stringWithFormat:@"%ld", (long)emulatedClass]
+            : @"unavailable";
+        NSString *internalText = internalDiagnostics < 0
+            ? @"symbol unavailable"
+            : (internalDiagnostics ? @"YES" : @"NO");
+
+        NSString *text = [NSString stringWithFormat:
+            @"PROCESS-SIDE PROBE (not SpringBoard itself)\n"
+             "SpringBoardFoundation dlopen: %@\n"
+             "SBFEffectiveDeviceClass: %@\n"
+             "SBFIsFlexibleWindowingUIAvailable: %@\n"
+             "FrontBoardServices dlopen: %@\n"
+             "FBSDeviceEmulationConfiguration class: %@\n"
+             "FBS isEmulatedDevice: %@\n"
+             "FBS emulatedDeviceClass: %@\n"
+             "os_variant_has_internal_diagnostics: %@\n\n"
+             "Known SpringBoard hard gate from the restore image:\n"
+             "SBPlatformController keeps Medusa capabilities only when SBFEffectiveDeviceClass() == 2.\n"
+             "SBWindowScene then returns supportsMultitasking=NO when Medusa capability is zero, forcing the single-app context.",
+            sbf ? @"yes" : @"NO",
+            effectiveClassText,
+            flexibleText,
+            fbs ? @"yes" : @"NO",
+            emulationClass ? @"yes" : @"NO",
+            emulatedText,
+            emulatedClassText,
+            internalText
+        ];
+
+        return strdup(text.UTF8String ?: "gate diagnostics unavailable");
     }
 }
 
