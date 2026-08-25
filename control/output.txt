@@ -1,47 +1,109 @@
-Archive:  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip.new
-    testing: assets/                  OK
-    testing: assets/brigada_core/     OK
-    testing: assets/brigada_core/font/   OK
-    testing: assets/brigada_core/font/icons.json   OK
-    testing: assets/brigada_core/textures/   OK
-    testing: assets/brigada_core/textures/font/   OK
-    testing: assets/brigada_core/textures/font/icons.png   OK
-    testing: pack.mcmeta              OK
-    testing: pack.png.b64             OK
-    testing: pack.png                 OK
-No errors detected in compressed data of /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip.new.
-{
-  "providers": [
-    {
-      "type": "bitmap",
-      "file": "brigada_core:font/icons.png",
-      "ascent": 14,
-      "height": 16,
-      "chars": [""]
-    }
-  ]
-}
-     1175  2026-08-25 01:17   assets/brigada_core/textures/font/icons.png
-PACK
-24beb2a019b28fe9a1ffaba8573ffd69112f589b  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-24beb2a019b28fe9a1ffaba8573ffd69112f589b  /tmp/world-ui-http-check.zip
-    testing: pack.png                 OK
-No errors detected in compressed data of /tmp/world-ui-http-check.zip.
-STATUS
-active
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3334973,fd=163))                                                                                           
-READY
-Aug 24 23:59:48 test1 java[3270005]: [23:59:48] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 00:00:10 test1 java[3270005]: [00:00:10] [Server thread/INFO]: Done (4.167s)! For help, type "help"
-Aug 25 00:23:46 test1 java[3329903]: [00:23:46] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
-Aug 25 00:23:47 test1 java[3329903]:         - brigada_core 0.1.0
-Aug 25 00:24:25 test1 java[3329903]: [00:24:25] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 00:24:40 test1 java[3329903]: [00:24:40] [Server thread/INFO]: Done (2.099s)! For help, type "help"
-Aug 25 00:25:54 test1 java[3334973]: [00:25:54] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
-Aug 25 00:25:55 test1 java[3334973]:         - brigada_core 0.1.0
-Aug 25 00:26:27 test1 java[3334973]: [00:26:27] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 00:26:42 test1 java[3334973]: [00:26:42] [Server thread/INFO]: Done (1.581s)! For help, type "help"
+===== net.minecraft.server.level.ServerPlayer
+  public java.util.OptionalInt openMenu(net.minecraft.world.MenuProvider);
+===== net.minecraft.world.inventory.ChestMenu
+Compiled from "ChestMenu.java"
+public class net.minecraft.world.inventory.ChestMenu extends net.minecraft.world.inventory.AbstractContainerMenu {
+  public static net.minecraft.world.inventory.ChestMenu oneRow(int, net.minecraft.world.entity.player.Inventory);
+  public static net.minecraft.world.inventory.ChestMenu twoRows(int, net.minecraft.world.entity.player.Inventory);
+  public static net.minecraft.world.inventory.ChestMenu threeRows(int, net.minecraft.world.entity.player.Inventory);
+  public static net.minecraft.world.inventory.ChestMenu fourRows(int, net.minecraft.world.entity.player.Inventory);
+  public static net.minecraft.world.inventory.ChestMenu fiveRows(int, net.minecraft.world.entity.player.Inventory);
+  public static net.minecraft.world.inventory.ChestMenu sixRows(int, net.minecraft.world.entity.player.Inventory);
+  public static net.minecraft.world.inventory.ChestMenu threeRows(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.Container);
+  public static net.minecraft.world.inventory.ChestMenu sixRows(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.Container);
+  public net.minecraft.world.inventory.ChestMenu(net.minecraft.world.inventory.MenuType<?>, int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.Container, int);
+  public boolean stillValid(net.minecraft.world.entity.player.Player);
+  public net.minecraft.world.item.ItemStack quickMoveStack(net.minecraft.world.entity.player.Player, int);
+  public int getRowCount();
+===== net.minecraft.world.SimpleContainer
+Compiled from "SimpleContainer.java"
+public class net.minecraft.world.SimpleContainer implements net.minecraft.world.Container,net.minecraft.world.inventory.StackedContentsCompatible {
+  public net.minecraft.world.SimpleContainer(int);
+  public net.minecraft.world.SimpleContainer(net.minecraft.world.item.ItemStack...);
+  public net.minecraft.world.item.ItemStack getItem(int);
+  public net.minecraft.world.item.ItemStack removeItem(int, int);
+  public net.minecraft.world.item.ItemStack removeItemType(net.minecraft.world.item.Item, int);
+  public net.minecraft.world.item.ItemStack removeItemNoUpdate(int);
+  public void setItem(int, net.minecraft.world.item.ItemStack);
+  public int getContainerSize();
+  public boolean stillValid(net.minecraft.world.entity.player.Player);
+  public net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
+===== net.minecraft.world.MenuProvider
+===== net.minecraft.world.SimpleMenuProvider
+Compiled from "SimpleMenuProvider.java"
+public final class net.minecraft.world.SimpleMenuProvider implements net.minecraft.world.MenuProvider {
+  public net.minecraft.world.SimpleMenuProvider(net.minecraft.world.inventory.MenuConstructor, net.minecraft.network.chat.Component);
+  public net.minecraft.world.inventory.AbstractContainerMenu createMenu(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.entity.player.Player);
+===== net.minecraft.world.item.ItemStack
+  public net.minecraft.world.item.Item getItem();
+  public <T> T set(net.minecraft.core.component.DataComponentType<T>, T);
+  public <T> T set(net.minecraft.core.component.TypedDataComponent<T>);
+  public net.minecraft.network.chat.Component getItemName();
+===== net.minecraft.core.component.DataComponents
+  public static final net.minecraft.core.component.DataComponentType<net.minecraft.network.chat.Component> CUSTOM_NAME;
+  public static final net.minecraft.core.component.DataComponentType<net.minecraft.world.item.component.ItemLore> LORE;
+  public static final net.minecraft.core.component.DataComponentType<net.minecraft.world.item.enchantment.ItemEnchantments> STORED_ENCHANTMENTS;
+  public static final net.minecraft.core.component.DataComponentType<net.minecraft.world.item.component.ResolvableProfile> PROFILE;
+===== net.minecraft.world.item.component.ResolvableProfile
+Compiled from "ResolvableProfile.java"
+public abstract class net.minecraft.world.item.component.ResolvableProfile implements net.minecraft.world.item.component.TooltipProvider {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.component.ResolvableProfile> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.item.component.ResolvableProfile> STREAM_CODEC;
+  public static net.minecraft.world.item.component.ResolvableProfile createResolved(com.mojang.authlib.GameProfile);
+  public static net.minecraft.world.item.component.ResolvableProfile createUnresolved(java.lang.String);
+  public static net.minecraft.world.item.component.ResolvableProfile createUnresolved(java.util.UUID);
+  protected abstract com.mojang.datafixers.util.Either<com.mojang.authlib.GameProfile, net.minecraft.world.item.component.ResolvableProfile$Partial> unpack();
+  protected net.minecraft.world.item.component.ResolvableProfile(com.mojang.authlib.GameProfile, net.minecraft.world.entity.player.PlayerSkin$Patch);
+===== net.minecraft.world.item.component.ItemLore
+Compiled from "ItemLore.java"
+public final class net.minecraft.world.item.component.ItemLore extends java.lang.Record implements net.minecraft.world.item.component.TooltipProvider {
+  public static final net.minecraft.world.item.component.ItemLore EMPTY;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.component.ItemLore> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.component.ItemLore> STREAM_CODEC;
+  public net.minecraft.world.item.component.ItemLore(java.util.List<net.minecraft.network.chat.Component>);
+  public net.minecraft.world.item.component.ItemLore(java.util.List<net.minecraft.network.chat.Component>, java.util.List<net.minecraft.network.chat.Component>);
+  public net.minecraft.world.item.component.ItemLore withLineAdded(net.minecraft.network.chat.Component);
+===== net.minecraft.world.inventory.ClickType
+===== net.minecraft.world.item.Items
+  public static final net.minecraft.world.item.Item RED_SAND;
+  public static final net.minecraft.world.item.Item REDSTONE_ORE;
+  public static final net.minecraft.world.item.Item DEEPSLATE_REDSTONE_ORE;
+  public static final net.minecraft.world.item.Item RED_POPLAR_LEAVES;
+  public static final net.minecraft.world.item.Item RED_SHRUB;
+  public static final net.minecraft.world.item.Item RED_TULIP;
+  public static final net.minecraft.world.item.Item RED_MUSHROOM;
+  public static final net.minecraft.world.item.Item RED_SANDSTONE_SLAB;
+  public static final net.minecraft.world.item.Item CUT_RED_SANDSTONE_SLAB;
+  public static final net.minecraft.world.item.Item SMOOTH_RED_SANDSTONE;
+  public static final net.minecraft.world.item.Item RED_MUSHROOM_BLOCK;
+  public static final net.minecraft.world.item.Item RED_SANDSTONE_WALL;
+  public static final net.minecraft.world.item.Item RED_NETHER_BRICK_WALL;
+  public static final net.minecraft.world.item.Item BARRIER;
+  public static final net.minecraft.world.item.Item RED_SANDSTONE;
+  public static final net.minecraft.world.item.Item CHISELED_RED_SANDSTONE;
+  public static final net.minecraft.world.item.Item CUT_RED_SANDSTONE;
+  public static final net.minecraft.world.item.Item RED_SANDSTONE_STAIRS;
+  public static final net.minecraft.world.item.Item RED_NETHER_BRICKS;
+  public static final net.minecraft.world.item.Item SMOOTH_RED_SANDSTONE_STAIRS;
+  public static final net.minecraft.world.item.Item RED_NETHER_BRICK_STAIRS;
+  public static final net.minecraft.world.item.Item SMOOTH_RED_SANDSTONE_SLAB;
+  public static final net.minecraft.world.item.Item RED_NETHER_BRICK_SLAB;
+  public static final net.minecraft.world.item.Item REDSTONE;
+  public static final net.minecraft.world.item.Item REDSTONE_TORCH;
+  public static final net.minecraft.world.item.Item REDSTONE_BLOCK;
+  public static final net.minecraft.world.item.Item SLIME_BLOCK;
+  public static final net.minecraft.world.item.Item REDSTONE_LAMP;
+  public static final net.minecraft.world.item.Item POWERED_RAIL;
+  public static final net.minecraft.world.item.Item SLIME_BALL;
+  public static final net.minecraft.world.item.Item OCEAN_EXPLORER_MAP;
+  public static final net.minecraft.world.item.Item WOODLAND_EXPLORER_MAP;
+  public static final net.minecraft.world.item.Item TRIAL_EXPLORER_MAP;
+  public static final net.minecraft.world.item.Item JUNGLE_EXPLORER_MAP;
+  public static final net.minecraft.world.item.Item SWAMP_EXPLORER_MAP;
+  public static final net.minecraft.world.item.Item SLIME_SPAWN_EGG;
+  public static final net.minecraft.world.item.Item PLAYER_HEAD;
+  public static final net.minecraft.world.item.Item EXPLORER_POTTERY_SHERD;
 
 exit_code=0
-finished_at=2026-08-25T00:27:00Z
+finished_at=2026-08-25T01:23:59Z
 runner=alexhost-143-246
