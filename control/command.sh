@@ -1,11 +1,5 @@
 set -euo pipefail
-echo STATUS
-systemctl is-active minecraft.service
-echo PORT
-ss -ltnp | grep ':25565' || true
-echo SHA256
-sha256sum /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-echo PAUSE_BUTTON
-unzip -p /opt/minecraft/server/mods/brigada-core-0.1.0.jar data/minecraft/tags/dialog/pause_screen_additions.json
-echo READY
-journalctl -u minecraft.service --since '2026-08-24 23:58:00' --no-pager | grep -E 'Loading Minecraft|brigada_core|fabric-api|World Core initialized|Done \(|ERROR|Exception|Starting Minecraft server on' | tail -n 80
+echo INDEXES
+find /root/.gradle /opt/minecraft -type f \( -path '*/assets/indexes/*.json' -o -name '26.json' -o -name '26.3-snapshot-9.json' \) 2>/dev/null | head -30
+echo TEXTURES
+find /root/.gradle /opt/minecraft -type f \( -iname 'compass*.png' -o -iname 'recovery_compass*.png' -o -iname 'bundle*.png' -o -iname 'netherite_sword*.png' \) 2>/dev/null | head -60
