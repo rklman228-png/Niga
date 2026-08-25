@@ -1,6 +1,9 @@
 #ifndef NIGA_SCENE_PROBE_H
 #define NIGA_SCENE_PROBE_H
 
+#include <stdlib.h>
+#include <string.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
