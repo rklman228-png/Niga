@@ -1,5 +1,9 @@
-curl: (22) The requested URL returned error: 404
 
-exit_code=22
-finished_at=2026-08-25T06:26:18Z
+gzip: stdin: invalid compressed data--format violated
+tar: Unexpected EOF in archive
+tar: Unexpected EOF in archive
+tar: Error is not recoverable: exiting now
+
+exit_code=2
+finished_at=2026-08-25T06:30:18Z
 runner=alexhost-143-246
