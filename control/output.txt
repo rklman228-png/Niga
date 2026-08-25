@@ -1,172 +1,283 @@
-assets/minecraft/textures/gui/sprites/dialog/
-assets/minecraft/textures/gui/sprites/dialog/warning_button.png
-assets/minecraft/textures/gui/sprites/dialog/warning_button_highlighted.png
-assets/minecraft/textures/gui/sprites/dialog/warning_button_disabled.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_arrow_up.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_arrow_up.png.mcmeta
-assets/minecraft/textures/gui/sprites/hud/locator_bar_background.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_background.png.mcmeta
-assets/minecraft/textures/gui/sprites/hud/locator_bar_arrow_down.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_dot/
-assets/minecraft/textures/gui/sprites/hud/locator_bar_dot/bowtie.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_dot/default_1.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_dot/default_2.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_dot/default_3.png
-assets/minecraft/textures/gui/sprites/hud/locator_bar_arrow_down.png.mcmeta
-assets/minecraft/textures/gui/sprites/hud/locator_bar_dot/default_0.png
-assets/minecraft/waypoint_style/
-assets/minecraft/waypoint_style/bowtie.json
-assets/minecraft/waypoint_style/default.json
-com/mojang/blaze3d/resource/GraphicsResourceAllocator$1.class
-com/mojang/blaze3d/resource/GraphicsResourceAllocator.class
-com/mojang/blaze3d/vertex/TlsfAllocator$Block.class
-com/mojang/blaze3d/vertex/TlsfAllocator$Heap.class
-com/mojang/blaze3d/vertex/TlsfAllocator$IndexPair.class
-com/mojang/blaze3d/vertex/TlsfAllocator.class
-com/mojang/blaze3d/vertex/TlsfAllocator$Allocation.class
-com/mojang/renderpearl/backend/util/TransientBlockAllocator$Allocation.class
-com/mojang/renderpearl/backend/util/TransientBlockAllocator$Allocator$1.class
-com/mojang/renderpearl/backend/util/TransientBlockAllocator$Allocator$Block.class
-com/mojang/renderpearl/backend/util/TransientBlockAllocator$Allocator.class
-com/mojang/renderpearl/backend/util/TransientBlockAllocator$Allocator$CpuBlock.class
-com/mojang/renderpearl/backend/util/TransientBlockAllocator.class
-data/minecraft/dialog/
-data/minecraft/dialog/custom_options.json
-data/minecraft/dialog/quick_actions.json
-data/minecraft/dialog/server_links.json
-data/minecraft/tags/dialog/
-data/minecraft/tags/dialog/pause_screen_additions.json
-data/minecraft/tags/dialog/quick_actions.json
-net/minecraft/client/data/models/WaypointStyleProvider.class
-net/minecraft/client/gui/contextualbar/LocatorBar.class
-net/minecraft/client/gui/render/DynamicAtlasAllocator$Slot.class
-net/minecraft/client/gui/render/DynamicAtlasAllocator$SlotState.class
-net/minecraft/client/gui/render/DynamicAtlasAllocator.class
-net/minecraft/client/gui/screens/dialog/
-net/minecraft/client/gui/screens/dialog/ButtonListDialogScreen.class
-net/minecraft/client/gui/screens/dialog/DialogConnectionAccess.class
-net/minecraft/client/gui/screens/dialog/DialogControlSet.class
-net/minecraft/client/gui/screens/dialog/DialogScreen$1.class
-net/minecraft/client/gui/screens/dialog/DialogScreen$WarningScreen.class
-net/minecraft/client/gui/screens/dialog/DialogListDialogScreen.class
-net/minecraft/client/gui/screens/dialog/DialogScreens$Factory.class
-net/minecraft/client/gui/screens/dialog/MultiButtonDialogScreen.class
-net/minecraft/client/gui/screens/dialog/DialogScreens.class
-net/minecraft/client/gui/screens/dialog/SimpleDialogScreen.class
-net/minecraft/client/gui/screens/dialog/body/
-net/minecraft/client/gui/screens/dialog/body/DialogBodyHandler.class
-net/minecraft/client/gui/screens/dialog/ServerLinksDialogScreen.class
-net/minecraft/client/gui/screens/dialog/body/DialogBodyHandlers$PlainMessageHandler.class
-net/minecraft/client/gui/screens/dialog/body/DialogBodyHandlers$ItemHandler.class
-net/minecraft/client/gui/screens/dialog/body/package-info.class
-net/minecraft/client/gui/screens/dialog/input/
-net/minecraft/client/gui/screens/dialog/input/InputControlHandler$Output.class
-net/minecraft/client/gui/screens/dialog/body/DialogBodyHandlers.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandler.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$BooleanHandler$1.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$BooleanHandler.class
-net/minecraft/client/gui/screens/dialog/WaitingForResponseScreen.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$NumberRangeHandler.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$NumberRangeHandler$SliderImpl.class
-net/minecraft/client/gui/screens/dialog/DialogScreen.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$TextInputHandler$1.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$NumberRangeHandler$1.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$SingleOptionHandler.class
-net/minecraft/client/gui/screens/dialog/input/package-info.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers$TextInputHandler.class
-net/minecraft/client/gui/screens/dialog/package-info.class
-net/minecraft/client/gui/screens/dialog/input/InputControlHandlers.class
-net/minecraft/client/multiplayer/ClientCommonPacketListenerImpl$CommonDialogAccess.class
-net/minecraft/client/resources/WaypointStyleManager.class
-net/minecraft/client/resources/WaypointStyle.class
-net/minecraft/client/waypoints/
-net/minecraft/client/waypoints/ClientWaypointManager.class
-net/minecraft/client/waypoints/package-info.class
-net/minecraft/commands/arguments/ResourceOrIdArgument$DialogArgument.class
-net/minecraft/commands/arguments/WaypointArgument.class
-net/minecraft/data/tags/DialogTagsProvider.class
-net/minecraft/network/chat/ClickEvent$ShowDialog.class
-net/minecraft/network/protocol/common/ClientboundClearDialogPacket.class
-net/minecraft/network/protocol/common/ClientboundShowDialogPacket.class
-net/minecraft/network/protocol/game/ClientboundTrackedWaypointPacket$Operation.class
-net/minecraft/network/protocol/game/ClientboundTrackedWaypointPacket.class
-net/minecraft/server/commands/DialogCommand.class
-net/minecraft/server/commands/WaypointCommand.class
-net/minecraft/server/dialog/
-net/minecraft/server/dialog/ActionButton.class
-net/minecraft/server/dialog/ButtonListDialog.class
-net/minecraft/server/dialog/CommonButtonData.class
-net/minecraft/server/dialog/CommonDialogData.class
-net/minecraft/server/dialog/ConfirmationDialog.class
-net/minecraft/server/dialog/Dialog.class
-net/minecraft/server/dialog/DialogAction.class
-net/minecraft/server/dialog/DialogTypes.class
-net/minecraft/server/dialog/Dialogs.class
-net/minecraft/server/dialog/Input.class
-net/minecraft/server/dialog/DialogListDialog.class
-net/minecraft/server/dialog/NoticeDialog.class
-net/minecraft/server/dialog/SimpleDialog.class
-net/minecraft/server/dialog/action/
-net/minecraft/server/dialog/MultiActionDialog.class
-net/minecraft/server/dialog/action/Action$ValueGetter$1.class
-net/minecraft/server/dialog/ServerLinksDialog.class
-net/minecraft/server/dialog/action/Action$ValueGetter$2.class
-net/minecraft/server/dialog/action/Action.class
-net/minecraft/server/dialog/action/Action$ValueGetter.class
-net/minecraft/server/dialog/action/ActionTypes.class
-net/minecraft/server/dialog/action/ParsedTemplate.class
-net/minecraft/server/dialog/action/package-info.class
-net/minecraft/server/dialog/body/
-net/minecraft/server/dialog/action/CommandTemplate.class
-net/minecraft/server/dialog/body/DialogBody.class
-net/minecraft/server/dialog/action/StaticAction.class
-net/minecraft/server/dialog/body/DialogBodyTypes.class
-net/minecraft/server/dialog/action/CustomAll.class
-net/minecraft/server/dialog/body/ItemBody.class
-net/minecraft/server/dialog/input/
-net/minecraft/server/dialog/input/BooleanInput.class
-net/minecraft/server/dialog/input/InputControlTypes.class
-net/minecraft/server/dialog/body/package-info.class
-net/minecraft/server/dialog/input/NumberRangeInput.class
-net/minecraft/server/dialog/input/SingleOptionInput$Entry.class
-net/minecraft/server/dialog/body/PlainMessage.class
-net/minecraft/server/dialog/input/InputControl.class
-net/minecraft/server/dialog/input/NumberRangeInput$RangeInfo.class
-net/minecraft/server/dialog/input/package-info.class
-net/minecraft/server/dialog/package-info.class
-net/minecraft/server/dialog/input/TextInput.class
-net/minecraft/server/dialog/input/TextInput$MultilineOptions.class
-net/minecraft/server/dialog/input/SingleOptionInput.class
-net/minecraft/server/waypoints/
-net/minecraft/server/waypoints/ServerWaypointManager.class
-net/minecraft/server/waypoints/package-info.class
-net/minecraft/tags/DialogTags.class
-net/minecraft/world/waypoints/
-net/minecraft/world/waypoints/PartialTickSupplier.class
-net/minecraft/world/waypoints/TrackedWaypoint$AzimuthWaypoint.class
-net/minecraft/world/waypoints/TrackedWaypoint$ChunkWaypoint.class
-net/minecraft/world/waypoints/TrackedWaypoint$EmptyWaypoint.class
-net/minecraft/world/waypoints/TrackedWaypoint$PitchDirection.class
-net/minecraft/world/waypoints/TrackedWaypoint$Projector.class
-net/minecraft/world/waypoints/TrackedWaypoint$Camera.class
-net/minecraft/world/waypoints/TrackedWaypoint$Type.class
-net/minecraft/world/waypoints/TrackedWaypoint.class
-net/minecraft/world/waypoints/Waypoint.class
-net/minecraft/world/waypoints/WaypointManager.class
-net/minecraft/world/waypoints/Waypoint$Icon.class
-net/minecraft/world/waypoints/WaypointStyleAsset.class
-net/minecraft/world/waypoints/WaypointStyleAssets.class
-net/minecraft/world/waypoints/WaypointTransmitter$ChunkConnection.class
-net/minecraft/world/waypoints/WaypointTransmitter$Connection.class
-net/minecraft/world/waypoints/WaypointTransmitter$EntityAzimuthConnection.class
-net/minecraft/world/waypoints/WaypointTransmitter$EntityBlockConnection.class
-net/minecraft/world/waypoints/WaypointTransmitter$EntityChunkConnection.class
-net/minecraft/world/waypoints/WaypointTransmitter.class
-net/minecraft/world/waypoints/package-info.class
-net/minecraft/world/waypoints/TrackedWaypointManager.class
-net/minecraft/world/waypoints/WaypointTransmitter$BlockConnection.class
-net/minecraft/world/waypoints/TrackedWaypoint$Vec3iWaypoint.class
+===== net.minecraft.server.dialog.CommonDialogData
+Compiled from "CommonDialogData.java"
+public final class net.minecraft.server.dialog.CommonDialogData extends java.lang.Record {
+  private final net.minecraft.network.chat.Component title;
+  private final java.util.Optional<net.minecraft.network.chat.Component> externalTitle;
+  private final boolean canCloseWithEscape;
+  private final boolean pause;
+  private final net.minecraft.server.dialog.DialogAction afterAction;
+  private final java.util.List<net.minecraft.server.dialog.body.DialogBody> body;
+  private final java.util.List<net.minecraft.server.dialog.Input> inputs;
+  public static final com.mojang.serialization.MapCodec<net.minecraft.server.dialog.CommonDialogData> MAP_CODEC;
+  public net.minecraft.server.dialog.CommonDialogData(net.minecraft.network.chat.Component, java.util.Optional<net.minecraft.network.chat.Component>, boolean, boolean, net.minecraft.server.dialog.DialogAction, java.util.List<net.minecraft.server.dialog.body.DialogBody>, java.util.List<net.minecraft.server.dialog.Input>);
+  public net.minecraft.network.chat.Component computeExternalTitle();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.network.chat.Component title();
+  public java.util.Optional<net.minecraft.network.chat.Component> externalTitle();
+  public boolean canCloseWithEscape();
+  public boolean pause();
+  public net.minecraft.server.dialog.DialogAction afterAction();
+  public java.util.List<net.minecraft.server.dialog.body.DialogBody> body();
+  public java.util.List<net.minecraft.server.dialog.Input> inputs();
+  private static com.mojang.serialization.DataResult lambda$static$1(net.minecraft.server.dialog.CommonDialogData);
+  private static java.lang.String lambda$static$2();
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}
+===== net.minecraft.server.dialog.CommonButtonData
+Compiled from "CommonButtonData.java"
+public final class net.minecraft.server.dialog.CommonButtonData extends java.lang.Record {
+  private final net.minecraft.network.chat.Component label;
+  private final java.util.Optional<net.minecraft.network.chat.Component> tooltip;
+  private final int width;
+  public static final int DEFAULT_WIDTH;
+  public static final com.mojang.serialization.MapCodec<net.minecraft.server.dialog.CommonButtonData> MAP_CODEC;
+  public net.minecraft.server.dialog.CommonButtonData(net.minecraft.network.chat.Component, int);
+  public net.minecraft.server.dialog.CommonButtonData(net.minecraft.network.chat.Component, java.util.Optional<net.minecraft.network.chat.Component>, int);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.network.chat.Component label();
+  public java.util.Optional<net.minecraft.network.chat.Component> tooltip();
+  public int width();
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}
+===== net.minecraft.server.dialog.ActionButton
+Compiled from "ActionButton.java"
+public final class net.minecraft.server.dialog.ActionButton extends java.lang.Record {
+  private final net.minecraft.server.dialog.CommonButtonData button;
+  private final java.util.Optional<net.minecraft.server.dialog.action.Action> action;
+  public static final com.mojang.serialization.Codec<net.minecraft.server.dialog.ActionButton> CODEC;
+  public net.minecraft.server.dialog.ActionButton(net.minecraft.server.dialog.CommonButtonData, java.util.Optional<net.minecraft.server.dialog.action.Action>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.server.dialog.CommonButtonData button();
+  public java.util.Optional<net.minecraft.server.dialog.action.Action> action();
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}
+===== net.minecraft.server.dialog.MultiActionDialog
+Compiled from "MultiActionDialog.java"
+public final class net.minecraft.server.dialog.MultiActionDialog extends java.lang.Record implements net.minecraft.server.dialog.ButtonListDialog {
+  private final net.minecraft.server.dialog.CommonDialogData common;
+  private final java.util.List<net.minecraft.server.dialog.ActionButton> actions;
+  private final java.util.Optional<net.minecraft.server.dialog.ActionButton> exitAction;
+  private final int columns;
+  public static final com.mojang.serialization.MapCodec<net.minecraft.server.dialog.MultiActionDialog> MAP_CODEC;
+  public net.minecraft.server.dialog.MultiActionDialog(net.minecraft.server.dialog.CommonDialogData, java.util.List<net.minecraft.server.dialog.ActionButton>, java.util.Optional<net.minecraft.server.dialog.ActionButton>, int);
+  public com.mojang.serialization.MapCodec<net.minecraft.server.dialog.MultiActionDialog> codec();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.server.dialog.CommonDialogData common();
+  public java.util.List<net.minecraft.server.dialog.ActionButton> actions();
+  public java.util.Optional<net.minecraft.server.dialog.ActionButton> exitAction();
+  public int columns();
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}
+===== net.minecraft.server.dialog.Dialog
+Compiled from "Dialog.java"
+public interface net.minecraft.server.dialog.Dialog {
+  public static final com.mojang.serialization.Codec<java.lang.Integer> WIDTH_CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.server.dialog.Dialog> DIRECT_CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>> CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.core.HolderSet<net.minecraft.server.dialog.Dialog>> LIST_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>> STREAM_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.server.dialog.Dialog> CONTEXT_FREE_STREAM_CODEC;
+  public abstract net.minecraft.server.dialog.CommonDialogData common();
+  public abstract com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.Dialog> codec();
+  public abstract java.util.Optional<net.minecraft.server.dialog.action.Action> onCancel();
+  private static com.mojang.serialization.MapCodec lambda$static$0(com.mojang.serialization.MapCodec);
+  static {};
+}
+===== net.minecraft.server.dialog.DialogAction
+Compiled from "DialogAction.java"
+public final class net.minecraft.server.dialog.DialogAction extends java.lang.Enum<net.minecraft.server.dialog.DialogAction> implements net.minecraft.util.StringRepresentable {
+  public static final net.minecraft.server.dialog.DialogAction CLOSE;
+  public static final net.minecraft.server.dialog.DialogAction NONE;
+  public static final net.minecraft.server.dialog.DialogAction WAIT_FOR_RESPONSE;
+  public static final java.util.function.IntFunction<net.minecraft.server.dialog.DialogAction> BY_ID;
+  public static final com.mojang.serialization.Codec<net.minecraft.server.dialog.DialogAction> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.server.dialog.DialogAction> STREAM_CODEC;
+  private final int id;
+  private final java.lang.String name;
+  private static final net.minecraft.server.dialog.DialogAction[] $VALUES;
+  public static net.minecraft.server.dialog.DialogAction[] values();
+  public static net.minecraft.server.dialog.DialogAction valueOf(java.lang.String);
+  private net.minecraft.server.dialog.DialogAction(int, java.lang.String);
+  public java.lang.String getSerializedName();
+  public boolean willUnpause();
+  private static net.minecraft.server.dialog.DialogAction[] $values();
+  private static int lambda$static$1(net.minecraft.server.dialog.DialogAction);
+  private static int lambda$static$0(net.minecraft.server.dialog.DialogAction);
+  static {};
+}
+===== net.minecraft.server.dialog.action.StaticAction
+Compiled from "StaticAction.java"
+public final class net.minecraft.server.dialog.action.StaticAction extends java.lang.Record implements net.minecraft.server.dialog.action.Action {
+  private final net.minecraft.network.chat.ClickEvent value;
+  public static final java.util.Map<net.minecraft.network.chat.ClickEvent$Action, com.mojang.serialization.MapCodec<net.minecraft.server.dialog.action.StaticAction>> WRAPPED_CODECS;
+  public net.minecraft.server.dialog.action.StaticAction(net.minecraft.network.chat.ClickEvent);
+  public com.mojang.serialization.MapCodec<net.minecraft.server.dialog.action.StaticAction> codec();
+  public java.util.Optional<net.minecraft.network.chat.ClickEvent> createAction(java.util.Map<java.lang.String, net.minecraft.server.dialog.action.Action$ValueGetter>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.network.chat.ClickEvent value();
+  private static java.util.Map lambda$static$0();
+  static {};
+}
+===== net.minecraft.server.dialog.action.Action
+Compiled from "Action.java"
+public interface net.minecraft.server.dialog.action.Action {
+  public static final com.mojang.serialization.Codec<net.minecraft.server.dialog.action.Action> CODEC;
+  public abstract com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.action.Action> codec();
+  public abstract java.util.Optional<net.minecraft.network.chat.ClickEvent> createAction(java.util.Map<java.lang.String, net.minecraft.server.dialog.action.Action$ValueGetter>);
+  private static com.mojang.serialization.MapCodec lambda$static$0(com.mojang.serialization.MapCodec);
+  static {};
+}
+===== net.minecraft.server.dialog.body.PlainMessage
+Compiled from "PlainMessage.java"
+public final class net.minecraft.server.dialog.body.PlainMessage extends java.lang.Record implements net.minecraft.server.dialog.body.DialogBody {
+  private final net.minecraft.network.chat.Component contents;
+  private final int width;
+  public static final int DEFAULT_WIDTH;
+  public static final com.mojang.serialization.MapCodec<net.minecraft.server.dialog.body.PlainMessage> MAP_CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.server.dialog.body.PlainMessage> CODEC;
+  public net.minecraft.server.dialog.body.PlainMessage(net.minecraft.network.chat.Component, int);
+  public com.mojang.serialization.MapCodec<net.minecraft.server.dialog.body.PlainMessage> mapCodec();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.network.chat.Component contents();
+  public int width();
+  private static net.minecraft.server.dialog.body.PlainMessage lambda$static$1(net.minecraft.network.chat.Component);
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}
+===== net.minecraft.server.dialog.body.ItemBody
+Compiled from "ItemBody.java"
+public final class net.minecraft.server.dialog.body.ItemBody extends java.lang.Record implements net.minecraft.server.dialog.body.DialogBody {
+  private final net.minecraft.world.item.ItemStackTemplate item;
+  private final java.util.Optional<net.minecraft.server.dialog.body.PlainMessage> description;
+  private final boolean showDecorations;
+  private final boolean showTooltip;
+  private final int width;
+  private final int height;
+  public static final com.mojang.serialization.MapCodec<net.minecraft.server.dialog.body.ItemBody> MAP_CODEC;
+  public net.minecraft.server.dialog.body.ItemBody(net.minecraft.world.item.ItemStackTemplate, java.util.Optional<net.minecraft.server.dialog.body.PlainMessage>, boolean, boolean, int, int);
+  public com.mojang.serialization.MapCodec<net.minecraft.server.dialog.body.ItemBody> mapCodec();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.world.item.ItemStackTemplate item();
+  public java.util.Optional<net.minecraft.server.dialog.body.PlainMessage> description();
+  public boolean showDecorations();
+  public boolean showTooltip();
+  public int width();
+  public int height();
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}
+===== net.minecraft.network.protocol.common.ClientboundShowDialogPacket
+Compiled from "ClientboundShowDialogPacket.java"
+public final class net.minecraft.network.protocol.common.ClientboundShowDialogPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener> {
+  private final net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog> dialog;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.network.protocol.common.ClientboundShowDialogPacket> STREAM_CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.network.protocol.common.ClientboundShowDialogPacket> CONTEXT_FREE_STREAM_CODEC;
+  public net.minecraft.network.protocol.common.ClientboundShowDialogPacket(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>);
+  public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundShowDialogPacket> type();
+  public void handle(net.minecraft.network.protocol.common.ClientCommonPacketListener);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog> dialog();
+  public void handle(net.minecraft.network.PacketListener);
+  static {};
+}
+===== net.minecraft.world.waypoints.Waypoint
+Compiled from "Waypoint.java"
+public interface net.minecraft.world.waypoints.Waypoint {
+  public static final net.minecraft.world.entity.ai.attributes.AttributeModifier WAYPOINT_TRANSMIT_RANGE_HIDE_MODIFIER;
+  public static net.minecraft.world.item.Item$Properties addHideAttribute(net.minecraft.world.item.Item$Properties);
+  static {};
+}
+===== net.minecraft.world.waypoints.Waypoint$Icon
+Compiled from "Waypoint.java"
+public class net.minecraft.world.waypoints.Waypoint$Icon {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.waypoints.Waypoint$Icon> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.waypoints.Waypoint$Icon> STREAM_CODEC;
+  public static final net.minecraft.world.waypoints.Waypoint$Icon NULL;
+  public net.minecraft.resources.ResourceKey<net.minecraft.world.waypoints.WaypointStyleAsset> style;
+  public java.util.Optional<java.lang.Integer> color;
+  public net.minecraft.world.waypoints.Waypoint$Icon();
+  private net.minecraft.world.waypoints.Waypoint$Icon(net.minecraft.resources.ResourceKey<net.minecraft.world.waypoints.WaypointStyleAsset>, java.util.Optional<java.lang.Integer>);
+  public boolean hasData();
+  public net.minecraft.world.waypoints.Waypoint$Icon cloneAndAssignStyle(net.minecraft.world.entity.LivingEntity);
+  public void copyFrom(net.minecraft.world.waypoints.Waypoint$Icon);
+  private net.minecraft.resources.ResourceKey<net.minecraft.world.waypoints.WaypointStyleAsset> getOverrideStyle();
+  private static java.util.Optional lambda$cloneAndAssignStyle$0(net.minecraft.world.entity.LivingEntity);
+  private static java.lang.Integer lambda$cloneAndAssignStyle$2(net.minecraft.world.scores.TeamColor);
+  private static java.util.Optional lambda$cloneAndAssignStyle$1(net.minecraft.world.scores.PlayerTeam);
+  private static java.util.Optional lambda$static$4(net.minecraft.world.waypoints.Waypoint$Icon);
+  private static net.minecraft.resources.ResourceKey lambda$static$3(net.minecraft.world.waypoints.Waypoint$Icon);
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  private static java.util.Optional lambda$static$2(net.minecraft.world.waypoints.Waypoint$Icon);
+  private static net.minecraft.resources.ResourceKey lambda$static$1(net.minecraft.world.waypoints.Waypoint$Icon);
+  static {};
+}
+===== net.minecraft.world.waypoints.WaypointTransmitter
+Compiled from "WaypointTransmitter.java"
+public interface net.minecraft.world.waypoints.WaypointTransmitter extends net.minecraft.world.waypoints.Waypoint {
+  public static final int REALLY_FAR_DISTANCE;
+  public abstract boolean isTransmittingWaypoint();
+  public abstract java.util.Optional<net.minecraft.world.waypoints.WaypointTransmitter$Connection> makeWaypointConnectionWith(net.minecraft.server.level.ServerPlayer);
+  public abstract net.minecraft.world.waypoints.Waypoint$Icon waypointIcon();
+  public static boolean doesSourceIgnoreReceiver(net.minecraft.world.entity.LivingEntity, net.minecraft.server.level.ServerPlayer);
+  public static boolean isChunkVisible(net.minecraft.world.level.ChunkPos, net.minecraft.server.level.ServerPlayer);
+  public static boolean isReallyFar(net.minecraft.world.entity.LivingEntity, net.minecraft.server.level.ServerPlayer);
+}
+===== net.minecraft.world.waypoints.WaypointTransmitter$BlockConnection
+Compiled from "WaypointTransmitter.java"
+public interface net.minecraft.world.waypoints.WaypointTransmitter$BlockConnection extends net.minecraft.world.waypoints.WaypointTransmitter$Connection {
+  public abstract int distanceManhattan();
+  public default boolean isBroken();
+}
+===== net.minecraft.server.waypoints.ServerWaypointManager
+Compiled from "ServerWaypointManager.java"
+public class net.minecraft.server.waypoints.ServerWaypointManager implements net.minecraft.world.waypoints.WaypointManager<net.minecraft.world.waypoints.WaypointTransmitter> {
+  private final java.util.Set<net.minecraft.world.waypoints.WaypointTransmitter> waypoints;
+  private final java.util.Set<net.minecraft.server.level.ServerPlayer> players;
+  private final com.google.common.collect.Table<net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter, net.minecraft.world.waypoints.WaypointTransmitter$Connection> connections;
+  public net.minecraft.server.waypoints.ServerWaypointManager();
+  public void trackWaypoint(net.minecraft.world.waypoints.WaypointTransmitter);
+  public void updateWaypoint(net.minecraft.world.waypoints.WaypointTransmitter);
+  public void untrackWaypoint(net.minecraft.world.waypoints.WaypointTransmitter);
+  public void addPlayer(net.minecraft.server.level.ServerPlayer);
+  public void updatePlayer(net.minecraft.server.level.ServerPlayer);
+  public void removePlayer(net.minecraft.server.level.ServerPlayer);
+  public void breakAllConnections();
+  public void remakeConnections(net.minecraft.world.waypoints.WaypointTransmitter);
+  public java.util.Set<net.minecraft.world.waypoints.WaypointTransmitter> transmitters();
+  private static boolean isLocatorBarEnabledFor(net.minecraft.server.level.ServerPlayer);
+  private void createConnection(net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter);
+  private void updateConnection(net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter, net.minecraft.world.waypoints.WaypointTransmitter$Connection);
+  public void untrackWaypoint(net.minecraft.world.waypoints.Waypoint);
+  public void updateWaypoint(net.minecraft.world.waypoints.Waypoint);
+  public void trackWaypoint(net.minecraft.world.waypoints.Waypoint);
+  private void lambda$updateConnection$1(net.minecraft.world.waypoints.WaypointTransmitter$Connection, net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter);
+  private void lambda$updateConnection$0(net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter, net.minecraft.world.waypoints.WaypointTransmitter$Connection);
+  private void lambda$createConnection$1(net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter);
+  private void lambda$createConnection$0(net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter, net.minecraft.world.waypoints.WaypointTransmitter$Connection);
+  private static boolean lambda$removePlayer$0(net.minecraft.world.waypoints.WaypointTransmitter$Connection);
+  private static void lambda$untrackWaypoint$0(net.minecraft.server.level.ServerPlayer, net.minecraft.world.waypoints.WaypointTransmitter$Connection);
+}
 
 exit_code=0
-finished_at=2026-08-25T02:34:22Z
+finished_at=2026-08-25T02:36:55Z
 runner=alexhost-143-246
