@@ -1,13 +1,10 @@
 set -euo pipefail
-export GIT_TERMINAL_PROMPT=0
-
-echo '=== auth probes ==='
-command -v gh || true
-gh auth status 2>&1 || true
-printf 'git_credential_helper='; git config --global --get credential.helper || true
-
-echo '=== private repo access ==='
-git ls-remote https://github.com/rklman228-png/Plagin_1.git HEAD 2>&1 || true
-
-echo '=== runner checkout auth config ==='
-git config --local --get-regexp '^http\..*extraheader$' 2>/dev/null | sed 's/AUTHORIZATION:.*/AUTHORIZATION: REDACTED/' || true
+want=4836320d63d1db7d3cb2b11607679ca8e0a06d96
+for d in /opt/brigada-build* /opt/brigada-core-src; do
+  [ -d "$d" ] || continue
+  f="$d/src/main/java/dev/brigada13/core/challenge/ChallengeService.java"
+  [ -f "$f" ] || continue
+  h=$(git hash-object "$f")
+  printf '%s  %s\n' "$h" "$d"
+  if [ "$h" = "$want" ]; then echo "MATCH=$d"; fi
+done
