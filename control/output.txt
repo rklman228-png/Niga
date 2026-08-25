@@ -1,7 +1,6 @@
-active
-    PID ELAPSED %CPU %MEM   RSS    VSZ STAT CMD
- 605240     252  115 22.7 1853300 9078164 Ssl /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
+/opt/brigada-build.wZDUDU/source-min.tar.gz: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
 
-exit_code=0
-finished_at=2026-08-25T06:42:42Z
+exit_code=1
+finished_at=2026-08-25T07:17:01Z
 runner=alexhost-143-246
