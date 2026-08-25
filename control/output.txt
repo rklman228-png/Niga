@@ -32,10 +32,10 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 55s
+BUILD SUCCESSFUL in 54s
 6 actionable tasks: 6 executed
-750cb42a9de061370bc7358c1404d311c7eba3fa6155d1f7d30d203bfd63dfb9  build/libs/brigada-core-0.1.0.jar
+daf2150d68533b08cbb8aad8c6c69d1ccd91bc48381177f800053af148501efc  build/libs/brigada-core-0.1.0.jar
 
 exit_code=0
-finished_at=2026-08-25T02:00:23Z
+finished_at=2026-08-25T02:02:21Z
 runner=alexhost-143-246
