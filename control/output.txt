@@ -1,35 +1,4 @@
-RuntimeFixes patched
-ChallengeServiceMixin patched
-=== source checks ===
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:65:    private static final Path BOUNDARY_BACKUP = Path.of("brigada-boundary-backup.bin");
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:130:        if (!Files.exists(BOUNDARY_BACKUP)) return;
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:131:        try (DataInputStream in = new DataInputStream(new BufferedInputStream(Files.newInputStream(BOUNDARY_BACKUP)))) {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:148:        try (DataOutputStream out = new DataOutputStream(new BufferedOutputStream(Files.newOutputStream(BOUNDARY_BACKUP)))) {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:216:                ensureFullHeightBoundary(level, state);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:232:        tickWavePulses();
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:250:    public static void ensureFullHeightBoundary(ServerLevel level, ActiveChallengeState state) {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:297:    public static void restoreBoundary(MinecraftServer server, ActiveChallengeState state) {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:306:        restoreBoundaryMap(level);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:314:        restoreBoundary(server, BrigadaCore.stateStore().state().activeChallenge);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:321:        if (level != null) restoreBoundaryMap(level);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:324:    private static void restoreBoundaryMap(ServerLevel level) {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:336:        try { Files.deleteIfExists(BOUNDARY_BACKUP); }
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:508:            scheduleWavePulse(level, state);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:659:                ParticleOptimizer.emit(level, ParticleTypes.PORTAL, x, y, z,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:664:            ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:669:            ParticleOptimizer.emit(level, ParticleTypes.PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:671:            ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:680:            ParticleOptimizer.emit(level, ParticleTypes.PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:686:    private static void scheduleWavePulse(ServerLevel level, ActiveChallengeState state) {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:696:            ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:702:    private static void tickWavePulses() {
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:718:                if ((i & 1) == 0) ParticleOptimizer.emit(pulse.level(), ParticleTypes.PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:721:            if (age == 0) ParticleOptimizer.emit(pulse.level(), ParticleTypes.REVERSE_PORTAL,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:85:        RuntimeFixes.ensureFullHeightBoundary(level, state);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:100:        RuntimeFixes.restoreBoundary(server, state);
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:105:    private void replaceCoreVictoryParticles(MinecraftServer server, ChallengeDefinition definition,
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:111:    private void restoreBoundaryOnCancel(MinecraftServer server, CallbackInfo ci) {
-=== build ===
+Level cast fixed
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 
@@ -37,36 +6,34 @@ Daemon will be stopped at the end of the build
 Fabric Loom: 1.17.19
 
 > Task :clean
-
 > Task :compileJava
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:83: error: incompatible types: Level cannot be converted to ServerLevel
-                !isFullBoundaryPosition(level, pos));
-                                        ^
-Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-1 error
-
-> Task :compileJava FAILED
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
 
 [Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
 
-FAILURE: Build failed with an exception.
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:83: error: incompatible types: Level cannot be converted to ServerLevel
-                  !isFullBoundaryPosition(level, pos));
-                                          ^
-  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-  1 error
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
 
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 59s
-2 actionable tasks: 2 executed
+BUILD SUCCESSFUL in 1m 13s
+6 actionable tasks: 6 executed
+e3c17fdaef5eb5ca9480867fa3f5d8eea859cb411f9571f3e6f764fd48ffe5cb  build/libs/brigada-hotfix-0.1.0.jar
+Failed to restart minecraft-server.service: Unit minecraft-server.service not found.
 
-exit_code=1
-finished_at=2026-08-25T18:17:07Z
+exit_code=5
+finished_at=2026-08-25T18:19:09Z
 runner=alexhost-143-246
