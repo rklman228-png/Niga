@@ -1,6 +1,4 @@
 set -euo pipefail
-sleep 25
-systemctl is-active minecraft.service
-systemctl show minecraft.service -p NRestarts --value
-ss -ltn | grep ':25565'
-journalctl -u minecraft.service --since '2026-08-25 05:46:00' --no-pager | grep -E 'Done \(|Started fake player|WorldKeeper|ERROR|Exception|Couldn.t load|failed|Can.t keep up' || true
+ps -o pid,pcpu,pmem,etime,cmd -C java
+find /opt/minecraft/server -maxdepth 4 -type f \( -iname '*brigada*json' -o -iname 'state.json' \) -print
+journalctl -u minecraft.service --since '2026-08-25 05:47:00' --no-pager | grep -E 'Can.t keep up|ERROR|Exception' || true
