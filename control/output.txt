@@ -1,6 +1,5 @@
+sed: can't read /opt/minecraft/server.properties: No such file or directory
 
-zip error: Zip file structure invalid (/tmp/world-ui-fHPdNd.zip)
-
-exit_code=3
-finished_at=2026-08-25T05:17:09Z
+exit_code=2
+finished_at=2026-08-25T05:18:37Z
 runner=alexhost-143-246
