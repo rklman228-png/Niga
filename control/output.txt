@@ -1,8 +1,14 @@
-{"otezi": "Otezi"}
 active
 0
+Aug 25 03:15:48 test1 java[3816136]: [03:15:48] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 03:16:02 test1 java[3816136]: [03:16:02] [Server thread/INFO]: Done (2.640s)! For help, type "help"
+Aug 25 03:16:03 test1 java[3816136]: [03:16:03] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 03:16:04 test1 java[3816136]: [03:16:04] [Server thread/INFO]: System chat: WorldKeeper joined the game
+Aug 25 03:16:04 test1 java[3816136]: [03:16:04] [Server thread/INFO]: Started fake player WorldKeeper
+Aug 25 03:16:04 test1 java[3816136]: [03:16:04] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2503ms or 50 ticks behind
+Aug 25 03:16:22 test1 java[3816136]: [03:16:22] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2459ms or 49 ticks behind
 {"otezi": "Otezi"}
 
 exit_code=0
-finished_at=2026-08-25T03:15:58Z
+finished_at=2026-08-25T03:16:47Z
 runner=alexhost-143-246
