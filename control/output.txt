@@ -1,82 +1,107 @@
-=== hotfix files ===
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/BrigadaHotfix.java
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java
-/opt/brigada-hotfix-src/src/main/resources/brigada_hotfix.mixins.json
-/opt/brigada-hotfix-src/src/main/resources/fabric.mod.json
-=== mixins json ===
-{
-  "required": true,
-  "package": "dev.brigada13.hotfix.mixin",
-  "compatibilityLevel": "JAVA_25",
-  "mixins": ["ChallengeServiceMixin"],
-  "injectors": {"defaultRequire": 1}
-}
-=== runtime key source ===
-60:    public static void register() {
-61:        ServerLivingEntityEvents.ALLOW_DAMAGE.register(RuntimeFixes::allowDamage);
-62:        ServerLivingEntityEvents.AFTER_DAMAGE.register(RuntimeFixes::afterDamage);
-63:        ServerTickEvents.END_SERVER_TICK.register(RuntimeFixes::tick);
-82:        return state.eventEntities.contains(id) || (state.targetEntityId != null && state.targetEntityId.equals(id));
-85:    public static void onComplete(MinecraftServer server, ActiveChallengeState state) {
-90:            play(player.level(), player.getX(), player.getY(), player.getZ(),
-92:            play(player.level(), player.getX(), player.getY(), player.getZ(),
-107:                stabiliseEventMobs(level, state);
-185:    private static void stabiliseEventMobs(ServerLevel level, ActiveChallengeState state) {
-186:        Set<UUID> ids = new HashSet<>(state.eventEntities);
-242:            objectiveMob.setPersistenceRequired();
-245:        for (UUID id : state.eventEntities) {
-276:        boss.setGlowingTag(true);
-277:        if (raw instanceof Mob mob) mob.setPersistenceRequired();
-336:        double y = nearbySurfaceY(level, x, z, anchorY);
-341:        double base = nearbySurfaceY(level, x, z, anchorY);
-348:    private static double nearbySurfaceY(ServerLevel level, int x, int z, int anchorY) {
-405:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.2F, 0.95F);
-406:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_TWINKLE, 1.0F, 1.12F);
-411:        play(level, (state.arenaMinX + state.arenaMaxX + 1.0) * 0.5, state.arenaY + 1.0,
-415:    private static void play(ServerLevel level, double x, double y, double z,
-=== server resource pack properties ===
-require-resource-pack=true
-resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
-resource-pack-id=fc9e76d5-cfc6-4d60-b30c-6a43dc6ffa65
-resource-pack-prompt={"text"\:"Ресурсы интерфейса обязательны для игры на сервере.","color"\:"gold"}
-resource-pack-sha1=f059e501378d247ef30d1ddb2038891400665465
-=== exact local pack candidates ===
-2026-08-25 06:38:29.1022459230 556885 /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip
-=== zip /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip ===
+=== 8088 listener ===
+LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
+pid=3127448
+cmd=/usr/bin/python3 -m http.server 8088 --bind 0.0.0.0 --directory /opt/minecraft/resourcepack 
+cwd=/
+root=/
+=== served pack ===
+f059e501378d247ef30d1ddb2038891400665465  /tmp/live-world-ui.zip
+557736 bytes
       257  2026-08-24 23:24   pack.mcmeta
-      190  2026-08-25 02:36   assets/brigada_core/font/icons.json
      2390  2026-08-25 05:38   assets/brigada_core/font/item_icons.json
-{
-  "providers": [
-    {"type":"bitmap","file":"minecraft:item/iron_ingot.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/gold_ingot.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/diamond.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/emerald.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/golden_apple.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/experience_bottle.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/ender_pearl.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/netherite_scrap.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/netherite_ingot.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/golden_apple.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/wheat_seeds.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:block/dirt.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/feather.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/chicken.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:block/white_wool.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:block/crafting_table_front.png","ascent":11,"height":14,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:block/cobblestone.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:block/birch_planks.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/stick.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/wooden_sword.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/rotten_flesh.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:item/string.png","ascent":13,"height":16,"chars":[""]},
-    {"type":"bitmap","file":"minecraft:block/oak_sapling.png","ascent":13,"height":16,"chars":[""]}
-  ]
-}
+      190  2026-08-25 02:36   assets/brigada_core/font/icons.json
+=== current mixin source head ===
+package dev.brigada13.hotfix.mixin;
 
-FAST_INSPECT_OK
+import dev.brigada13.core.BrigadaCore;
+import dev.brigada13.core.challenge.ChallengeDefinition;
+import dev.brigada13.core.challenge.ChallengeService;
+import dev.brigada13.core.state.ActiveChallengeState;
+import dev.brigada13.hotfix.RuntimeFixes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(ChallengeService.class)
+public abstract class ChallengeServiceMixin {
+    @Unique private static final int MAX_LOCATE_RADIUS = 768;
+    @Unique private static final double RESOLVE_DISTANCE_SQ = 192.0 * 192.0;
+    @Unique private long resolvedStartedAt = Long.MIN_VALUE;
+
+    @ModifyArg(method = "locate",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/server/level/ServerLevel;findNearestMapStructure(Lnet/minecraft/tags/TagKey;Lnet/minecraft/core/BlockPos;IZ)Lnet/minecraft/core/BlockPos;"),
+            index = 2, require = 0)
+    private int capLocateRadius(int radius) {
+        return Math.min(radius, MAX_LOCATE_RADIUS);
+    }
+
+    @Redirect(method = "locate",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/StructureManager;getStructureWithPieceAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/tags/TagKey;)Lnet/minecraft/world/level/levelgen/structure/StructureStart;"),
+            require = 0)
+    private StructureStart deferStructureLoad(StructureManager manager, BlockPos pos, TagKey<Structure> tag) {
+        return StructureStart.INVALID_START;
+    }
+
+    @Inject(method = "tickEvent", at = @At("HEAD"), require = 0)
+    private void resolveNearPlayers(MinecraftServer server, ChallengeDefinition definition,
+                                    ActiveChallengeState state, CallbackInfo ci) {
+        if (state.arenaLocked || state.arenaDimension == null || resolvedStartedAt == state.startedAtEpochMillis) return;
+        ServerLevel level = server.getLevel(ResourceKey.create(Registries.DIMENSION, Identifier.parse(state.arenaDimension)));
+        if (level == null) return;
+        for (String participant : state.contribution.keySet()) {
+            ServerPlayer player = server.getPlayerList().getPlayerByName(participant);
+            if (player == null || player.level() != level) return;
+            double dx = player.getX() - (state.arenaX + 0.5);
+            double dz = player.getZ() - (state.arenaZ + 0.5);
+            if (dx * dx + dz * dz > RESOLVE_DISTANCE_SQ) return;
+        }
+        TagKey<Structure> tag = TagKey.create(Registries.STRUCTURE, Identifier.parse(definition.structureTag()));
+        StructureStart start = level.structureManager().getStructureWithPieceAt(
+                new BlockPos(state.arenaX, state.arenaY, state.arenaZ), tag);
+        if (start == StructureStart.INVALID_START) return;
+        BoundingBox box = start.getBoundingBox().inflatedBy(3);
+        state.arenaMinX = box.minX(); state.arenaMaxX = box.maxX();
+        state.arenaMinZ = box.minZ(); state.arenaMaxZ = box.maxZ();
+        resolvedStartedAt = state.startedAtEpochMillis;
+        BrigadaCore.stateStore().save();
+    }
+
+    // The arena is logical now. Physical glass is what spiders were climbing and what created the
+    // absurd sky-high planes in the screenshots. RuntimeFixes keeps mobs inside without blocks.
+    @Redirect(method = "tickEvent",
+            at = @At(value = "INVOKE",
+                    target = "Ldev/brigada13/core/challenge/ChallengeService;ensurePhysicalBoundary(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;)V"),
+            require = 0)
+    private void noPhysicalBoundary(MinecraftServer server, ServerLevel level, ActiveChallengeState state) {
+        RuntimeFixes.clearPhysicalBoundary(level, state);
+    }
+
+    @Inject(method = "complete", at = @At("HEAD"), require = 0)
+    private void completionEffects(MinecraftServer server, ChallengeDefinition definition,
+                                   ActiveChallengeState state, CallbackInfo ci) {
+        RuntimeFixes.onComplete(server, state);
+    }
+}
+PACK_HOST_OK
 
 exit_code=0
-finished_at=2026-08-25T17:22:38Z
+finished_at=2026-08-25T17:24:23Z
 runner=alexhost-143-246
