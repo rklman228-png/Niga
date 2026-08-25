@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-struct WorkspacePreset: Codable, Identifiable, Hashable {
+struct WorkspacePreset: Codable, Identifiable {
     var id = UUID()
     var name: String
     var bundleIDs: [String]
