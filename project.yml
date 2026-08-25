@@ -1,0 +1,37 @@
+name: Niga
+options:
+  bundleIdPrefix: dev.niga
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    IPHONEOS_DEPLOYMENT_TARGET: 17.0
+    TARGETED_DEVICE_FAMILY: 1
+    SUPPORTS_MACCATALYST: NO
+targets:
+  Niga:
+    type: application
+    platform: iOS
+    sources:
+      - App
+      - Core
+    entitlements:
+      path: Niga.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.niga.windowlab
+        PRODUCT_NAME: Niga
+        SWIFT_OBJC_BRIDGING_HEADER: App/Niga-Bridging-Header.h
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Niga
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        CODE_SIGN_STYLE: Automatic
+schemes:
+  Niga:
+    build:
+      targets:
+        Niga: all
+    run:
+      config: Debug
+    archive:
+      config: Release

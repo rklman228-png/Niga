@@ -1,0 +1,38 @@
+name: Build IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.build-trigger'
+
+concurrency:
+  group: niga-ipa-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Build unsigned app
+        run: |
+          set -o pipefail
+          xcodebuild -project Niga.xcodeproj -scheme Niga -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build | xcpretty
+      - name: Package IPA
+        run: |
+          rm -rf Payload Niga.ipa
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/Niga.app Payload/
+          zip -qry Niga.ipa Payload
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Niga-unsigned-IPA
+          path: Niga.ipa
+          if-no-files-found: error
