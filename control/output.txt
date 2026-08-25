@@ -1,44 +1,81 @@
-/opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip 21734 bytes
-/opt/brigada-build-Igmrwx/resource-pack/world-ui-26.3-snapshot-9.zip 21839 bytes
+PACK_SHA1=d5165af07a2889e7e187b282f6fa0efed195370a
+fe93d19b623937caecff386402e54b8a2fa9b4b2670c1ead1c09d021d20c799c  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+active
+0
 require-resource-pack=true
 resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
 resource-pack-id=fc9e76d5-cfc6-4d60-b30c-6a43dc6ffa65
-resource-pack-sha1=24beb2a019b28fe9a1ffaba8573ffd69112f589b
-active
-# /usr/lib/systemd/system/nginx.service
-# Stop dance for nginx
-# =======================
-#
-# ExecStop sends SIGQUIT (graceful stop) to the nginx process.
-# If, after 5s (--retry QUIT/5) nginx is still running, systemd takes control
-# and sends SIGTERM (fast shutdown) to the main process.
-# After another 5s (TimeoutStopSec=5), and if nginx is alive, systemd sends
-# SIGKILL to all the remaining processes in the process group (KillMode=mixed).
-#
-# nginx signals reference doc:
-# http://nginx.org/en/docs/control.html
-#
-[Unit]
-Description=A high performance web server and a reverse proxy server
-Documentation=man:nginx(8)
-After=network-online.target remote-fs.target nss-lookup.target
-Wants=network-online.target
-ConditionFileIsExecutable=/usr/sbin/nginx
-
-[Service]
-Type=forking
-PIDFile=/run/nginx.pid
-ExecStartPre=/usr/sbin/nginx -t -q -g 'daemon on; master_process on;'
-ExecStart=/usr/sbin/nginx -g 'daemon on; master_process on;'
-ExecReload=/usr/sbin/nginx -g 'daemon on; master_process on;' -s reload
-ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid
-TimeoutStopSec=5
-KillMode=mixed
-
-[Install]
-WantedBy=multi-user.target
-LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
+resource-pack-sha1=d5165af07a2889e7e187b282f6fa0efed195370a
+Aug 25 03:03:49 test1 systemd[1]: Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+Aug 25 03:03:50 test1 systemd[1]: minecraft.service: Deactivated successfully.
+Aug 25 03:03:50 test1 systemd[1]: Stopped minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 25 03:03:50 test1 systemd[1]: minecraft.service: Consumed 18min 41.043s CPU time, 2.2G memory peak.
+Aug 25 03:03:50 test1 systemd[1]: Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 25 03:03:52 test1 java[3763014]: Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+Aug 25 03:03:54 test1 java[3763014]: [03:03:54] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 25 03:03:54 test1 java[3763014]: [03:03:54] [main/INFO]: Mappings not present!
+Aug 25 03:03:54 test1 java[3763014]: [03:03:54] [main/INFO]: Loading 42 mods:
+Aug 25 03:03:54 test1 java[3763014]:         - brigada_core 0.1.0
+Aug 25 03:03:54 test1 java[3763014]:         - fabric-api 0.158.1+26.3
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-api-base 2.0.5+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-biome-api-v1 20.0.6+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-block-api-v1 3.0.4+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-block-getter-api-v2 2.0.8+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-command-api-v2 3.1.1+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-content-registries-v0 14.2.3+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-crash-report-info-v1 1.0.6+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-creative-tab-api-v1 5.0.20+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-data-attachment-api-v1 2.2.28+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-data-generation-api-v1 27.1.5+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-debug-api-v1 1.0.3+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-dimensions-v1 5.1.16+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-entity-events-v1 6.0.3+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-events-interaction-v0 5.3.5+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-game-rule-api-v1 4.0.9+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-item-api-v1 14.5.1+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-key-mapping-api-v1 2.0.7+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-lifecycle-events-v1 4.1.6+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-loot-api-v3 4.0.2+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-menu-api-v1 2.0.24+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-message-api-v1 7.0.9+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-model-loading-api-v1 8.0.28+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-networking-api-v1 6.3.7+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-object-builder-api-v1 24.1.7+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-particles-v1 5.0.23+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-permission-api-v1 1.0.6+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-recipe-api-v1 10.0.5+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-registry-sync-v0 7.1.8+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-renderer-api-v1 17.0.8+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-renderer-indigo 9.1.15+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-rendering-fluids-v1 6.0.5+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-rendering-v1 27.0.9+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-screen-api-v1 5.2.1+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-serialization-api-v1 2.0.5+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-sound-api-v1 2.0.6+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            |-- fabric-transfer-api-v1 8.0.21+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:            \-- fabric-transitive-access-wideners-v1 8.1.13+3434d6d97a
+Aug 25 03:03:54 test1 java[3763014]:         - fabricloader 0.19.3
+Aug 25 03:03:54 test1 java[3763014]:            \-- mixinextras 0.5.4
+Aug 25 03:03:54 test1 java[3763014]:         - java 25
+Aug 25 03:03:54 test1 java[3763014]:         - minecraft 26.3-alpha.9
+Aug 25 03:03:55 test1 java[3763014]: [03:03:55] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 25 03:03:55 test1 java[3763014]: [03:03:55] [main/INFO]: Compatibility level set to JAVA_25
+Aug 25 03:03:57 test1 java[3763014]: [03:03:57] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 03:03:58 test1 java[3763014]: WARNING: A restricted method in java.lang.System has been called
+Aug 25 03:03:58 test1 java[3763014]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 25 03:03:58 test1 java[3763014]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 25 03:03:58 test1 java[3763014]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+Aug 25 03:04:03 test1 java[3763014]: WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+Aug 25 03:04:03 test1 java[3763014]: WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+Aug 25 03:04:03 test1 java[3763014]: WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+Aug 25 03:04:03 test1 java[3763014]: WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
 
 exit_code=0
-finished_at=2026-08-25T03:02:57Z
+finished_at=2026-08-25T03:04:08Z
 runner=alexhost-143-246
