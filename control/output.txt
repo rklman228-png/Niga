@@ -1,15 +1,11 @@
-generated ChallengeRuntimeFixes.java ChallengeServiceMixin.java WorldMenuServiceMixin.java item_icons.json
-67121be3a3fe1018351f893e1f34d7309c5afdf6398a36f72b958455e9b4984e  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
-85b6d0308f5c7a780abff10ba499f1dfd3344e86f1fe1c6bda4a43cb3abf3939  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java
-e512388e2233ac7de789fc23e296e1eb56052ad3da5cca9ab0bbe37e7fc603d0  /opt/actions-runner/_work/Niga/Niga/control/generated/WorldMenuServiceMixin.java
-172a751f8b54b887adb98f6c291007e89d87dad1d05c063352671208fc6e0f06  /opt/actions-runner/_work/Niga/Niga/control/generated/item_icons.json
- 27970 /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
-  5648 /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java
-  1193 /opt/actions-runner/_work/Niga/Niga/control/generated/WorldMenuServiceMixin.java
-150893 /opt/actions-runner/_work/Niga/Niga/control/generated/item_icons.json
-185704 total
-SOURCE_SNAPSHOT_OK
+  public static final net.minecraft.core.IdMapper<net.minecraft.world.level.block.state.BlockState> BLOCK_STATE_REGISTRY;
+  public static int getId(net.minecraft.world.level.block.state.BlockState);
+  public static net.minecraft.world.level.block.state.BlockState stateById(int);
+  public static final net.minecraft.core.particles.ParticleType<net.minecraft.core.particles.PowerParticleOption> DRAGON_BREATH;
+  public static final net.minecraft.core.particles.SimpleParticleType END_ROD;
+  public static final net.minecraft.core.particles.SimpleParticleType PORTAL;
+  public static final net.minecraft.core.particles.SimpleParticleType REVERSE_PORTAL;
 
 exit_code=0
-finished_at=2026-08-25T17:36:01Z
+finished_at=2026-08-25T18:12:49Z
 runner=alexhost-143-246
