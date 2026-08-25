@@ -66,6 +66,13 @@ static SBSResetLayoutAttributesFn NigaResetFunction(void)
     return (SBSResetLayoutAttributesFn)dlsym(handle, "SBSRequestResetLayoutAttributes");
 }
 
+static SBFEffectiveDeviceClassFn NigaEffectiveDeviceClassFunction(void)
+{
+    void *handle = NigaLoadSpringBoardFoundation();
+    if (!handle) return NULL;
+    return (SBFEffectiveDeviceClassFn)dlsym(handle, "SBFEffectiveDeviceClass");
+}
+
 static BOOL NigaClassFallbackAvailable(void)
 {
     NigaLoadSpringBoardServices();
@@ -78,6 +85,15 @@ static BOOL NigaClassFallbackAvailable(void)
 bool niga_sbs_windowing_service_available(void)
 {
     return NigaUpdateFunction() != NULL || NigaClassFallbackAvailable();
+}
+
+int64_t niga_sbs_effective_device_class(void)
+{
+    @autoreleasepool {
+        SBFEffectiveDeviceClassFn fn = NigaEffectiveDeviceClassFunction();
+        if (!fn) return -999;
+        return (int64_t)fn();
+    }
 }
 
 static void NigaFinish(NigaSpringBoardCompletion completion, bool completed)
@@ -108,9 +124,6 @@ void niga_sbs_request_windowing_mode(int mode, NigaSpringBoardCompletion complet
             return;
         }
 
-        // Fallback for builds where Apple keeps the Objective-C client class but
-        // stops exporting the convenience C function. This still goes through
-        // SpringBoardServices; it never edits com.apple.springboard.plist directly.
         NigaLoadSpringBoardServices();
         Class cls = NSClassFromString(@"SBSAppSwitcherSystemService");
         SEL selector = NSSelectorFromString(@"requestUpdateWindowingMode:withCompletion:");
@@ -204,12 +217,11 @@ char *niga_sbs_copy_diagnostics(void)
 char *niga_sbs_copy_gate_diagnostics(void)
 {
     @autoreleasepool {
+        void *sbs = NigaLoadSpringBoardServices();
         void *sbf = NigaLoadSpringBoardFoundation();
         void *fbs = NigaLoadFrontBoardServices();
 
-        SBFEffectiveDeviceClassFn effectiveClassFn = sbf
-            ? (SBFEffectiveDeviceClassFn)dlsym(sbf, "SBFEffectiveDeviceClass")
-            : NULL;
+        SBFEffectiveDeviceClassFn effectiveClassFn = NigaEffectiveDeviceClassFunction();
         SBFBoolFunctionFn flexibleUIFn = sbf
             ? (SBFBoolFunctionFn)dlsym(sbf, "SBFIsFlexibleWindowingUIAvailable")
             : NULL;
@@ -241,6 +253,24 @@ char *niga_sbs_copy_gate_diagnostics(void)
             internalDiagnostics = internalFn("com.apple.frontboardservices") ? 1 : 0;
         }
 
+        // Probe Apple's native relaunch route WITHOUT sending anything.
+        Class fbsSystemServiceClass = NSClassFromString(@"FBSSystemService");
+        SEL sharedServiceSEL = NSSelectorFromString(@"sharedService");
+        BOOL hasSharedService = fbsSystemServiceClass && [fbsSystemServiceClass respondsToSelector:sharedServiceSEL];
+        id fbsSystemService = nil;
+        if (hasSharedService) {
+            id (*sendID)(id, SEL) = (void *)objc_msgSend;
+            @try {
+                fbsSystemService = sendID((id)fbsSystemServiceClass, sharedServiceSEL);
+            } @catch (__unused NSException *exception) {
+                fbsSystemService = nil;
+            }
+        }
+        BOOL hasSendActions = fbsSystemService && [fbsSystemService respondsToSelector:NSSelectorFromString(@"sendActions:withResult:")];
+
+        Class relaunchActionClass = NSClassFromString(@"SBSRelaunchAction");
+        BOOL hasRelaunchFactory = relaunchActionClass && [relaunchActionClass respondsToSelector:NSSelectorFromString(@"actionWithReason:options:targetURL:")];
+
         NSString *effectiveClassText = effectiveClassFn
             ? [NSString stringWithFormat:@"%ld%@", (long)effectiveClass,
                effectiveClass == 2 ? @" (iPad-class)" : @" (not iPad-class)"]
@@ -266,6 +296,13 @@ char *niga_sbs_copy_gate_diagnostics(void)
              "FBS isEmulatedDevice: %@\n"
              "FBS emulatedDeviceClass: %@\n"
              "os_variant_has_internal_diagnostics: %@\n\n"
+             "NATIVE SPRINGBOARD RELAUNCH ROUTE (probe only)\n"
+             "SpringBoardServices dlopen: %@\n"
+             "FBSSystemService class: %@\n"
+             "+sharedService: %@\n"
+             "-sendActions:withResult:: %@\n"
+             "SBSRelaunchAction class: %@\n"
+             "+actionWithReason:options:targetURL:: %@\n\n"
              "Known SpringBoard hard gate from the restore image:\n"
              "SBPlatformController keeps Medusa capabilities only when SBFEffectiveDeviceClass() == 2.\n"
              "SBWindowScene then returns supportsMultitasking=NO when Medusa capability is zero, forcing the single-app context.",
@@ -276,7 +313,13 @@ char *niga_sbs_copy_gate_diagnostics(void)
             emulationClass ? @"yes" : @"NO",
             emulatedText,
             emulatedClassText,
-            internalText
+            internalText,
+            sbs ? @"yes" : @"NO",
+            fbsSystemServiceClass ? @"yes" : @"NO",
+            hasSharedService ? @"yes" : @"NO",
+            hasSendActions ? @"yes" : @"NO",
+            relaunchActionClass ? @"yes" : @"NO",
+            hasRelaunchFactory ? @"yes" : @"NO"
         ];
 
         return strdup(text.UTF8String ?: "gate diagnostics unavailable");
