@@ -1,5 +1,5 @@
 set -euo pipefail
-find /opt/minecraft -type d -name playerdata -print 2>/dev/null
-find /opt/minecraft -type f -path '*/playerdata/*.dat' -printf '%p
-' 2>/dev/null | sort
-systemctl show minecraft.service -p WorkingDirectory -p User
+find /opt/minecraft/server -maxdepth 2 -type d -printf '%p
+' | sort
+find /opt/minecraft/server -maxdepth 2 -type f -name 'level.dat' -printf '%p
+' | sort
