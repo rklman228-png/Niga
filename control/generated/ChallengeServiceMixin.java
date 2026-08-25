@@ -4,7 +4,7 @@ import dev.brigada13.core.BrigadaCore;
 import dev.brigada13.core.challenge.ChallengeDefinition;
 import dev.brigada13.core.challenge.ChallengeService;
 import dev.brigada13.core.state.ActiveChallengeState;
-import dev.brigada13.core.challenge.ChallengeChallengeRuntimeFixes;
+import dev.brigada13.core.challenge.ChallengeRuntimeFixes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,8 +27,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Map;
+
 @Mixin(ChallengeService.class)
 public abstract class ChallengeServiceMixin {
+    @Shadow private Map<String, Long> celebrations;
     @Unique private static final int MAX_LOCATE_RADIUS = 768;
     @Unique private static final double RESOLVE_DISTANCE_SQ = 192.0 * 192.0;
     @Unique private long resolvedStartedAt = Long.MIN_VALUE;
@@ -72,14 +76,13 @@ public abstract class ChallengeServiceMixin {
         BrigadaCore.stateStore().save();
     }
 
-    // The arena is logical now. Physical glass is what spiders were climbing and what created the
-    // absurd sky-high planes in the screenshots. ChallengeRuntimeFixes keeps mobs inside without blocks.
+    // Full-height physical arena wall. RuntimeFixes snapshots and restores every replaced BlockState.
     @Redirect(method = "tickEvent",
             at = @At(value = "INVOKE",
                     target = "Ldev/brigada13/core/challenge/ChallengeService;ensurePhysicalBoundary(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;)V"),
             require = 0)
-    private void noPhysicalBoundary(MinecraftServer server, ServerLevel level, ActiveChallengeState state) {
-        ChallengeRuntimeFixes.clearPhysicalBoundary(level, state);
+    private void fullHeightBoundary(MinecraftServer server, ServerLevel level, ActiveChallengeState state) {
+        ChallengeRuntimeFixes.ensureFullHeightBoundary(level, state);
     }
 
     @Redirect(method = {"tickHold", "tickSplit", "tickExtraction"},
@@ -94,6 +97,18 @@ public abstract class ChallengeServiceMixin {
     @Inject(method = "complete", at = @At("HEAD"), require = 0)
     private void completionEffects(MinecraftServer server, ChallengeDefinition definition,
                                    ActiveChallengeState state, CallbackInfo ci) {
+        ChallengeRuntimeFixes.restoreBoundary(server, state);
         ChallengeRuntimeFixes.onComplete(server, state);
+    }
+
+    @Inject(method = "complete", at = @At("TAIL"), require = 0)
+    private void replaceCoreVictoryParticles(MinecraftServer server, ChallengeDefinition definition,
+                                             ActiveChallengeState state, CallbackInfo ci) {
+        for (String name : state.contribution.keySet()) celebrations.remove(name);
+    }
+
+    @Inject(method = "cancel", at = @At("HEAD"), require = 0)
+    private void restoreBoundaryOnCancel(MinecraftServer server, CallbackInfo ci) {
+        ChallengeRuntimeFixes.restoreActiveBoundary(server);
     }
 }
