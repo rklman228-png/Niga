@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-enum ExperimentOutcome: String, Codable, CaseIterable, Identifiable {
+enum ExperimentOutcome: String, Codable, CaseIterable, Identifiable, Hashable {
     case unknown, works, partial, broken
     var id: String { rawValue }
 }
