@@ -1,4 +1,4 @@
-=== compile hotfix v2 ===
+=== compile hotfix v2 retry ===
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 
@@ -8,32 +8,12 @@ Fabric Loom: 1.17.19
 > Task :clean
 
 > Task :compileJava
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:65: error: cannot find symbol
-                && level.isDay() && level.canSeeSky(entity.blockPosition())) return false;
-                        ^
-  symbol:   method isDay()
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:202: error: cannot find symbol
+        long time = Math.floorMod(level.getDayTime(), 24000L);
+                                       ^
+  symbol:   method getDayTime()
   location: variable level of type ServerLevel
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:134: error: cannot find symbol
-            if (block == Blocks.GRAY_STAINED_GLASS || block == Blocks.BROWN_STAINED_GLASS
-                               ^
-  symbol:   variable GRAY_STAINED_GLASS
-  location: class Blocks
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:134: error: cannot find symbol
-            if (block == Blocks.GRAY_STAINED_GLASS || block == Blocks.BROWN_STAINED_GLASS
-                                                                     ^
-  symbol:   variable BROWN_STAINED_GLASS
-  location: class Blocks
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:135: error: cannot find symbol
-                    || block == Blocks.LIME_STAINED_GLASS) {
-                                      ^
-  symbol:   variable LIME_STAINED_GLASS
-  location: class Blocks
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:180: error: cannot find symbol
-            if (level.isDay() && level.canSeeSky(mob.blockPosition()) && mob.isOnFire()) {
-                     ^
-  symbol:   method isDay()
-  location: variable level of type ServerLevel
-5 errors
+1 error
 
 > Task :compileJava FAILED
 
@@ -44,32 +24,12 @@ FAILURE: Build failed with an exception.
 * What went wrong:
 Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
 > Compilation failed; see the compiler output below.
-  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:134: error: cannot find symbol
-              if (block == Blocks.GRAY_STAINED_GLASS || block == Blocks.BROWN_STAINED_GLASS
-                                 ^
-    symbol:   variable GRAY_STAINED_GLASS
-    location: class Blocks
-  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:134: error: cannot find symbol
-              if (block == Blocks.GRAY_STAINED_GLASS || block == Blocks.BROWN_STAINED_GLASS
-                                                                       ^
-    symbol:   variable BROWN_STAINED_GLASS
-    location: class Blocks
-  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:135: error: cannot find symbol
-                      || block == Blocks.LIME_STAINED_GLASS) {
-                                        ^
-    symbol:   variable LIME_STAINED_GLASS
-    location: class Blocks
-  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:65: error: cannot find symbol
-                  && level.isDay() && level.canSeeSky(entity.blockPosition())) return false;
-                          ^
-    symbol:   method isDay()
+  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:202: error: cannot find symbol
+          long time = Math.floorMod(level.getDayTime(), 24000L);
+                                         ^
+    symbol:   method getDayTime()
     location: variable level of type ServerLevel
-  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:180: error: cannot find symbol
-              if (level.isDay() && level.canSeeSky(mob.blockPosition()) && mob.isOnFire()) {
-                       ^
-    symbol:   method isDay()
-    location: variable level of type ServerLevel
-  5 errors
+  1 error
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
@@ -111,32 +71,12 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:65: error: cannot find symbol
-                && level.isDay() && level.canSeeSky(entity.blockPosition())) return false;
-                        ^
-  symbol:   method isDay()
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:202: error: cannot find symbol
+        long time = Math.floorMod(level.getDayTime(), 24000L);
+                                       ^
+  symbol:   method getDayTime()
   location: variable level of type ServerLevel
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:134: error: cannot find symbol
-            if (block == Blocks.GRAY_STAINED_GLASS || block == Blocks.BROWN_STAINED_GLASS
-                               ^
-  symbol:   variable GRAY_STAINED_GLASS
-  location: class Blocks
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:134: error: cannot find symbol
-            if (block == Blocks.GRAY_STAINED_GLASS || block == Blocks.BROWN_STAINED_GLASS
-                                                                     ^
-  symbol:   variable BROWN_STAINED_GLASS
-  location: class Blocks
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:135: error: cannot find symbol
-                    || block == Blocks.LIME_STAINED_GLASS) {
-                                      ^
-  symbol:   variable LIME_STAINED_GLASS
-  location: class Blocks
-/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:180: error: cannot find symbol
-            if (level.isDay() && level.canSeeSky(mob.blockPosition()) && mob.isOnFire()) {
-                     ^
-  symbol:   method isDay()
-  location: variable level of type ServerLevel
-5 errors
+1 error
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:88)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:49)
 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
@@ -271,9 +211,9 @@ Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Com
 	... 30 more
 
 
-BUILD FAILED in 42s
+BUILD FAILED in 46s
 2 actionable tasks: 2 executed
 
 exit_code=1
-finished_at=2026-08-25T14:57:02Z
+finished_at=2026-08-25T14:58:52Z
 runner=alexhost-143-246
