@@ -2,9 +2,14 @@ set -euo pipefail
 build_dir=$(mktemp -d)
 project_dir="$build_dir/project"
 mkdir -p "$project_dir"
-payload_path="$(dirname "$0")/payload.tar.gz"
-test -s "$payload_path"
-tar -xzf "$payload_path" -C "$project_dir"
+control_dir="${GITHUB_WORKSPACE:-$(pwd)}/control"
+archive="$build_dir/source-min.tar.gz"
+cp "$control_dir/payload.part00" "$archive"
+for part in 01 02 03 04; do
+  dd if="$control_dir/payload.part$part" of="$archive" bs=1M oflag=append conv=notrunc status=none
+done
+printf '%s  %s\n' '55ab42488500dfc1fa355e8c3e36326b2d030c99a340012c8d2a5989696376a9' "$archive" | sha256sum -c -
+tar -xzf "$archive" -C "$project_dir"
 cd "$project_dir"
 /root/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/bin/gradle clean build --no-daemon
 jar_path=$(find build/libs -maxdepth 1 -type f -name 'brigada-core-*.jar' ! -name '*sources*' | head -1)
