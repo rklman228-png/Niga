@@ -1,5 +1,96 @@
-control/command.sh: line 6: gradle: command not found
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=127
-finished_at=2026-08-25T02:56:44Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean UP-TO-DATE
+
+> Task :compileJava
+/opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:827: error: no suitable method found for sendParticles(ParticleType<ColorParticleOption>,boolean,boolean,double,double,double,int,double,double,double,double)
+                player.level().sendParticles(ParticleTypes.FLASH, true, true,
+                              ^
+    method ServerLevel.<T#1>sendParticles(T#1,double,double,double,int,double,double,double,double) is not applicable
+      (cannot infer type-variable(s) T#1
+        (actual and formal argument lists differ in length))
+    method ServerLevel.<T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+      (inference variable T#2 has incompatible bounds
+        upper bounds: ParticleOptions
+        lower bounds: ParticleType<ColorParticleOption>)
+    method ServerLevel.<T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+      (cannot infer type-variable(s) T#3
+        (actual and formal argument lists differ in length))
+  where T#1,T#2,T#3 are type-variables:
+    T#1 extends ParticleOptions declared in method <T#1>sendParticles(T#1,double,double,double,int,double,double,double,double)
+    T#2 extends ParticleOptions declared in method <T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double)
+    T#3 extends ParticleOptions declared in method <T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double)
+/opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/fake/FakePlayerService.java:31: error: cannot find symbol
+        player.setInvulnerable(true);
+              ^
+  symbol:   method setInvulnerable(boolean)
+  location: variable player of type FakeServerPlayer
+/opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/parcel/ParcelService.java:227: error: no suitable method found for drop(ItemStack,boolean)
+            if (!stack.isEmpty()) player.drop(stack, false);
+                                        ^
+    method ServerPlayer.drop(ItemStack,boolean,Prediction) is not applicable
+      (actual and formal argument lists differ in length)
+    method ServerPlayer.drop(boolean) is not applicable
+      (actual and formal argument lists differ in length)
+Note: /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+3 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-build-Igmrwx/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+  /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:827: error: no suitable method found for sendParticles(ParticleType<ColorParticleOption>,boolean,boolean,double,double,double,int,double,double,double,double)
+                  player.level().sendParticles(ParticleTypes.FLASH, true, true,
+                                ^
+      method ServerLevel.<T#1>sendParticles(T#1,double,double,double,int,double,double,double,double) is not applicable
+        (cannot infer type-variable(s) T#1
+          (actual and formal argument lists differ in length))
+      method ServerLevel.<T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+        (inference variable T#2 has incompatible bounds
+          upper bounds: ParticleOptions
+          lower bounds: ParticleType<ColorParticleOption>)
+      method ServerLevel.<T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double) is not applicable
+        (cannot infer type-variable(s) T#3
+          (actual and formal argument lists differ in length))
+    where T#1,T#2,T#3 are type-variables:
+      T#1 extends ParticleOptions declared in method <T#1>sendParticles(T#1,double,double,double,int,double,double,double,double)
+      T#2 extends ParticleOptions declared in method <T#2>sendParticles(T#2,boolean,boolean,double,double,double,int,double,double,double,double)
+      T#3 extends ParticleOptions declared in method <T#3>sendParticles(ServerPlayer,T#3,boolean,boolean,double,double,double,int,double,double,double,double)
+  /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/parcel/ParcelService.java:227: error: no suitable method found for drop(ItemStack,boolean)
+              if (!stack.isEmpty()) player.drop(stack, false);
+                                          ^
+      method ServerPlayer.drop(ItemStack,boolean,Prediction) is not applicable
+        (actual and formal argument lists differ in length)
+      method ServerPlayer.drop(boolean) is not applicable
+        (actual and formal argument lists differ in length)
+  Note: Recompile with -Xlint:deprecation for details.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/fake/FakePlayerService.java:31: error: cannot find symbol
+          player.setInvulnerable(true);
+                ^
+    symbol:   method setInvulnerable(boolean)
+    location: variable player of type FakeServerPlayer
+  3 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 38s
+2 actionable tasks: 1 executed, 1 up-to-date
+
+exit_code=1
+finished_at=2026-08-25T02:58:01Z
 runner=alexhost-143-246
