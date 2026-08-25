@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 @MainActor
 final class GestaltManager: ObservableObject {
@@ -67,14 +68,18 @@ final class GestaltManager: ObservableObject {
     }
 
     func diffAgainstLatestBackup() throws {
-        guard let baselineURL = backups.dropFirst().first ?? backups.first else { lastDiff = ["No backup available"]; return }
+        guard let baselineURL = backups.dropFirst().first ?? backups.first else {
+            lastDiff = ["No backup available"]
+            return
+        }
         let before = try dictionary(from: Data(contentsOf: baselineURL))
         let after = try load()
-        let a = (before["CacheExtra"] as? NSDictionary) ?? [:]
-        let b = (after["CacheExtra"] as? NSDictionary) ?? [:]
+        let a = (before["CacheExtra"] as? NSDictionary) ?? NSDictionary()
+        let b = (after["CacheExtra"] as? NSDictionary) ?? NSDictionary()
         let keys = Set(a.allKeys.compactMap { $0 as? String }).union(b.allKeys.compactMap { $0 as? String })
         lastDiff = keys.sorted().compactMap { key in
-            let lhs = a[key]; let rhs = b[key]
+            let lhs = a[key]
+            let rhs = b[key]
             if String(describing: lhs) == String(describing: rhs) { return nil }
             return "\(key): \(String(describing: lhs)) → \(String(describing: rhs))"
         }
@@ -92,18 +97,28 @@ final class GestaltManager: ObservableObject {
 
     func restoreOriginal() throws {
         reloadBackups()
-        guard let original = backups.first(where: { $0.lastPathComponent.contains("original") }) else { throw NSError(domain: "Niga", code: 404, userInfo: [NSLocalizedDescriptionKey: "Original backup not found"]) }
+        guard let original = backups.first(where: { $0.lastPathComponent.contains("original") }) else {
+            throw NSError(domain: "Niga", code: 404, userInfo: [NSLocalizedDescriptionKey: "Original backup not found"])
+        }
         try restore(original)
     }
 
     private func mutate(label: String, block: (NSMutableDictionary) -> Void) throws {
-        guard granted else { throw NSError(domain: "Niga", code: 1, userInfo: [NSLocalizedDescriptionKey: "Grant MobileGestalt access first"]) }
+        guard granted else {
+            throw NSError(domain: "Niga", code: 1, userInfo: [NSLocalizedDescriptionKey: "Grant MobileGestalt access first"])
+        }
         _ = try snapshot(name: "before-change")
         let dict = try load()
         let extra: NSMutableDictionary
-        if let e = dict["CacheExtra"] as? NSMutableDictionary { extra = e }
-        else if let e = dict["CacheExtra"] as? NSDictionary { extra = NSMutableDictionary(dictionary: e); dict["CacheExtra"] = extra }
-        else { extra = NSMutableDictionary(); dict["CacheExtra"] = extra }
+        if let e = dict["CacheExtra"] as? NSMutableDictionary {
+            extra = e
+        } else if let e = dict["CacheExtra"] as? NSDictionary {
+            extra = NSMutableDictionary(dictionary: e)
+            dict["CacheExtra"] = extra
+        } else {
+            extra = NSMutableDictionary()
+            dict["CacheExtra"] = extra
+        }
         block(extra)
         let data = try PropertyListSerialization.data(fromPropertyList: dict, format: .binary, options: 0)
         try data.write(to: URL(fileURLWithPath: GestaltManager.path))
