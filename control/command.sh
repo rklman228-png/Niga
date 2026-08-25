@@ -1,32 +1,18 @@
 set -euo pipefail
 
-echo '=== bridge ==='
-whoami
-hostname
-uname -a
+echo '=== source ==='
+cd /opt/brigada-core-src
 pwd
+ls -lah
+printf 'git_dir='; test -d .git && echo yes || echo no
+if test -d .git; then
+  git status --short --branch
+  git remote -v || true
+  git rev-parse HEAD || true
+fi
+printf 'gradlew='; test -x ./gradlew && echo yes || echo no
+printf 'gradle='; command -v gradle || true
+find build/libs -maxdepth 1 -type f -printf '%TY-%Tm-%Td %TH:%TM:%TS %s %p\n' 2>/dev/null | sort || true
 
-echo '=== minecraft service ==='
-systemctl is-active minecraft || true
-systemctl show minecraft -p MainPID -p FragmentPath -p WorkingDirectory --no-pager || true
-ss -ltnp | grep ':25565 ' || true
-
-echo '=== java/gradle/git ==='
-java -version 2>&1 | head -n 3 || true
-git --version || true
-command -v gradle || true
-gradle --version 2>/dev/null | head -n 8 || true
-
-echo '=== server tree ==='
-ls -lah /opt/minecraft/server || true
-ls -lah /opt/minecraft/server/mods || true
-
-echo '=== current brigada jar ==='
-sha256sum /opt/minecraft/server/mods/brigada-core-0.1.0.jar 2>/dev/null || true
-stat /opt/minecraft/server/mods/brigada-core-0.1.0.jar 2>/dev/null || true
-
-echo '=== likely source dirs ==='
-find /opt /root -maxdepth 3 -type d \( -name '.git' -o -name 'Plagin_1' -o -name 'brigada*' \) -print 2>/dev/null | head -n 80 || true
-
-echo '=== recent server log ==='
-journalctl -u minecraft -n 120 --no-pager | tail -n 120 || true
+echo '=== server jar ==='
+sha256sum /opt/minecraft/server/mods/brigada-core-0.1.0.jar
