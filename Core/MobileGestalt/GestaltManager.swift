@@ -51,7 +51,13 @@ final class GestaltManager: ObservableObject {
                 for cap in WindowCapability.allCases { extra.removeObject(forKey: cap.rawValue) }
                 extra[WindowCapability.stageManager.rawValue] = 1
             case .phoneWindowing:
-                for cap in WindowCapability.allCases { extra[cap.rawValue] = 1 }
+                // Critical: erase the iPad identity flag first. The whole point of this
+                // preset is native Medusa/Stage Manager capability without changing the
+                // device identity apps observe.
+                extra.removeObject(forKey: WindowCapability.ipadIdentity.rawValue)
+                for cap in WindowCapability.phoneSafeWindowing {
+                    extra[cap.rawValue] = 1
+                }
             case .clearWindowing:
                 for cap in WindowCapability.allCases { extra.removeObject(forKey: cap.rawValue) }
             }
