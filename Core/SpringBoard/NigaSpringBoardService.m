@@ -3,6 +3,8 @@
 #import <dlfcn.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <stdlib.h>
+#import <string.h>
 
 static void *gSpringBoardServicesHandle;
 
