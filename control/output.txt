@@ -1,7 +1,288 @@
-=== restart minecraft.service ===
-=== verify ===
-active
+=== status ===
+● minecraft.service - Minecraft Fabric 26.3 Snapshot 9
+     Loaded: loaded (/etc/systemd/system/minecraft.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2026-08-25 18:20:52 UTC; 37s ago
+ Invocation: 08fce3b49bd14feb844010bf60cf7df7
+   Main PID: 2327443 (java)
+      Tasks: 24 (limit: 9485)
+     Memory: 779.5M (peak: 779.8M)
+        CPU: 1min 22.429s
+     CGroup: /system.slice/minecraft.service
+             └─2327443 /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
 
-exit_code=1
-finished_at=2026-08-25T18:20:52Z
+Aug 25 18:20:59 test1 java[2327443]: [18:20:59] [main/INFO]: Compatibility level set to JAVA_25
+Aug 25 18:21:03 test1 java[2327443]: [18:21:03] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 18:21:05 test1 java[2327443]: WARNING: A restricted method in java.lang.System has been called
+Aug 25 18:21:05 test1 java[2327443]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 25 18:21:05 test1 java[2327443]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 25 18:21:05 test1 java[2327443]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+Aug 25 18:21:12 test1 java[2327443]: WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+Aug 25 18:21:12 test1 java[2327443]: WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+Aug 25 18:21:12 test1 java[2327443]: WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+Aug 25 18:21:12 test1 java[2327443]: WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+=== port ===
+=== journal ===
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-model-loading-api-v1 8.0.28+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-networking-api-v1 6.3.7+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-object-builder-api-v1 24.1.7+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-particles-v1 5.0.23+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-permission-api-v1 1.0.6+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-recipe-api-v1 10.0.5+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-registry-sync-v0 7.1.8+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-renderer-api-v1 17.0.8+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-renderer-indigo 9.1.15+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-rendering-fluids-v1 6.0.5+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-rendering-v1 27.0.9+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-screen-api-v1 5.2.1+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-serialization-api-v1 2.0.5+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-sound-api-v1 2.0.6+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            |-- fabric-transfer-api-v1 8.0.21+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:            \-- fabric-transitive-access-wideners-v1 8.1.13+3434d6d97a
+Aug 25 17:31:27 test1 java[2192250]:         - fabricloader 0.19.3
+Aug 25 17:31:27 test1 java[2192250]:            \-- mixinextras 0.5.4
+Aug 25 17:31:27 test1 java[2192250]:         - java 25
+Aug 25 17:31:27 test1 java[2192250]:         - minecraft 26.3-alpha.9
+Aug 25 17:31:28 test1 java[2192250]: [17:31:28] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 25 17:31:28 test1 java[2192250]: [17:31:28] [main/INFO]: Compatibility level set to JAVA_25
+Aug 25 17:31:32 test1 java[2192250]: [17:31:32] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 17:31:33 test1 java[2192250]: WARNING: A restricted method in java.lang.System has been called
+Aug 25 17:31:33 test1 java[2192250]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 25 17:31:33 test1 java[2192250]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 25 17:31:33 test1 java[2192250]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+Aug 25 17:31:41 test1 java[2192250]: WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+Aug 25 17:31:41 test1 java[2192250]: WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+Aug 25 17:31:41 test1 java[2192250]: WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+Aug 25 17:31:41 test1 java[2192250]: WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+Aug 25 17:32:02 test1 java[2192250]: [17:32:02] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+Aug 25 17:32:02 test1 java[2192250]: [17:32:02] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+Aug 25 17:32:02 test1 java[2192250]: [17:32:02] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+Aug 25 17:32:02 test1 java[2192250]: [17:32:02] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 17:32:03 test1 java[2192250]: [17:32:03] [main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+Aug 25 17:32:13 test1 java[2192250]: [17:32:13] [Worker-Main-2/INFO]: Loaded 1866 advancements
+Aug 25 17:32:14 test1 java[2192250]: [17:32:14] [main/INFO]: Applied 0 biome modifications to 0 of 67 new biomes in 4.247 ms
+Aug 25 17:32:14 test1 java[2192250]: [17:32:14] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
+Aug 25 17:32:14 test1 java[2192250]: [17:32:14] [Server thread/INFO]: Loading properties
+Aug 25 17:32:14 test1 java[2192250]: [17:32:14] [Server thread/INFO]: Default game type: SURVIVAL
+Aug 25 17:32:14 test1 java[2192250]: [17:32:14] [Server thread/INFO]: Generating keypair
+Aug 25 17:32:14 test1 java[2192250]: [17:32:14] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 25 17:32:15 test1 java[2192250]: [17:32:15] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+Aug 25 17:32:15 test1 java[2192250]: [17:32:15] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+Aug 25 17:32:15 test1 java[2192250]: [17:32:15] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+Aug 25 17:32:15 test1 java[2192250]: [17:32:15] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+Aug 25 17:32:15 test1 java[2192250]: [17:32:15] [Server thread/INFO]: Preparing level "world"
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Loading 0 persistent chunks...
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Preparing spawn area: 100%
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Time elapsed: 370 ms
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Done (2.190s)! For help, type "help"
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+Aug 25 17:32:17 test1 java[2192250]: [17:32:17] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+Aug 25 17:32:18 test1 java[2192250]: [17:32:18] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 17:32:19 test1 systemd[1]: Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+Aug 25 17:32:21 test1 java[2192250]: 2026-08-25T17:32:21.506975798Z Server thread WARN Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger
+Aug 25 17:32:26 test1 systemd[1]: minecraft.service: Deactivated successfully.
+Aug 25 17:32:26 test1 systemd[1]: Stopped minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 25 17:32:26 test1 systemd[1]: minecraft.service: Consumed 2min 38.656s CPU time, 1.1G memory peak.
+Aug 25 17:32:26 test1 systemd[1]: Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 25 17:32:29 test1 java[2194127]: Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+Aug 25 17:32:31 test1 java[2194127]: [17:32:31] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 25 17:32:31 test1 java[2194127]: [17:32:31] [main/INFO]: Mappings not present!
+Aug 25 17:32:32 test1 java[2194127]: [17:32:32] [main/INFO]: Loading 43 mods:
+Aug 25 17:32:32 test1 java[2194127]:         - brigada_core 0.1.0
+Aug 25 17:32:32 test1 java[2194127]:         - brigada_hotfix 1.0.0
+Aug 25 17:32:32 test1 java[2194127]:         - fabric-api 0.158.1+26.3
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-api-base 2.0.5+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-biome-api-v1 20.0.6+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-block-api-v1 3.0.4+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-block-getter-api-v2 2.0.8+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-command-api-v2 3.1.1+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-content-registries-v0 14.2.3+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-crash-report-info-v1 1.0.6+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-creative-tab-api-v1 5.0.20+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-data-attachment-api-v1 2.2.28+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-data-generation-api-v1 27.1.5+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-debug-api-v1 1.0.3+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-dimensions-v1 5.1.16+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-entity-events-v1 6.0.3+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-events-interaction-v0 5.3.5+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-game-rule-api-v1 4.0.9+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-item-api-v1 14.5.1+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-key-mapping-api-v1 2.0.7+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-lifecycle-events-v1 4.1.6+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-loot-api-v3 4.0.2+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-menu-api-v1 2.0.24+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-message-api-v1 7.0.9+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-model-loading-api-v1 8.0.28+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-networking-api-v1 6.3.7+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-object-builder-api-v1 24.1.7+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-particles-v1 5.0.23+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-permission-api-v1 1.0.6+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-recipe-api-v1 10.0.5+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-registry-sync-v0 7.1.8+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-renderer-api-v1 17.0.8+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-renderer-indigo 9.1.15+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-rendering-fluids-v1 6.0.5+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-rendering-v1 27.0.9+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-screen-api-v1 5.2.1+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-serialization-api-v1 2.0.5+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-sound-api-v1 2.0.6+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            |-- fabric-transfer-api-v1 8.0.21+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:            \-- fabric-transitive-access-wideners-v1 8.1.13+3434d6d97a
+Aug 25 17:32:32 test1 java[2194127]:         - fabricloader 0.19.3
+Aug 25 17:32:32 test1 java[2194127]:            \-- mixinextras 0.5.4
+Aug 25 17:32:32 test1 java[2194127]:         - java 25
+Aug 25 17:32:32 test1 java[2194127]:         - minecraft 26.3-alpha.9
+Aug 25 17:32:33 test1 java[2194127]: [17:32:33] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 25 17:32:33 test1 java[2194127]: [17:32:33] [main/INFO]: Compatibility level set to JAVA_25
+Aug 25 17:32:37 test1 java[2194127]: [17:32:37] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 17:32:39 test1 java[2194127]: WARNING: A restricted method in java.lang.System has been called
+Aug 25 17:32:39 test1 java[2194127]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 25 17:32:39 test1 java[2194127]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 25 17:32:39 test1 java[2194127]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+Aug 25 17:32:45 test1 java[2194127]: WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+Aug 25 17:32:45 test1 java[2194127]: WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+Aug 25 17:32:45 test1 java[2194127]: WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+Aug 25 17:32:45 test1 java[2194127]: WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+Aug 25 17:33:10 test1 java[2194127]: [17:33:10] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
+Aug 25 17:33:10 test1 java[2194127]: [17:33:10] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
+Aug 25 17:33:10 test1 java[2194127]: [17:33:10] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
+Aug 25 17:33:10 test1 java[2194127]: [17:33:10] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 17:33:12 test1 java[2194127]: [17:33:12] [main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+Aug 25 17:33:23 test1 java[2194127]: [17:33:23] [Worker-Main-3/INFO]: Loaded 1866 advancements
+Aug 25 17:33:24 test1 java[2194127]: [17:33:24] [main/INFO]: Applied 0 biome modifications to 0 of 67 new biomes in 4.550 ms
+Aug 25 17:33:24 test1 java[2194127]: [17:33:24] [Server thread/INFO]: Starting minecraft server version 26.3 Snapshot 9
+Aug 25 17:33:24 test1 java[2194127]: [17:33:24] [Server thread/INFO]: Loading properties
+Aug 25 17:33:24 test1 java[2194127]: [17:33:24] [Server thread/INFO]: Default game type: SURVIVAL
+Aug 25 17:33:24 test1 java[2194127]: [17:33:24] [Server thread/INFO]: Generating keypair
+Aug 25 17:33:24 test1 java[2194127]: [17:33:24] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 25 17:33:25 test1 java[2194127]: [17:33:25] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+Aug 25 17:33:25 test1 java[2194127]: [17:33:25] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+Aug 25 17:33:25 test1 java[2194127]: [17:33:25] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+Aug 25 17:33:25 test1 java[2194127]: [17:33:25] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+Aug 25 17:33:25 test1 java[2194127]: [17:33:25] [Server thread/INFO]: Preparing level "world"
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Loading 0 persistent chunks...
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Preparing spawn area: 100%
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Time elapsed: 189 ms
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Done (1.834s)! For help, type "help"
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+Aug 25 17:33:27 test1 java[2194127]: [17:33:27] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+Aug 25 17:33:28 test1 java[2194127]: [17:33:28] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 17:33:32 test1 java[2194127]: [17:33:32] [Server thread/INFO]: System chat: WorldKeeper joined the game
+Aug 25 17:33:32 test1 java[2194127]: [17:33:32] [Server thread/INFO]: Started fake player WorldKeeper
+Aug 25 17:33:33 test1 java[2194127]: [17:33:33] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5580ms or 111 ticks behind
+Aug 25 17:33:55 test1 java[2194127]: [17:33:55] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 7451ms or 149 ticks behind
+Aug 25 18:07:34 test1 java[2194127]: [18:07:34] [Server thread/INFO]: Otezi[/81.25.76.34:5271] logged in with entity id 766 at (238.35820079886417, 94.0, 98.72990872696369)
+Aug 25 18:07:34 test1 java[2194127]: [18:07:34] [Server thread/INFO]: System chat: Otezi joined the game
+Aug 25 18:07:36 test1 java[2194127]: [18:07:36] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2046ms or 40 ticks behind
+Aug 25 18:08:11 test1 java[2194127]: [18:08:11] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 19158ms or 383 ticks behind
+Aug 25 18:09:01 test1 java[2194127]: [18:09:01] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2198ms or 43 ticks behind
+Aug 25 18:12:06 test1 java[2194127]: [18:12:06] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2023ms or 40 ticks behind
+Aug 25 18:12:33 test1 java[2194127]: [18:12:33] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 12011ms or 240 ticks behind
+Aug 25 18:13:00 test1 java[2194127]: [18:13:00] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 12159ms or 243 ticks behind
+Aug 25 18:13:18 test1 java[2194127]: [18:13:18] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2341ms or 46 ticks behind
+Aug 25 18:13:34 test1 java[2194127]: [18:13:34] [Server thread/INFO]: System chat: Otezi has completed the challenge [Cover Me in Debris]
+Aug 25 18:13:54 test1 java[2194127]: [18:13:54] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2013ms or 40 ticks behind
+Aug 25 18:14:07 test1 java[2194127]: [18:14:07] [Server thread/INFO]: System chat: [Otezi: Set own game mode to Survival Mode]
+Aug 25 18:14:33 test1 java[2194127]: [18:14:33] [Server thread/INFO]: System chat: [Otezi: Set own game mode to Creative Mode]
+Aug 25 18:14:50 test1 java[2194127]: [18:14:50] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2025ms or 40 ticks behind
+Aug 25 18:14:52 test1 java[2194127]: [18:14:52] [Server thread/INFO]: System chat: [Otezi: Set own game mode to Survival Mode]
+Aug 25 18:15:07 test1 java[2194127]: [18:15:07] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2331ms or 46 ticks behind
+Aug 25 18:16:05 test1 java[2194127]: [18:16:05] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2001ms or 40 ticks behind
+Aug 25 18:16:24 test1 java[2194127]: [18:16:24] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 4160ms or 83 ticks behind
+Aug 25 18:16:42 test1 java[2194127]: [18:16:42] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3221ms or 64 ticks behind
+Aug 25 18:17:02 test1 java[2194127]: [18:17:02] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 4672ms or 93 ticks behind
+Aug 25 18:17:27 test1 java[2194127]: [18:17:27] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2003ms or 40 ticks behind
+Aug 25 18:18:11 test1 java[2194127]: [18:18:11] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2017ms or 40 ticks behind
+Aug 25 18:18:27 test1 java[2194127]: [18:18:27] [Server thread/INFO]: Villager Villager['Villager'/2997, l='ServerLevel[world]', x=6.36, y=68.93, z=371.10] died, message: 'Villager was slain by Otezi'
+Aug 25 18:18:29 test1 java[2194127]: [18:18:29] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3106ms or 62 ticks behind
+Aug 25 18:18:47 test1 java[2194127]: [18:18:47] [Server thread/INFO]: System chat: [Otezi: Summoned new Iron Golem]
+Aug 25 18:18:49 test1 java[2194127]: [18:18:49] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5659ms or 113 ticks behind
+Aug 25 18:19:02 test1 java[2194127]: [18:19:02] [Server thread/INFO]: Villager Villager['Villager'/2901, l='ServerLevel[world]', x=-7.52, y=70.00, z=348.12] died, message: 'Villager was slain by Otezi'
+Aug 25 18:19:07 test1 java[2194127]: [18:19:07] [Server thread/INFO]: Otezi lost connection: Disconnected
+Aug 25 18:19:07 test1 java[2194127]: [18:19:07] [Server thread/INFO]: System chat: Otezi left the game
+Aug 25 18:19:09 test1 java[2194127]: [18:19:09] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 4740ms or 94 ticks behind
+Aug 25 18:20:51 test1 systemd[1]: Stopping minecraft.service - Minecraft Fabric 26.3 Snapshot 9...
+Aug 25 18:20:52 test1 systemd[1]: minecraft.service: Deactivated successfully.
+Aug 25 18:20:52 test1 systemd[1]: Stopped minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 25 18:20:52 test1 systemd[1]: minecraft.service: Consumed 34min 15.779s CPU time, 2.3G memory peak.
+Aug 25 18:20:52 test1 systemd[1]: Started minecraft.service - Minecraft Fabric 26.3 Snapshot 9.
+Aug 25 18:20:55 test1 java[2327443]: Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+Aug 25 18:20:58 test1 java[2327443]: [18:20:58] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 25 18:20:58 test1 java[2327443]: [18:20:58] [main/INFO]: Mappings not present!
+Aug 25 18:20:59 test1 java[2327443]: [18:20:59] [main/INFO]: Loading 43 mods:
+Aug 25 18:20:59 test1 java[2327443]:         - brigada_core 0.1.0
+Aug 25 18:20:59 test1 java[2327443]:         - brigada_hotfix 1.0.0
+Aug 25 18:20:59 test1 java[2327443]:         - fabric-api 0.158.1+26.3
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-api-base 2.0.5+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-biome-api-v1 20.0.6+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-block-api-v1 3.0.4+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-block-getter-api-v2 2.0.8+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-command-api-v2 3.1.1+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-content-registries-v0 14.2.3+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-convention-tags-v2 4.9.3+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-crash-report-info-v1 1.0.6+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-creative-tab-api-v1 5.0.20+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-data-attachment-api-v1 2.2.28+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-data-generation-api-v1 27.1.5+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-debug-api-v1 1.0.3+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-dimensions-v1 5.1.16+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-entity-events-v1 6.0.3+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-events-interaction-v0 5.3.5+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-game-rule-api-v1 4.0.9+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-item-api-v1 14.5.1+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-key-mapping-api-v1 2.0.7+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-lifecycle-events-v1 4.1.6+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-loot-api-v3 4.0.2+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-menu-api-v1 2.0.24+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-message-api-v1 7.0.9+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-model-loading-api-v1 8.0.28+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-networking-api-v1 6.3.7+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-object-builder-api-v1 24.1.7+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-particles-v1 5.0.23+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-permission-api-v1 1.0.6+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-recipe-api-v1 10.0.5+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-registry-sync-v0 7.1.8+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-renderer-api-v1 17.0.8+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-renderer-indigo 9.1.15+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-rendering-fluids-v1 6.0.5+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-rendering-v1 27.0.9+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-resource-conditions-api-v1 6.1.4+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-resource-loader-v0 3.3.25+4fc5413f7a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-resource-loader-v1 3.0.3+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-screen-api-v1 5.2.1+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-serialization-api-v1 2.0.5+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-sound-api-v1 2.0.6+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-tag-api-v1 2.1.9+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            |-- fabric-transfer-api-v1 8.0.21+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:            \-- fabric-transitive-access-wideners-v1 8.1.13+3434d6d97a
+Aug 25 18:20:59 test1 java[2327443]:         - fabricloader 0.19.3
+Aug 25 18:20:59 test1 java[2327443]:            \-- mixinextras 0.5.4
+Aug 25 18:20:59 test1 java[2327443]:         - java 25
+Aug 25 18:20:59 test1 java[2327443]:         - minecraft 26.3-alpha.9
+Aug 25 18:20:59 test1 java[2327443]: [18:20:59] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/opt/minecraft/server/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+Aug 25 18:20:59 test1 java[2327443]: [18:20:59] [main/INFO]: Compatibility level set to JAVA_25
+Aug 25 18:21:03 test1 java[2327443]: [18:21:03] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 18:21:05 test1 java[2327443]: WARNING: A restricted method in java.lang.System has been called
+Aug 25 18:21:05 test1 java[2327443]: WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/opt/minecraft/server/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+Aug 25 18:21:05 test1 java[2327443]: WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+Aug 25 18:21:05 test1 java[2327443]: WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+Aug 25 18:21:12 test1 java[2327443]: WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+Aug 25 18:21:12 test1 java[2327443]: WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/opt/minecraft/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+Aug 25 18:21:12 test1 java[2327443]: WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+Aug 25 18:21:12 test1 java[2327443]: WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+
+exit_code=0
+finished_at=2026-08-25T18:21:30Z
 runner=alexhost-143-246
