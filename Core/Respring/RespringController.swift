@@ -1,24 +1,54 @@
 import SwiftUI
-import WebKit
 
 @MainActor
 final class RespringController: ObservableObject {
     @Published var active = false
-    func respring() { active = true }
+
+    /// v0.8 used a WebKit memory-pressure crash to force a UI restart. On the
+    /// target iOS 27 beta that can take a long time and looks dangerously close
+    /// to a reboot loop. Keep old call sites harmless: they now open a manual
+    /// restart instruction instead of intentionally exhausting memory.
+    func respring() {
+        active = true
+    }
 }
 
-private let nigaRespringHTML = #"""
-<html><body><iframe id='f' sandbox='allow-scripts allow-modals allow-forms allow-popups allow-presentation'></iframe><script>
-const f=document.getElementById('f');
-f.srcdoc=`<html><body><script>
-const c=document.createElement('div');c.style='perspective:1px;perspective-origin:9999999% 9999999%';document.body.appendChild(c);
-for(let i=0;i<500;i++){let d=document.createElement('div');d.style='position:absolute;width:100vw;height:100vh;backdrop-filter:blur(100px);-webkit-backdrop-filter:blur(100px);transform:translate3d(100000px,100000px,'+i+'px) rotateY(90deg)';c.appendChild(d)}
-setInterval(()=>{navigator.share({title:'R',text:'R'.repeat(100000)}).catch(()=>{});let x=new Uint8Array(10485760);crypto.getRandomValues(x)},0);
-<\/script></body></html>`;
-</script></body></html>
-"""#
+struct RespringView: View {
+    @Environment(\.dismiss) private var dismiss
 
-struct RespringView: UIViewRepresentable {
-    func makeUIView(context: Context) -> WKWebView { WKWebView() }
-    func updateUIView(_ webView: WKWebView, context: Context) { webView.loadHTMLString(nigaRespringHTML, baseURL: nil) }
+    var body: some View {
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 18) {
+                Image(systemName: "exclamationmark.shield.fill")
+                    .font(.system(size: 46))
+
+                Text("Forced respring disabled")
+                    .font(.largeTitle.bold())
+
+                Text("Niga no longer uses the WebKit memory-pressure crash from v0.8. It was too aggressive on this iOS 27 beta.")
+                    .font(.body)
+
+                Text("If a MobileGestalt experiment needs a fresh SpringBoard start, use a normal iPhone restart from iOS. The Real Windowing screen does not restart the phone automatically anymore.")
+                    .foregroundStyle(.secondary)
+
+                Spacer()
+            }
+            .padding()
+            .navigationTitle("Safe restart")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        RespringController.sharedDismissFallback?()
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Kept only so the view above can compile without reaching into an owning
+// controller. The environment dismiss action is the normal path.
+private extension RespringController {
+    static var sharedDismissFallback: (() -> Void)? { nil }
 }
