@@ -1,14 +1,56 @@
-active
-0
-Aug 25 03:15:48 test1 java[3816136]: [03:15:48] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 03:16:02 test1 java[3816136]: [03:16:02] [Server thread/INFO]: Done (2.640s)! For help, type "help"
-Aug 25 03:16:03 test1 java[3816136]: [03:16:03] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
-Aug 25 03:16:04 test1 java[3816136]: [03:16:04] [Server thread/INFO]: System chat: WorldKeeper joined the game
-Aug 25 03:16:04 test1 java[3816136]: [03:16:04] [Server thread/INFO]: Started fake player WorldKeeper
-Aug 25 03:16:04 test1 java[3816136]: [03:16:04] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2503ms or 50 ticks behind
-Aug 25 03:16:22 test1 java[3816136]: [03:16:22] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2459ms or 49 ticks behind
-{"otezi": "Otezi"}
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=0
-finished_at=2026-08-25T03:16:47Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean UP-TO-DATE
+
+> Task :compileJava
+/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:373: error: incompatible types: Identifier cannot be converted to FontDescription
+                .withStyle(style -> style.withFont(NAVIGATION_FONT).withColor(0x3DE7EF));
+                                                   ^
+/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:426: error: incompatible types: Identifier cannot be converted to FontDescription
+                .withStyle(style -> style.withFont(ICON_FONT).withColor(0xFFFFFF));
+                                                   ^
+/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:427: error: incompatible types: Identifier cannot be converted to FontDescription
+        MutableComponent text = label.copy().withStyle(style -> style.withFont(DEFAULT_FONT));
+                                                                               ^
+Note: /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+3 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-build-rFXZ1G/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+  Note: Recompile with -Xlint:deprecation for details.
+  /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/expedition/ExpeditionService.java:373: error: incompatible types: Identifier cannot be converted to FontDescription
+                  .withStyle(style -> style.withFont(NAVIGATION_FONT).withColor(0x3DE7EF));
+                                                     ^
+  /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:426: error: incompatible types: Identifier cannot be converted to FontDescription
+                  .withStyle(style -> style.withFont(ICON_FONT).withColor(0xFFFFFF));
+                                                     ^
+  /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:427: error: incompatible types: Identifier cannot be converted to FontDescription
+          MutableComponent text = label.copy().withStyle(style -> style.withFont(DEFAULT_FONT));
+                                                                                 ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  3 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 56s
+2 actionable tasks: 1 executed, 1 up-to-date
+
+exit_code=1
+finished_at=2026-08-25T04:07:03Z
 runner=alexhost-143-246
