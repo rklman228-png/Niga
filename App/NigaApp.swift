@@ -6,6 +6,8 @@ struct NigaApp: App {
     @StateObject private var respring = RespringController()
     @StateObject private var scanner = AppContainerScanner()
     @StateObject private var profiles = ProfileStore()
+    @StateObject private var workspaces = WorkspaceStore()
+    @StateObject private var experiments = ExperimentLog()
 
     var body: some Scene {
         WindowGroup {
@@ -14,7 +16,11 @@ struct NigaApp: App {
                 .environmentObject(respring)
                 .environmentObject(scanner)
                 .environmentObject(profiles)
-                .fullScreenCover(isPresented: $respring.active) { RespringView().ignoresSafeArea() }
+                .environmentObject(workspaces)
+                .environmentObject(experiments)
+                .fullScreenCover(isPresented: $respring.active) {
+                    RespringView().ignoresSafeArea()
+                }
         }
     }
 }
