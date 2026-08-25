@@ -1,19 +1,13 @@
 set -euo pipefail
-MC=/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
+SRC=/opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/ChallengeService.java
 
-echo '=== MagmaCube / Slime ==='
-javap -classpath "$MC" net.minecraft.world.entity.monster.MagmaCube 2>/dev/null | head -n 100 || true
-javap -classpath "$MC" net.minecraft.world.entity.monster.Slime 2>/dev/null | grep -E 'getSize|setSize|remove|split|finalizeSpawn|isTiny|canSpawn' || true
+echo '=== eventZones refs ==='
+grep -n 'eventZones' "$SRC" || true
+for n in $(grep -n 'eventZones' "$SRC" | cut -d: -f1 | head -n 12); do
+  a=$((n-14)); [ $a -lt 1 ] && a=1; b=$((n+24));
+  echo "--- lines $a-$b ---"
+  sed -n "${a},${b}p" "$SRC"
+done
 
-echo '=== Heightmap ==='
-javap -classpath "$MC" net.minecraft.world.level.levelgen.Heightmap\$Types 2>/dev/null | head -n 80 || true
-javap -classpath "$MC" net.minecraft.server.level.ServerLevel 2>/dev/null | grep -E 'getHeight\(|getHeightmapPos|playSound|sendParticles' | head -n 80 || true
-
-echo '=== Fabric ServerEntityEvents ==='
-FAB=$(find /root/.gradle/caches -type f -name '*.jar' | while read f; do jar tf "$f" 2>/dev/null | grep -q 'net/fabricmc/fabric/api/event/lifecycle/v1/ServerEntityEvents.class' && { echo "$f"; break; }; done)
-echo "fabric=$FAB"
-[ -n "$FAB" ] && javap -classpath "$FAB:$MC" net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents || true
-[ -n "$FAB" ] && javap -classpath "$FAB:$MC" 'net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$Load' || true
-
-echo '=== current hotfix key methods ==='
-grep -nE 'tickMeaningfulParticles|boundaryPoint|verticalCorner|ring\(|onComplete|emitFireworkBurst|play\(|stabiliseEventMobs|register\(' /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java | head -n 120
+echo '=== mechanic enum ==='
+cat /opt/brigada-core-src/src/main/java/dev/brigada13/core/challenge/MiniEventMechanic.java || true
