@@ -1,4 +1,18 @@
-=== hotfix source ===
+=== hotfix files ===
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/BrigadaHotfix.java
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java
+/opt/brigada-hotfix-src/src/main/resources/brigada_hotfix.mixins.json
+/opt/brigada-hotfix-src/src/main/resources/fabric.mod.json
+=== mixins json ===
+{
+  "required": true,
+  "package": "dev.brigada13.hotfix.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["ChallengeServiceMixin"],
+  "injectors": {"defaultRequire": 1}
+}
+=== runtime key source ===
 60:    public static void register() {
 61:        ServerLivingEntityEvents.ALLOW_DAMAGE.register(RuntimeFixes::allowDamage);
 62:        ServerLivingEntityEvents.AFTER_DAMAGE.register(RuntimeFixes::afterDamage);
@@ -8,215 +22,61 @@
 90:            play(player.level(), player.getX(), player.getY(), player.getZ(),
 92:            play(player.level(), player.getX(), player.getY(), player.getZ(),
 107:                stabiliseEventMobs(level, state);
-136:        if (state.boundaryBlocks == null || state.boundaryBlocks.isEmpty()) return;
-138:        for (long packed : new ArrayList<>(state.boundaryBlocks)) {
-146:        state.boundaryBlocks.clear();
-147:        state.boundaryBottomY = 0;
-148:        state.boundaryTopY = 0;
 185:    private static void stabiliseEventMobs(ServerLevel level, ActiveChallengeState state) {
 186:        Set<UUID> ids = new HashSet<>(state.eventEntities);
 242:            objectiveMob.setPersistenceRequired();
 245:        for (UUID id : state.eventEntities) {
+276:        boss.setGlowingTag(true);
 277:        if (raw instanceof Mob mob) mob.setPersistenceRequired();
-302:        DustParticleOptions boundary = new DustParticleOptions(0xFF365E, 1.05F);
-307:            boundaryPoint(level, boundary, x, state.arenaMinZ, state.arenaY);
-308:            boundaryPoint(level, boundary, x, state.arenaMaxZ, state.arenaY);
-311:            boundaryPoint(level, boundary, state.arenaMinX, z, state.arenaY);
-312:            boundaryPoint(level, boundary, state.arenaMaxX, z, state.arenaY);
-323:            ring(level, new DustParticleOptions(0xFFD34E, 1.2F), target.getX(), target.getY() + 0.12,
-327:            ring(level, new DustParticleOptions(0xFF4C6A, 1.25F), target.getX(), target.getY() + 0.12,
-335:    private static void boundaryPoint(ServerLevel level, DustParticleOptions particle, int x, int z, int anchorY) {
-358:    private static void ring(ServerLevel level, DustParticleOptions particle,
+336:        double y = nearbySurfaceY(level, x, z, anchorY);
+341:        double base = nearbySurfaceY(level, x, z, anchorY);
+348:    private static double nearbySurfaceY(ServerLevel level, int x, int z, int anchorY) {
 405:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.2F, 0.95F);
 406:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_TWINKLE, 1.0F, 1.12F);
 411:        play(level, (state.arenaMinX + state.arenaMaxX + 1.0) * 0.5, state.arenaY + 1.0,
 415:    private static void play(ServerLevel level, double x, double y, double z,
-=== hotfix mixin ===
-23:import org.spongepowered.asm.mixin.injection.Inject;
-25:import org.spongepowered.asm.mixin.injection.Redirect;
-42:    @Redirect(method = "locate",
-50:    @Inject(method = "tickEvent", at = @At("HEAD"), require = 0)
-76:    @Redirect(method = "tickEvent",
-84:    @Inject(method = "complete", at = @At("HEAD"), require = 0)
-=== menu bytecode methods ===
-  private final dev.brigada13.core.death.DeathItemService deaths;
-  public dev.brigada13.core.menu.WorldMenuService(dev.brigada13.core.challenge.ChallengeService, dev.brigada13.core.expedition.ExpeditionService, dev.brigada13.core.parcel.ParcelService, dev.brigada13.core.reward.RewardService, dev.brigada13.core.death.DeathItemService);
-  public void claimRewardItem(net.minecraft.server.level.ServerPlayer, java.util.UUID, int);
-  public void openDeaths(net.minecraft.server.level.ServerPlayer);
-  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
-  private static net.minecraft.server.dialog.ActionButton inertWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String);
-  private static net.minecraft.network.chat.Component decorateWithItem(net.minecraft.network.chat.Component, java.lang.String);
-  private static char itemIcon(java.lang.String);
-  private static char iconFor(java.lang.String);
-  private static net.minecraft.network.chat.Style lambda$decorateWithItem$1(net.minecraft.network.chat.Style);
-  private static net.minecraft.network.chat.Style lambda$decorateWithItem$0(net.minecraft.network.chat.Style);
-=== menu source candidates / resource pack ===
-/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:46:  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:54:/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:55:/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:56:/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:57:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:58:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:59:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:60:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:61:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:62:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:63:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:64:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:65:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:66:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:67:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:68:/opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:69:/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:70:/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_work/Niga/Niga/control/output.txt:71:/opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_work/Niga/Niga/control/command.sh:11:javap -classpath "$J" -p dev.brigada13.core.menu.WorldMenuService | grep -E 'buttonWithItem|item|Item|glyph|icon|Icon|openDeaths' || true
-/opt/actions-runner/_work/Niga/Niga/control/command.sh:14:grep -RIn --exclude='*.jar' --exclude='*.log' -E 'item_icons|itemGlyph|buttonWithItem|Здесь только вещи' /opt /root 2>/dev/null | head -n 160 || true
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:169:2026-08-25T17:20:23.0697194Z   private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:177:2026-08-25T17:20:25.8457227Z /opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:178:2026-08-25T17:20:25.8467311Z /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:179:2026-08-25T17:20:25.8491324Z /opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:180:2026-08-25T17:20:25.8497833Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:181:2026-08-25T17:20:25.8503871Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:182:2026-08-25T17:20:25.8512428Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:183:2026-08-25T17:20:25.8519226Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:184:2026-08-25T17:20:25.8524510Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:185:2026-08-25T17:20:25.8532203Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:186:2026-08-25T17:20:25.8538469Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:187:2026-08-25T17:20:25.8570766Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:188:2026-08-25T17:20:25.8575342Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:189:2026-08-25T17:20:25.8580373Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:190:2026-08-25T17:20:25.8587141Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:191:2026-08-25T17:20:25.8592052Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:192:2026-08-25T17:20:25.8602371Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:193:2026-08-25T17:20:25.8612290Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:194:2026-08-25T17:20:25.8621283Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:195:2026-08-25T17:20:26.1418693Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:196:2026-08-25T17:20:26.1424759Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:197:2026-08-25T17:20:26.1498941Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:198:2026-08-25T17:20:26.1536180Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:199:2026-08-25T17:20:26.1541106Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:200:2026-08-25T17:20:26.1574698Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:201:2026-08-25T17:20:26.1581986Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:202:2026-08-25T17:20:26.1682821Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:203:2026-08-25T17:20:26.1690804Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:204:2026-08-25T17:20:26.1696367Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:205:2026-08-25T17:20:26.1723986Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:206:2026-08-25T17:20:26.1730181Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:46:  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:207:2026-08-25T17:20:26.1750430Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:54:/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:208:2026-08-25T17:20:26.1760887Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:55:/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:209:2026-08-25T17:20:26.1777525Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:56:/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:210:2026-08-25T17:20:26.1785506Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:57:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_7a4dd322-c9ff-5923-8054-72fd0f97d62f.1:211:2026-08-25T17:20:26.1797169Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:58:/opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:70:2026-08-25T17:20:23.0697031Z   private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:78:2026-08-25T17:20:25.8457087Z /opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:79:2026-08-25T17:20:25.8467222Z /opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:80:2026-08-25T17:20:25.8491268Z /opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:81:2026-08-25T17:20:25.8496444Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:82:2026-08-25T17:20:25.8503837Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:231:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:83:2026-08-25T17:20:25.8512384Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:236:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:84:2026-08-25T17:20:25.8519161Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:277:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:85:2026-08-25T17:20:25.8524406Z /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:411:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:86:2026-08-25T17:20:25.8532165Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:87:2026-08-25T17:20:25.8538415Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:88:2026-08-25T17:20:25.8570703Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:89:2026-08-25T17:20:25.8575305Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:90:2026-08-25T17:20:25.8580227Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:91:2026-08-25T17:20:25.8587099Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:92:2026-08-25T17:20:25.8591897Z /opt/brigada-core-src/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:93:2026-08-25T17:20:25.8602321Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:94:2026-08-25T17:20:25.8612167Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:95:2026-08-25T17:20:25.8621229Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:96:2026-08-25T17:20:26.1418597Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:97:2026-08-25T17:20:26.1424727Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:98:2026-08-25T17:20:26.1497361Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:99:2026-08-25T17:20:26.1536119Z /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:100:2026-08-25T17:20:26.1541076Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:55:            new FontDescription.Resource(Identifier.parse("brigada_core:item_icons"));
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:101:2026-08-25T17:20:26.1574628Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:105:                        buttonWithItem(Component.literal("Обычное задание").withStyle(ChatFormatting.GREEN),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:102:2026-08-25T17:20:26.1581934Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:107:                        buttonWithItem(Component.literal("Мини-ивент").withStyle(ChatFormatting.GOLD),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:103:2026-08-25T17:20:26.1682520Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:250:                actions.add(buttonWithItem(stack.getHoverName().copy().append(Component.literal(" ×" + reward.count())),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:104:2026-08-25T17:20:26.1690750Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:255:                actions.add(buttonWithItem(Component.literal("Опыт · " + record.experiencePoints()).withStyle(ChatFormatting.AQUA),
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:105:2026-08-25T17:20:26.1696336Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:296:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:106:2026-08-25T17:20:26.1723935Z /opt/brigada-build.OjP6eY/source/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:430:    private static ActionButton buttonWithItem(Component label, Component tooltip, String command, String itemId) {
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:107:2026-08-25T17:20:26.1730066Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:46:  private static net.minecraft.server.dialog.ActionButton buttonWithItem(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.String, java.lang.String);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:108:2026-08-25T17:20:26.1744275Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:54:/opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:109:2026-08-25T17:20:26.1760849Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:55:/opt/brigada-build-rFXZ1G/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:271:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-/opt/actions-runner/_diag/blocks/c08a1be1-660a-427a-8010-1b4f206c400a_599ef54d-3dec-4e15-901d-75749475192d.1:110:2026-08-25T17:20:26.1777265Z /opt/actions-runner/_work/Niga/Niga/control/output.txt:56:/opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/menu/WorldMenuService.java:273:                Component.literal("Здесь только вещи, которые ещё можно подобрать. Наведи на предмет для координат."), actions, 2);
-=== server resource pack config ===
+=== server resource pack properties ===
 require-resource-pack=true
 resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
 resource-pack-id=fc9e76d5-cfc6-4d60-b30c-6a43dc6ffa65
 resource-pack-prompt={"text"\:"Ресурсы интерфейса обязательны для игры на сервере.","color"\:"gold"}
 resource-pack-sha1=f059e501378d247ef30d1ddb2038891400665465
-2026-08-25 07:20 557736 /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-2026-08-25 07:20 557736 /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-2026-08-25 07:10 557736 /opt/brigada-build.S59Xz5/source/resource-pack/world-ui-26.3-snapshot-9.zip
-2026-08-25 07:10 557736 /opt/brigada-build.OjP6eY/source/resource-pack/world-ui-26.3-snapshot-9.zip
-2026-08-25 06:38 556885 /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip
-2026-08-25 06:38 556885 /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip
-2026-08-25 04:42 212659 /opt/brigada-pack-wj64ym/world-ui.zip
-2026-08-25 04:42 212659 /opt/brigada-hotfix-src/resource-pack/world-ui-26.3-snapshot-9.zip
-2026-08-25 04:42 212659 /opt/brigada-core-src/resource-pack/world-ui-26.3-snapshot-9.zip
-2026-08-25 04:15 212091 /opt/brigada-pack-ChxXEo/world-ui.zip
-2026-08-24 23:29 21839 /opt/brigada-build-Igmrwx/resource-pack/world-ui-26.3-snapshot-9.zip
-2026-08-24 23:24 257 /opt/brigada-hotfix-src/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:24 257 /opt/brigada-core-src/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:24 257 /opt/brigada-build-rFXZ1G/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:24 257 /opt/brigada-build-n0QScY/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:24 257 /opt/brigada-build-OquGiE/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:24 257 /opt/brigada-build-J6Mk9p/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:24 257 /opt/brigada-build-Igmrwx/resource-pack/WorldUI/pack.mcmeta
-2026-08-24 23:05 12673 /opt/brigada-hotfix-src/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:05 12673 /opt/brigada-core-src/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:05 12673 /opt/brigada-build-rFXZ1G/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:05 12673 /opt/brigada-build-n0QScY/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:05 12673 /opt/brigada-build-OquGiE/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:05 12673 /opt/brigada-build-J6Mk9p/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:05 12673 /opt/brigada-build-Igmrwx/resource-pack/WorldUI/pack.png.b64
-2026-08-24 23:00 12052 /opt/minecraft/server/backups/fresh-world-20260824T233253Z/previous-ui-pack.zip
-2026-08-24 23:00 12052 /opt/minecraft/server/backups/fresh-world-20260824T233253Z/previous-ui-pack.zip
-2026-08-24 22:54 9380 /opt/brigada-hotfix-src/resource-pack/WorldUI/pack.png
-2026-08-24 22:54 9380 /opt/brigada-core-src/resource-pack/WorldUI/pack.png
-2026-08-24 22:54 9380 /opt/brigada-build-rFXZ1G/resource-pack/WorldUI/pack.png
-2026-08-24 22:54 9380 /opt/brigada-build-n0QScY/resource-pack/WorldUI/pack.png
-2026-08-24 22:54 9380 /opt/brigada-build-OquGiE/resource-pack/WorldUI/pack.png
-2026-08-24 22:54 9380 /opt/brigada-build-J6Mk9p/resource-pack/WorldUI/pack.png
-2026-08-24 22:54 9380 /opt/brigada-build-Igmrwx/resource-pack/WorldUI/pack.png
-2026-08-24 16:36 116 /opt/minecraft-build/Paper/.git/packed-refs
-2026-08-02 09:19 3372273 /opt/3proxy/.git/objects/pack/pack-a52883de54eae38bcb055ff26996162f30c72879.pack
-2026-08-02 09:19 28632 /opt/3proxy/.git/objects/pack/pack-a52883de54eae38bcb055ff26996162f30c72879.rev
-2026-08-02 09:19 2249 /opt/3proxy/.git/packed-refs
-2026-08-02 09:19 201132 /opt/3proxy/.git/objects/pack/pack-a52883de54eae38bcb055ff26996162f30c72879.idx
+=== exact local pack candidates ===
+2026-08-25 06:38:29.1022459230 556885 /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip
+=== zip /opt/minecraft/server/backups/world-ui-26.3-snapshot-9-20260825T063829Z.zip ===
+      257  2026-08-24 23:24   pack.mcmeta
+      190  2026-08-25 02:36   assets/brigada_core/font/icons.json
+     2390  2026-08-25 05:38   assets/brigada_core/font/item_icons.json
+{
+  "providers": [
+    {"type":"bitmap","file":"minecraft:item/iron_ingot.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/gold_ingot.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/diamond.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/emerald.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/golden_apple.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/experience_bottle.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/ender_pearl.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/netherite_scrap.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/netherite_ingot.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/golden_apple.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/wheat_seeds.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:block/dirt.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/feather.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/chicken.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:block/white_wool.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:block/crafting_table_front.png","ascent":11,"height":14,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:block/cobblestone.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:block/birch_planks.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/stick.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/wooden_sword.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/rotten_flesh.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:item/string.png","ascent":13,"height":16,"chars":[""]},
+    {"type":"bitmap","file":"minecraft:block/oak_sapling.png","ascent":13,"height":16,"chars":[""]}
+  ]
+}
+
+FAST_INSPECT_OK
 
 exit_code=0
-finished_at=2026-08-25T17:22:11Z
+finished_at=2026-08-25T17:22:38Z
 runner=alexhost-143-246
