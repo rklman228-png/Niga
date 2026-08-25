@@ -1,122 +1,42 @@
-DIALOG CLASSES
-net/minecraft/network/protocol/common/ClientboundClearDialogPacket.class
-net/minecraft/network/protocol/common/ClientboundShowDialogPacket.class
-COMMON DIALOG PACKETS
-Compiled from "ClientboundClearDialogPacket.java"
-public class net.minecraft.network.protocol.common.ClientboundClearDialogPacket implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener> {
-  public static final net.minecraft.network.protocol.common.ClientboundClearDialogPacket INSTANCE;
-  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.network.protocol.common.ClientboundClearDialogPacket> STREAM_CODEC;
-  public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundClearDialogPacket> type();
-  public void handle(net.minecraft.network.protocol.common.ClientCommonPacketListener);
-  public void handle(net.minecraft.network.PacketListener);
-  static {};
-}
-Compiled from "ClientboundShowDialogPacket.java"
-public final class net.minecraft.network.protocol.common.ClientboundShowDialogPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener> {
-  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.network.protocol.common.ClientboundShowDialogPacket> STREAM_CODEC;
-  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.network.protocol.common.ClientboundShowDialogPacket> CONTEXT_FREE_STREAM_CODEC;
-  public net.minecraft.network.protocol.common.ClientboundShowDialogPacket(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>);
-  public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundShowDialogPacket> type();
-  public void handle(net.minecraft.network.protocol.common.ClientCommonPacketListener);
-  public final java.lang.String toString();
-  public final int hashCode();
-  public final boolean equals(java.lang.Object);
-  public net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog> dialog();
-  public void handle(net.minecraft.network.PacketListener);
-  static {};
-}
-STRUCTURE TAG FILES
-data/minecraft/tags/worldgen/structure/abandoned_camp.json
-data/minecraft/tags/worldgen/structure/cats_spawn_as_black.json
-data/minecraft/tags/worldgen/structure/cats_spawn_in.json
-data/minecraft/tags/worldgen/structure/dolphin_located.json
-data/minecraft/tags/worldgen/structure/eye_of_ender_located.json
-data/minecraft/tags/worldgen/structure/mineshaft.json
-data/minecraft/tags/worldgen/structure/ocean_ruin.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_bamboo_jungle.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_birch_forest.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_cherry_grove.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_dappled_forest.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_flower_forest.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_pale_garden.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_swamp.json
-data/minecraft/tags/worldgen/structure/on_abandoned_camp_windswept.json
-data/minecraft/tags/worldgen/structure/on_ancient_city_maps.json
-data/minecraft/tags/worldgen/structure/on_desert_pyramid_maps.json
-data/minecraft/tags/worldgen/structure/on_desert_village_maps.json
-data/minecraft/tags/worldgen/structure/on_jungle_explorer_maps.json
-data/minecraft/tags/worldgen/structure/on_mineshaft_maps.json
-data/minecraft/tags/worldgen/structure/on_ocean_explorer_maps.json
-data/minecraft/tags/worldgen/structure/on_ocean_ruin_warm_maps.json
-data/minecraft/tags/worldgen/structure/on_plains_village_maps.json
-data/minecraft/tags/worldgen/structure/on_savanna_village_maps.json
-data/minecraft/tags/worldgen/structure/on_snowy_village_maps.json
-data/minecraft/tags/worldgen/structure/on_swamp_explorer_maps.json
-data/minecraft/tags/worldgen/structure/on_taiga_village_maps.json
-data/minecraft/tags/worldgen/structure/on_treasure_maps.json
-data/minecraft/tags/worldgen/structure/on_trial_chambers_maps.json
-data/minecraft/tags/worldgen/structure/on_woodland_explorer_maps.json
-data/minecraft/tags/worldgen/structure/ruined_portal.json
-data/minecraft/tags/worldgen/structure/shipwreck.json
-data/minecraft/tags/worldgen/structure/village.json
-STRUCTURE KEYS
-Compiled from "BuiltinStructures.java"
-public interface net.minecraft.world.level.levelgen.structure.BuiltinStructures {
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> PILLAGER_OUTPOST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> MINESHAFT;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> MINESHAFT_MESA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> WOODLAND_MANSION;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> JUNGLE_TEMPLE;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> DESERT_PYRAMID;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> IGLOO;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> SHIPWRECK;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> SHIPWRECK_BEACHED;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> SWAMP_HUT;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> STRONGHOLD;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> OCEAN_MONUMENT;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> OCEAN_RUIN_COLD;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> OCEAN_RUIN_WARM;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> FORTRESS;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> NETHER_FOSSIL;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> END_CITY;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> BURIED_TREASURE;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> BASTION_REMNANT;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> VILLAGE_PLAINS;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> VILLAGE_DESERT;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> VILLAGE_SAVANNA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> VILLAGE_SNOWY;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> VILLAGE_TAIGA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_STANDARD;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_DESERT;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_JUNGLE;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_SWAMP;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_MOUNTAIN;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_OCEAN;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> RUINED_PORTAL_NETHER;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ANCIENT_CITY;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> TRAIL_RUINS;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> TRIAL_CHAMBERS;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_BAMBOO_JUNGLE;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_BIRCH_FOREST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_CHERRY_GROVE;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_DAPPLED_FOREST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_FLOWER_FOREST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_FOREST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_MEADOW;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_OLD_GROWTH_BIRCH_FOREST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_OLD_GROWTH_PINE_TAIGA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_OLD_GROWTH_SPRUCE_TAIGA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_PALE_GARDEN;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_SAVANNA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_SNOWY_TAIGA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_SPARSE_JUNGLE;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_SWAMP;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_TAIGA;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_WINDSWEPT_FOREST;
-  public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> ABANDONED_CAMP_WOODED_BADLANDS;
-  static {};
-}
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean UP-TO-DATE
+
+> Task :compileJava
+Note: /opt/brigada-build-n0QScY/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-build-n0QScY/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 9s
+6 actionable tasks: 5 executed, 1 up-to-date
+BUILD_DIR=/opt/brigada-build-n0QScY
+a07a429fc135cbdfcd3414bbe0137522000eb4e261944d15e808555cdc44b947  /opt/brigada-build-n0QScY/build/libs/brigada-core-0.1.0.jar
 
 exit_code=0
-finished_at=2026-08-25T04:35:11Z
+finished_at=2026-08-25T04:41:09Z
 runner=alexhost-143-246
