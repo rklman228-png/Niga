@@ -1,23 +1,55 @@
-cp=/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
-=== ServerPlayer teleport ===
-  public net.minecraft.server.network.ServerGamePacketListenerImpl connection;
-  public net.minecraft.server.level.ServerPlayer teleport(net.minecraft.world.level.portal.TeleportTransition);
-  public void teleportTo(double, double, double);
-  public void teleportRelative(double, double, double);
-  public boolean teleportTo(net.minecraft.server.level.ServerLevel, double, double, double, java.util.Set<net.minecraft.world.entity.Relative>, float, float, boolean);
-  public net.minecraft.world.entity.Entity teleport(net.minecraft.world.level.portal.TeleportTransition);
-=== ServerGamePacketListenerImpl teleport ===
-  public void resetPosition();
-  public void teleport(double, double, double, float, float);
-  public void teleport(net.minecraft.world.entity.PositionMoveRotation, java.util.Set<net.minecraft.world.entity.Relative>);
-=== Entity movement ===
-  public final void setPos(net.minecraft.world.phys.Vec3);
-  public void setPos(double, double, double);
-  public net.minecraft.world.entity.Entity getRootVehicle();
-  public net.minecraft.world.phys.Vec3 getDeltaMovement();
-  public void setDeltaMovement(net.minecraft.world.phys.Vec3);
-  public void setDeltaMovement(double, double, double);
+=== hard-border source check ===
+44:    private static final double PLAYER_EDGE_MARGIN = 0.55;
+106:                confineParticipants(server, level, state);
+152:    private static void confineParticipants(MinecraftServer server, ServerLevel level, ActiveChallengeState state) {
+153:        double minX = state.arenaMinX + PLAYER_EDGE_MARGIN;
+154:        double maxX = state.arenaMaxX + 1.0 - PLAYER_EDGE_MARGIN;
+155:        double minZ = state.arenaMinZ + PLAYER_EDGE_MARGIN;
+156:        double maxZ = state.arenaMaxZ + 1.0 - PLAYER_EDGE_MARGIN;
+178:            // Server-authoritative invisible wall: the player can touch the marked perimeter,
+=== build ===
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :sourcesJar
+> Task :jar
+> Task :compileTestJava NO-SOURCE
+> Task :assemble
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 56s
+6 actionable tasks: 6 executed
+93b5905efb4921d1769d0ed2812e5a18f11c4a7f3d9edccf548d996170a75bdb  /opt/brigada-hotfix-src/build/libs/brigada-hotfix-0.1.0.jar
+=== deploy ===
+93b5905efb4921d1769d0ed2812e5a18f11c4a7f3d9edccf548d996170a75bdb  /opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
+=== verify ===
+active
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=1926862,fd=163))                                                                                           
+Aug 25 15:24:01 test1 java[1926862]:         - brigada_hotfix 1.0.0
+Aug 25 15:24:56 test1 java[1926862]: [15:24:56] [Server thread/INFO]: Done (2.094s)! For help, type "help"
+HARD_BORDER_OK
 
 exit_code=0
-finished_at=2026-08-25T15:22:19Z
+finished_at=2026-08-25T15:24:57Z
 runner=alexhost-143-246
