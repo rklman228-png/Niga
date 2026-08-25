@@ -1,5 +1,27 @@
-sed: can't read /opt/minecraft/server.properties: No such file or directory
+# /etc/systemd/system/minecraft.service
+[Unit]
+Description=Minecraft Fabric 26.3 Snapshot 9
+After=network-online.target
+Wants=network-online.target
 
-exit_code=2
-finished_at=2026-08-25T05:18:37Z
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory=/opt/minecraft/server
+ExecStart=/usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
+Restart=on-failure
+RestartSec=10
+SuccessExitStatus=0 143
+TimeoutStopSec=120
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+/opt/minecraft/server/server.properties
+/opt/minecraft/server/mods
+active
+
+exit_code=0
+finished_at=2026-08-25T05:19:55Z
 runner=alexhost-143-246
