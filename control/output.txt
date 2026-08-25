@@ -1,51 +1,19 @@
-/opt/brigada-build.S59Xz5/source-min.tar.gz: OK
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean UP-TO-DATE
-
-> Task :compileJava
-Note: /opt/brigada-build.S59Xz5/source/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-build.S59Xz5/source/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 1m 24s
-6 actionable tasks: 5 executed, 1 up-to-date
 active
 LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=828625,fd=161))                                                                                            
+    PID ELAPSED %CPU %MEM   RSS    VSZ STAT CMD
+ 828625     163  158 19.9 1624896 9077136 Ssl /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
 faebd5b6f4ed24153b3de3492b1afec4cf473a686a1424326a885df55a54d28e  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-Aug 25 07:21:22 test1 java[784296]: [07:21:22] [Server thread/INFO]: Done (2.841s)! For help, type "help"
-Aug 25 07:21:27 test1 java[784296]: [07:21:27] [Server thread/INFO]: Started fake player WorldKeeper
+f059e501378d247ef30d1ddb2038891400665465  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
 Aug 25 07:32:30 test1 java[828625]: [07:32:30] [main/INFO]: Loaded 120 EASY challenges, including 60 mini-events
 Aug 25 07:32:30 test1 java[828625]: [07:32:30] [main/INFO]: Loaded 120 NORMAL challenges, including 60 mini-events
 Aug 25 07:32:30 test1 java[828625]: [07:32:30] [main/INFO]: Loaded 120 HARD challenges, including 60 mini-events
 Aug 25 07:32:30 test1 java[828625]: [07:32:30] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
 Aug 25 07:32:42 test1 java[828625]: [07:32:42] [Worker-Main-3/INFO]: Loaded 1866 advancements
+Aug 25 07:32:46 test1 java[828625]: [07:32:46] [Server thread/INFO]: Done (2.453s)! For help, type "help"
+Aug 25 07:32:52 test1 java[828625]: [07:32:52] [Server thread/INFO]: Started fake player WorldKeeper
+Aug 25 07:32:52 test1 java[828625]: [07:32:52] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5000ms or 100 ticks behind
+Aug 25 07:33:16 test1 java[828625]: [07:33:16] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 9260ms or 185 ticks behind
 
 exit_code=0
-finished_at=2026-08-25T07:32:44Z
+finished_at=2026-08-25T07:34:29Z
 runner=alexhost-143-246
