@@ -35,14 +35,14 @@ struct NigaApp: App {
                         Spacer()
 
                         HStack(spacing: 5) {
-                            if springboard.isDiscovering {
+                            if springboard.requestInFlight {
                                 ProgressView().controlSize(.mini)
                             } else {
                                 Circle()
                                     .fill((gestalt.granted && springboard.granted) ? Color.green : Color.orange)
                                     .frame(width: 8, height: 8)
                             }
-                            Text(windowingStatusText)
+                            Text(springboard.headerStatus)
                                 .font(.caption2)
                                 .lineLimit(1)
                         }
@@ -78,19 +78,9 @@ struct NigaApp: App {
                     RespringView().ignoresSafeArea()
                 }
                 .task {
-                    // Sandbox extensions are process-local and disappear after a
-                    // respring/relaunch, so reacquire them every launch. The
-                    // SpringBoard resolver performs its slower iOS 27 container
-                    // discovery off the main thread when the legacy path is blocked.
                     if !gestalt.granted { gestalt.connect() }
-                    if !springboard.granted && !springboard.isDiscovering { springboard.connect() }
+                    springboard.connect()
                 }
         }
-    }
-
-    private var windowingStatusText: String {
-        if springboard.isDiscovering { return "Resolving prefs…" }
-        if springboard.granted { return springboard.mode.title }
-        return "Prefs unavailable"
     }
 }
