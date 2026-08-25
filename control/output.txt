@@ -1,49 +1,515 @@
-  private final java.util.Map<java.lang.String, dev.brigada13.core.challenge.ChallengeService$CompletionHud> completionHud;
-  private final java.util.Map<java.lang.String, java.lang.Long> celebrations;
-  private long tick;
-  private void tickAll(net.minecraft.server.MinecraftServer);
-  private void tickTask(net.minecraft.server.MinecraftServer, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private void tickEvent(net.minecraft.server.MinecraftServer, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private void tickWaves(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState, boolean);
-  private void tickHunt(net.minecraft.server.MinecraftServer, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private void tickDefense(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+===== tickExtraction =====
   private void tickExtraction(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+    Code:
+         0: aload         4
+         2: getfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
+         5: ifne          60
+         8: aload         4
+        10: getfield      #750                // Field dev/brigada13/core/state/ActiveChallengeState.eventEntities:Ljava/util/List;
+        13: invokeinterface #771,  1          // InterfaceMethod java/util/List.isEmpty:()Z
+        18: ifeq          60
+        21: aload         4
+        23: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
+        26: aload         4
+        28: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
+        31: if_icmpge     60
+        34: aload_0
+        35: aload_2
+        36: aload_3
+        37: aload         4
+        39: bipush        6
+        41: aload         4
+        43: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
+        46: aload         4
+        48: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
+        51: isub
+        52: invokestatic  #581                // Method java/lang/Math.min:(II)I
+        55: iconst_0
+        56: invokevirtual #737                // Method spawnGroup:(Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;IZ)I
+        59: pop
+        60: aload         4
+        62: getfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
+        65: ifne          124
+        68: aload         4
+        70: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
+        73: aload         4
+        75: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
+        78: if_icmplt     124
+        81: aload         4
+        83: iconst_1
+        84: putfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
+        87: aload         4
+        89: iconst_0
+        90: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+        93: aload_1
+        94: aload         4
+        96: ldc_w         #794                // String Груз добыт. Вернитесь в центральную точку!
+        99: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+       102: iconst_2
+       103: anewarray     #133                // class net/minecraft/ChatFormatting
+       106: dup
+       107: iconst_0
+       108: getstatic     #350                // Field net/minecraft/ChatFormatting.AQUA:Lnet/minecraft/ChatFormatting;
+       111: aastore
+       112: dup
+       113: iconst_1
+       114: getstatic     #320                // Field net/minecraft/ChatFormatting.BOLD:Lnet/minecraft/ChatFormatting;
+       117: aastore
+       118: invokevirtual #323                // Method net/minecraft/network/chat/MutableComponent.withStyle:([Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+       121: invokestatic  #634                // Method broadcast:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/state/ActiveChallengeState;Lnet/minecraft/network/chat/Component;)V
+       124: aload         4
+       126: getfield      #720                // Field dev/brigada13/core/state/ActiveChallengeState.extractionReady:Z
+       129: ifne          153
+       132: aload         4
+       134: aload         4
+       136: getfield      #711                // Field dev/brigada13/core/state/ActiveChallengeState.eventKills:I
+       139: aload         4
+       141: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
+       144: iconst_1
+       145: isub
+       146: invokestatic  #581                // Method java/lang/Math.min:(II)I
+       149: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
+       152: return
+       153: aload_2
+       154: aload         4
+       156: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+       159: aload         4
+       161: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
+       164: iconst_1
+       165: iadd
+       166: aload         4
+       168: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+       171: iconst_5
+       172: getstatic     #796                // Field net/minecraft/core/particles/ParticleTypes.HAPPY_VILLAGER:Lnet/minecraft/core/particles/SimpleParticleType;
+       175: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
+       178: aload_1
+       179: aload_2
+       180: aload         4
+       182: aload         4
+       184: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+       187: aload         4
+       189: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+       192: iconst_5
+       193: invokestatic  #806                // Method allParticipantsNear:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;III)Z
+       196: istore        5
+       198: aload         4
+       200: iload         5
+       202: ifeq          215
+       205: aload         4
+       207: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       210: iconst_2
+       211: iadd
+       212: goto          216
+       215: iconst_0
+       216: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       219: aload         4
+       221: aload         4
+       223: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
+       226: aload         4
+       228: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
+       231: iconst_1
+       232: isub
+       233: aload         4
+       235: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       238: bipush        20
+       240: idiv
+       241: iadd
+       242: invokestatic  #581                // Method java/lang/Math.min:(II)I
+       245: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
+       248: aload         4
+       250: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       253: bipush        100
+       255: if_icmplt     266
+       258: aload_0
+       259: aload_1
+       260: aload_3
+       261: aload         4
+       263: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
+       266: return
+
   private void tickSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+===== tickSplit =====
+  private void tickSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+    Code:
+         0: aload         4
+         2: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+         5: bipush        8
+         7: isub
+         8: istore        5
+        10: aload         4
+        12: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+        15: bipush        8
+        17: iadd
+        18: istore        6
+        20: aload_2
+        21: iload         5
+        23: aload         4
+        25: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
+        28: iconst_1
+        29: iadd
+        30: aload         4
+        32: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+        35: iconst_4
+        36: getstatic     #810                // Field net/minecraft/core/particles/ParticleTypes.END_ROD:Lnet/minecraft/core/particles/SimpleParticleType;
+        39: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
+        42: aload_2
+        43: iload         6
+        45: aload         4
+        47: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
+        50: iconst_1
+        51: iadd
+        52: aload         4
+        54: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+        57: iconst_4
+        58: getstatic     #813                // Field net/minecraft/core/particles/ParticleTypes.ENCHANTED_HIT:Lnet/minecraft/core/particles/SimpleParticleType;
+        61: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
+        64: aload         4
+        66: getfield      #248                // Field dev/brigada13/core/state/ActiveChallengeState.singleMode:Z
+        69: ifeq          224
+        72: aload_1
+        73: aload_2
+        74: aload         4
+        76: aload         4
+        78: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
+        81: ifne          89
+        84: iload         5
+        86: goto          91
+        89: iload         6
+        91: aload         4
+        93: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+        96: iconst_4
+        97: invokestatic  #816                // Method participantNear:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;III)Z
+       100: istore        7
+       102: aload         4
+       104: iload         7
+       106: ifeq          119
+       109: aload         4
+       111: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       114: iconst_2
+       115: iadd
+       116: goto          120
+       119: iconst_0
+       120: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       123: aload         4
+       125: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       128: bipush        100
+       130: if_icmplt     177
+       133: aload         4
+       135: dup
+       136: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
+       139: iconst_1
+       140: iadd
+       141: putfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
+       144: aload         4
+       146: iconst_0
+       147: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       150: aload         4
+       152: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
+       155: iconst_1
+       156: if_icmpne     177
+       159: aload_1
+       160: aload         4
+       162: ldc_w         #819                // String Первая точка закреплена — переходи ко второй.
+       165: invokestatic  #126                // InterfaceMethod net/minecraft/network/chat/Component.literal:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+       168: getstatic     #350                // Field net/minecraft/ChatFormatting.AQUA:Lnet/minecraft/ChatFormatting;
+       171: invokevirtual #138                // Method net/minecraft/network/chat/MutableComponent.withStyle:(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+       174: invokestatic  #634                // Method broadcast:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/state/ActiveChallengeState;Lnet/minecraft/network/chat/Component;)V
+       177: aload         4
+       179: aload         4
+       181: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
+       184: aload         4
+       186: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
+       189: bipush        100
+       191: imul
+       192: aload         4
+       194: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       197: iadd
+       198: invokestatic  #581                // Method java/lang/Math.min:(II)I
+       201: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
+       204: aload         4
+       206: getfield      #717                // Field dev/brigada13/core/state/ActiveChallengeState.eventPhase:I
+       209: iconst_2
+       210: if_icmplt     221
+       213: aload_0
+       214: aload_1
+       215: aload_3
+       216: aload         4
+       218: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
+       221: goto          303
+       224: aload_1
+       225: aload_2
+       226: aload         4
+       228: iload         5
+       230: iload         6
+       232: aload         4
+       234: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+       237: iconst_4
+       238: invokestatic  #821                // Method participantsSplit:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;IIII)Z
+       241: istore        7
+       243: aload         4
+       245: iload         7
+       247: ifeq          260
+       250: aload         4
+       252: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       255: iconst_2
+       256: iadd
+       257: goto          261
+       260: iconst_0
+       261: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       264: aload         4
+       266: aload         4
+       268: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
+       271: aload         4
+       273: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       276: invokestatic  #581                // Method java/lang/Math.min:(II)I
+       279: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
+       282: aload         4
+       284: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       287: aload         4
+       289: getfield      #728                // Field dev/brigada13/core/state/ActiveChallengeState.eventTarget:I
+       292: if_icmplt     303
+       295: aload_0
+       296: aload_1
+       297: aload_3
+       298: aload         4
+       300: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
+       303: return
+
   private void tickElite(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
+===== tickHold =====
   private void tickHold(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState, int, boolean);
+    Code:
+         0: aload_2
+         1: aload         4
+         3: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+         6: aload         4
+         8: getfield      #341                // Field dev/brigada13/core/state/ActiveChallengeState.arenaY:I
+        11: iconst_1
+        12: iadd
+        13: aload         4
+        15: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+        18: bipush        7
+        20: getstatic     #796                // Field net/minecraft/core/particles/ParticleTypes.HAPPY_VILLAGER:Lnet/minecraft/core/particles/SimpleParticleType;
+        23: invokestatic  #802                // Method renderZone:(Lnet/minecraft/server/level/ServerLevel;IIIILnet/minecraft/core/particles/ParticleOptions;)V
+        26: aload_1
+        27: aload_2
+        28: aload         4
+        30: aload         4
+        32: getfield      #337                // Field dev/brigada13/core/state/ActiveChallengeState.arenaX:I
+        35: aload         4
+        37: getfield      #344                // Field dev/brigada13/core/state/ActiveChallengeState.arenaZ:I
+        40: bipush        7
+        42: invokestatic  #806                // Method allParticipantsNear:(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/state/ActiveChallengeState;III)Z
+        45: istore        7
+        47: aload         4
+        49: iload         7
+        51: ifeq          64
+        54: aload         4
+        56: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+        59: iconst_2
+        60: iadd
+        61: goto          75
+        64: iconst_0
+        65: aload         4
+        67: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+        70: iconst_4
+        71: isub
+        72: invokestatic  #705                // Method java/lang/Math.max:(II)I
+        75: putfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+        78: iload         6
+        80: ifeq          196
+        83: aload         4
+        85: getfield      #611                // Field dev/brigada13/core/state/ActiveChallengeState.eventElapsedTicks:I
+        88: sipush        200
+        91: irem
+        92: ifne          196
+        95: aload         4
+        97: getfield      #750                // Field dev/brigada13/core/state/ActiveChallengeState.eventEntities:Ljava/util/List;
+       100: invokeinterface #161,  1          // InterfaceMethod java/util/List.size:()I
+       105: bipush        10
+       107: if_icmpge     196
+       110: getstatic     #856                // Field dev/brigada13/core/challenge/ChallengeService$1.$SwitchMap$dev$brigada13$core$challenge$ChallengeDifficulty:[I
+       113: aload_3
+       114: invokevirtual #859                // Method dev/brigada13/core/challenge/ChallengeDefinition.difficulty:()Ldev/brigada13/core/challenge/ChallengeDifficulty;
+       117: invokevirtual #863                // Method dev/brigada13/core/challenge/ChallengeDifficulty.ordinal:()I
+       120: iaload
+       121: tableswitch   { // 1 to 3
+                       1: 158
+                       2: 162
+                       3: 166
+                 default: 148
+            }
+       148: new           #723                // class java/lang/MatchException
+       151: dup
+       152: aconst_null
+       153: aconst_null
+       154: invokespecial #725                // Method java/lang/MatchException."<init>":(Ljava/lang/String;Ljava/lang/Throwable;)V
+       157: athrow
+       158: iconst_2
+       159: goto          168
+       162: iconst_4
+       163: goto          168
+       166: bipush        6
+       168: istore        8
+       170: aload_0
+       171: aload_2
+       172: aload_3
+       173: aload         4
+       175: iload         8
+       177: aload         4
+       179: getfield      #248                // Field dev/brigada13/core/state/ActiveChallengeState.singleMode:Z
+       182: ifeq          189
+       185: iconst_0
+       186: goto          190
+       189: iconst_2
+       190: iadd
+       191: iconst_0
+       192: invokevirtual #737                // Method spawnGroup:(Lnet/minecraft/server/level/ServerLevel;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;IZ)I
+       195: pop
+       196: aload         4
+       198: aload         4
+       200: getfield      #734                // Field dev/brigada13/core/state/ActiveChallengeState.stageTarget:I
+       203: aload         4
+       205: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       208: invokestatic  #581                // Method java/lang/Math.min:(II)I
+       211: putfield      #731                // Field dev/brigada13/core/state/ActiveChallengeState.stage:I
+       214: aload         4
+       216: getfield      #714                // Field dev/brigada13/core/state/ActiveChallengeState.eventHoldTicks:I
+       219: iload         5
+       221: if_icmplt     232
+       224: aload_0
+       225: aload_1
+       226: aload_3
+       227: aload         4
+       229: invokevirtual #604                // Method complete:(Lnet/minecraft/server/MinecraftServer;Ldev/brigada13/core/challenge/ChallengeDefinition;Ldev/brigada13/core/state/ActiveChallengeState;)V
+       232: return
+
   private void tickMulti(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private dev.brigada13.core.challenge.ChallengeService$LocatedEvent findLocatedEvent(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, dev.brigada13.core.challenge.ChallengeDifficulty, java.util.List<java.lang.String>);
-  private static java.lang.String themeId(dev.brigada13.core.challenge.ChallengeDefinition);
-  private static int eventLocatePriority(dev.brigada13.core.challenge.ChallengeDefinition);
-  private int spawnGroup(net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState, int, boolean);
-  private void spawnElite(net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private static void spawnObjective(net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState);
-  private static net.minecraft.core.BlockPos eventSpawnPos(net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState, int);
+===== renderZone =====
   private static void renderZone(net.minecraft.server.level.ServerLevel, int, int, int, int, net.minecraft.core.particles.ParticleOptions);
+    Code:
+         0: iconst_0
+         1: istore        6
+         3: iload         6
+         5: sipush        360
+         8: if_icmpge     76
+        11: iload         6
+        13: i2d
+        14: invokestatic  #1350               // Method java/lang/Math.toRadians:(D)D
+        17: dstore        7
+        19: aload_0
+        20: aload         5
+        22: iload_1
+        23: i2d
+        24: ldc2_w        #474                // double 0.5d
+        27: dadd
+        28: dload         7
+        30: invokestatic  #1353               // Method java/lang/Math.cos:(D)D
+        33: iload         4
+        35: i2d
+        36: dmul
+        37: dadd
+        38: iload_2
+        39: i2d
+        40: ldc2_w        #1316               // double 0.15d
+        43: dadd
+        44: iload_3
+        45: i2d
+        46: ldc2_w        #474                // double 0.5d
+        49: dadd
+        50: dload         7
+        52: invokestatic  #1356               // Method java/lang/Math.sin:(D)D
+        55: iload         4
+        57: i2d
+        58: dmul
+        59: dadd
+        60: iconst_1
+        61: dconst_0
+        62: ldc2_w        #1359               // double 0.05d
+        65: dconst_0
+        66: dconst_0
+        67: invokestatic  #1361               // Method dev/brigada13/core/particle/ParticleOptimizer.emit:(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)V
+        70: iinc          6, 30
+        73: goto          3
+        76: return
+
+  private static boolean allParticipantsInside(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState);
+===== participantsSplit =====
   private static boolean participantsSplit(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.state.ActiveChallengeState, int, int, int, int);
-  private void resetEvent(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState, java.lang.String);
-  private static java.lang.String bar(double, int);
-  public static java.lang.String objectiveText(dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private static java.lang.String eventInstruction(dev.brigada13.core.challenge.ChallengeDefinition, dev.brigada13.core.state.ActiveChallengeState);
-  private void tickCelebrations(net.minecraft.server.MinecraftServer);
-  private static boolean isMiniEventId(java.lang.String);
-  private static int holdTarget(dev.brigada13.core.challenge.ChallengeDefinition);
-  private static java.lang.String soloDescription(dev.brigada13.core.challenge.ChallengeDefinition);
-  private static net.minecraft.server.level.ServerLevel eventLevel(net.minecraft.server.MinecraftServer, dev.brigada13.core.state.ActiveChallengeState);
-  private static java.lang.String key(net.minecraft.server.level.ServerPlayer);
-  private boolean lambda$tickCelebrations$0(java.util.Map$Entry);
-  private static int lambda$overallProgress$1(int, dev.brigada13.core.state.ActiveChallengeState, java.lang.String);
-  private static void lambda$complete$3(java.lang.String, net.minecraft.server.level.ServerPlayer);
-  private static java.util.List lambda$complete$2(java.lang.String);
-  private static java.lang.Double lambda$resetEvent$0(java.lang.String, java.lang.Double);
-  private static java.lang.Double lambda$handleBossDeath$2(java.lang.String, java.lang.Double);
-  private static java.lang.Double lambda$handleBossDeath$0(java.lang.String, java.lang.Double);
-  private static boolean lambda$afterDeath$0(dev.brigada13.core.state.ActiveChallengeState, int, java.lang.String);
-  private static boolean lambda$tickElite$0(double, java.lang.Double);
-  private static boolean lambda$tickTask$0(dev.brigada13.core.state.ActiveChallengeState, int, java.lang.String);
-  private void lambda$cancel$0(net.minecraft.server.MinecraftServer, java.lang.String);
-  private static java.util.List lambda$start$0(java.lang.String);
+    Code:
+         0: iconst_0
+         1: istore        7
+         3: iconst_0
+         4: istore        8
+         6: aload_2
+         7: getfield      #265                // Field dev/brigada13/core/state/ActiveChallengeState.contribution:Ljava/util/Map;
+        10: invokeinterface #375,  1          // InterfaceMethod java/util/Map.keySet:()Ljava/util/Set;
+        15: invokeinterface #555,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+        20: astore        9
+        22: aload         9
+        24: invokeinterface #256,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+        29: ifeq          131
+        32: aload         9
+        34: invokeinterface #261,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        39: checkcast     #505                // class java/lang/String
+        42: astore        10
+        44: aload_0
+        45: invokevirtual #385                // Method net/minecraft/server/MinecraftServer.getPlayerList:()Lnet/minecraft/server/players/PlayerList;
+        48: aload         10
+        50: invokevirtual #556                // Method net/minecraft/server/players/PlayerList.getPlayerByName:(Ljava/lang/String;)Lnet/minecraft/server/level/ServerPlayer;
+        53: astore        11
+        55: aload         11
+        57: ifnull        69
+        60: aload         11
+        62: invokevirtual #198                // Method net/minecraft/server/level/ServerPlayer.level:()Lnet/minecraft/server/level/ServerLevel;
+        65: aload_1
+        66: if_acmpeq     71
+        69: iconst_0
+        70: ireturn
+        71: iload         7
+        73: aload         11
+        75: iload_3
+        76: iload         5
+        78: invokestatic  #466                // Method horizontalDistanceSquared:(Lnet/minecraft/server/level/ServerPlayer;II)D
+        81: iload         6
+        83: iload         6
+        85: imul
+        86: i2d
+        87: dcmpg
+        88: ifgt          95
+        91: iconst_1
+        92: goto          96
+        95: iconst_0
+        96: ior
+        97: istore        7
+        99: iload         8
+       101: aload         11
+       103: iload         4
+       105: iload         5
+       107: invokestatic  #466                // Method horizontalDistanceSquared:(Lnet/minecraft/server/level/ServerPlayer;II)D
+       110: iload         6
+       112: iload         6
+       114: imul
+       115: i2d
+       116: dcmpg
+       117: ifgt          124
+       120: iconst_1
+       121: goto          125
+       124: iconst_0
+       125: ior
+       126: istore        8
+       128: goto          22
+       131: iload         7
+       133: ifeq          145
+       136: iload         8
+       138: ifeq          145
+       141: iconst_1
+       142: goto          146
+       145: iconst_0
+       146: ireturn
+
+  private static double horizontalDistanceSquared(net.minecraft.server.level.ServerPlayer, int, int);
 
 exit_code=0
-finished_at=2026-08-25T16:40:38Z
+finished_at=2026-08-25T16:41:17Z
 runner=alexhost-143-246
