@@ -22,6 +22,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -92,6 +94,26 @@ public abstract class ChallengeServiceMixin {
     private void renderGroundObjectiveZone(ServerLevel level, int x, int y, int z, int radius,
                                            ParticleOptions particle) {
         ChallengeRuntimeFixes.renderGroundZone(level, x, y, z, radius, particle);
+    }
+
+    @Inject(method = "tickSplit", at = @At("HEAD"), require = 0)
+    private void prepareBalancedSplit(MinecraftServer server, ServerLevel level, ChallengeDefinition definition,
+                                      ActiveChallengeState state, CallbackInfo ci) {
+        ChallengeRuntimeFixes.prepareSplitBalance(definition, state);
+    }
+
+    @ModifyConstant(method = "tickSplit", constant = @Constant(intValue = 100), require = 0)
+    private int extendSoloSplitPoint(int original) {
+        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
+        if (state == null) return original;
+        try {
+            ChallengeDefinition definition = BrigadaCore.challenges().require(state.challengeId);
+            if (definition.mechanic() != dev.brigada13.core.challenge.MiniEventMechanic.SPLIT_OBJECTIVES)
+                return original;
+            return ChallengeRuntimeFixes.splitSoloPointTicks(definition);
+        } catch (RuntimeException ignored) {
+            return original;
+        }
     }
 
     @Inject(method = "complete", at = @At("HEAD"), require = 0)
