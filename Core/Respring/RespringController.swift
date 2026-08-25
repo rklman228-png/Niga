@@ -37,18 +37,9 @@ struct RespringView: View {
             .navigationTitle("Safe restart")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
-                        RespringController.sharedDismissFallback?()
-                        dismiss()
-                    }
+                    Button("Done") { dismiss() }
                 }
             }
         }
     }
-}
-
-// Kept only so the view above can compile without reaching into an owning
-// controller. The environment dismiss action is the normal path.
-private extension RespringController {
-    static var sharedDismissFallback: (() -> Void)? { nil }
 }
