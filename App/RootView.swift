@@ -19,6 +19,8 @@ struct RootView: View {
                 .tabItem { Label("Apps", systemImage: "square.grid.2x2") }
             NavigationStack { WorkspaceListView() }
                 .tabItem { Label("Spaces", systemImage: "rectangle.3.group.fill") }
+            NavigationStack { SceneProbeView() }
+                .tabItem { Label("Probe", systemImage: "waveform.path.ecg.rectangle") }
             NavigationStack { diffLab }
                 .tabItem { Label("Diff", systemImage: "arrow.left.arrow.right") }
             NavigationStack { recovery }
@@ -157,12 +159,15 @@ struct ProfileEditor: View {
                 }
                 Section("Actions") {
                     Button("Launch app") { _ = AppLauncher.open(bundleID: app.bundleID) }
+                    NavigationLink("Probe FrontBoard scene access") {
+                        SceneProbeView(initialBundleID: app.bundleID)
+                    }
                     NavigationLink("Browse data container") {
                         ContainerBrowserView(url: URL(fileURLWithPath: app.path, isDirectory: true))
                     }
                 }
                 Section {
-                    Text("Orientation/geometry are persisted per app now. The window-scene enforcement layer is still being researched; the data model and UI are already wired so it can be attached without changing profiles later.")
+                    Text("Orientation/geometry are persisted per app now. Scene enforcement is being attached only after the probe proves which FrontBoard/RunningBoard operations survive normal sideload signing on iOS 27 beta 3.")
                         .font(.footnote).foregroundStyle(.secondary)
                 }
             }
@@ -173,6 +178,46 @@ struct ProfileEditor: View {
                 }
             }
             .onAppear { profile = profiles.profile(for: app.bundleID) }
+        }
+    }
+}
+
+struct SceneProbeView: View {
+    @StateObject private var probe = SceneProbeModel()
+    private let initialBundleID: String
+
+    init(initialBundleID: String = "") {
+        self.initialBundleID = initialBundleID
+    }
+
+    var body: some View {
+        List {
+            Section("Target") {
+                TextField("Bundle ID, e.g. com.apple.mobilesafari", text: $probe.bundleID)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                Button(probe.running ? "Probing…" : "Run read-only scene probe") {
+                    probe.run()
+                }
+                .disabled(probe.running)
+                Text("For the running-app handle test, open the target app once first. The probe never creates, resizes, destroys, or modifies its scene.")
+                    .font(.footnote).foregroundStyle(.secondary)
+            }
+            Section("Report") {
+                Text(probe.report)
+                    .font(.caption2.monospaced())
+                    .textSelection(.enabled)
+            }
+            Section("What we are testing") {
+                Text("This checks whether FrontBoard, FrontBoardServices and RunningBoardServices load, whether the private scene classes/selectors exist on your exact beta, whether an RBS process handle can be obtained for an already-running normal app, and which FrontBoard/RunningBoard entitlements the installed Niga signature actually has. If the classes exist but the private entitlements are absent, we know native SpringBoard windowing must be driven through capability/state paths instead of directly manufacturing external scenes.")
+                    .font(.footnote)
+            }
+        }
+        .navigationTitle("Scene Probe")
+        .onAppear {
+            if probe.bundleID.isEmpty && !initialBundleID.isEmpty {
+                probe.bundleID = initialBundleID
+            }
         }
     }
 }
