@@ -1,41 +1,26 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :compileJava
-Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-> Task :processResources UP-TO-DATE
-> Task :classes
-> Task :processIncludeJars UP-TO-DATE
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 55s
-5 actionable tasks: 3 executed, 2 up-to-date
 STATUS
 active
 PORT
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3270005,fd=161))                                                                                           
+SHA256
+4fa4ae0a6fa91e014f68bf7eb3497f126c7398ac8c7fc18a3fdf6bccd97376fc  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+PAUSE_BUTTON
+{
+  "replace": false,
+  "values": [
+    "brigada_core:main"
+  ]
+}
+READY
+Aug 24 23:59:04 test1 java[3270005]: [23:59:04] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
+Aug 24 23:59:06 test1 java[3270005]:         - brigada_core 0.1.0
+Aug 24 23:59:06 test1 java[3270005]:         - fabric-api 0.158.1+26.3
+Aug 24 23:59:06 test1 java[3270005]:            |-- fabric-api-base 2.0.5+3434d6d97a
+Aug 24 23:59:06 test1 java[3270005]:            |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
+Aug 24 23:59:48 test1 java[3270005]: [23:59:48] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 00:00:05 test1 java[3270005]: [00:00:05] [Server thread/INFO]: Starting Minecraft server on *:25565
+Aug 25 00:00:10 test1 java[3270005]: [00:00:10] [Server thread/INFO]: Done (4.167s)! For help, type "help"
 
-exit_code=1
-finished_at=2026-08-24T23:59:53Z
+exit_code=0
+finished_at=2026-08-25T00:01:05Z
 runner=alexhost-143-246
