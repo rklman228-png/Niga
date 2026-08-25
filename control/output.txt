@@ -1,27 +1,16 @@
-# /etc/systemd/system/minecraft.service
-[Unit]
-Description=Minecraft Fabric 26.3 Snapshot 9
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=simple
-User=minecraft
-Group=minecraft
-WorkingDirectory=/opt/minecraft/server
-ExecStart=/usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
-Restart=on-failure
-RestartSec=10
-SuccessExitStatus=0 143
-TimeoutStopSec=120
-LimitNOFILE=65535
-
-[Install]
-WantedBy=multi-user.target
-/opt/minecraft/server/server.properties
-/opt/minecraft/server/mods
 active
+0
+jar de0e28a942199e351392da77ee1fdb76d5eb3077443852727be7e544060bf438  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+pack b8113bc9d093e50ae0f9e2ae0af453cac89f1d30  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+require-resource-pack=true
+resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
+resource-pack-sha1=b8113bc9d093e50ae0f9e2ae0af453cac89f1d30
+Aug 25 05:21:24 test1 java[255586]: [05:21:24] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 05:21:38 test1 java[255586]: [05:21:38] [Server thread/INFO]: Done (1.613s)! For help, type "help"
+Aug 25 05:21:39 test1 java[255586]: [05:21:39] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 05:21:40 test1 java[255586]: [05:21:40] [Server thread/INFO]: System chat: WorldKeeper joined the game
+Aug 25 05:21:40 test1 java[255586]: [05:21:40] [Server thread/INFO]: Started fake player WorldKeeper
 
 exit_code=0
-finished_at=2026-08-25T05:19:55Z
+finished_at=2026-08-25T05:21:41Z
 runner=alexhost-143-246
