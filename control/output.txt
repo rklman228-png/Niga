@@ -1,26 +1,6 @@
-STATUS
-active
-PORT
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3270005,fd=161))                                                                                           
-SHA256
-4fa4ae0a6fa91e014f68bf7eb3497f126c7398ac8c7fc18a3fdf6bccd97376fc  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
-PAUSE_BUTTON
-{
-  "replace": false,
-  "values": [
-    "brigada_core:main"
-  ]
-}
-READY
-Aug 24 23:59:04 test1 java[3270005]: [23:59:04] [main/INFO]: Loading Minecraft 26.3-snapshot-9 with Fabric Loader 0.19.3
-Aug 24 23:59:06 test1 java[3270005]:         - brigada_core 0.1.0
-Aug 24 23:59:06 test1 java[3270005]:         - fabric-api 0.158.1+26.3
-Aug 24 23:59:06 test1 java[3270005]:            |-- fabric-api-base 2.0.5+3434d6d97a
-Aug 24 23:59:06 test1 java[3270005]:            |-- fabric-api-lookup-api-v1 2.0.21+3434d6d97a
-Aug 24 23:59:48 test1 java[3270005]: [23:59:48] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
-Aug 25 00:00:05 test1 java[3270005]: [00:00:05] [Server thread/INFO]: Starting Minecraft server on *:25565
-Aug 25 00:00:10 test1 java[3270005]: [00:00:10] [Server thread/INFO]: Done (4.167s)! For help, type "help"
+INDEXES
+TEXTURES
 
 exit_code=0
-finished_at=2026-08-25T00:01:05Z
+finished_at=2026-08-25T00:14:06Z
 runner=alexhost-143-246
