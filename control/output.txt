@@ -1,39 +1,17 @@
-Level cast fixed
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+=== 25565 ===
+LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=2194127,fd=163))                                                                                           
+pid=2194127
+=== cgroup ===
+0::/system.slice/minecraft.service
+=== cmd ===
+/usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui 
+=== candidate units ===
+  brigada-pack.service                                       loaded    active   running Brigada 13 resource pack HTTP server
+  minecraft.service                                          loaded    active   running Minecraft Fabric 26.3 Snapshot 9
+=== unit files ===
+brigada-pack.service                                       enabled         enabled
+minecraft.service                                          enabled         enabled
 
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-> Task :compileJava
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 1m 13s
-6 actionable tasks: 6 executed
-e3c17fdaef5eb5ca9480867fa3f5d8eea859cb411f9571f3e6f764fd48ffe5cb  build/libs/brigada-hotfix-0.1.0.jar
-Failed to restart minecraft-server.service: Unit minecraft-server.service not found.
-
-exit_code=5
-finished_at=2026-08-25T18:19:09Z
+exit_code=0
+finished_at=2026-08-25T18:20:06Z
 runner=alexhost-143-246
