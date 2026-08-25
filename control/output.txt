@@ -1,6 +1,5 @@
-/root/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/bin/gradle
-/root/.gradle/wrapper/dists/gradle-9.4.1-bin/arn2x92ynaizyzdaamcbpbhtj/gradle-9.4.1/bin/gradle
+curl: (22) The requested URL returned error: 404
 
-exit_code=0
-finished_at=2026-08-25T06:24:02Z
+exit_code=22
+finished_at=2026-08-25T06:26:18Z
 runner=alexhost-143-246
