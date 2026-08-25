@@ -1,14 +1,69 @@
-=== wait for Done ===
-=== service ===
-active
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=1931884,fd=163))                                                                                           
-=== startup/runtime ===
-Aug 25 15:26:48 test1 java[1931884]:         - brigada_hotfix 1.0.0
-Aug 25 15:27:37 test1 java[1931884]: [15:27:37] [Server thread/INFO]: Starting Minecraft server on *:25565
-Aug 25 15:27:43 test1 java[1931884]: [15:27:43] [Server thread/INFO]: Done (4.689s)! For help, type "help"
-=== hard checks ===
-HARD_BORDER_TELEPORT_RUNTIME_OK
+=== MagmaCube / Slime ===
+=== Heightmap ===
+Compiled from "Heightmap.java"
+public final class net.minecraft.world.level.levelgen.Heightmap$Types extends java.lang.Enum<net.minecraft.world.level.levelgen.Heightmap$Types> implements net.minecraft.util.StringRepresentable {
+  public static final net.minecraft.world.level.levelgen.Heightmap$Types WORLD_SURFACE_WG;
+  public static final net.minecraft.world.level.levelgen.Heightmap$Types WORLD_SURFACE;
+  public static final net.minecraft.world.level.levelgen.Heightmap$Types OCEAN_FLOOR_WG;
+  public static final net.minecraft.world.level.levelgen.Heightmap$Types OCEAN_FLOOR;
+  public static final net.minecraft.world.level.levelgen.Heightmap$Types MOTION_BLOCKING;
+  public static final net.minecraft.world.level.levelgen.Heightmap$Types MOTION_BLOCKING_NO_LEAVES;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.level.levelgen.Heightmap$Types> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.levelgen.Heightmap$Types> STREAM_CODEC;
+  public static net.minecraft.world.level.levelgen.Heightmap$Types[] values();
+  public static net.minecraft.world.level.levelgen.Heightmap$Types valueOf(java.lang.String);
+  public java.lang.String getSerializationKey();
+  public boolean sendToClient();
+  public boolean keepAfterWorldgen();
+  public java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState> isOpaque();
+  public java.lang.String getSerializedName();
+  static {};
+}
+  public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, double, double, double, int, double, double, double, double);
+  public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, boolean, boolean, double, double, double, int, double, double, double, double);
+  public <T extends net.minecraft.core.particles.ParticleOptions> boolean sendParticles(net.minecraft.server.level.ServerPlayer, T, boolean, boolean, double, double, double, int, double, double, double, double);
+=== Fabric ServerEntityEvents ===
+fabric=/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-lifecycle-events-v1/4.1.6+3434d6d97a/e521bd0a4ec3b249af75919f2f57df8594095e4e/fabric-lifecycle-events-v1-4.1.6+3434d6d97a.jar
+Compiled from "ServerEntityEvents.java"
+public final class net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$Load> ENTITY_LOAD;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$AllowLoad> ALLOW_LOAD;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$Unload> ENTITY_UNLOAD;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$EquipmentChange> EQUIPMENT_CHANGE;
+  static {};
+}
+Compiled from "ServerEntityEvents.java"
+public interface net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents$Load {
+  public abstract void onLoad(net.minecraft.world.entity.Entity, net.minecraft.server.level.ServerLevel);
+}
+=== current hotfix key methods ===
+60:    public static void register() {
+61:        ServerLivingEntityEvents.ALLOW_DAMAGE.register(RuntimeFixes::allowDamage);
+62:        ServerLivingEntityEvents.AFTER_DAMAGE.register(RuntimeFixes::afterDamage);
+63:        ServerTickEvents.END_SERVER_TICK.register(RuntimeFixes::tick);
+85:    public static void onComplete(MinecraftServer server, ActiveChallengeState state) {
+90:            play(player.level(), player.getX(), player.getY(), player.getZ(),
+92:            play(player.level(), player.getX(), player.getY(), player.getZ(),
+107:                stabiliseEventMobs(level, state);
+185:    private static void stabiliseEventMobs(ServerLevel level, ActiveChallengeState state) {
+307:            boundaryPoint(level, boundary, x, state.arenaMinZ, state.arenaY);
+308:            boundaryPoint(level, boundary, x, state.arenaMaxZ, state.arenaY);
+311:            boundaryPoint(level, boundary, state.arenaMinX, z, state.arenaY);
+312:            boundaryPoint(level, boundary, state.arenaMaxX, z, state.arenaY);
+314:        verticalCorner(level, corner, state.arenaMinX, state.arenaMinZ, state.arenaY);
+315:        verticalCorner(level, corner, state.arenaMinX, state.arenaMaxZ, state.arenaY);
+316:        verticalCorner(level, corner, state.arenaMaxX, state.arenaMinZ, state.arenaY);
+317:        verticalCorner(level, corner, state.arenaMaxX, state.arenaMaxZ, state.arenaY);
+323:            ring(level, new DustParticleOptions(0xFFD34E, 1.2F), target.getX(), target.getY() + 0.12,
+327:            ring(level, new DustParticleOptions(0xFF4C6A, 1.25F), target.getX(), target.getY() + 0.12,
+335:    private static void boundaryPoint(ServerLevel level, DustParticleOptions particle, int x, int z, int anchorY) {
+340:    private static void verticalCorner(ServerLevel level, DustParticleOptions particle, int x, int z, int anchorY) {
+358:    private static void ring(ServerLevel level, DustParticleOptions particle,
+405:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.2F, 0.95F);
+406:        play(level, x, y, z, SoundEvents.FIREWORK_ROCKET_TWINKLE, 1.0F, 1.12F);
+411:        play(level, (state.arenaMinX + state.arenaMaxX + 1.0) * 0.5, state.arenaY + 1.0,
+415:    private static void play(ServerLevel level, double x, double y, double z,
 
 exit_code=0
-finished_at=2026-08-25T15:28:24Z
+finished_at=2026-08-25T16:38:28Z
 runner=alexhost-143-246
