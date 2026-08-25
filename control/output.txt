@@ -1,5 +1,6 @@
-fatal: not a git repository (or any of the parent directories): .git
+Cloning into '/opt/brigada-build-gNyX6k'...
+fatal: could not read Username for 'https://github.com': No such device or address
 
 exit_code=128
-finished_at=2026-08-25T02:55:04Z
+finished_at=2026-08-25T02:55:47Z
 runner=alexhost-143-246
