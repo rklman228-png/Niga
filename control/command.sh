@@ -1,12 +1,11 @@
 set -euo pipefail
-cd /opt/brigada-core-src
-git fetch origin main
-git checkout main
-git merge --ff-only origin/main
+BUILD_DIR=$(mktemp -d /opt/brigada-build-XXXXXX)
+git clone --depth 1 --branch main https://github.com/rklman228-png/Plagin_1.git "$BUILD_DIR"
+cd "$BUILD_DIR"
 ./gradlew --no-daemon clean build
 install -m 0644 build/libs/brigada-core-0.1.0.jar /opt/minecraft/server/mods/brigada-core-0.1.0.jar
 PACK=/opt/minecraft/server-resource-pack/world-ui-26.3-snapshot-9.zip
-cd /opt/brigada-core-src/resource-pack/WorldUI
+cd "$BUILD_DIR/resource-pack/WorldUI"
 zip -qr "$PACK.new" .
 mv "$PACK.new" "$PACK"
 SHA1=$(sha1sum "$PACK" | awk '{print $1}')
