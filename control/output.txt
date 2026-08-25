@@ -1,8 +1,5 @@
-Traceback (most recent call last):
-  File "/opt/brigada-core-src/resource-pack/tools/make_icons.py", line 1, in <module>
-    from PIL import Image, ImageDraw
-ModuleNotFoundError: No module named 'PIL'
+control/command.sh: line 3: /opt/brigada-core-src/resource-pack/WorldUI/assets/brigada_core/textures/font/icons.png: No such file or directory
 
 exit_code=1
-finished_at=2026-08-25T00:19:48Z
+finished_at=2026-08-25T00:21:14Z
 runner=alexhost-143-246
