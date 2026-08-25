@@ -1,39 +1,38 @@
 # Niga
 
-Experimental iOS 27 windowing/system-state lab for iPhone. Current target is iPhone 15 on iOS 27 developer beta 3.
+Experimental on-device windowing lab for iPhone 15 / iOS 27 developer beta 3.
 
 ## Goal
 
-Keep the device and every app in **iPhone identity**, while selectively exposing the native multitasking/window capabilities that Apple normally gates to iPad. Full iPadOS spoofing is intentionally not the default because changing device class makes apps load iPad layouts and can destabilize the system.
+Use iOS's native multi-window stack **without globally turning the phone into an iPad**. Apps should continue seeing an iPhone while SpringBoard receives only the capabilities and windowing-mode requests needed for resizable/multi-app windows.
 
-## Current build
+## Current architecture
 
-- `bad_query`-style on-device sandbox escape for supported iOS 27 betas;
-- phone-safe native window capability presets: Enhanced Multitasking + Medusa floating/overlay/pinned/PiP capabilities;
-- **real SpringBoard multitasking-mode switching** using the same `SBMedusaMultitaskingEnabled` / `SBChamoisWindowingEnabled` mapping used by Apple's own windowing controller;
-- iOS 27 SpringBoard preferences resolver: the historical `/var/mobile/Library/Preferences/com.apple.springboard.plist` path is treated only as a legacy fast path; Niga resolves the UUID-backed MCM class-12 System Data container and falls back to `Data/System` / `Shared/SystemGroup` metadata discovery when necessary;
-- resolver diagnostics in-app, including the exact resolved preferences path and access source;
-- original and pre-change MobileGestalt/SpringBoard backups, verified in-place writes and recovery;
-- **Apply + Respring**, **Enable Windowed Apps + Respring**, **Stage Manager + Respring**, and stock restore;
-- app-container discovery and file browser with backup-before-replace/delete;
-- per-app profiles: width, height, X/Y, independent portrait/landscape/automatic orientation, always-on-top intent and launch-windowed intent;
-- geometry presets for portrait, landscape video, rails, square and large windows;
-- saved multi-app workspaces and one-tap opening of workspace apps;
-- expanded read-only FrontBoard/RunningBoard probe: runtime class/selector discovery, current UI idiom/scene geometry, running-app process handle test and post-signing entitlement report;
-- direct external-scene experiment with typed frame/orientation setters and frame read-back verification;
-- Data/System + Shared/SystemGroup explorer and scene-state miner;
-- experiment history for recording which capability combination actually works on-device.
+1. The MobileGestalt layer enables the phone-safe multitasking capabilities and explicitly keeps the iPad identity override off.
+2. Niga loads `SpringBoardServices.framework` at runtime.
+3. Windowing mode is requested through Apple's own `SBSRequestUpdateSwitcherWindowingMode` service path instead of editing `com.apple.springboard.plist`.
+4. Mode mapping is native SpringBoard behavior: `0 = Full Screen`, `1 = Windowed Apps`, `2 = Stage Manager`.
+5. The main buttons respring only after the SpringBoardServices completion callback. Missing acknowledgement becomes a visible timeout/error instead of a fake success.
 
-## Why v0.6.1 failed on iOS 27 DB3
+The direct system-service route replaced the v0.6/v0.7 preferences resolver after on-device testing showed that `/var/mobile/Library/Preferences/com.apple.springboard.plist` is outside the usable sandbox-escape path set on this beta.
 
-The screenshot from the target device returned `SpringBoard preferences grant failed: -3`. In Niga's sandbox layer, `-3` means ContainerManager returned no object for that path. Upstream `bad_query` documents iOS 27 access to MCM-backed roots such as `/var/containers/Data/System` and `/var/containers/Shared/SystemGroup`; it does not list the old global `/var/mobile/Library/Preferences` directory. The resolver now finds SpringBoard's actual container instead of pretending that the legacy path is universally reachable.
+## Included labs
 
-## Per-app orientation / geometry
+- phone-safe MobileGestalt capability presets and backup/restore;
+- native Windowed Apps / Stage Manager / Full Screen requests through SpringBoardServices;
+- SpringBoard window-layout reset request;
+- respring control;
+- app-container discovery and file browser;
+- per-app window profiles with width, height, X/Y, portrait/landscape/automatic orientation and always-on-top intent;
+- geometry presets;
+- saved multi-app workspaces;
+- FrontBoard/RunningBoard scene probe;
+- direct external-scene frame/orientation experiment with actual frame read-back verification;
+- Data/System and Shared/SystemGroup exploration;
+- scene-state mining and capability experiment history.
 
-Profiles and UI are implemented. Direct enforcement uses FrontBoard/RunningBoard runtime discovery and now verifies the scene frame after mutation instead of reporting success merely because `updateSettingsWithBlock:` returned. Normal sideload signing may still block access to external scenes; the system-state miner is the fallback research path when that happens.
-
-See `Research/FRONTBOARD.md`.
+Per-app direct scene mutation is still experimental because normal sideload signing may limit visibility/control of another app's FrontBoard scene. The global native Windowed Apps request and per-app scene control are intentionally separate layers.
 
 ## Build policy
 
-GitHub Actions builds only when `.build-trigger` changes or when manually dispatched. Ordinary source commits do not burn macOS runner minutes. The workflow has a single concurrency group so two IPA builds cannot run at once. The output is an unsigned IPA intended for user-controlled sideload signing.
+GitHub Actions builds only when `.build-trigger` changes or when manually dispatched. Ordinary source commits do not consume a build. One concurrency group prevents parallel IPA builds. The workflow outputs an unsigned IPA for user-controlled sideload signing.
