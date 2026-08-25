@@ -1,15 +1,17 @@
 set -euo pipefail
-echo '=== 25565 ==='
-ss -ltnp | grep ':25565 ' || true
-pid=$(ss -ltnp | sed -n 's/.*:25565 .*pid=\([0-9]*\).*/\1/p' | head -n1)
-echo "pid=${pid:-none}"
-if [ -n "${pid:-}" ]; then
-  echo '=== cgroup ==='
-  cat "/proc/$pid/cgroup" || true
-  echo '=== cmd ==='
-  tr '\0' ' ' < "/proc/$pid/cmdline"; echo
-fi
-echo '=== candidate units ==='
-systemctl list-units --type=service --all --no-legend | grep -Ei 'mine|java|fabric|brigada|test1' || true
-echo '=== unit files ==='
-systemctl list-unit-files --type=service --no-legend | grep -Ei 'mine|java|fabric|brigada|test1' || true
+SERVER=/opt/minecraft/server
+MOD="$SERVER/mods/brigada-hotfix-1.0.0.jar"
+echo '=== restart minecraft.service ==='
+systemctl restart minecraft.service
+for i in $(seq 1 100); do
+  if systemctl is-active --quiet minecraft.service && journalctl -u minecraft.service -n 140 --no-pager | grep -q 'Done ('; then break; fi
+  sleep 2
+done
+
+echo '=== verify ==='
+systemctl is-active minecraft.service
+ss -ltnp | grep ':25565 '
+sha256sum "$MOD"
+journalctl -u minecraft.service -n 220 --no-pager | grep -E 'brigada_hotfix|full-height boundary|boundary restored|boundary backup|loaded boundary|Done \(' | tail -n 100 || true
+if [ -f "$SERVER/brigada-boundary-backup.bin" ]; then stat -c 'boundary_backup_bytes=%s' "$SERVER/brigada-boundary-backup.bin"; else echo 'boundary_backup=none'; fi
+echo FULL_HEIGHT_ENDER_EFFECTS_ACTIVE
