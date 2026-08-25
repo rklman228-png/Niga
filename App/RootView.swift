@@ -19,12 +19,12 @@ struct RootView: View {
                 .tabItem { Label("Apps", systemImage: "square.grid.2x2") }
             NavigationStack { WorkspaceListView() }
                 .tabItem { Label("Spaces", systemImage: "rectangle.3.group.fill") }
+            NavigationStack { SystemExplorerView() }
+                .tabItem { Label("System", systemImage: "externaldrive.connected.to.line.below") }
             NavigationStack { SceneProbeView() }
                 .tabItem { Label("Probe", systemImage: "waveform.path.ecg.rectangle") }
-            NavigationStack { diffLab }
-                .tabItem { Label("Diff", systemImage: "arrow.left.arrow.right") }
-            NavigationStack { recovery }
-                .tabItem { Label("Recovery", systemImage: "lifepreserver") }
+            NavigationStack { toolsLab }
+                .tabItem { Label("Tools", systemImage: "wrench.and.screwdriver") }
         }
         .alert("Niga", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
             Button("OK") {}
@@ -38,28 +38,71 @@ struct RootView: View {
         Form {
             Section("Access") {
                 HStack {
-                    Text(gestalt.status)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(gestalt.status)
+                        Text(gestalt.identityGuard)
+                            .font(.caption)
+                            .foregroundStyle(gestalt.values[.ipadIdentity] == true ? .red : .secondary)
+                    }
                     Spacer()
                     Circle().fill(gestalt.granted ? Color.green : Color.secondary).frame(width: 10, height: 10)
                 }
                 Button("Run sandbox escape") { gestalt.connect() }
             }
 
-            Section("Phone-preserving windowing") {
-                Button("Apply native windows preset") { run { try gestalt.apply(.phoneWindowing) } }
-                Button("Stage Manager capability only") { run { try gestalt.apply(.stageOnly) } }
-                Button("Clear window capability flags", role: .destructive) { run { try gestalt.apply(.clearWindowing) } }
-                Text("This path never flips the iPhone/iPad device-class field. We only expose the native window capabilities and keep the phone identity intact.")
+            Section("One-tap phone windowing") {
+                Button("Apply phone-safe windows") {
+                    run { try gestalt.applyExperiment(.stageAllMedusa) }
+                }
+                .disabled(!gestalt.granted)
+
+                Button("Apply + Respring") {
+                    runAndRespring { try gestalt.applyExperiment(.stageAllMedusa) }
+                }
+                .fontWeight(.semibold)
+                .disabled(!gestalt.granted)
+
+                Text("Never changes DeviceClassNumber and always removes the iPad identity override first. Apps should continue seeing an iPhone while SpringBoard gets the multitasking capabilities.")
                     .font(.footnote).foregroundStyle(.secondary)
             }
 
-            Section("Individual capability lab") {
-                ForEach(WindowCapability.allCases) { cap in
+            Section("Capability isolation matrix") {
+                ForEach(WindowExperimentPreset.allCases) { preset in
+                    Button {
+                        run { try gestalt.applyExperiment(preset) }
+                    } label: {
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(preset.title)
+                            Text(preset.detail)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .disabled(!gestalt.granted)
+                }
+                Text("Apply one preset → Respring → test resizing/multiple apps → record the result. This isolates the minimum set instead of turning the whole phone into an iPad.")
+                    .font(.footnote).foregroundStyle(.secondary)
+            }
+
+            Section("Individual phone-safe capabilities") {
+                ForEach(WindowCapability.allCases.filter(\.phoneSafe)) { cap in
                     Toggle(cap.title, isOn: Binding(
                         get: { gestalt.values[cap] ?? false },
                         set: { value in run { try gestalt.set(cap, enabled: value) } }
                     ))
+                    .disabled(!gestalt.granted)
                 }
+            }
+
+            Section("Unsafe identity lab") {
+                Toggle(WindowCapability.ipadIdentity.title, isOn: Binding(
+                    get: { gestalt.values[.ipadIdentity] ?? false },
+                    set: { value in run { try gestalt.set(.ipadIdentity, enabled: value) } }
+                ))
+                .tint(.red)
+                .disabled(!gestalt.granted)
+                Text("This is the flag we deliberately avoid. Full iPadOS mode also changes DeviceClassNumber; Niga's phone-safe presets never touch that field.")
+                    .font(.footnote).foregroundStyle(.red)
             }
 
             Section("Experiment log") {
@@ -70,7 +113,7 @@ struct RootView: View {
             Section("Apply") {
                 Button("Respring now") { respring.respring() }
                     .fontWeight(.semibold)
-                Text("Respring after MobileGestalt changes before judging whether the native window manager appeared.")
+                Text("Use this after MobileGestalt changes before judging the result.")
                     .font(.footnote).foregroundStyle(.secondary)
             }
         }
@@ -97,39 +140,72 @@ struct RootView: View {
         .navigationTitle("Apps")
     }
 
-    private var diffLab: some View {
+    private var toolsLab: some View {
         List {
-            Section {
+            Section("MobileGestalt diff") {
                 Button("Create snapshot") { run { _ = try gestalt.snapshot(name: "manual") } }
-                Button("Diff current vs previous") { run { try gestalt.diffAgainstLatestBackup() } }
-            }
-            Section("CacheExtra changes") {
-                ForEach(gestalt.lastDiff, id: \.self) {
-                    Text($0).font(.caption.monospaced()).textSelection(.enabled)
+                Button("Diff current vs snapshot") { run { try gestalt.diffAgainstLatestBackup() } }
+                NavigationLink("Show diff") {
+                    List(gestalt.lastDiff, id: \.self) { line in
+                        Text(line).font(.caption.monospaced()).textSelection(.enabled)
+                    }.navigationTitle("Gestalt Diff")
                 }
             }
-        }
-        .navigationTitle("Diff Lab")
-    }
 
-    private var recovery: some View {
-        List {
-            Section("Emergency") {
-                Button("Restore original MobileGestalt", role: .destructive) { run { try gestalt.restoreOriginal() } }
-                Button("Respring") { respring.respring() }
-            }
-            Section("Backups") {
-                ForEach(gestalt.backups, id: \.self) { url in
-                    Button(url.lastPathComponent) { run { try gestalt.restore(url) } }
-                        .font(.caption)
+            Section("Recovery") {
+                Button("Restore original MobileGestalt", role: .destructive) {
+                    run { try gestalt.restoreOriginal() }
                 }
+                Button("Restore original + Respring", role: .destructive) {
+                    runAndRespring { try gestalt.restoreOriginal() }
+                }
+                Button("Respring") { respring.respring() }
+                NavigationLink("All backups") { BackupListView() }
             }
         }
-        .navigationTitle("Recovery")
+        .navigationTitle("Tools")
     }
 
     private func run(_ work: () throws -> Void) {
         do { try work() } catch { self.error = error.localizedDescription }
+    }
+
+    private func runAndRespring(_ work: () throws -> Void) {
+        do {
+            try work()
+            respring.respring()
+        } catch {
+            self.error = error.localizedDescription
+        }
+    }
+}
+
+struct BackupListView: View {
+    @EnvironmentObject var gestalt: GestaltManager
+    @EnvironmentObject var respring: RespringController
+    @State private var error: String?
+
+    var body: some View {
+        List(gestalt.backups, id: \.self) { url in
+            VStack(alignment: .leading) {
+                Text(url.lastPathComponent).font(.caption)
+                HStack {
+                    Button("Restore") { restore(url, respring: false) }
+                    Button("Restore + Respring") { restore(url, respring: true) }
+                }
+            }
+        }
+        .navigationTitle("Backups")
+        .alert("Restore", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
+            Button("OK") {}
+        } message: { Text(error ?? "") }
+    }
+
+    private func restore(_ url: URL, respring shouldRespring: Bool) {
+        do {
+            try gestalt.restore(url)
+            if shouldRespring { respring.respring() }
+        } catch { self.error = error.localizedDescription }
     }
 }
 
@@ -151,12 +227,20 @@ struct ProfileEditor: View {
                     Picker("Orientation", selection: $profile.orientation) {
                         ForEach(WindowOrientation.allCases) { Text($0.rawValue.capitalized).tag($0) }
                     }
-                    Stepper("Width: \(Int(profile.width))", value: $profile.width, in: 220...900, step: 10)
-                    Stepper("Height: \(Int(profile.height))", value: $profile.height, in: 220...1200, step: 10)
-                    Stepper("X: \(Int(profile.x))", value: $profile.x, in: -500...1000, step: 10)
-                    Stepper("Y: \(Int(profile.y))", value: $profile.y, in: -500...1600, step: 10)
+                    Stepper("Width: \(Int(profile.width))", value: $profile.width, in: 180...1200, step: 10)
+                    Stepper("Height: \(Int(profile.height))", value: $profile.height, in: 180...1600, step: 10)
+                    Stepper("X: \(Int(profile.x))", value: $profile.x, in: -900...1600, step: 10)
+                    Stepper("Y: \(Int(profile.y))", value: $profile.y, in: -900...2000, step: 10)
                     Toggle("Always on top", isOn: $profile.alwaysOnTop)
+                    Toggle("Launch windowed", isOn: $profile.launchWindowed)
                 }
+
+                Section("Geometry presets") {
+                    ForEach(WindowGeometryPreset.allCases) { preset in
+                        Button(preset.title) { profile.apply(preset) }
+                    }
+                }
+
                 Section("Actions") {
                     Button("Launch app") { _ = AppLauncher.open(bundleID: app.bundleID) }
                     NavigationLink("Probe FrontBoard scene access") {
@@ -166,13 +250,17 @@ struct ProfileEditor: View {
                         ContainerBrowserView(url: URL(fileURLWithPath: app.path, isDirectory: true))
                     }
                 }
-                Section {
-                    Text("Orientation/geometry are persisted per app now. Scene enforcement is being attached only after the probe proves which FrontBoard/RunningBoard operations survive normal sideload signing on iOS 27 beta 3.")
+
+                Section("Per-app orientation") {
+                    Text("The profile already stores independent orientation and geometry. The Scene Probe now dumps the exact private scene/update API surface and signing entitlements on this beta so enforcement can attach to the route that actually survives sideload signing instead of globally spoofing iPad identity.")
                         .font(.footnote).foregroundStyle(.secondary)
                 }
             }
             .navigationTitle(app.displayName)
             .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Reset") { profile = AppWindowProfile(bundleID: app.bundleID) }
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") { profiles.save(profile); dismiss() }
                 }
@@ -196,11 +284,9 @@ struct SceneProbeView: View {
                 TextField("Bundle ID, e.g. com.apple.mobilesafari", text: $probe.bundleID)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
-                Button(probe.running ? "Probing…" : "Run read-only scene probe") {
-                    probe.run()
-                }
-                .disabled(probe.running)
-                Text("For the running-app handle test, open the target app once first. The probe never creates, resizes, destroys, or modifies its scene.")
+                Button(probe.running ? "Probing…" : "Run scene/API probe") { probe.run() }
+                    .disabled(probe.running)
+                Text("Open the target app once first for the running-process handle test. The probe is read-only: it also reports current iPhone idiom, scene geometry, private class methods and the entitlements that survived signing.")
                     .font(.footnote).foregroundStyle(.secondary)
             }
             Section("Report") {
@@ -208,16 +294,10 @@ struct SceneProbeView: View {
                     .font(.caption2.monospaced())
                     .textSelection(.enabled)
             }
-            Section("What we are testing") {
-                Text("This checks whether FrontBoard, FrontBoardServices and RunningBoardServices load, whether the private scene classes/selectors exist on your exact beta, whether an RBS process handle can be obtained for an already-running normal app, and which FrontBoard/RunningBoard entitlements the installed Niga signature actually has. If the classes exist but the private entitlements are absent, we know native SpringBoard windowing must be driven through capability/state paths instead of directly manufacturing external scenes.")
-                    .font(.footnote)
-            }
         }
         .navigationTitle("Scene Probe")
         .onAppear {
-            if probe.bundleID.isEmpty && !initialBundleID.isEmpty {
-                probe.bundleID = initialBundleID
-            }
+            if probe.bundleID.isEmpty && !initialBundleID.isEmpty { probe.bundleID = initialBundleID }
         }
     }
 }
@@ -270,9 +350,7 @@ struct ContainerBrowserView: View {
                 let source = try result.get()
                 try service.replaceFile(target: target.url, with: source)
                 service.list(url)
-            } catch {
-                self.error = error.localizedDescription
-            }
+            } catch { self.error = error.localizedDescription }
         }
         .alert("File operation", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
             Button("OK") {}
@@ -288,7 +366,11 @@ struct FilePreviewView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                Text(text).font(.caption.monospaced()).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading).padding()
+                Text(text)
+                    .font(.caption.monospaced())
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
             }
             .navigationTitle(entry.name)
             .task {
@@ -301,7 +383,6 @@ struct FilePreviewView: View {
 
 struct WorkspaceListView: View {
     @EnvironmentObject var workspaces: WorkspaceStore
-    @EnvironmentObject var profiles: ProfileStore
     @State private var builder = false
 
     var body: some View {
@@ -394,6 +475,9 @@ struct WorkspaceDetailView: View {
             Section {
                 Button("Restore saved profiles") {
                     for profile in workspace.profiles.values { profiles.save(profile) }
+                }
+                Button("Open all apps") {
+                    for bundleID in workspace.bundleIDs { _ = AppLauncher.open(bundleID: bundleID) }
                 }
             }
         }

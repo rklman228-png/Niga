@@ -1,44 +1,60 @@
-# FrontBoard / per-app window control research
+# FrontBoard / native phone-windowing research
 
-## What is confirmed
+## Confirmed split in the iPadOS spoof
 
-LiveContainer and FrontBoardAppLauncher demonstrate that external application processes can be presented through private FrontBoard/UIKit scene APIs. The core path is:
+Mond's full iPadOS mode mixes actual multitasking capabilities with device-identity spoofing. Niga separates them:
 
-1. Obtain an `RBSProcessIdentity` / `RBSProcessHandle` for the target process.
-2. Create `FBSMutableSceneDefinition` + `FBSMutableSceneParameters`.
-3. Create or host an `FBScene` for that process.
-4. Update `UIMutableApplicationSceneSettings.frame`, `interfaceOrientation`, `deviceOrientation`, safe-area values, and other scene settings.
-5. Present the scene with a `_UIScenePresenter` / `_UISceneHostingController`.
-
-That is the mechanism we ultimately want for per-app width/height/position/orientation.
-
-## MobileGestalt key separation
-
-The previously opaque iPadOS keys are now separated by meaning:
-
-- `qeaj75wk3HF4DwQ8qbIi7g` — Stage Manager capability.
+- `qeaj75wk3HF4DwQ8qbIi7g` — Enhanced Multitasking / Stage Manager capability.
 - `mG0AnH/Vy1veoqoLRAIgTA` — Medusa floating live-app capability.
 - `UCG5MkVahJxG1YULbbd5Bg` — Medusa overlay-app capability.
 - `ZYqko/XM5zD3XBfN5RmaXA` — Medusa pinned-app capability.
-- `nVh/gwNpy7Jv1NOk00CMrw` — Medusa PiP/mirroring capability.
-- `uKc7FPnEO++lVhHWHFlGbQ` — **iPad identity flag**, not a generic windowing flag.
-- `mtrAoWJ3gsq+I90ZnQ0vQw` — DeviceClassNumber; the full iPadOS tweak changes it from the iPhone value to the iPad class.
+- `nVh/gwNpy7Jv1NOk00CMrw` — Medusa PiP capability.
+- `uKc7FPnEO++lVhHWHFlGbQ` — iPad identity flag.
+- `mtrAoWJ3gsq+I90ZnQ0vQw` — DeviceClassNumber; full iPadOS mode changes the phone class to the iPad class.
 
-The phone-preserving preset therefore enables Stage Manager + the four Medusa capabilities and explicitly removes the `ipad` identity override. It never touches DeviceClassNumber. This is the key difference from enabling the full iPadOS UI.
+The phone-safe presets always remove `uKc...` and never modify DeviceClassNumber. An isolation matrix progressively enables Stage/Medusa capabilities so the minimum native-window set can be found empirically on iOS 27 beta 3.
 
-## The signing problem
+## Direct external-scene path
 
-FrontBoardAppLauncher explicitly requires TrollStore and is signed with private entitlements including `com.apple.frontboard.launchapplications`, multiple RunningBoard entitlements, `com.apple.springboard-ui.client`, QuartzCore displayable-context, `platform-application`, and no-sandbox.
+Public FrontBoardAppLauncher / LiveContainer-derived code proves the geometry mechanism itself:
 
-A normally sideloaded Niga build cannot assume those entitlements survive signing. Therefore v0.3+ includes a read-only Scene Probe that checks the exact iOS 27 beta 3 runtime and the entitlements actually present after the user's signer installs the app.
+1. resolve an `RBSProcessIdentity` and running `RBSProcessHandle`;
+2. build `FBSMutableSceneDefinition` and `FBSMutableSceneParameters`;
+3. create/attach an `FBScene`;
+4. set `UIMutableApplicationSceneSettings.frame`, `deviceOrientation`, `interfaceOrientation`, safe-area/periphery values and presentation level;
+5. call `updateSettingsWithBlock:` to resize/rotate a live external app scene;
+6. host/present through the scene presentation manager / private UIKit presentation objects.
 
-## Current strategy
+That is exactly the API family needed for independent per-app portrait/landscape and geometry.
 
-Niga has two independent paths:
+## Signing gate
 
-- **Phone-preserving native windowing:** expose Stage Manager + Medusa window capabilities while deliberately removing the iPad identity override and leaving DeviceClassNumber untouched.
-- **Direct per-app scene control research:** probe FrontBoard/RunningBoard availability and entitlement gates. If direct scene APIs are blocked, scan accessible `Data/System` and `Shared/SystemGroup` containers for persistent SpringBoard/FrontBoard scene/window state that can be modified through the iOS 27 sandbox escape instead.
+The published launcher is platform/TrollStore-style and asks for private entitlements including FrontBoard launch, RunningBoard launch/target/process-state/assertion privileges, SpringBoard UI client, QuartzCore displayable context, BackBoard client, platform-application and no-sandbox.
 
-## Safety / recovery
+Niga is intended to remain usable as a normal sideloaded IPA, so it does not assume those entitlements survive signing. The Scene Probe dynamically loads the relevant private frameworks and now reports:
 
-Every MobileGestalt mutation is preceded by a backup. The first successful MobileGestalt access creates an original snapshot. Recovery can restore that original snapshot and respring from inside Niga.
+- presence of the scene/process classes;
+- interesting instance/class selectors containing scene/frame/size/orientation/settings/host/present/window/update/geometry/stage/multitask terms;
+- whether a process identity/handle can be resolved for an already-running target;
+- the exact private entitlements present after installation;
+- the current app's `userInterfaceIdiom`, screen bounds and connected `UIWindowScene` geometry.
+
+This lets us distinguish "API does not exist" from "API exists but the signature is not privileged enough" on the exact beta.
+
+## Writable-state fallback
+
+`bad_query` on iOS 27 exposes `Data/System` and `Shared/SystemGroup` containers in addition to normal application containers. Niga's System State explorer enumerates those containers and the Scene State Miner recursively searches readable small files for names/content related to:
+
+`scene`, `window`, `stage`, `workspace`, `frontboard`, `springboard`, `medusa`, `orientation`, `geometry`, `layout`, `floating`, `multitask`.
+
+The intended on-device experiment is:
+
+1. snapshot/find candidate state;
+2. perform one native window operation;
+3. scan/diff again;
+4. identify a persistent writable field for scene geometry/orientation;
+5. wire that field to the per-app profile system.
+
+## Recovery invariant
+
+Every MobileGestalt mutation takes a pre-change backup. First successful access stores an original snapshot. Writes are parsed and re-read byte-for-byte after writing; a verification failure attempts immediate rollback. Recovery exposes original restore plus one-tap respring.
