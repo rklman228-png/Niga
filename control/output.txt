@@ -1,14 +1,5 @@
-active
-0
-8102e16d4a088661eb692338ace24c56d63b43c0  -
-8102e16d4a088661eb692338ace24c56d63b43c0  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-Aug 25 04:43:14 test1 java[132410]: [04:43:14] [Server thread/INFO]: Done (1.936s)! For help, type "help"
-Aug 25 04:43:15 test1 java[132410]: [04:43:15] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
-Aug 25 04:43:17 test1 java[132410]: [04:43:17] [Server thread/INFO]: System chat: WorldKeeper joined the game
-Aug 25 04:43:18 test1 java[132410]: [04:43:18] [Server thread/INFO]: Started fake player WorldKeeper
-Aug 25 04:43:18 test1 java[132410]: [04:43:18] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3655ms or 73 ticks behind
-Aug 25 04:43:39 test1 java[132410]: [04:43:39] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 6148ms or 122 ticks behind
+fatal: not a git repository (or any of the parent directories): .git
 
-exit_code=0
-finished_at=2026-08-25T04:44:56Z
+exit_code=128
+finished_at=2026-08-25T05:10:46Z
 runner=alexhost-143-246
