@@ -1,5 +1,3 @@
 set -euo pipefail
-find /opt /usr/local -type f -path '*/bin/gradle' -perm -u+x 2>/dev/null | head -20
-find /opt/minecraft -maxdepth 3 -type f \( -name 'gradle' -o -name 'gradlew' -o -name 'brigada-core-*.jar' \) -print 2>/dev/null | head -30
-java -version
-systemctl is-active minecraft
+find /root /tmp /var/tmp /opt -type f -path '*/bin/gradle' 2>/dev/null | head -30
+find /root /tmp /var/tmp /opt -type f -name 'gradle-9.6.1-bin*.zip' 2>/dev/null | head -20
