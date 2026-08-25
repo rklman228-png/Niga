@@ -1,15 +1,42 @@
-Compiled from "Prediction.java"
-public final class net.minecraft.util.Prediction extends java.lang.Enum<net.minecraft.util.Prediction> {
-  public static final net.minecraft.util.Prediction PREDICTED;
-  public static final net.minecraft.util.Prediction SERVER_ONLY;
-  private static final net.minecraft.util.Prediction[] $VALUES;
-  public static net.minecraft.util.Prediction[] values();
-  public static net.minecraft.util.Prediction valueOf(java.lang.String);
-  private net.minecraft.util.Prediction();
-  private static net.minecraft.util.Prediction[] $values();
-  static {};
-}
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=0
-finished_at=2026-08-25T03:00:49Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+
+> Task :compileJava
+Note: /opt/brigada-build-Igmrwx/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-build-Igmrwx/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 34s
+6 actionable tasks: 6 executed
+zip I/O error: No such file or directory
+zip error: Could not create output file (/opt/minecraft/server-resource-pack/world-ui-26.3-snapshot-9.zip.new)
+
+exit_code=15
+finished_at=2026-08-25T03:02:24Z
 runner=alexhost-143-246
