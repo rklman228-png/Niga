@@ -1,11 +1,72 @@
-  public static final net.minecraft.core.IdMapper<net.minecraft.world.level.block.state.BlockState> BLOCK_STATE_REGISTRY;
-  public static int getId(net.minecraft.world.level.block.state.BlockState);
-  public static net.minecraft.world.level.block.state.BlockState stateById(int);
-  public static final net.minecraft.core.particles.ParticleType<net.minecraft.core.particles.PowerParticleOption> DRAGON_BREATH;
-  public static final net.minecraft.core.particles.SimpleParticleType END_ROD;
-  public static final net.minecraft.core.particles.SimpleParticleType PORTAL;
-  public static final net.minecraft.core.particles.SimpleParticleType REVERSE_PORTAL;
+RuntimeFixes patched
+ChallengeServiceMixin patched
+=== source checks ===
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:65:    private static final Path BOUNDARY_BACKUP = Path.of("brigada-boundary-backup.bin");
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:130:        if (!Files.exists(BOUNDARY_BACKUP)) return;
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:131:        try (DataInputStream in = new DataInputStream(new BufferedInputStream(Files.newInputStream(BOUNDARY_BACKUP)))) {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:148:        try (DataOutputStream out = new DataOutputStream(new BufferedOutputStream(Files.newOutputStream(BOUNDARY_BACKUP)))) {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:216:                ensureFullHeightBoundary(level, state);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:232:        tickWavePulses();
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:250:    public static void ensureFullHeightBoundary(ServerLevel level, ActiveChallengeState state) {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:297:    public static void restoreBoundary(MinecraftServer server, ActiveChallengeState state) {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:306:        restoreBoundaryMap(level);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:314:        restoreBoundary(server, BrigadaCore.stateStore().state().activeChallenge);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:321:        if (level != null) restoreBoundaryMap(level);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:324:    private static void restoreBoundaryMap(ServerLevel level) {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:336:        try { Files.deleteIfExists(BOUNDARY_BACKUP); }
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:508:            scheduleWavePulse(level, state);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:659:                ParticleOptimizer.emit(level, ParticleTypes.PORTAL, x, y, z,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:664:            ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:669:            ParticleOptimizer.emit(level, ParticleTypes.PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:671:            ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:680:            ParticleOptimizer.emit(level, ParticleTypes.PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:686:    private static void scheduleWavePulse(ServerLevel level, ActiveChallengeState state) {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:696:            ParticleOptimizer.emit(level, ParticleTypes.REVERSE_PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:702:    private static void tickWavePulses() {
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:718:                if ((i & 1) == 0) ParticleOptimizer.emit(pulse.level(), ParticleTypes.PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:721:            if (age == 0) ParticleOptimizer.emit(pulse.level(), ParticleTypes.REVERSE_PORTAL,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:85:        RuntimeFixes.ensureFullHeightBoundary(level, state);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:100:        RuntimeFixes.restoreBoundary(server, state);
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:105:    private void replaceCoreVictoryParticles(MinecraftServer server, ChallengeDefinition definition,
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/mixin/ChallengeServiceMixin.java:111:    private void restoreBoundaryOnCancel(MinecraftServer server, CallbackInfo ci) {
+=== build ===
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-exit_code=0
-finished_at=2026-08-25T18:12:49Z
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+
+> Task :compileJava
+/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:83: error: incompatible types: Level cannot be converted to ServerLevel
+                !isFullBoundaryPosition(level, pos));
+                                        ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///opt/brigada-hotfix-src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java:83: error: incompatible types: Level cannot be converted to ServerLevel
+                  !isFullBoundaryPosition(level, pos));
+                                          ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  1 error
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 59s
+2 actionable tasks: 2 executed
+
+exit_code=1
+finished_at=2026-08-25T18:17:07Z
 runner=alexhost-143-246
