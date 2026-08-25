@@ -1,6 +1,5 @@
-Cloning into '/opt/brigada-build-gNyX6k'...
-fatal: could not read Username for 'https://github.com': No such device or address
+control/command.sh: line 6: gradle: command not found
 
-exit_code=128
-finished_at=2026-08-25T02:55:47Z
+exit_code=127
+finished_at=2026-08-25T02:56:44Z
 runner=alexhost-143-246
