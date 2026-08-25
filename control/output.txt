@@ -1,13 +1,8 @@
-active
-0
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*   
-Aug 25 05:46:34 test1 java[365648]: [05:46:34] [Server thread/INFO]: Done (2.448s)! For help, type "help"
-Aug 25 05:46:35 test1 java[365648]: [05:46:35] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
-Aug 25 05:46:38 test1 java[365648]: [05:46:38] [Server thread/INFO]: System chat: WorldKeeper joined the game
-Aug 25 05:46:38 test1 java[365648]: [05:46:38] [Server thread/INFO]: Started fake player WorldKeeper
-Aug 25 05:46:38 test1 java[365648]: [05:46:38] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3901ms or 78 ticks behind
+    PID %CPU %MEM     ELAPSED CMD
+ 365648  123 22.7       03:51 /usr/bin/java -Xms2G -Xmx5G -jar fabric-server-launch.jar nogui
+/opt/minecraft/server/config/brigada-core/state.json
 Aug 25 05:47:01 test1 java[365648]: [05:47:01] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 8038ms or 160 ticks behind
 
 exit_code=0
-finished_at=2026-08-25T05:47:58Z
+finished_at=2026-08-25T05:49:25Z
 runner=alexhost-143-246
