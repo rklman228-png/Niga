@@ -492,7 +492,7 @@ public final class ChallengeRuntimeFixes {
             if (attack != null && damageMultiplier != 1.0) {
                 double baseAttack = attack.getBaseValue();
                 // Hard should hurt, but naturally brutal mobs must not become accidental one-shot machines.
-                double appliedMultiplier = definition.difficulty() == ChallengeDifficulty.HARD && baseAttack >= 16.0
+                double appliedMultiplier = definition.difficulty() == ChallengeDifficulty.HARD && baseAttack >= 25.0
                         ? 1.75 : damageMultiplier;
                 attack.setBaseValue(baseAttack * appliedMultiplier);
             }
