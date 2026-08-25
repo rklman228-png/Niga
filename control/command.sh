@@ -1,8 +1,18 @@
 set -euo pipefail
-(printf '%s' "$(sed -n '1p' control/payload-00.b64)"; printf '%s' "$(sed -n '1p' control/payload-01.b64)"; printf '%s' "$(sed -n '1p' control/payload-02.b64)") | base64 -d > /tmp/brigada-full.tar.gz
-mkdir -p /opt/brigada-core-src
-tar -xzf /tmp/brigada-full.tar.gz -C /opt/brigada-core-src
 cd /opt/brigada-core-src
-./gradlew clean build --no-daemon
-find build/libs -maxdepth 1 -type f -name '*.jar' -printf '%f %s bytes\n'
-sha256sum build/libs/*.jar
+pack_tmp=$(mktemp /tmp/world-ui-XXXXXX.zip)
+(cd resource-pack/WorldUI && zip -qr "$pack_tmp" .)
+install -m 0644 "$pack_tmp" /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+pack_sha=$(sha1sum /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip | cut -d' ' -f1)
+sed -i "s|^resource-pack-sha1=.*|resource-pack-sha1=$pack_sha|" /opt/minecraft/server.properties
+sed -i "s|^require-resource-pack=.*|require-resource-pack=true|" /opt/minecraft/server.properties
+systemctl stop minecraft.service
+install -m 0644 build/libs/brigada-core-0.1.0.jar /opt/minecraft/mods/brigada-core-0.1.0.jar
+systemctl start minecraft.service
+sleep 45
+systemctl is-active minecraft.service
+systemctl show minecraft.service -p NRestarts --value
+printf 'jar '; sha256sum /opt/minecraft/mods/brigada-core-0.1.0.jar
+printf 'pack '; sha1sum /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+grep -E '^(require-resource-pack|resource-pack|resource-pack-sha1)=' /opt/minecraft/server.properties
+journalctl -u minecraft.service --since '2 minutes ago' --no-pager | grep -E 'Done \(|World Core|WorldKeeper|ERROR|Exception|Couldn.t load|failed' || true
