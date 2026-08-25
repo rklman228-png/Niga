@@ -1,180 +1,28 @@
+---- service user
+User=minecraft
+Group=minecraft
+---- before
+f: /opt/minecraft/server/config/brigada-core/state.json
+drwxr-xr-x root      root      /
+drwxr-xr-x root      root      opt
+drwxr-xr-x root      root      minecraft
+drwxr-xr-x minecraft minecraft server
+drwxr-xr-x minecraft minecraft config
+drwxr-xr-x minecraft minecraft brigada-core
+-rw-r--r-- minecraft minecraft state.json
+---- after
+f: /opt/minecraft/server/config/brigada-core/state.json
+drwxr-xr-x root      root      /
+drwxr-xr-x root      root      opt
+drwxr-xr-x root      root      minecraft
+drwxr-xr-x minecraft minecraft server
+drwxr-xr-x minecraft minecraft config
+drwxr-x--- minecraft minecraft brigada-core
+-rw-r----- minecraft minecraft state.json
+minecraft:minecraft 640 14144 2026-08-25 01:51:42.817777931 +0000
+-- No entries --
 active
-0
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/ERROR]: Failed to save Brigada Core state
-Aug 25 03:04:50 test1 java[3763014]: java.nio.file.AccessDeniedException: ./config/brigada-core/state.json.tmp
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:426)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newOutputStream(Files.java:215)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.nio.file.Files.newBufferedWriter(Files.java:2725)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.state.StateStore.save(StateStore.java:37)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tickItem(DeathItemService.java:230)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//dev.brigada13.core.death.DeathItemService.tick(DeathItemService.java:150)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.lambda$static$3(ServerTickEvents.java:55)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.handler$zgd000$fabric-lifecycle-events-v1$onEndTick(MinecraftServer.java:3916)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1004)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:278)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1013)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:752)
-Aug 25 03:04:50 test1 java[3763014]:         at knot//net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:310)
-Aug 25 03:04:50 test1 java[3763014]:         at java.base/java.lang.Thread.run(Thread.java:1474)
-Aug 25 03:04:50 test1 java[3763014]: [03:04:50] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3697ms or 73 ticks behind
----- properties
-enable-rcon=false
-rcon.port=25575
-require-resource-pack=true
-resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
-resource-pack-id=fc9e76d5-cfc6-4d60-b30c-6a43dc6ffa65
-resource-pack-sha1=d5165af07a2889e7e187b282f6fa0efed195370a
----- listeners
-LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3127448,fd=3))                                                                                          
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*    users:(("java",pid=3763014,fd=163))                                                                                           
----- pack
-d5165af07a2889e7e187b282f6fa0efed195370a  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-d5165af07a2889e7e187b282f6fa0efed195370a  -
----- tools
 
 exit_code=0
-finished_at=2026-08-25T03:05:07Z
+finished_at=2026-08-25T03:05:47Z
 runner=alexhost-143-246
