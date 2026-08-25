@@ -1,9 +1,16 @@
-{}
-active
-0
-{}
-Aug 25 03:14:18 test1 java[3808246]: [03:14:18] [Server thread/INFO]: Done (1.777s)! For help, type "help"
+d /opt/minecraft/server/world/players
+d /opt/minecraft/server/world/players/advancements
+d /opt/minecraft/server/world/players/data
+d /opt/minecraft/server/world/players/stats
+f /opt/minecraft/server/world/players/advancements/d5c369db-55e6-30e8-aac1-b9f9bdb92beb.json
+f /opt/minecraft/server/world/players/advancements/e02c4080-561e-3e81-8fe5-cff21a05a45d.json
+f /opt/minecraft/server/world/players/data/d5c369db-55e6-30e8-aac1-b9f9bdb92beb.dat
+f /opt/minecraft/server/world/players/data/d5c369db-55e6-30e8-aac1-b9f9bdb92beb.dat_old
+f /opt/minecraft/server/world/players/data/e02c4080-561e-3e81-8fe5-cff21a05a45d.dat
+f /opt/minecraft/server/world/players/data/e02c4080-561e-3e81-8fe5-cff21a05a45d.dat_old
+f /opt/minecraft/server/world/players/stats/d5c369db-55e6-30e8-aac1-b9f9bdb92beb.json
+f /opt/minecraft/server/world/players/stats/e02c4080-561e-3e81-8fe5-cff21a05a45d.json
 
 exit_code=0
-finished_at=2026-08-25T03:14:18Z
+finished_at=2026-08-25T03:14:47Z
 runner=alexhost-143-246
