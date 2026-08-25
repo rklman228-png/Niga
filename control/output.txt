@@ -1,18 +1,41 @@
-=== service
-active
-NRestarts=0
-=== listeners
-LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*   
-LISTEN 0      4096         0.0.0.0:25565      0.0.0.0:*   
-=== pack from public URL
-24beb2a019b28fe9a1ffaba8573ffd69112f589b  -
-=== saved active challenge
-None
-=== fake player/errors
-Aug 25 01:52:44 test1 java[3555129]: [01:52:44] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
-Aug 25 01:52:47 test1 java[3555129]: [01:52:47] [Server thread/INFO]: System chat: WorldKeeper joined the game
-Aug 25 01:52:47 test1 java[3555129]: [01:52:47] [Server thread/INFO]: Started fake player WorldKeeper
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.17.19
+
+> Task :clean
+
+> Task :compileJava
+Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :sourcesJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :validateAccessWidener NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 54s
+6 actionable tasks: 6 executed
+35939fd3e11fd0bf989e83be687fca54b5f401b40610ff8218e231fef36d768b  build/libs/brigada-core-0.1.0.jar
 
 exit_code=0
-finished_at=2026-08-25T01:55:04Z
+finished_at=2026-08-25T01:58:00Z
 runner=alexhost-143-246
