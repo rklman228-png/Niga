@@ -7,7 +7,7 @@ Fabric Loom: 1.17.19
 > Task :clean UP-TO-DATE
 
 > Task :compileJava
-Note: /opt/brigada-build-J6Mk9p/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: /opt/brigada-build-OquGiE/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 
 > Task :processResources
@@ -24,7 +24,7 @@ Note: Recompile with -Xlint:deprecation for details.
 > Task :check UP-TO-DATE
 > Task :build
 
-[Incubating] Problems report is available at: file:///opt/brigada-build-J6Mk9p/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///opt/brigada-build-OquGiE/build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
@@ -32,11 +32,25 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 1m
+BUILD SUCCESSFUL in 56s
 6 actionable tasks: 5 executed, 1 up-to-date
-BUILD_DIR=/opt/brigada-build-J6Mk9p
-80aa4646f7073253bf2ca47c16399bd7912378006d04697dd652de114f30c380  /opt/brigada-build-J6Mk9p/build/libs/brigada-core-0.1.0.jar
+BUILD_DIR=/opt/brigada-build-OquGiE
+PACK_SHA1=7e0f7a0354fab586e5e210b15548b3e57ab0cbf1
+active
+0
+30ada2825157648859d4868a293394617ddb0879ec7fbabaf761220a83309d7b  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+7e0f7a0354fab586e5e210b15548b3e57ab0cbf1  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
+require-resource-pack=true
+resource-pack=http\://143.246.197.187\:8088/world-ui-26.3-snapshot-9.zip
+resource-pack-sha1=7e0f7a0354fab586e5e210b15548b3e57ab0cbf1
+Aug 25 04:15:55 test1 java[4190971]: [04:15:55] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+Aug 25 04:16:21 test1 java[4190971]: [04:16:21] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 04:16:35 test1 java[4190971]: [04:16:35] [Server thread/INFO]: Done (1.379s)! For help, type "help"
+Aug 25 04:16:36 test1 java[4190971]: [04:16:36] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 04:16:39 test1 java[4190971]: [04:16:39] [Server thread/INFO]: System chat: WorldKeeper joined the game
+Aug 25 04:16:39 test1 java[4190971]: [04:16:39] [Server thread/INFO]: Started fake player WorldKeeper
+Aug 25 04:16:39 test1 java[4190971]: [04:16:39] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3959ms or 79 ticks behind
 
 exit_code=0
-finished_at=2026-08-25T04:10:03Z
+finished_at=2026-08-25T04:16:42Z
 runner=alexhost-143-246
