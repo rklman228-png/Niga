@@ -1,41 +1,453 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.17.19
-
-> Task :clean
-
-> Task :compileJava
-Note: /opt/brigada-core-src/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-> Task :processResources
-> Task :classes
-> Task :processIncludeJars
-> Task :jar
-> Task :sourcesJar
-> Task :assemble
-> Task :compileTestJava NO-SOURCE
-> Task :processTestResources NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :build
-
-[Incubating] Problems report is available at: file:///opt/brigada-core-src/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 49s
-6 actionable tasks: 6 executed
-30e94c349a3119442196bc68e368afba0218f847cbe95bc1eb1fde9d9797eed9  build/libs/brigada-core-0.1.0.jar
-
+=== state files
+=== state content
+--- /opt/minecraft/server/config/brigada-core/state.json
+{
+  "schemaVersion": 1,
+  "activeChallenge": {
+    "challengeId": "task/easy/chicken/together_condition",
+    "startedAtEpochMillis": 1787620352214,
+    "stage": 0,
+    "stageTarget": 0,
+    "contribution": {
+      "otezi": 0.0
+    },
+    "counters": {
+      "otezi:progress": 1
+    },
+    "arenaLocked": false,
+    "singleMode": true,
+    "arenaX": 0,
+    "arenaY": 0,
+    "arenaZ": 0,
+    "arenaMinX": 0,
+    "arenaMaxX": 0,
+    "arenaMinZ": 0,
+    "arenaMaxZ": 0,
+    "eventPhase": 0,
+    "eventWave": 0,
+    "eventKills": 0,
+    "eventTarget": 0,
+    "eventHoldTicks": 0,
+    "eventElapsedTicks": 0,
+    "extractionReady": false,
+    "eventEntities": [],
+    "eventZones": {
+      "otezi": 0
+    }
+  },
+  "completedChallengeBags": {
+    "SOLO_EASY": [
+      "task/easy/zombie/split_kills"
+    ]
+  },
+  "parcelInboxes": {},
+  "rewardInboxes": {},
+  "deaths": [
+    {
+      "id": "c2c05447-d451-4f0c-998a-c26daaef2430",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787615078465,
+      "dimension": "minecraft:overworld",
+      "x": -17.817150010179574,
+      "y": 69.0,
+      "z": -7.129528005468582,
+      "deathCause": "Otezi hit the ground too hard",
+      "items": [
+        {
+          "entityId": "1757073d-1b51-4d53-b5b2-7bddd644c9d8",
+          "encodedStack": "{\"id\":\"minecraft:crafting_table\",\"count\":1}",
+          "displayName": "Crafting Table",
+          "count": 1,
+          "status": "LOST",
+          "lossCause": "сгорел, исчез или был уничтожен",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": true,
+          "missingTicks": 0,
+          "lastX": -17.31757188227445,
+          "lastY": 70.59680000180005,
+          "lastZ": -7.70287354996547
+        }
+      ]
+    },
+    {
+      "id": "63082f0b-bb42-4424-b7a1-d4285dbac82b",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787616675043,
+      "dimension": "minecraft:overworld",
+      "x": -8.977541583926536,
+      "y": 69.0,
+      "z": 42.02087969026828,
+      "deathCause": "Otezi hit the ground too hard",
+      "items": [
+        {
+          "entityId": "8ec1053b-c483-4fd3-910d-97fe816b69d1",
+          "itemId": "minecraft:crafting_table",
+          "encodedStack": "{\"id\":\"minecraft:crafting_table\",\"count\":1}",
+          "displayName": "Crafting Table",
+          "count": 1,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 100,
+          "lastX": -9.170785746499837,
+          "lastY": 70.59680000180005,
+          "lastZ": 42.083672628628754
+        }
+      ]
+    },
+    {
+      "id": "58751df0-897c-4f2f-beba-32ef1d1be41f",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787619639254,
+      "dimension": "minecraft:overworld",
+      "x": -8.593035581621992,
+      "y": 66.0,
+      "z": 42.69999998807907,
+      "deathCause": "Otezi was blown up by Creeper",
+      "items": [
+        {
+          "entityId": "d67363b8-77b9-42ea-ac6c-041bd497d781",
+          "itemId": "minecraft:crafting_table",
+          "encodedStack": "{\"id\":\"minecraft:crafting_table\",\"count\":1}",
+          "displayName": "Crafting Table",
+          "count": 1,
+          "status": "LOST",
+          "lossCause": "сгорел, исчез или был уничтожен",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": true,
+          "missingTicks": 100,
+          "lastX": -8.50502959928261,
+          "lastY": 67.47999999582767,
+          "lastZ": 42.592112109065056
+        },
+        {
+          "entityId": "60062e0f-2052-4c0b-b329-7e0a1414f932",
+          "itemId": "minecraft:dirt",
+          "encodedStack": "{\"id\":\"minecraft:dirt\",\"count\":3}",
+          "displayName": "Dirt",
+          "count": 3,
+          "status": "LOST",
+          "lossCause": "сгорел, исчез или был уничтожен",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": true,
+          "missingTicks": 100,
+          "lastX": -10.563631016721956,
+          "lastY": 66.42306892270318,
+          "lastZ": 43.58294715500134
+        },
+        {
+          "entityId": "23539908-c468-4088-8ea1-aa7dadc8bd3b",
+          "itemId": "minecraft:cobblestone",
+          "encodedStack": "{\"id\":\"minecraft:cobblestone\",\"count\":5}",
+          "displayName": "Cobblestone",
+          "count": 5,
+          "status": "LOST",
+          "lossCause": "сгорел, исчез или был уничтожен",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": true,
+          "missingTicks": 100,
+          "lastX": -7.443005196265724,
+          "lastY": 66.33787027965062,
+          "lastZ": 40.58661999495225
+        }
+      ]
+    },
+    {
+      "id": "3d81771d-d78b-4b18-aba6-99d61b3bc7dd",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787620145004,
+      "dimension": "minecraft:overworld",
+      "x": 116.37288999912444,
+      "y": 65.0,
+      "z": -71.98107465815264,
+      "deathCause": "Otezi was slain by Zombie",
+      "items": [
+        {
+          "entityId": "3bfa549b-3280-4058-832a-451a03855023",
+          "itemId": "minecraft:white_wool",
+          "encodedStack": "{\"id\":\"minecraft:white_wool\",\"count\":1}",
+          "displayName": "White Wool",
+          "count": 1,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": 116.43248758074942,
+          "lastY": 66.47999999582767,
+          "lastZ": -71.99403823066967
+        }
+      ]
+    },
+    {
+      "id": "85474644-e94f-43ed-a339-cba88bc2a1e3",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787620191101,
+      "dimension": "minecraft:overworld",
+      "x": 44.432097746431296,
+      "y": 66.0,
+      "z": 0.6779624226574719,
+      "deathCause": "Otezi was slain by Zombie",
+      "items": []
+    },
+    {
+      "id": "bfb45a21-2b76-4cbd-842b-231691265eb0",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787620333049,
+      "dimension": "minecraft:overworld",
+      "x": -90.84003132516044,
+      "y": 67.0,
+      "z": 66.67406442520196,
+      "deathCause": "Otezi was slain by Zombie",
+      "items": [
+        {
+          "entityId": "544fbb3a-6fab-440e-be63-585abdbdd50e",
+          "itemId": "minecraft:wooden_sword",
+          "encodedStack": "{\"id\":\"minecraft:wooden_sword\",\"count\":1,\"components\":{\"minecraft:damage\":34}}",
+          "displayName": "Wooden Sword",
+          "count": 1,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": -91.27309113675254,
+          "lastY": 68.47999999582767,
+          "lastZ": 66.76996017006213
+        },
+        {
+          "entityId": "8e4bc69f-18b1-4de5-888c-cc72ca1a604a",
+          "itemId": "minecraft:spider_eye",
+          "encodedStack": "{\"id\":\"minecraft:spider_eye\",\"count\":1}",
+          "displayName": "Spider Eye",
+          "count": 1,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": -90.83062435620921,
+          "lastY": 68.47999999582767,
+          "lastZ": 66.6467459289449
+        },
+        {
+          "entityId": "904c4d5a-276f-443d-8e18-ab8340993a7c",
+          "itemId": "minecraft:string",
+          "encodedStack": "{\"id\":\"minecraft:string\",\"count\":2}",
+          "displayName": "String",
+          "count": 2,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": -90.65472857588428,
+          "lastY": 68.47999999582767,
+          "lastZ": 66.69729818907554
+        },
+        {
+          "entityId": "2d61613b-c448-4f3e-9284-2a08cfb7feb7",
+          "itemId": "minecraft:rotten_flesh",
+          "encodedStack": "{\"id\":\"minecraft:rotten_flesh\",\"count\":1}",
+          "displayName": "Rotten Flesh",
+          "count": 1,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": -91.13459139996665,
+          "lastY": 68.47999999582767,
+          "lastZ": 66.43251420316274
+        },
+        {
+          "entityId": "2f41ea23-6720-4a7a-9822-8110c8fe1938",
+          "itemId": "minecraft:stick",
+          "encodedStack": "{\"id\":\"minecraft:stick\",\"count\":3}",
+          "displayName": "Stick",
+          "count": 3,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": -90.8196135547896,
+          "lastY": 68.47999999582767,
+          "lastZ": 66.74876337257201
+        },
+        {
+          "entityId": "a9dd6e75-fc89-48ef-8e13-154f03227145",
+          "itemId": "minecraft:oak_planks",
+          "encodedStack": "{\"id\":\"minecraft:oak_planks\",\"count\":4}",
+          "displayName": "Oak Planks",
+          "count": 4,
+          "status": "PICKED",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": false,
+          "missingTicks": 5,
+          "lastX": -90.57547697359222,
+          "lastY": 68.47999999582767,
+          "lastZ": 66.88671627399499
+        }
+      ]
+    },
+    {
+      "id": "cd6308a2-b484-4c71-b465-52154a740ea8",
+      "playerName": "otezi",
+      "createdAtEpochMillis": 1787620608252,
+      "dimension": "minecraft:overworld",
+      "x": 172.9075021719321,
+      "y": 66.16610926093821,
+      "z": -95.01117389120964,
+      "deathCause": "Otezi was blown up by Creeper",
+      "items": [
+        {
+          "entityId": "89827fd5-5d8e-4a61-8fb9-9671738fa1d8",
+          "itemId": "minecraft:wheat_seeds",
+          "encodedStack": "{\"id\":\"minecraft:wheat_seeds\",\"count\":1}",
+          "displayName": "Wheat Seeds",
+          "count": 1,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 169.31554612426598,
+          "lastY": 65.66399336651882,
+          "lastZ": -98.5819169394842
+        },
+        {
+          "entityId": "9aa28dfe-c9bd-46df-ba33-0953abefb020",
+          "itemId": "minecraft:dirt",
+          "encodedStack": "{\"id\":\"minecraft:dirt\",\"count\":13}",
+          "displayName": "Dirt",
+          "count": 13,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 170.39703444579197,
+          "lastY": 63.58971877842763,
+          "lastZ": -95.34225151522848
+        },
+        {
+          "entityId": "ab1cb719-e781-4810-aa5a-09d7fa2d2b6e",
+          "itemId": "minecraft:iron_ingot",
+          "encodedStack": "{\"id\":\"minecraft:iron_ingot\",\"count\":8}",
+          "displayName": "Iron Ingot",
+          "count": 8,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 172.95023655274355,
+          "lastY": 67.64610925676588,
+          "lastZ": -94.64105655469803
+        },
+        {
+          "entityId": "640b9caf-497d-43c9-a371-4219ed01d9a8",
+          "itemId": "minecraft:gold_ingot",
+          "encodedStack": "{\"id\":\"minecraft:gold_ingot\",\"count\":3}",
+          "displayName": "Gold Ingot",
+          "count": 3,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 172.81692721450173,
+          "lastY": 67.64610925676588,
+          "lastZ": -94.89050466784147
+        },
+        {
+          "entityId": "a001173d-7d13-413c-a056-834c3715fdac",
+          "itemId": "minecraft:feather",
+          "encodedStack": "{\"id\":\"minecraft:feather\",\"count\":7}",
+          "displayName": "Feather",
+          "count": 7,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 172.94155903288566,
+          "lastY": 67.64610925676588,
+          "lastZ": -95.016332582411
+        },
+        {
+          "entityId": "1185530e-79f9-4a57-881d-9fd1db04bb7d",
+          "itemId": "minecraft:chicken",
+          "encodedStack": "{\"id\":\"minecraft:chicken\",\"count\":2}",
+          "displayName": "Raw Chicken",
+          "count": 2,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 172.9262358130648,
+          "lastY": 67.64610925676588,
+          "lastZ": -95.0010795838466
+        },
+        {
+          "entityId": "36ea5c2b-5d5d-4b87-99cc-c5153ccc8112",
+          "itemId": "minecraft:white_wool",
+          "encodedStack": "{\"id\":\"minecraft:white_wool\",\"count\":1}",
+          "displayName": "White Wool",
+          "count": 1,
+          "status": "LOST",
+          "lossCause": "сгорел, исчез или был уничтожен",
+          "colorRgb": 16777215,
+          "collapseTicks": 41,
+          "lossNotified": true,
+          "missingTicks": 100,
+          "lastX": 173.1852176164969,
+          "lastY": 67.64610925676588,
+          "lastZ": -95.39828096547035
+        },
+        {
+          "entityId": "f392b94e-063c-47bf-83a2-314308a4e344",
+          "itemId": "minecraft:wheat_seeds",
+          "encodedStack": "{\"id\":\"minecraft:wheat_seeds\",\"count\":1}",
+          "displayName": "Wheat Seeds",
+          "count": 1,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 173.07008065038764,
+          "lastY": 67.64610925676588,
+          "lastZ": -94.96822310083417
+        },
+        {
+          "entityId": "3ec79e87-f98e-49bd-9f3f-cd087fa59c5e",
+          "itemId": "minecraft:chicken",
+          "encodedStack": "{\"id\":\"minecraft:chicken\",\"count\":1}",
+          "displayName": "Raw Chicken",
+          "count": 1,
+          "status": "GROUND",
+          "colorRgb": 16777215,
+          "collapseTicks": 0,
+          "lossNotified": false,
+          "missingTicks": 0,
+          "lastX": 172.39903102833156,
+          "lastY": 65.16,
+          "lastZ": -91.57774969940647
+        }
+      ]
+    }
+  ],
+  "completedExpeditionStructures": []
+}
 exit_code=0
-finished_at=2026-08-25T01:48:14Z
+finished_at=2026-08-25T01:49:22Z
 runner=alexhost-143-246
