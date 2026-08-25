@@ -1,9 +1,97 @@
+/tmp/tmp.vmsLLzLpFp/source-min.tar.gz: OK
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
 
-gzip: stdin: invalid compressed data--format violated
-tar: Unexpected EOF in archive
-tar: Unexpected EOF in archive
-tar: Error is not recoverable: exiting now
+> Configure project :
+Fabric Loom: 1.17.19
 
-exit_code=2
-finished_at=2026-08-25T06:30:18Z
+> Task :clean UP-TO-DATE
+
+> Task :compileJava
+/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:797: error: cannot find symbol
+            BlockState desired = y == topY ? Blocks.LIME_STAINED_GLASS.defaultBlockState()
+                                                   ^
+  symbol:   variable LIME_STAINED_GLASS
+  location: class Blocks
+/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:798: error: cannot find symbol
+                    : y >= topY - 3 ? Blocks.BROWN_STAINED_GLASS.defaultBlockState()
+                                            ^
+  symbol:   variable BROWN_STAINED_GLASS
+  location: class Blocks
+/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:799: error: cannot find symbol
+                    : Blocks.GRAY_STAINED_GLASS.defaultBlockState();
+                            ^
+  symbol:   variable GRAY_STAINED_GLASS
+  location: class Blocks
+/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:806: error: cannot find symbol
+        return state.is(Blocks.GRAY_STAINED_GLASS)
+                              ^
+  symbol:   variable GRAY_STAINED_GLASS
+  location: class Blocks
+/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:807: error: cannot find symbol
+                || state.is(Blocks.BROWN_STAINED_GLASS)
+                                  ^
+  symbol:   variable BROWN_STAINED_GLASS
+  location: class Blocks
+/tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:808: error: cannot find symbol
+                || state.is(Blocks.LIME_STAINED_GLASS);
+                                  ^
+  symbol:   variable LIME_STAINED_GLASS
+  location: class Blocks
+Note: /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+6 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///tmp/tmp.vmsLLzLpFp/project/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/death/DeathItemService.java uses or overrides a deprecated API.
+  Note: Recompile with -Xlint:deprecation for details.
+  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:797: error: cannot find symbol
+              BlockState desired = y == topY ? Blocks.LIME_STAINED_GLASS.defaultBlockState()
+                                                     ^
+    symbol:   variable LIME_STAINED_GLASS
+    location: class Blocks
+  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:798: error: cannot find symbol
+                      : y >= topY - 3 ? Blocks.BROWN_STAINED_GLASS.defaultBlockState()
+                                              ^
+    symbol:   variable BROWN_STAINED_GLASS
+    location: class Blocks
+  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:799: error: cannot find symbol
+                      : Blocks.GRAY_STAINED_GLASS.defaultBlockState();
+                              ^
+    symbol:   variable GRAY_STAINED_GLASS
+    location: class Blocks
+  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:806: error: cannot find symbol
+          return state.is(Blocks.GRAY_STAINED_GLASS)
+                                ^
+    symbol:   variable GRAY_STAINED_GLASS
+    location: class Blocks
+  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:807: error: cannot find symbol
+                  || state.is(Blocks.BROWN_STAINED_GLASS)
+                                    ^
+    symbol:   variable BROWN_STAINED_GLASS
+    location: class Blocks
+  /tmp/tmp.vmsLLzLpFp/project/src/main/java/dev/brigada13/core/challenge/ChallengeService.java:808: error: cannot find symbol
+                  || state.is(Blocks.LIME_STAINED_GLASS);
+                                    ^
+    symbol:   variable LIME_STAINED_GLASS
+    location: class Blocks
+  6 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 51s
+2 actionable tasks: 1 executed, 1 up-to-date
+
+exit_code=1
+finished_at=2026-08-25T06:33:56Z
 runner=alexhost-143-246
