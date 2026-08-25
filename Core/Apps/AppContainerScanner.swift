@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 struct InstalledContainer: Identifiable, Hashable {
     let id = UUID()
@@ -15,10 +16,13 @@ final class AppContainerScanner: ObservableObject {
         status = "Scanning…"
         DispatchQueue.global(qos: .userInitiated).async {
             let root = "/var/mobile/Containers/Data/Application"
-            guard let ptr = niga_list_children(root, maxInode) else {
-                DispatchQueue.main.async { self.status = "Container enumeration failed" }; return
+            let ptr = root.withCString { niga_list_children($0, maxInode) }
+            guard let ptr else {
+                DispatchQueue.main.async { self.status = "Container enumeration failed" }
+                return
             }
-            let text = String(cString: ptr); niga_free_string(ptr)
+            let text = String(cString: ptr)
+            niga_free_string(ptr)
             let paths = text.split(separator: "\n").map(String.init)
             var found: [InstalledContainer] = []
             for path in paths {
@@ -32,7 +36,10 @@ final class AppContainerScanner: ObservableObject {
                 found.append(.init(path: path, bundleID: bid, displayName: name))
             }
             found.sort { $0.bundleID.localizedCaseInsensitiveCompare($1.bundleID) == .orderedAscending }
-            DispatchQueue.main.async { self.apps = found; self.status = "Found \(found.count) containers" }
+            DispatchQueue.main.async {
+                self.apps = found
+                self.status = "Found \(found.count) containers"
+            }
         }
     }
 }
