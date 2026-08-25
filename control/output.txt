@@ -1,27 +1,15 @@
-=== screenshot item icons ===
-minecraft:netherite_sword        raw=1055  cp=0xe71f   ok=True  texture=minecraft:item/netherite_sword.png
-minecraft:bone                   raw=1216  cp=0xe7c0   ok=True  texture=minecraft:item/bone.png
-minecraft:spider_eye             raw=1272  cp=0xe7f8   ok=True  texture=minecraft:item/spider_eye.png
-minecraft:arrow                  raw=1009  cp=0xe6f1   ok=True  texture=minecraft:item/arrow.png
-minecraft:bow                    raw=1008  cp=0xe6f0   ok=True  texture=minecraft:item/bow.png
-minecraft:crossbow               raw=1491  cp=0xe8d3   ok=True  texture=minecraft:item/crossbow_standby.png
-minecraft:cod_bucket             raw=1137  cp=0xe771   ok=True  texture=minecraft:item/cod_bucket.png
-minecraft:poppy                  raw=302   cp=0xe42e   ok=True  texture=minecraft:block/poppy.png
-minecraft:shulker_shell          raw=1455  cp=0xe8af   ok=True  texture=minecraft:item/shulker_shell.png
-minecraft:gold_nugget            raw=1268  cp=0xe7f4   ok=True  texture=minecraft:item/gold_nugget.png
-minecraft:magma_cream            raw=1275  cp=0xe7fb   ok=True  texture=minecraft:item/magma_cream.png
-minecraft:cod                    raw=1190  cp=0xe7a6   ok=True  texture=minecraft:item/cod.png
-minecraft:string                 raw=1062  cp=0xe726   ok=True  texture=minecraft:item/string.png
-minecraft:rotten_flesh           raw=1264  cp=0xe7f0   ok=True  texture=minecraft:item/rotten_flesh.png
-minecraft:feather                raw=1063  cp=0xe727   ok=True  texture=minecraft:item/feather.png
-minecraft:iron_ingot             raw=1018  cp=0xe6fa   ok=True  texture=minecraft:item/iron_ingot.png
-minecraft:gold_ingot             raw=1022  cp=0xe6fe   ok=True  texture=minecraft:item/gold_ingot.png
-minecraft:chicken                raw=1262  cp=0xe7ee   ok=True  texture=minecraft:item/chicken.png
-failed= []
-providers= 1474
-437b4d4d403c0ca85b3c165da0c86a6a50010124  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
-437b4d4d403c0ca85b3c165da0c86a6a50010124  -
+generated ChallengeRuntimeFixes.java ChallengeServiceMixin.java WorldMenuServiceMixin.java item_icons.json
+67121be3a3fe1018351f893e1f34d7309c5afdf6398a36f72b958455e9b4984e  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
+85b6d0308f5c7a780abff10ba499f1dfd3344e86f1fe1c6bda4a43cb3abf3939  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java
+e512388e2233ac7de789fc23e296e1eb56052ad3da5cca9ab0bbe37e7fc603d0  /opt/actions-runner/_work/Niga/Niga/control/generated/WorldMenuServiceMixin.java
+172a751f8b54b887adb98f6c291007e89d87dad1d05c063352671208fc6e0f06  /opt/actions-runner/_work/Niga/Niga/control/generated/item_icons.json
+ 27970 /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
+  5648 /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeServiceMixin.java
+  1193 /opt/actions-runner/_work/Niga/Niga/control/generated/WorldMenuServiceMixin.java
+150893 /opt/actions-runner/_work/Niga/Niga/control/generated/item_icons.json
+185704 total
+SOURCE_SNAPSHOT_OK
 
 exit_code=0
-finished_at=2026-08-25T17:35:45Z
+finished_at=2026-08-25T17:36:01Z
 runner=alexhost-143-246
