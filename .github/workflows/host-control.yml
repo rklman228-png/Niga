@@ -1,9 +1,9 @@
-name: Host Control
+name: Brigada Host Control
 
 on:
   push:
     branches:
-      - host-control
+      - brigada-host-control
     paths:
       - control/command.sh
       - .github/workflows/host-control.yml
@@ -12,12 +12,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: host-control-143-246-197-187
+  group: brigada-host-control-143-246
   cancel-in-progress: true
 
 jobs:
   execute:
-    name: Execute queued host command
+    name: Execute Brigada host command
     runs-on:
       - self-hosted
       - linux
@@ -28,10 +28,10 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Fetch control branch
+      - name: Fetch Brigada control branch
         uses: actions/checkout@v4
         with:
-          ref: host-control
+          ref: brigada-host-control
           persist-credentials: true
           clean: true
       - name: Execute command and publish output
@@ -47,7 +47,7 @@ jobs:
             printf 'runner=%s\n' "$RUNNER_NAME"
           } >> control/output.txt
 
-          git config user.name "host-control-runner"
+          git config user.name "brigada-host-control-runner"
           git config user.email "host-control@users.noreply.github.com"
           git add control/output.txt
           if [ -d control/generated ]; then
@@ -55,8 +55,8 @@ jobs:
           fi
 
           if ! git diff --cached --quiet; then
-            git commit -m "host-control: publish command output [skip ci]"
-            git push origin HEAD:host-control
+            git commit -m "brigada-host-control: publish command output [skip ci]"
+            git push origin HEAD:brigada-host-control
           fi
 
           exit "$command_status"
