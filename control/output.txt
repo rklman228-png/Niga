@@ -1,9 +1,15 @@
-STATE_MTIME_BEFORE=1787622702
-STATE_MTIME_AFTER=1787627247
 active
 0
 Aug 25 03:07:56 test1 java[3776283]: [03:07:56] [main/INFO]: World Core initialized for Minecraft 26.3 Snapshot 9
+Aug 25 03:08:08 test1 java[3776283]: [03:08:08] [Server thread/INFO]: Done (1.898s)! For help, type "help"
+Aug 25 03:08:09 test1 java[3776283]: [03:08:09] [Server thread/INFO]: WorldKeeper[local] logged in with entity id 1 at (0.0, 0.0, 0.0)
+Aug 25 03:08:11 test1 java[3776283]: [03:08:11] [Server thread/INFO]: System chat: WorldKeeper joined the game
+Aug 25 03:08:11 test1 java[3776283]: [03:08:11] [Server thread/INFO]: Started fake player WorldKeeper
+Aug 25 03:08:11 test1 java[3776283]: [03:08:11] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2999ms or 59 ticks behind
+Aug 25 03:08:29 test1 java[3776283]: [03:08:29] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2400ms or 48 ticks behind
+fe93d19b623937caecff386402e54b8a2fa9b4b2670c1ead1c09d021d20c799c  /opt/minecraft/server/mods/brigada-core-0.1.0.jar
+d5165af07a2889e7e187b282f6fa0efed195370a  /opt/minecraft/resourcepack/world-ui-26.3-snapshot-9.zip
 
 exit_code=0
-finished_at=2026-08-25T03:08:03Z
+finished_at=2026-08-25T03:08:51Z
 runner=alexhost-143-246
