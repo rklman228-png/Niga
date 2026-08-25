@@ -1,8 +1,23 @@
 set -euo pipefail
-MARK=$(date -u '+%Y-%m-%d %H:%M:%S')
-sleep 35
-echo "SINCE=$MARK"
-journalctl -u minecraft.service --since "$MARK" --no-pager | grep -E 'ERROR|Exception|AccessDenied|Can.t keep up' || true
-systemctl is-active minecraft.service
-systemctl show minecraft.service -p NRestarts --value
-ps -o pid,%cpu,%mem,rss,etime,cmd -p "$(systemctl show minecraft.service -p MainPID --value)"
+cd /opt/minecraft/server
+echo "---- level"
+grep '^level-name=' server.properties
+echo "---- cache"
+python3 - <<'PY'
+import json
+from pathlib import Path
+p=Path('usercache.json')
+print(json.dumps(json.loads(p.read_text()), ensure_ascii=False, indent=2) if p.exists() else '[]')
+PY
+echo "---- playerdata"
+LEVEL=$(sed -n 's/^level-name=//p' server.properties)
+find "$LEVEL/playerdata" -maxdepth 1 -type f -name '*.dat' -printf '%f
+' | sort || true
+echo "---- known state"
+python3 - <<'PY'
+import json
+from pathlib import Path
+p=Path('config/brigada-core/state.json')
+d=json.loads(p.read_text())
+print(json.dumps(d.get('knownPlayers', {}), ensure_ascii=False, indent=2))
+PY
