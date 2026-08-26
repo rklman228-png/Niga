@@ -1,52 +1,24 @@
 set -euo pipefail
-HOT=/opt/brigada-hotfix-src
-SRC="$HOT/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java"
-MOD=/opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
-
+LIVE=/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java
+OUT="$GITHUB_WORKSPACE/control/generated"
+mkdir -p "$OUT"
+export OUT
 python3 - <<'PY'
 from pathlib import Path
-p=Path('/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java')
-s=p.read_text()
-s=s.replace('arrow.setBaseDamage(arrow.getBaseDamage() * multiplier);','arrow.setBaseDamage(2.0 * multiplier);')
-p.write_text(s)
-print('event arrow base damage now explicit: Easy 2.0 / Normal 3.3 / Hard 5.0')
+import os,re
+live=Path('/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java').read_text()
+live=live.replace('package dev.brigada13.hotfix;', 'package dev.brigada13.core.challenge;', 1)
+live=live.replace('import dev.brigada13.core.challenge.ChallengeDefinition;\n','')
+live=live.replace('import dev.brigada13.core.challenge.ChallengeDifficulty;\n','')
+live=live.replace('import dev.brigada13.core.challenge.ChallengeKind;\n','')
+live=live.replace('import dev.brigada13.core.challenge.MiniEventMechanic;\n','')
+live=re.sub(r'\bRuntimeFixes\b', 'ChallengeRuntimeFixes', live)
+out=Path(os.environ['OUT'])/'ChallengeRuntimeFixes.java'
+out.write_text(live)
+print('bytes', out.stat().st_size)
 PY
-
-echo '=== build locally on VPS ==='
-cd "$HOT"
-set +e
-./gradlew clean build --no-daemon --stacktrace > /tmp/brigada-build.log 2>&1
-STATUS=$?
-set -e
-cat /tmp/brigada-build.log
-if [ "$STATUS" -ne 0 ]; then
-  echo BUILD_FAILED_NO_DEPLOY
-  exit "$STATUS"
-fi
-
-JAR=build/libs/brigada-hotfix-0.1.0.jar
-test -s "$JAR"
-sha256sum "$JAR"
-install -m 0644 "$JAR" "$MOD"
-
-systemctl restart minecraft.service
-sleep 2
-START=$(systemctl show minecraft.service -p ActiveEnterTimestamp --value)
-for i in $(seq 1 120); do
-  if journalctl -u minecraft.service --since "$START" --no-pager | grep -q 'Done ('; then break; fi
-  sleep 2
-done
-
-echo '=== verify ==='
-systemctl is-active minecraft.service
-ss -ltnp | grep ':25565 '
-sha256sum "$MOD"
-journalctl -u minecraft.service --since "$START" --no-pager | grep 'Done (' | tail -n 1
-! journalctl -u minecraft.service --since "$START" --no-pager | grep -Eqi 'InjectionError|InvalidMixin|MixinApplyError|Could not execute entrypoint|Exception in server tick loop|Failed to start the minecraft server'
-
-echo '=== live anchors ==='
-grep -nA14 -B2 'scaleEventArrow' "$SRC" | head -n 45
-grep -nA18 -B2 'UseItemCallback.EVENT' "$SRC" | head -n 50
-grep -nA24 -B2 'expelOutsiders' "$SRC" | head -n 70
-grep -nA10 -B2 'isForbiddenChallengeUse' "$SRC" | head -n 35
-echo EVENT_COMBAT_LOCKDOWN_ACTIVE
+sha256sum "$OUT/ChallengeRuntimeFixes.java"
+grep -nA18 -B2 'scaleEventArrow' "$OUT/ChallengeRuntimeFixes.java" | head -n 50
+grep -nA18 -B2 'UseItemCallback.EVENT' "$OUT/ChallengeRuntimeFixes.java" | head -n 50
+grep -nA26 -B2 'expelOutsiders' "$OUT/ChallengeRuntimeFixes.java" | head -n 70
+echo LIVE_COMBAT_LOCKDOWN_SNAPSHOT_OK
