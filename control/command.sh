@@ -1,25 +1,24 @@
 set -euo pipefail
-LIVE=/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java
-OUT="$GITHUB_WORKSPACE/control/generated"
-mkdir -p "$OUT"
-export OUT
-python3 - <<'PY'
-from pathlib import Path
-import os,re
-live=Path('/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java').read_text()
-live=live.replace('package dev.brigada13.hotfix;', 'package dev.brigada13.core.challenge;', 1)
-live=live.replace('import dev.brigada13.core.challenge.ChallengeDefinition;\n','')
-live=live.replace('import dev.brigada13.core.challenge.ChallengeDifficulty;\n','')
-live=live.replace('import dev.brigada13.core.challenge.ChallengeKind;\n','')
-live=live.replace('import dev.brigada13.core.challenge.MiniEventMechanic;\n','')
-live=re.sub(r'\bRuntimeFixes\b', 'ChallengeRuntimeFixes', live)
-out=Path(os.environ['OUT'])/'ChallengeRuntimeFixes.java'
-out.write_text(live)
-print('snapshot bytes', out.stat().st_size)
-PY
-sha256sum "$OUT/ChallengeRuntimeFixes.java"
-grep -nA12 -B2 'double healthMultiplier' "$OUT/ChallengeRuntimeFixes.java"
-grep -nA8 -B2 'baseAttack = attack.getBaseValue' "$OUT/ChallengeRuntimeFixes.java"
-grep -nA24 -B2 'isForbiddenChallengeItem' "$OUT/ChallengeRuntimeFixes.java" | head -n 55
-grep -nA18 -B2 'continuousPressureMechanic' "$OUT/ChallengeRuntimeFixes.java" | head -n 45
-echo FINAL_LIVE_SOURCE_SNAPSHOT_OK
+HOT=/opt/brigada-hotfix-src
+
+echo '=== locate Fabric API sources/classes ==='
+find /root/.gradle/caches -type f \( -name '*fabric-events-interaction*jar' -o -name '*minecraft*client*jar' -o -name '*minecraft*server*jar' \) 2>/dev/null | head -n 40
+
+echo '=== callback signatures from caches ==='
+for j in $(find /root/.gradle/caches -type f -name '*fabric-events-interaction*jar' 2>/dev/null | head -n 12); do
+  echo JAR=$j
+  jar tf "$j" | grep -E 'Use(Item|Block)Callback|AttackBlockCallback' || true
+  javap -classpath "$j" net.fabricmc.fabric.api.event.player.UseItemCallback 2>/dev/null || true
+  javap -classpath "$j" net.fabricmc.fabric.api.event.player.UseBlockCallback 2>/dev/null || true
+  javap -classpath "$j" net.fabricmc.fabric.api.event.player.AttackBlockCallback 2>/dev/null || true
+done
+
+echo '=== minecraft class signatures from compile classpath ==='
+cd "$HOT"
+./gradlew -q dependencies --configuration compileClasspath > /tmp/brigada-deps.txt || true
+find /root/.gradle/caches -type f -name '*.jar' 2>/dev/null | grep -E 'minecraft|intermediary|mapped' | head -n 80
+
+echo '=== source text probes ==='
+grep -R --include='*.java' -n 'class AbstractArrow\|class WindCharge\|FOOD' "$HOT/.gradle" /root/.gradle/caches/fabric-loom 2>/dev/null | head -n 80 || true
+
+echo API_INSPECT_OK
