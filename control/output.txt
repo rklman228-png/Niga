@@ -1,131 +1,40 @@
-snapshot bytes 50674
-542595644df9895a96561b8094ffcc9e4bf6a31690782eb1982f5cdf24b0097e  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
-462-            PREPARED_COMBAT_MOBS.clear();
-463-        }
-464:        double healthMultiplier = switch (definition.difficulty()) {
-465-            case EASY -> 1.00;
-466-            case NORMAL -> 1.25;
-467-            case HARD -> 1.50;
-468-        };
-469-        double damageMultiplier = switch (definition.difficulty()) {
-470-            case EASY -> 1.00;
-471-            case NORMAL -> 1.65;
-472-            case HARD -> 2.50;
-473-        };
-474-        double speedMultiplier = switch (definition.difficulty()) {
-475-            case EASY -> 1.00;
-476-            case NORMAL -> 1.06;
-491-            var attack = mob.getAttribute(Attributes.ATTACK_DAMAGE);
-492-            if (attack != null && damageMultiplier != 1.0) {
-493:                double baseAttack = attack.getBaseValue();
-494-                // Hard should hurt, but naturally brutal mobs must not become accidental one-shot machines.
-495-                double appliedMultiplier = definition.difficulty() == ChallengeDifficulty.HARD && baseAttack >= 25.0
-496-                        ? 1.75 : damageMultiplier;
-497-                attack.setBaseValue(baseAttack * appliedMultiplier);
-498-            }
-499-            var speed = mob.getAttribute(Attributes.MOVEMENT_SPEED);
-500-            if (speed != null && speedMultiplier != 1.0)
-501-                speed.setBaseValue(speed.getBaseValue() * speedMultiplier);
-185-        if (source.getEntity() instanceof ServerPlayer attacker
-186-                && isChallengeParticipant(attacker)
-187:                && isForbiddenChallengeItem(attacker.getMainHandItem())) return false;
-188-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-189-        if (!isTrackedEventEntity(state, entity.getUUID())) return true;
-190-        if (source.is(DamageTypes.FALL)) return false;
-191-        if (source.is(DamageTypes.ON_FIRE) && entity.level() instanceof ServerLevel level
-192-                && level.canSeeSky(entity.blockPosition())) return false;
-193-        return true;
-194-    }
-195-
-196-    private static boolean isTrackedEventEntity(ActiveChallengeState state, UUID id) {
-197-        if (state == null || !state.arenaLocked) return false;
-198-        try {
-199-            if (BrigadaCore.challenges().require(state.challengeId).kind() != ChallengeKind.MINI_EVENT) return false;
-200-        } catch (RuntimeException ignored) {
-201-            return false;
-202-        }
-203-        return state.eventEntities.contains(id) || (state.targetEntityId != null && state.targetEntityId.equals(id));
-204-    }
-205-
-206-    public static void onComplete(MinecraftServer server, ActiveChallengeState state) {
-207-        if (state == null || state.contribution == null) return;
-208-        for (String participant : state.contribution.keySet()) {
-209-            ServerPlayer player = server.getPlayerList().getPlayerByName(participant);
-210-            if (player == null) continue;
-211-            play(player.level(), player.getX(), player.getY(), player.getZ(),
---
-257-            ServerPlayer player = server.getPlayerList().getPlayerByName(name);
-258-            if (player == null) continue;
-259:            if (player.isUsingItem() && isForbiddenChallengeItem(player.getUseItem())) {
-260-                player.stopUsingItem();
-261-            }
-262-            if (player.isFallFlying()) player.stopFallFlying();
-263-        }
-264-    }
-265-
-266-    private static boolean isChallengeParticipant(ServerPlayer player) {
-267-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-268-        return state != null && state.contribution != null
-269-                && state.contribution.containsKey(player.getName().getString());
-270-    }
-271-
-272:    private static boolean isForbiddenChallengeItem(ItemStack stack) {
-273-        if (stack == null || stack.isEmpty()) return false;
-274-        Identifier key = BuiltInRegistries.ITEM.getKey(stack.getItem());
-275-        if (key == null) return false;
-276-        return switch (key.toString()) {
-277-            case "minecraft:golden_apple", "minecraft:enchanted_golden_apple",
-278-                    "minecraft:potion", "minecraft:splash_potion", "minecraft:lingering_potion",
-279-                    "minecraft:ender_pearl", "minecraft:chorus_fruit",
-280-                    "minecraft:wind_charge", "minecraft:firework_rocket",
-281-                    "minecraft:elytra", "minecraft:mace", "minecraft:trident" -> true;
-282-            default -> false;
-283-        };
-294-    }
-295-
-296:    private static boolean continuousPressureMechanic(MiniEventMechanic mechanic) {
-297-        return switch (mechanic) {
-298-            case HOLD_ZONE, SPLIT_OBJECTIVES, EXTRACTION, NO_DEATH_GAUNTLET -> true;
-299-            case WAVES, HUNT_TARGETS, DEFEND_OBJECTIVE, ELITE_BOSS, MULTI_PHASE_ASSAULT -> false;
-300-        };
-301-    }
-302-
-303-    private static ActiveChallengeState activeEvent() {
-304-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-305-        if (state == null || !state.arenaLocked || state.arenaDimension == null) return null;
-306-        try {
-307-            return BrigadaCore.challenges().require(state.challengeId).kind() == ChallengeKind.MINI_EVENT ? state : null;
-308-        } catch (RuntimeException ignored) {
-309-            return null;
-310-        }
-311-    }
-312-
-313-    private static ServerLevel eventLevel(MinecraftServer server, ActiveChallengeState state) {
-314-        return server.getLevel(ResourceKey.create(Registries.DIMENSION, Identifier.parse(state.arenaDimension)));
---
-544-    private static void tickContinuousPressure(ServerLevel level, ChallengeDefinition definition,
-545-                                          ActiveChallengeState state) {
-546:        if (!continuousPressureMechanic(definition.mechanic())) return;
-547-        if (splitPressureEvent != state.startedAtEpochMillis) {
-548-            splitPressureEvent = state.startedAtEpochMillis;
-549-            splitPressureElapsed = -1;
-550-        }
-551-        if (state.eventElapsedTicks < 40) return;
-552-
-553-        int interval = switch (definition.difficulty()) {
-554-            case EASY -> 200;
-555-            case NORMAL -> 120;
-556-            case HARD -> 80;
-557-        };
-558-        if (splitPressureElapsed >= 0 && state.eventElapsedTicks - splitPressureElapsed < interval) return;
-559-
-560-        int cap = switch (definition.difficulty()) {
-561-            case EASY -> 8;
-562-            case NORMAL -> 14;
-563-            case HARD -> 20;
-564-        };
-FINAL_LIVE_SOURCE_SNAPSHOT_OK
+=== locate Fabric API sources/classes ===
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-client.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-extracted_server.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-server.jar
+/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-events-interaction-v0/5.3.5+3434d6d97a/ac5a2c2cf4fbf8b6c0a7a671fb0a0f4e4d106bd5/fabric-events-interaction-v0-5.3.5+3434d6d97a.jar
+=== callback signatures from caches ===
+JAR=/root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-events-interaction-v0/5.3.5+3434d6d97a/ac5a2c2cf4fbf8b6c0a7a671fb0a0f4e4d106bd5/fabric-events-interaction-v0-5.3.5+3434d6d97a.jar
+net/fabricmc/fabric/api/event/player/AttackBlockCallback.class
+net/fabricmc/fabric/api/event/player/UseBlockCallback.class
+net/fabricmc/fabric/api/event/player/UseItemCallback.class
+Compiled from "UseItemCallback.java"
+public interface net.fabricmc.fabric.api.event.player.UseItemCallback {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.player.UseItemCallback> EVENT;
+  public abstract net.minecraft.world.InteractionResult interact(net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.world.InteractionHand);
+  static {};
+}
+Compiled from "UseBlockCallback.java"
+public interface net.fabricmc.fabric.api.event.player.UseBlockCallback {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.player.UseBlockCallback> EVENT;
+  public abstract net.minecraft.world.InteractionResult interact(net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.world.InteractionHand, net.minecraft.world.phys.BlockHitResult);
+  static {};
+}
+Compiled from "AttackBlockCallback.java"
+public interface net.fabricmc.fabric.api.event.player.AttackBlockCallback {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.player.AttackBlockCallback> EVENT;
+  public abstract net.minecraft.world.InteractionResult interact(net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.world.InteractionHand, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
+  static {};
+}
+=== minecraft class signatures from compile classpath ===
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-merged.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-client.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-extracted_server.jar
+/root/.gradle/caches/fabric-loom/26.3-snapshot-9/minecraft-server.jar
+/root/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-deobf/26.3-snapshot-9/minecraft-merged-deobf-26.3-snapshot-9.jar
+=== source text probes ===
+API_INSPECT_OK
 
 exit_code=0
-finished_at=2026-08-25T19:29:29Z
+finished_at=2026-08-26T08:35:59Z
 runner=alexhost-143-246
