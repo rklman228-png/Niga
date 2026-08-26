@@ -3,7 +3,14 @@ HOT=/opt/brigada-hotfix-src
 SRC="$HOT/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java"
 MOD=/opt/minecraft/server/mods/brigada-hotfix-1.0.0.jar
 
-sed -i 's/import net\.minecraft\.world\.entity\.projectile\.AbstractArrow;/import net.minecraft.world.entity.projectile.arrow.AbstractArrow;/' "$SRC"
+python3 - <<'PY'
+from pathlib import Path
+p=Path('/opt/brigada-hotfix-src/src/main/java/dev/brigada13/hotfix/RuntimeFixes.java')
+s=p.read_text()
+s=s.replace('arrow.setBaseDamage(arrow.getBaseDamage() * multiplier);','arrow.setBaseDamage(2.0 * multiplier);')
+p.write_text(s)
+print('event arrow base damage now explicit: Easy 2.0 / Normal 3.3 / Hard 5.0')
+PY
 
 echo '=== build locally on VPS ==='
 cd "$HOT"
