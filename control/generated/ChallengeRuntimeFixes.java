@@ -7,7 +7,10 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
@@ -28,10 +31,13 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.entity.monster.cubemob.MagmaCube;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -83,8 +89,22 @@ public final class ChallengeRuntimeFixes {
         ServerLivingEntityEvents.ALLOW_DAMAGE.register(ChallengeRuntimeFixes::allowDamage);
         ServerLivingEntityEvents.AFTER_DAMAGE.register(ChallengeRuntimeFixes::afterDamage);
         ServerEntityEvents.ENTITY_LOAD.register(ChallengeRuntimeFixes::onEntityLoad);
-        PlayerBlockBreakEvents.BEFORE.register((level, player, pos, blockState, blockEntity) ->
-                !(level instanceof ServerLevel serverLevel) || !isFullBoundaryPosition(serverLevel, pos));
+        PlayerBlockBreakEvents.BEFORE.register((level, player, pos, blockState, blockEntity) -> {
+            if (!(level instanceof ServerLevel serverLevel)) return true;
+            if (player instanceof ServerPlayer serverPlayer && isMiniEventParticipant(serverPlayer)) return false;
+            return !isFullBoundaryPosition(serverLevel, pos);
+        });
+        UseItemCallback.EVENT.register((player, level, hand) -> {
+            if (!(player instanceof ServerPlayer serverPlayer) || !isChallengeParticipant(serverPlayer))
+                return InteractionResult.PASS;
+            ItemStack stack = player.getItemInHand(hand);
+            return isForbiddenChallengeUse(serverPlayer, stack) ? InteractionResult.FAIL : InteractionResult.PASS;
+        });
+        UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
+            if (!(player instanceof ServerPlayer serverPlayer) || !isMiniEventParticipant(serverPlayer))
+                return InteractionResult.PASS;
+            return player.getItemInHand(hand).getItem() instanceof BlockItem ? InteractionResult.FAIL : InteractionResult.PASS;
+        });
         ServerTickEvents.END_SERVER_TICK.register(ChallengeRuntimeFixes::tick);
         loadBoundaryBackup();
         dumpItemRegistry();
@@ -106,6 +126,7 @@ public final class ChallengeRuntimeFixes {
     }
 
     private static void onEntityLoad(Entity entity, ServerLevel level) {
+        if (entity instanceof AbstractArrow arrow) scaleEventArrow(level, arrow);
         if (entity instanceof Projectile projectile && isForbiddenChallengeProjectile(entity)) {
             Entity owner = projectile.getOwner();
             if (owner instanceof ServerPlayer player && isChallengeParticipant(player)) {
@@ -230,6 +251,7 @@ public final class ChallengeRuntimeFixes {
             if (level != null) {
                 ensureFullHeightBoundary(level, state);
                 confineParticipants(server, level, state);
+                expelOutsiders(level, state);
                 scaleEventMobs(level, definition, state);
                 stabiliseEventMobs(level, state);
                 tickContinuousPressure(level, definition, state);
@@ -256,7 +278,7 @@ public final class ChallengeRuntimeFixes {
         for (String name : state.contribution.keySet()) {
             ServerPlayer player = server.getPlayerList().getPlayerByName(name);
             if (player == null) continue;
-            if (player.isUsingItem() && isForbiddenChallengeItem(player.getUseItem())) {
+            if (player.isUsingItem() && isForbiddenChallengeUse(player, player.getUseItem())) {
                 player.stopUsingItem();
             }
             if (player.isFallFlying()) player.stopFallFlying();
@@ -287,10 +309,65 @@ public final class ChallengeRuntimeFixes {
         Identifier key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         if (key == null) return false;
         return switch (key.toString()) {
-            case "minecraft:ender_pearl", "minecraft:wind_charge",
+            case "minecraft:ender_pearl", "minecraft:wind_charge", "minecraft:breeze_wind_charge",
                     "minecraft:potion", "minecraft:firework_rocket" -> true;
             default -> false;
         };
+    }
+
+    private static boolean isMiniEventParticipant(ServerPlayer player) {
+        ActiveChallengeState state = activeEvent();
+        return state != null && state.contribution != null
+                && state.contribution.containsKey(player.getName().getString());
+    }
+
+    private static boolean isForbiddenChallengeUse(ServerPlayer player, ItemStack stack) {
+        if (isForbiddenChallengeItem(stack)) return true;
+        return isMiniEventParticipant(player) && stack != null && !stack.isEmpty() && stack.has(DataComponents.FOOD);
+    }
+
+    private static void scaleEventArrow(ServerLevel level, AbstractArrow arrow) {
+        Entity owner = arrow.getOwner();
+        if (owner == null) return;
+        ActiveChallengeState state = activeEvent();
+        if (state == null || eventLevel(level.getServer(), state) != level) return;
+        if (!state.eventEntities.contains(owner.getUUID())
+                && (state.targetEntityId == null || !state.targetEntityId.equals(owner.getUUID()))) return;
+        ChallengeDefinition definition;
+        try { definition = BrigadaCore.challenges().require(state.challengeId); }
+        catch (RuntimeException ignored) { return; }
+        double multiplier = switch (definition.difficulty()) {
+            case EASY -> 1.00;
+            case NORMAL -> 1.65;
+            case HARD -> 2.50;
+        };
+        if (multiplier != 1.0) arrow.setBaseDamage(2.0 * multiplier);
+    }
+
+    private static void expelOutsiders(ServerLevel level, ActiveChallengeState state) {
+        if (state.contribution == null) return;
+        double minX = state.arenaMinX;
+        double maxX = state.arenaMaxX + 1.0;
+        double minZ = state.arenaMinZ;
+        double maxZ = state.arenaMaxZ + 1.0;
+        for (ServerPlayer player : level.players()) {
+            if (state.contribution.containsKey(player.getName().getString())) continue;
+            double x = player.getX(), z = player.getZ();
+            if (x < minX || x > maxX || z < minZ || z > maxZ) continue;
+
+            double left = x - minX, right = maxX - x, top = z - minZ, bottom = maxZ - z;
+            double nx=x, nz=z;
+            if (left <= right && left <= top && left <= bottom) nx = minX - 1.35;
+            else if (right <= top && right <= bottom) nx = maxX + 1.35;
+            else if (top <= bottom) nz = minZ - 1.35;
+            else nz = maxZ + 1.35;
+
+            BlockPos safe = findSafeFeet(level, (int)Math.floor(nx), (int)Math.floor(nz), (int)Math.floor(player.getY()));
+            double ny = safe != null ? safe.getY() : player.getY();
+            if (safe != null) { nx = safe.getX() + 0.5; nz = safe.getZ() + 0.5; }
+            player.teleportTo(nx, ny, nz);
+            player.setDeltaMovement(0.0, Math.min(0.0, player.getDeltaMovement().y), 0.0);
+        }
     }
 
     private static boolean continuousPressureMechanic(MiniEventMechanic mechanic) {
