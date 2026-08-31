@@ -1,0 +1,44 @@
+name: Temporary Astronaut PR build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.6.1'
+      - name: Prepare project
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/astronaut"
+          base64 -d astronaut-project.b64 | tar -xzf - -C "$RUNNER_TEMP/astronaut"
+      - name: Build
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/astronaut"
+          gradle clean build --stacktrace
+      - name: Verify
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/astronaut"
+          JAR=$(find build/libs -maxdepth 1 -name 'astronaut-0.1.1.jar' -print -quit)
+          test -n "$JAR"
+          unzip -t "$JAR"
+          jar tf "$JAR" | grep -q 'dev/astronaut/gui/AstronautScreen.class'
+          jar tf "$JAR" | grep -q 'META-INF/jars/'
+          javap -verbose -classpath "$JAR" dev.astronaut.gui.AstronautScreen | grep 'major version: 69'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Astronaut-0.1.1-mc26.2
+          path: ${{ runner.temp }}/astronaut/build/libs/astronaut-0.1.1.jar
+          if-no-files-found: error
