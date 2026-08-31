@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -48,6 +51,15 @@ jobs:
           unzip -p "$JAR" fabric.mod.json | grep -q 'fabric-api'
           javap -verbose -classpath "$JAR" dev.astronaut.gui.AstronautScreen | grep 'major version: 69'
           cp "$JAR" build/libs/Astronaut-0.1.1+mc26.2-fixed.jar
+      - name: Publish direct JAR release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG='astronaut-0.1.1-mc26.2-fixed'
+          JAR="$RUNNER_TEMP/astronaut/build/libs/Astronaut-0.1.1+mc26.2-fixed.jar"
+          gh release delete "$TAG" --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" || true
+          gh release create "$TAG" "$JAR" --target main --title 'Astronaut 0.1.1 MC 26.2 fixed' --notes 'Fixed 26.2 GUI build with separate Astronaut/Minecraft settings persistence and Fabric API 0.158.0+26.2 bundled as a nested mod.' --repo "$GITHUB_REPOSITORY"
       - uses: actions/upload-artifact@v4
         with:
           name: Astronaut-0.1.1-mc26.2-fixed-bundled
