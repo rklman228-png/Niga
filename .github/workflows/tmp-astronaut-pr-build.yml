@@ -22,18 +22,35 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/astronaut"
           base64 -d astronaut-project.b64 | tar -xzf - -C "$RUNNER_TEMP/astronaut"
-      - name: Build and verify
+      - name: Build bundled jar and verify
         shell: bash
         run: |
           cd "$RUNNER_TEMP/astronaut"
+          cat >> build.gradle <<'EOF'
+
+          repositories {
+              maven { url = 'https://maven.fabricmc.net/' }
+          }
+
+          dependencies {
+              modImplementation 'net.fabricmc.fabric-api:fabric-api:0.158.0+26.2'
+              include 'net.fabricmc.fabric-api:fabric-api:0.158.0+26.2'
+          }
+          EOF
           gradle clean build --stacktrace
           JAR=$(find build/libs -maxdepth 1 -name 'astronaut-0.1.1.jar' -print -quit)
           test -n "$JAR"
           unzip -t "$JAR"
           jar tf "$JAR" | grep -q 'dev/astronaut/gui/AstronautScreen.class'
+          jar tf "$JAR" | grep -q 'dev/astronaut/config/AstronautConfig.class'
+          jar tf "$JAR" | grep -q 'dev/astronaut/config/AstronautPreLaunch.class'
+          jar tf "$JAR" | grep -q 'dev/astronaut/config/MinecraftOptionsBackup.class'
+          jar tf "$JAR" | grep -Eq 'META-INF/jars/fabric-api-0\.158\.0\+26\.2.*\.jar'
+          unzip -p "$JAR" fabric.mod.json | grep -q 'fabric-api'
           javap -verbose -classpath "$JAR" dev.astronaut.gui.AstronautScreen | grep 'major version: 69'
+          cp "$JAR" build/libs/Astronaut-0.1.1+mc26.2-fixed.jar
       - uses: actions/upload-artifact@v4
         with:
-          name: Astronaut-0.1.1-mc26.2
-          path: ${{ runner.temp }}/astronaut/build/libs/astronaut-0.1.1.jar
+          name: Astronaut-0.1.1-mc26.2-fixed-bundled
+          path: ${{ runner.temp }}/astronaut/build/libs/Astronaut-0.1.1+mc26.2-fixed.jar
           if-no-files-found: error
