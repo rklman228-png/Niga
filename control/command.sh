@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo '===== latency diagnostics ====='
-echo '--- load ---'
-uptime
-printf 'cpu_count='; nproc
-printf 'mem_available_mb='; awk '/MemAvailable:/ {printf "%.0f\n", $2/1024}' /proc/meminfo
+echo '===== whitelist profile preflight ====='
+echo '--- nginx build ---'
+nginx -V 2>&1 | sed 's/ --/\n--/g' | grep -E 'nginx version|with-stream|dynamic-module' || true
 
-echo '--- vless status ---'
-echo "vless=$(docker inspect -f '{{.State.Running}}' xray-vless-47005 2>/dev/null || echo missing)"
-echo "tcp47005=$(ss -ltnH | grep -c ':47005 ' || true)"
+echo '--- listeners 443 ---'
+ss -ltnpH | grep ':443 ' || true
 
-echo '--- network RTT from VPS ---'
-for host in 1.1.1.1 8.8.8.8; do
-  echo "host=$host"
-  ping -n -c 8 -W 2 "$host" 2>/dev/null | tail -n 2 || true
+echo '--- nginx 443 declarations ---'
+grep -RInE 'listen[[:space:]].*443' /etc/nginx 2>/dev/null | head -n 40 || true
+
+echo '--- candidate local ports ---'
+for p in 47006 47007 8443 2053; do
+  if ss -ltnH | grep -qE "[:.]${p}[[:space:]]"; then echo "$p=busy"; else echo "$p=free"; fi
 done
 
-echo '--- HTTPS timing from VPS ---'
-for url in https://www.gstatic.com/generate_204 https://www.cloudflare.com/cdn-cgi/trace; do
-  curl -o /dev/null -sS --max-time 10 -w "$url connect=%{time_connect}s tls=%{time_appconnect}s total=%{time_total}s\n" "$url" || true
+echo '--- decoy TLS 1.3 tests ---'
+for host in vk.com yandex.ru www.yandex.ru; do
+  printf '%s=' "$host"
+  if timeout 8 openssl s_client -connect "$host:443" -servername "$host" -tls1_3 </dev/null 2>/dev/null | grep -q 'Protocol  *: TLSv1.3'; then echo tls13_ok; else echo tls13_unknown; fi
 done
 
-echo '--- socket counters ---'
-ss -s
-
-echo LATENCY_DIAG_OK
+echo '--- preservation ---'
+echo "vless_main=$(docker inspect -f '{{.State.Running}}' xray-vless-47005 2>/dev/null || echo missing)"
+echo "awg31=$(docker inspect -f '{{.State.Running}}' amnezia-awg31-mobile 2>/dev/null || echo missing)"
+echo WL_PREFLIGHT_OK
