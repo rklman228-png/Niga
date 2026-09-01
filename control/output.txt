@@ -1,34 +1,6 @@
-===== backup existing VPN state =====
-backup=/root/amnezia-vpn-backups/20260901T044056Z
-===== verify prerequisites =====
-===== generate isolated mobile credentials =====
-===== validate config in disposable container =====
-Xray 25.8.3 (Xray, Penetrates Everything.) bd86732 (go1.24.5 linux/amd64)
-A unified platform for anti-censorship.
-2026/09/01 04:40:57.772443 [Info] infra/conf/serial: Reading config: &{Name:/tmp/server.json Format:json}
-Configuration OK.
-===== launch isolated mobile Reality service =====
-===== local transport test =====
-LISTEN 0      4096         0.0.0.0:8443       0.0.0.0:*    users:(("docker-proxy",pid=345013,fd=4))                                                                                                           
-HTTP/2 200 
-server: AkamaiGHost
-mime-version: 1.0
-content-type: text/html
-content-length: 421
-expires: Tue, 01 Sep 2026 04:41:01 GMT
-cache-control: max-age=0, no-cache, no-store
-pragma: no-cache
-===== encrypt client URI for chat handoff =====
-mobile_protocol=VLESS+REALITY+Vision
-mobile_port=8443/tcp
-mobile_sni=www.microsoft.com
-container_running=true
-old_amnezia_xray=true
-awg0_present=yes
-awg1_present=yes
-client_uri_encrypted=yes
-MOBILE_REALITY_DEPLOY_OK
+===== authenticated Reality self-test =====
+curl: (35) TLS connect error: error:0A000126:SSL routines::unexpected eof while reading
 
-exit_code=0
-finished_at=2026-09-01T04:41:01Z
+exit_code=35
+finished_at=2026-09-01T04:42:03Z
 runner=alexhost-143-246
