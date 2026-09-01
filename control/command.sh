@@ -3,29 +3,25 @@ set -euo pipefail
 
 redact() {
   sed -E \
-    -e 's/^([[:space:]]*(PrivateKey|PresharedKey|Password|Token)[[:space:]]*=[[:space:]]*).*/\1<REDACTED>/I' \
-    -e 's/("(privateKey|presharedKey|password|token|id|uuid)"[[:space:]]*:[[:space:]]*")[^"]*/\1<REDACTED>/Ig'
+    -e 's/("(privateKey|password|token)"[[:space:]]*:[[:space:]]*")[^"]*/\1<REDACTED>/Ig' \
+    -e 's/("(id|uuid)"[[:space:]]*:[[:space:]]*")[^"]*/\1<REDACTED>/Ig'
 }
 
-echo '===== xray docker inspect ====='
-docker inspect amnezia-xray --format '{{json .Config}}' 2>/dev/null | redact || true
-docker inspect amnezia-xray --format '{{json .Mounts}}' 2>/dev/null | redact || true
-docker inspect amnezia-xray --format '{{json .HostConfig.PortBindings}}' 2>/dev/null | redact || true
+echo '===== container ====='
+docker inspect amnezia-xray --format 'Image={{.Config.Image}} Entrypoint={{json .Config.Entrypoint}} Cmd={{json .Config.Cmd}}' || true
+docker inspect amnezia-xray --format 'Mounts={{json .Mounts}}' || true
+docker inspect amnezia-xray --format 'Ports={{json .HostConfig.PortBindings}}' || true
 
-echo '===== xray filesystem ====='
-docker exec amnezia-xray sh -lc 'find /opt /etc /usr/local/etc -maxdepth 5 -type f 2>/dev/null | sort | grep -Ei "xray|config|json" | head -200' || true
+echo '===== xray dir ====='
+docker exec amnezia-xray sh -lc 'ls -la /opt/amnezia/xray 2>/dev/null || true'
 
-echo '===== xray candidate configs ====='
-for f in $(docker exec amnezia-xray sh -lc 'find /opt /etc /usr/local/etc -maxdepth 5 -type f \( -name "*.json" -o -name "*.conf" \) 2>/dev/null | sort' 2>/dev/null); do
-  echo "--- $f ---"
-  docker exec amnezia-xray sh -lc "cat '$f'" 2>/dev/null | redact || true
-  echo
-done
+echo '===== server.json sanitized ====='
+docker exec amnezia-xray sh -lc 'cat /opt/amnezia/xray/server.json 2>/dev/null || true' | redact
 
-echo '===== host nginx ====='
-nginx -T 2>&1 | sed -E 's/(ssl_certificate_key[[:space:]]+)[^;]+/\1<REDACTED>/Ig' | head -500 || true
+echo '===== version ====='
+docker exec amnezia-xray sh -lc '/opt/amnezia/xray/xray version 2>/dev/null | head -20 || true'
 
-echo '===== xray version/process ====='
-docker exec amnezia-xray sh -lc 'ps aux; (xray version || /usr/bin/xray version || /usr/local/bin/xray version) 2>/dev/null' || true
+echo '===== processes ====='
+docker exec amnezia-xray sh -lc 'ps -ef | head -80' || true
 
 echo XRAY_INSPECT_OK
