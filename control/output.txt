@@ -1,65 +1,31 @@
-===== container =====
-Image=amnezia-xray Entrypoint=["dumb-init","/opt/amnezia/start.sh"] Cmd=null
-Mounts=[]
-Ports={"2334/tcp":[{"HostIp":"","HostPort":"2334"}]}
-===== xray dir =====
-total 36
-drwxr-xr-x    1 root     root          4096 Aug 22 15:51 .
-drwxr-xr-x    1 root     root          4096 Aug 15 17:16 ..
----------x    1 root     root           430 Aug 22 15:51 clientsTable
----------x    1 root     root           917 Aug 22 15:50 server.json
--rw-r--r--    1 root     root            44 Aug 15 17:16 xray_private.key
--rw-r--r--    1 root     root            44 Aug 15 17:16 xray_public.key
--rw-r--r--    1 root     root            17 Aug 15 17:16 xray_short_id.key
--rw-r--r--    1 root     root            37 Aug 15 17:16 xray_uuid.key
-===== server.json sanitized =====
-{
-    "inbounds": [
-        {
-            "port": 2334,
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "flow": "xtls-rprx-vision",
-                        "id": "<REDACTED>"
-                    },
-                    {
-                        "id": "<REDACTED>"
-                    },
-                    {
-                        "flow": "xtls-rprx-vision",
-                        "id": "<REDACTED>"
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "tcp",
-                "security": ""
-            }
-        }
-    ],
-    "log": {
-        "loglevel": "error"
-    },
-    "outbounds": [
-        {
-            "protocol": "freedom"
-        }
-    ]
-}
-===== version =====
-===== processes =====
-PID   USER     TIME  COMMAND
-    1 root      0:00 dumb-init /opt/amnezia/start.sh
-    6 root      0:00 {start.sh} /bin/bash /opt/amnezia/start.sh
-   18 root      0:50 xray -config /opt/amnezia/xray/server.json
-   83 root      0:00 sh -lc ps -ef | head -80
-   91 root      0:00 ps -ef
-   92 root      0:00 head -80
-XRAY_INSPECT_OK
+===== xray binary =====
+/usr/bin/xray
+===== xray version =====
+Xray 25.8.3 (Xray, Penetrates Everything.) bd86732 (go1.24.5 linux/amd64)
+A unified platform for anti-censorship.
+===== reality support =====
+Xray is a platform for building proxies.
+
+Usage:
+
+	xray <command> [arguments]
+
+The commands are:
+
+	run          Run Xray with config, the default command
+	version      Show current version of Xray
+	api          Call an API in an Xray process
+	convert      Convert configs
+	tls          TLS tools
+	uuid         Generate UUIDv4 or UUIDv5
+	x25519       Generate key pair for x25519 key exchange
+	wg           Generate key pair for wireguard key exchange
+	mldsa65      Generate key pair for ML-DSA-65 post-quantum signature
+
+Use "xray help <command>" for more information about a command.
+x25519_generator=ok
+XRAY_CAPABILITY_OK
 
 exit_code=0
-finished_at=2026-09-01T04:38:20Z
+finished_at=2026-09-01T04:39:06Z
 runner=alexhost-143-246
