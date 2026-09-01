@@ -1,10 +1,36 @@
-===== pull current pinned Xray =====
-image=ghcr.io/xtls/xray-core:26.3.27
-===== generate server/client credentials locally on VPS =====
-uuid_generated=yes
-x25519_generated=yes
-===== validate configs =====
+===== Xray image CLI diagnostics =====
+entrypoint=["/usr/local/bin/xray"] cmd=["-confdir","/usr/local/etc/xray/"]
+--- version ---
+Xray 26.3.27 (Xray, Penetrates Everything.) Custom (go1.26.1 linux/amd64)
+A unified platform for anti-censorship.
+--- help head ---
+Xray is a platform for building proxies.
 
-exit_code=23
-finished_at=2026-09-01T05:45:34Z
+Usage:
+
+	xray <command> [arguments]
+
+The commands are:
+
+	run           Run Xray with config, the default command
+	version       Show current version of Xray
+	api           Call an API in an Xray process
+	convert       Convert configs
+	tls           TLS tools
+	uuid          Generate UUIDv4 or UUIDv5 (VLESS)
+	x25519        Generate key pair for X25519 key exchange (REALITY, VLESS Encryption)
+	wg            Generate key pair for X25519 key exchange (WireGuard)
+	mldsa65       Generate key pair for ML-DSA-65 post-quantum signature (REALITY)
+	mlkem768      Generate key pair for ML-KEM-768 post-quantum key exchange (VLESS Encryption)
+	vlessenc      Generate decryption/encryption json pair (VLESS Encryption)
+	buildMphCache Build domain matcher cache
+
+Use "xray help <command>" for more information about a command.
+--- state files present ---
+server.json=present
+client.json=present
+XRAY_CLI_DIAG_OK
+
+exit_code=0
+finished_at=2026-09-01T05:46:36Z
 runner=alexhost-143-246
