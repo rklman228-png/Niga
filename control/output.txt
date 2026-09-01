@@ -1,6 +1,11 @@
-===== launch official-style AWG 3.1 =====
-===== server parameters =====
-interface: awg0
+===== launch AWG3 on host network =====
+===== host listener/interface =====
+179: awg3m: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq state UNKNOWN mode DEFAULT group default qlen 500
+    link/none  promiscuity 0 allmulti 0 minmtu 68 maxmtu 65535 
+    tun type tun pi off vnet_hdr on persist off addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
+UNCONN 0      0            0.0.0.0:585        0.0.0.0:*    users:(("amneziawg-go",pid=454964,fd=10))    
+UNCONN 0      0               [::]:585           [::]:*    users:(("amneziawg-go",pid=454964,fd=16))    
+interface: awg3m
   public key: 0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=
   private key: (hidden)
   listening port: 585
@@ -24,17 +29,33 @@ interface: awg0
 peer: MLS3fXl+YajzjzfUncXLXjHWnARtdUyAUR++TnHCMSA=
   preshared key: (hidden)
   allowed ips: 10.31.0.2/32
-server_container_ip=172.17.0.8
-===== test direct =====
+===== test hostbridge =====
 ip=143.246.197.187
 warp=off
 HANDSHAKE
-0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	1788239450
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	1788239546
 TRANSFER
-0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	5876	3282
-===== test published =====
-wget: download timed out
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	5976	3322
+===== test publicip =====
+ip=143.246.197.187
+warp=off
+HANDSHAKE
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	1788239549
+TRANSFER
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	5966	3030
+===== server after tests =====
+  endpoint: 172.17.0.8:41450
+  latest handshake: 1 second ago
+  transfer: 5.08 KiB received, 13.01 KiB sent
+===== final survival =====
+awg31_mobile=true
+host_iface=up
+port_585_udp=2
+old_awg0=up
+old_awg1=up
+legacy_xray=true
+MOBILE_AMNEZIAWG31_OK
 
-exit_code=1
-finished_at=2026-09-01T05:11:06Z
+exit_code=0
+finished_at=2026-09-01T05:12:31Z
 runner=alexhost-143-246
