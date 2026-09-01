@@ -1,15 +1,23 @@
-===== validate server.json =====
-Xray 26.3.27 (Xray, Penetrates Everything.) Custom (go1.26.1 linux/amd64)
-A unified platform for anti-censorship.
-Failed to start: main: failed to load config files: [/etc/xray/config.json] > infra/conf/serial: failed to read config: &{Name:/etc/xray/config.json Format:json} > open /etc/xray/config.json: permission denied
-code=23
-===== validate client.json =====
-Xray 26.3.27 (Xray, Penetrates Everything.) Custom (go1.26.1 linux/amd64)
-A unified platform for anti-censorship.
-Failed to start: main: failed to load config files: [/etc/xray/config.json] > infra/conf/serial: failed to read config: &{Name:/etc/xray/config.json Format:json} > open /etc/xray/config.json: permission denied
-code=23
-XRAY_VALIDATION_DIAG_OK
+===== normalize current REALITY server fields =====
+server_fields=normalized
+===== validate configs as container root =====
+server.json=valid
+client.json=valid
+===== deploy isolated VLESS REALITY =====
+server_container=running
+tcp47005=listening
+===== end-to-end test exact client config =====
+tunnel_test=ok
+exit_ip=143.246.197.187
+===== encrypted one-time handoff =====
+secure_handoff=ready
+===== preservation checks =====
+legacy_awg0=up
+legacy_awg1=up
+awg31_mobile=true
+legacy_xray=true
+VLESS_REALITY_DEPLOY_OK
 
 exit_code=0
-finished_at=2026-09-01T05:47:26Z
+finished_at=2026-09-01T05:48:42Z
 runner=alexhost-143-246
