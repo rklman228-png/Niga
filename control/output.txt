@@ -1,37 +1,177 @@
-===== whitelist profile preflight =====
---- nginx build ---
-nginx version: nginx/1.26.3
---with-stream_ssl_module
---with-stream_ssl_preread_module
---with-stream_realip_module
---with-stream=dynamic
---with-stream_geoip_module=dynamic
---- listeners 443 ---
-LISTEN 0      511          0.0.0.0:443   0.0.0.0:* users:(("nginx",pid=3958537,fd=6),("nginx",pid=3958536,fd=6),("nginx",pid=3958535,fd=6),("nginx",pid=3958534,fd=6),("nginx",pid=3778777,fd=6))     
-LISTEN 0      511             [::]:443      [::]:* users:(("nginx",pid=3958537,fd=5),("nginx",pid=3958536,fd=5),("nginx",pid=3958535,fd=5),("nginx",pid=3958534,fd=5),("nginx",pid=3778777,fd=5))     
---- nginx 443 declarations ---
-/etc/nginx/sites-available/amneziawg-miniapp:13:    listen [::]:443 ssl ipv6only=on; # managed by Certbot
-/etc/nginx/sites-available/amneziawg-miniapp:14:    listen 443 ssl; # managed by Certbot
-/etc/nginx/sites-available/default:27:	# listen 443 ssl default_server;
-/etc/nginx/sites-available/default:28:	# listen [::]:443 ssl default_server;
-/etc/nginx/sites-available/enihub:16:    listen 443 ssl; # managed by Certbot
-/etc/nginx/sites-enabled/amneziawg-miniapp:13:    listen [::]:443 ssl ipv6only=on; # managed by Certbot
-/etc/nginx/sites-enabled/amneziawg-miniapp:14:    listen 443 ssl; # managed by Certbot
-/etc/nginx/sites-enabled/enihub:16:    listen 443 ssl; # managed by Certbot
---- candidate local ports ---
-47006=free
-47007=free
-8443=free
-2053=free
---- decoy TLS 1.3 tests ---
-vk.com=tls13_unknown
-yandex.ru=tls13_unknown
-www.yandex.ru=tls13_unknown
---- preservation ---
-vless_main=true
-awg31=true
-WL_PREFLIGHT_OK
+===== nginx 443 layout =====
+--- nginx.conf relevant ---
+     1	user www-data;
+     2	worker_processes auto;
+     3	worker_cpu_affinity auto;
+     4	pid /run/nginx.pid;
+     5	error_log /var/log/nginx/error.log;
+     6	include /etc/nginx/modules-enabled/*.conf;
+     7	
+     8	events {
+     9		worker_connections 768;
+    10		# multi_accept on;
+    11	}
+    12	
+    13	http {
+    14	
+    15		##
+    16		# Basic Settings
+    17		##
+    18	
+    19		sendfile on;
+    20		tcp_nopush on;
+    21		types_hash_max_size 2048;
+    22		server_tokens off; # Recommended practice is to turn this off
+    23	
+    24		# server_names_hash_bucket_size 64;
+    25		# server_name_in_redirect off;
+    26	
+    27		include /etc/nginx/mime.types;
+    28		default_type application/octet-stream;
+    29	
+    30		##
+    31		# SSL Settings
+    32		##
+    33	
+    34		ssl_protocols TLSv1.2 TLSv1.3; # Dropping SSLv3 (POODLE), TLS 1.0, 1.1
+    35		ssl_prefer_server_ciphers off; # Don't force server cipher order.
+    36	
+    37		##
+    38		# Logging Settings
+    39		##
+    40	
+    41		access_log /var/log/nginx/access.log;
+    42	
+    43		##
+    44		# Gzip Settings
+    45		##
+    46	
+    47		gzip on;
+    48	
+    49		# gzip_vary on;
+    50		# gzip_proxied any;
+    51		# gzip_comp_level 6;
+    52		# gzip_buffers 16 8k;
+    53		# gzip_http_version 1.1;
+    54		# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+    55	
+    56		##
+    57		# Virtual Host Configs
+    58		##
+    59	
+    60		include /etc/nginx/conf.d/*.conf;
+    61		include /etc/nginx/sites-enabled/*;
+    62	}
+    63	
+    64	
+    65	#mail {
+    66	#	# See sample authentication script at:
+    67	#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+    68	#
+    69	#	# auth_http localhost/auth.php;
+    70	#	# pop3_capabilities "TOP" "USER";
+    71	#	# imap_capabilities "IMAP4rev1" "UIDPLUS";
+    72	#
+    73	#	server {
+    74	#		listen     localhost:110;
+    75	#		protocol   pop3;
+    76	#		proxy      on;
+    77	#	}
+    78	#
+    79	#	server {
+    80	#		listen     localhost:143;
+    81	#		protocol   imap;
+    82	#		proxy      on;
+    83	#	}
+    84	#}
+--- amneziawg-miniapp ---
+     1	server {
+     2	    server_name bot.pronexsbp.ru;
+     3	
+     4	    location / {
+     5	        proxy_pass http://127.0.0.1:8080;
+     6	        proxy_http_version 1.1;
+     7	        proxy_set_header Host $host;
+     8	        proxy_set_header X-Real-IP $remote_addr;
+     9	        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    10	        proxy_set_header X-Forwarded-Proto $scheme;
+    11	    }
+    12	
+    13	    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    14	    listen 443 ssl; # managed by Certbot
+    15	    ssl_certificate /etc/letsencrypt/live/bot.pronexsbp.ru/fullchain.pem; # managed by Certbot
+    16	    ssl_certificate_key /etc/letsencrypt/live/bot.pronexsbp.ru/privkey.pem; # managed by Certbot
+    17	    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    18	    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    19	
+    20	}
+    21	server {
+    22	    if ($host = bot.pronexsbp.ru) {
+    23	        return 301 https://$host$request_uri;
+    24	    } # managed by Certbot
+    25	
+    26	
+    27	    listen 80;
+    28	    listen [::]:80;
+    29	    server_name bot.pronexsbp.ru;
+    30	    return 404; # managed by Certbot
+    31	
+    32	
+    33	}
+--- enihub ---
+     1	server {
+     2	    # ENIHUB_V116_UPLOAD_BEGIN
+     3	    client_max_body_size 0;
+     4	    client_body_timeout 3600s;
+     5	    send_timeout 3600s;
+     6	    # ENIHUB_V116_UPLOAD_END
+     7	
+     8	    server_name enihub.ru www.enihub.ru;
+     9	    root /var/www/enihub;
+    10	    index index.php;
+    11	    location / { try_files $uri $uri/ /index.php?$query_string; }
+    12	    location ~ \.php$ { include snippets/fastcgi-php.conf; fastcgi_pass unix:/run/php/php-fpm.sock; }
+    13	    location ~ /config\.php { deny all; }
+    14	    location ~ /\. { deny all; }
+    15	
+    16	    listen 443 ssl; # managed by Certbot
+    17	    ssl_certificate /etc/letsencrypt/live/enihub.ru/fullchain.pem; # managed by Certbot
+    18	    ssl_certificate_key /etc/letsencrypt/live/enihub.ru/privkey.pem; # managed by Certbot
+    19	    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    20	    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    21	
+    22	
+    23	}
+    24	server {
+    25	    # ENIHUB_V116_UPLOAD_BEGIN
+    26	    client_max_body_size 0;
+    27	    client_body_timeout 3600s;
+    28	    send_timeout 3600s;
+    29	    # ENIHUB_V116_UPLOAD_END
+    30	
+    31	    if ($host = www.enihub.ru) {
+    32	        return 301 https://$host$request_uri;
+    33	    } # managed by Certbot
+    34	
+    35	
+    36	    if ($host = enihub.ru) {
+    37	        return 301 https://$host$request_uri;
+    38	    } # managed by Certbot
+    39	
+    40	
+    41	    listen 80;
+    42	    server_name enihub.ru www.enihub.ru;
+    43	    return 404; # managed by Certbot
+    44	
+    45	
+    46	
+    47	
+    48	}
+--- dynamic modules ---
+10-mod-http-ndk.conf
+50-mod-http-lua.conf
+NGINX_LAYOUT_OK
 
 exit_code=0
-finished_at=2026-09-01T07:47:35Z
+finished_at=2026-09-01T07:48:08Z
 runner=alexhost-143-246
