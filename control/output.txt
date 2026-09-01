@@ -1,52 +1,21 @@
-===== whitelist IPv4/IPv6 diagnostics =====
---- host addresses ---
-lo               UNKNOWN        [ipv4] 
-eth0             UP             [ipv4] [ipv6] 
-awg1             UNKNOWN        [ipv4] 
-docker0          UP             [ipv4] 
-amn0             UP             [ipv4] 
-vethbd190f7@if6  UP             
-veth9eed176@if10 UP             
-vethd230699@if12 UP             
-veth9df5ad3@if14 UP             
-veth8301ac6@if18 UP             
-veth56e4cde@if20 UP             
-veth6dd3070@if22 UP             
-veth3806d5c@if24 UP             
-awg0             UNKNOWN        [ipv4] 
-veth552bd4a@if71 UP             
-vethdfd0f97@if73 UP             
-awg3m            UNKNOWN        [ipv4] 
-vethfd6bf29@if216 UP             
-veth762eeb2@if224 UP             
---- IPv6 routes ---
-fe80::/64 dev eth0 proto kernel metric 256 pref medium
---- connectivity ---
-ipv4_cloudflare=200
-ipv6_cloudflare=curl: (7) Failed to connect to www.cloudflare.com port 443 after 16 ms: Could not connect to server
-000
-fail
-ipv4_google=200
-ipv6_google=curl: (7) Failed to connect to www.google.com port 443 after 17 ms: Could not connect to server
-000
-fail
---- recent whitelist xray log classes ---
-2026/09/01 08:04:39.473358 from [ip]:38502 accepted tcp:www.gstatic.com:443 [direct]
-2026/09/01 08:04:45.265184 from [ip]:29040 accepted tcp:www.gstatic.com:443 [direct]
-2026/09/01 08:04:51.669463 from [ip]:29046 accepted tcp:xp.apple.com:443 [direct]
-2026/09/01 08:08:25.709344 from [ip]:42702 accepted tcp:api.ipify.org:443 [direct]
-2026/09/01 08:08:26.100165 from [ip]:42712 accepted tcp:www.gstatic.com:443 [direct]
-2026/09/01 08:08:26.343462 from [ip]:42726 accepted tcp:www.cloudflare.com:443 [direct]
-2026/09/01 08:08:26.623979 from [ip]:42740 accepted tcp:telegram.org:443 [direct]
-2026/09/01 08:08:26.972086 from [ip]:42752 accepted tcp:google.com:443 [direct]
-2026/09/01 08:08:27.372167 from [ip]:42756 accepted tcp:telegram.org:443 [direct]
-2026/09/01 08:08:27.720682 from [ip]:42768 accepted tcp:github.com:443 [direct]
---- services ---
-wl_vless=true
+===== force whitelist profile to IPv4 =====
+--- validate ---
+configs=valid
+--- restart whitelist server only ---
+wl_server=running
+--- test IPv4 client through public 443 ---
+https://api.ipify.org code=200 total=5.352046
+https://telegram.org/ code=200 total=0.370613
+https://github.com/ code=200 total=0.672541
+https://www.gstatic.com/generate_204 code=204 total=0.263163
+exit_ip_ok=yes
+--- preservation ---
 main_vless=true
 awg31=true
-WL_IP_DIAG_OK
+bot.pronexsbp.ru=http_200
+enihub.ru=http_200
+WL_IPV4_PROFILE_READY
 
 exit_code=0
-finished_at=2026-09-01T08:09:47Z
+finished_at=2026-09-01T08:11:17Z
 runner=alexhost-143-246
