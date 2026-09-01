@@ -1,15 +1,46 @@
-===== safety/preflight =====
-port585=free
-old_awg0=up
-old_awg1=up
-legacy_xray=true
-===== generate isolated AWG 3.1 credentials =====
-===== validate config parser =====
-server_config=ok
-===== launch separate native AmneziaWG 3.1 container =====
-===== server state =====
-Unable to access interface: No such device
+===== container inspect =====
+name=amnezia-awg31-mobile status=Restarting (1) Less than a second ago ports=
+running=true restarting=true exit=1 error= restart_count=9
+===== container logs =====
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+[#] ip link add awg0 type amneziawg
+[#] awg setconf awg0 /dev/fd/63
+Unable to modify interface: Invalid argument
+[#] ip link delete dev awg0
+===== inside container =====
+Error response from daemon: Container ea15ceeea335286a938b0ed33aa7c5d93ac286aa7c97360da1b3fab4110fd1a3 is restarting, wait until the container is running
 
 exit_code=1
-finished_at=2026-09-01T05:04:05Z
+finished_at=2026-09-01T05:04:44Z
 runner=alexhost-143-246
