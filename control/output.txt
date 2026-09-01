@@ -1,47 +1,10 @@
-===== xray safe diagnostics =====
-legacy_xray=true
---- container image/mounts/ports ---
-image=amnezia-xray network=bridge
+===== pull current pinned Xray =====
+image=ghcr.io/xtls/xray-core:26.3.27
+===== generate server/client credentials locally on VPS =====
+uuid_generated=yes
+x25519_generated=yes
+===== validate configs =====
 
-port=2334/tcp
-
---- listening tcp ports ---
-22
-53
-80
-443
-1080
-1081
-1082
-2334
-3128
-5355
-6379
-8080
-8088
-11434
-17877
-17878
-18787
-18788
-38577
---- candidate ports ---
-47005=free
-8443=free
-2053=free
-2083=free
-2096=free
-2443=free
-5443=free
---- docker ps amnezia ---
-amnezia-awg31-mobile amneziavpn/amneziawg-go:latest 
-amnezia-awg2 amnezia-awg2 0.0.0.0:38317->38317/udp
-amnezia-openvpn amnezia-openvpn 0.0.0.0:33745->33745/udp
-amnezia-xray amnezia-xray 0.0.0.0:2334->2334/tcp
-amnezia-ipsec amnezia-ipsec 0.0.0.0:500->500/udp, 0.0.0.0:4500->4500/udp
-amnezia-wireguard amnezia-wireguard 0.0.0.0:1488->1488/udp
-XRAY_SAFE_DIAG_OK
-
-exit_code=0
-finished_at=2026-09-01T05:42:49Z
+exit_code=23
+finished_at=2026-09-01T05:45:34Z
 runner=alexhost-143-246
