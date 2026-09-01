@@ -1,14 +1,29 @@
-===== VPN status =====
+===== whitelist runtime diagnostics =====
 wl_vless=true
-tcp443=2
-tcp4443=1
 main_vless=true
-awg31=true
-legacy_xray=true
+tcp443=2
+tcp47006=1
+--- current established counts ---
+estab_public443=112
+estab_wl_backend=21
+--- whitelist xray recent logs ---
+2026/09/01 08:04:39.473358 from [ip]:38502 accepted tcp:www.gstatic.com:443 [direct]
+2026/09/01 08:04:45.265184 from [ip]:29040 accepted tcp:www.gstatic.com:443 [direct]
+2026/09/01 08:04:51.669463 from [ip]:29046 accepted tcp:xp.apple.com:443 [direct]
+--- local client end-to-end tests ---
+https://api.ipify.org code=200 connect=0.000384 total=0.371794
+https://www.gstatic.com/generate_204 code=204 connect=0.000210 total=0.257720
+https://www.cloudflare.com/cdn-cgi/trace code=200 connect=0.000397 total=0.230033
+https://telegram.org/ code=200 connect=0.000216 total=0.339479
+--- DNS over proxy via hostname resolution ---
+google.com code=301 remote=[proxied] total=0.376914
+telegram.org code=200 remote=[proxied] total=0.311286
+github.com code=200 remote=[proxied] total=0.595304
+--- preservation ---
 bot.pronexsbp.ru=http_200
 enihub.ru=http_200
-VPN_STATUS_OK
+WL_RUNTIME_DIAG_OK
 
 exit_code=0
-finished_at=2026-09-01T07:53:49Z
+finished_at=2026-09-01T08:08:28Z
 runner=alexhost-143-246
