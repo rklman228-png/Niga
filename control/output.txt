@@ -1,130 +1,843 @@
-bytes 54894
-f62dded2233042f340496f2a10994544dd9131b41070eb55b7c7252ab1f9cbac  /opt/actions-runner/_work/Niga/Niga/control/generated/ChallengeRuntimeFixes.java
-127-
-128-    private static void onEntityLoad(Entity entity, ServerLevel level) {
-129:        if (entity instanceof AbstractArrow arrow) scaleEventArrow(level, arrow);
-130-        if (entity instanceof Projectile projectile && isForbiddenChallengeProjectile(entity)) {
-131-            Entity owner = projectile.getOwner();
-132-            if (owner instanceof ServerPlayer player && isChallengeParticipant(player)) {
-133-                entity.discard();
-134-                return;
-135-            }
-136-        }
-137-        if (!(entity instanceof MagmaCube cube) || !cube.isAlive()) return;
-138-        ActiveChallengeState state = activeEvent();
-139-        if (state == null || eventLevel(level.getServer(), state) != level) return;
-140-        if (magmaLineageEvent != state.startedAtEpochMillis || !magmaLineageSeen) return;
-141-
-142-        double margin = 3.0;
-143-        if (cube.getX() < state.arenaMinX - margin || cube.getX() > state.arenaMaxX + 1.0 + margin
-144-                || cube.getZ() < state.arenaMinZ - margin || cube.getZ() > state.arenaMaxZ + 1.0 + margin
-145-                || cube.getY() < state.arenaY - 20.0 || cube.getY() > state.arenaY + 28.0) return;
-146-
-147-        UUID id = cube.getUUID();
+
+===== host =====
+$ date -Is
+2026-09-01T04:31:00+00:00
+$ hostnamectl 2>/dev/null || hostname
+ Static hostname: test1
+       Icon name: computer-vm
+         Chassis: vm 🖴
+      Machine ID: 9402902ccb294957a624fa19cb9eccf8
+         Boot ID: afdbb8c1b5234df38d1b8da4f6da4967
+    Product UUID: e22ac51f-f721-40ba-a5fb-3ac7394f8006
+  Virtualization: kvm
+Operating System: Debian GNU/Linux 13 (trixie)
+          Kernel: Linux 6.12.96+deb13-amd64
+    Architecture: x86-64
+ Hardware Vendor: QEMU
+  Hardware Model: Standard PC _i440FX + PIIX, 1996_
+Firmware Version: rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org
+   Firmware Date: Tue 2014-04-01
+    Firmware Age: 12y 5month 1d
+$ uname -a
+Linux test1 6.12.96+deb13-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.12.96-1 (2026-07-20) x86_64 GNU/Linux
+$ id
+uid=0(root) gid=0(root) groups=0(root)
+
+===== network =====
+$ ip -br addr
+lo               UNKNOWN        127.0.0.1/8 
+eth0             UP             143.246.197.187/24 fe80::3af5:baff:fe9b:cd4c/64 
+awg1             UNKNOWN        10.9.10.1/24 
+docker0          UP             172.17.0.1/16 
+amn0             UP             172.29.172.1/24 
+vethbd190f7@if6  UP             
+veth9eed176@if10 UP             
+vethd230699@if12 UP             
+veth9df5ad3@if14 UP             
+veth8301ac6@if18 UP             
+veth56e4cde@if20 UP             
+veth6dd3070@if22 UP             
+veth3806d5c@if24 UP             
+awg0             UNKNOWN        10.9.9.1/24 
+veth552bd4a@if71 UP             
+vethdfd0f97@if73 UP             
+$ ip route
+default via 143.246.197.1 dev eth0 proto static 
+10.9.9.0/24 dev awg0 proto kernel scope link src 10.9.9.1 
+10.9.10.0/24 dev awg1 proto kernel scope link src 10.9.10.1 
+143.246.197.0/24 dev eth0 proto kernel scope link src 143.246.197.187 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 
+172.29.172.0/24 dev amn0 proto kernel scope link src 172.29.172.1 
+$ ip -6 route
+fe80::/64 dev eth0 proto kernel metric 256 pref medium
+$ sysctl net.ipv4.ip_forward net.ipv6.conf.all.forwarding 2>/dev/null
+net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 0
+$ ss -lunpt
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                                                                                             
+udp   UNCONN 0      0            0.0.0.0:39743      0.0.0.0:*                                                                                                                                                       
+udp   UNCONN 0      0         127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=3368632,fd=21))                                                                                                      
+udp   UNCONN 0      0      127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=3368632,fd=19))                                                                                                      
+udp   UNCONN 0      0            0.0.0.0:4500       0.0.0.0:*    users:(("docker-proxy",pid=2601,fd=4))                                                                                                             
+udp   UNCONN 0      0            0.0.0.0:443        0.0.0.0:*                                                                                                                                                       
+udp   UNCONN 0      0            0.0.0.0:500        0.0.0.0:*    users:(("docker-proxy",pid=2629,fd=4))                                                                                                             
+udp   UNCONN 0      0            0.0.0.0:33745      0.0.0.0:*    users:(("docker-proxy",pid=2375,fd=4))                                                                                                             
+udp   UNCONN 0      0            0.0.0.0:5355       0.0.0.0:*    users:(("systemd-resolve",pid=3368632,fd=11))                                                                                                      
+udp   UNCONN 0      0            0.0.0.0:38317      0.0.0.0:*    users:(("docker-proxy",pid=2935785,fd=4))                                                                                                          
+udp   UNCONN 0      0            0.0.0.0:1488       0.0.0.0:*    users:(("docker-proxy",pid=2485,fd=4))                                                                                                             
+udp   UNCONN 0      0               [::]:39743         [::]:*                                                                                                                                                       
+udp   UNCONN 0      0               [::]:443           [::]:*                                                                                                                                                       
+udp   UNCONN 0      0               [::]:5355          [::]:*    users:(("systemd-resolve",pid=3368632,fd=14))                                                                                                      
+tcp   LISTEN 0      511        127.0.0.1:6379       0.0.0.0:*    users:(("redis-server",pid=3368616,fd=8))                                                                                                          
+tcp   LISTEN 14     13           0.0.0.0:3128       0.0.0.0:*    users:(("3proxy",pid=3368728,fd=5))                                                                                                                
+tcp   LISTEN 0      5            0.0.0.0:8088       0.0.0.0:*    users:(("python3",pid=3368602,fd=3))                                                                                                               
+tcp   LISTEN 0      4096         0.0.0.0:2334       0.0.0.0:*    users:(("docker-proxy",pid=2355,fd=4))                                                                                                             
+tcp   LISTEN 0      4096       127.0.0.1:11434      0.0.0.0:*    users:(("ollama",pid=734,fd=4))                                                                                                                    
+tcp   LISTEN 0      4096      127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=3368632,fd=22))                                                                                                      
+tcp   LISTEN 0      128        127.0.0.1:8080       0.0.0.0:*    users:(("python",pid=3369324,fd=6))                                                                                                                
+tcp   LISTEN 0      4096         0.0.0.0:5355       0.0.0.0:*    users:(("systemd-resolve",pid=3368632,fd=12))                                                                                                      
+tcp   LISTEN 14     13           0.0.0.0:1081       0.0.0.0:*    users:(("3proxy",pid=3368728,fd=6))                                                                                                                
+tcp   LISTEN 14     13           0.0.0.0:1080       0.0.0.0:*    users:(("3proxy",pid=3368728,fd=4))                                                                                                                
+tcp   LISTEN 14     13           0.0.0.0:1082       0.0.0.0:*    users:(("3proxy",pid=3368728,fd=7))                                                                                                                
+tcp   LISTEN 0      511         10.9.9.1:18788      0.0.0.0:*    users:(("nginx",pid=3958537,fd=10),("nginx",pid=3958536,fd=10),("nginx",pid=3958535,fd=10),("nginx",pid=3958534,fd=10),("nginx",pid=3778777,fd=10))
+tcp   LISTEN 0      511         10.9.9.1:18787      0.0.0.0:*    users:(("nginx",pid=3958537,fd=9),("nginx",pid=3958536,fd=9),("nginx",pid=3958535,fd=9),("nginx",pid=3958534,fd=9),("nginx",pid=3778777,fd=9))     
+tcp   LISTEN 0      511          0.0.0.0:443        0.0.0.0:*    users:(("nginx",pid=3958537,fd=6),("nginx",pid=3958536,fd=6),("nginx",pid=3958535,fd=6),("nginx",pid=3958534,fd=6),("nginx",pid=3778777,fd=6))     
+tcp   LISTEN 0      128        127.0.0.1:17877      0.0.0.0:*    users:(("sshd-session",pid=3922220,fd=10))                                                                                                         
+tcp   LISTEN 0      128        127.0.0.1:17878      0.0.0.0:*    users:(("sshd-session",pid=3922220,fd=11))                                                                                                         
+tcp   LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=3958537,fd=7),("nginx",pid=3958536,fd=7),("nginx",pid=3958535,fd=7),("nginx",pid=3958534,fd=7),("nginx",pid=3778777,fd=7))     
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=3368637,fd=6))                                                                                                                  
+tcp   LISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=3368632,fd=20))                                                                                                      
+tcp   LISTEN 0      4096       127.0.0.1:38577      0.0.0.0:*    users:(("containerd",pid=890,fd=8))                                                                                                                
+tcp   LISTEN 0      511             [::]:443           [::]:*    users:(("nginx",pid=3958537,fd=5),("nginx",pid=3958536,fd=5),("nginx",pid=3958535,fd=5),("nginx",pid=3958534,fd=5),("nginx",pid=3778777,fd=5))     
+tcp   LISTEN 0      511             [::]:80            [::]:*    users:(("nginx",pid=3958537,fd=8),("nginx",pid=3958536,fd=8),("nginx",pid=3958535,fd=8),("nginx",pid=3958534,fd=8),("nginx",pid=3778777,fd=8))     
+tcp   LISTEN 0      128             [::]:22            [::]:*    users:(("sshd",pid=3368637,fd=7))                                                                                                                  
+
+===== services =====
+$ systemctl --no-pager --type=service --state=running | grep -Ei 'amnezia|wireguard|wg|awg|xray|docker|podman' || true
+  amneziawg-bot.service                                      loaded active running Telegram bot for AmneziaWG management
+  docker.service                                             loaded active running Docker Application Container Engine
+$ systemctl --no-pager list-unit-files | grep -Ei 'amnezia|wireguard|wg|awg|xray' || true
+amneziawg-bot.service                                                         enabled         enabled
+amneziawg-ensure-module.service                                               enabled         enabled
+awg-quick@.service                                                            indirect        enabled
+wg-quick@.service                                                             disabled        enabled
+awg-quick.target                                                              static          -
+wg-quick.target                                                               static          -
+
+===== containers =====
+$ docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || true
+NAMES               IMAGE               STATUS      PORTS
+amnezia-awg2        amnezia-awg2        Up 2 days   0.0.0.0:38317->38317/udp
+amnezia-openvpn     amnezia-openvpn     Up 9 days   0.0.0.0:33745->33745/udp
+amnezia-xray        amnezia-xray        Up 9 days   0.0.0.0:2334->2334/tcp
+amnezia-ipsec       amnezia-ipsec       Up 9 days   0.0.0.0:500->500/udp, 0.0.0.0:4500->4500/udp
+amnezia-wireguard   amnezia-wireguard   Up 9 days   0.0.0.0:1488->1488/udp
+$ docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}" 2>/dev/null || true
+NAMES               IMAGE               STATUS
+amnezia-awg2        amnezia-awg2        Up 2 days
+amnezia-openvpn     amnezia-openvpn     Up 9 days
+amnezia-xray        amnezia-xray        Up 9 days
+amnezia-ipsec       amnezia-ipsec       Up 9 days
+amnezia-wireguard   amnezia-wireguard   Up 9 days
+$ podman ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || true
+
+===== vpn_interfaces =====
+$ wg show 2>/dev/null || true
+$ awg show 2>/dev/null || true
+interface: awg1
+  public key: kBtgbJjmhFKHvUcHcV0CgALGzBy0EoXP1SE1MkmcNno=
+  private key: (hidden)
+  listening port: 443
+  jc: 3
+  jmin: 47
+  jmax: 87
+  s1: 142
+  s2: 31
+  s3: 13
+  s4: 13
+  h1: 367587183-1032322096
+  h2: 1056007891-1094102140
+  h3: 1146302831-1280148199
+  h4: 1468693119-1882266884
+
+peer: 7WqjZHRvdgMUTnSPnawG+KT5aGq/9ZS6/wijlGlDQQ0=
+  allowed ips: 10.9.10.2/32
+
+peer: VXLkEpIvUt8YE1z1QO5XT/wWz+1jTgGThVmaaKhb4HE=
+  allowed ips: 10.9.10.3/32
+
+peer: bXfq5xsokUzbhpfIhXwRlKcEOrbwt5S9wqORjx1J+g4=
+  allowed ips: 10.9.10.4/32
+
+peer: fBYg+3YOB/nDXNJFSmWRbG92fHxDHXj1tz9t70CXO2c=
+  allowed ips: 10.9.10.5/32
+
+peer: hGP6OhbJTdhcg9xi8y7cia+1CPmFtnBV4WChb6iMr3Y=
+  allowed ips: 10.9.10.6/32
+
+interface: awg0
+  public key: QRiK3J9xW7XxijyzS+SNO0MmHk5RQZtKNiFQDe6Mim8=
+  private key: (hidden)
+  listening port: 39743
+  jc: 3
+  jmin: 47
+  jmax: 87
+  s1: 142
+  s2: 31
+  s3: 13
+  s4: 13
+  h1: 367587183-1032322096
+  h2: 1056007891-1094102140
+  h3: 1146302831-1280148199
+  h4: 1468693119-1882266884
+  i1: <r 187>
+
+peer: WMCChXHfZyYgu5t35/lCjJNXD2ug/B7tQ5DD1qrI1lA=
+  endpoint: 81.25.77.254:12589
+  allowed ips: 10.9.9.12/32
+  latest handshake: 1 minute, 27 seconds ago
+  transfer: 1.45 GiB received, 18.55 GiB sent
+
+peer: MDmPyqSmVKpri1qQAbh/HHuURS4rfABPP5yR1zNoYH4=
+  endpoint: 81.25.76.34:36748
+  allowed ips: 10.9.9.4/32
+  latest handshake: 53 minutes, 37 seconds ago
+  transfer: 3.09 GiB received, 23.50 GiB sent
+
+peer: rXLcOWVz330cvD/ltcpEQOnTJOJwYCteqOlb2DBRLGA=
+  endpoint: 81.25.76.34:44575
+  allowed ips: 10.9.9.2/32
+  latest handshake: 1 hour, 20 minutes, 40 seconds ago
+  transfer: 834.50 MiB received, 11.37 GiB sent
+
+peer: MfrFkahkThjWyRykWwwreWa7O9BBjzqgFOgcGeL9ZgQ=
+  endpoint: 188.162.76.245:63755
+  allowed ips: 10.9.9.3/32
+  latest handshake: 2 hours, 22 minutes, 2 seconds ago
+  transfer: 2.70 GiB received, 21.60 GiB sent
+
+peer: RO0XIJ0JZC17HFsivehf/n4tKEERSbXt+fMwDBGDyDk=
+  endpoint: 81.25.76.34:60802
+  allowed ips: 10.9.9.6/32
+  latest handshake: 11 hours, 27 minutes, 53 seconds ago
+  transfer: 779.81 MiB received, 6.33 GiB sent
+
+peer: Pbj+z/prtm+vHsalZiIVNINtBcMRC9FpOxxF2991RUk=
+  endpoint: 81.25.76.34:53036
+  allowed ips: 10.9.9.7/32
+  latest handshake: 12 hours, 57 minutes, 26 seconds ago
+  transfer: 4.97 GiB received, 20.18 GiB sent
+
+peer: U7NWNqgKshyNdA+R9kgA/h0j7/507Y2bsGLNuFxVkWE=
+  endpoint: 81.25.77.57:42274
+  allowed ips: 10.9.9.9/32
+  latest handshake: 14 hours, 3 minutes, 31 seconds ago
+  transfer: 161.37 MiB received, 4.01 GiB sent
+
+peer: hGwXc4ErHjlkLEatdVpDU0mLKvyrLhYidWlggIIfSAM=
+  endpoint: 91.79.243.154:44007
+  allowed ips: 10.9.9.8/32
+  latest handshake: 19 hours, 15 minutes, 1 second ago
+  transfer: 1.56 GiB received, 20.94 GiB sent
+
+peer: 72rbUW5MZ9vsLIIfXqHJIrbkoM+hARv+qGD8KAdxcDY=
+  endpoint: 81.25.76.34:28240
+  allowed ips: 10.9.9.20/32
+  latest handshake: 1 day, 53 minutes, 54 seconds ago
+  transfer: 710.20 MiB received, 8.68 GiB sent
+
+peer: LEPB4qmySuMfIfw8nDW6xTavRWLLKcBr3k35FazDKGA=
+  endpoint: 185.3.182.92:3136
+  allowed ips: 10.9.9.11/32
+  latest handshake: 1 day, 17 hours, 36 minutes, 54 seconds ago
+  transfer: 450.02 KiB received, 1.95 MiB sent
+
+peer: 2I2JUg3dtPIaxD41h/k2KhBhrdaDsyM1ktNS9sKncWE=
+  endpoint: 81.25.77.254:55284
+  allowed ips: 10.9.9.18/32
+  latest handshake: 1 day, 19 hours, 47 minutes, 40 seconds ago
+  transfer: 1.58 GiB received, 22.34 GiB sent
+
+peer: SHAaAmzGE/o/WnTrO/blXulC/uw5pM/cwpVWfXq3EGY=
+  endpoint: 81.25.76.34:7773
+  allowed ips: 10.9.9.5/32
+  latest handshake: 2 days, 9 hours, 23 minutes, 37 seconds ago
+  transfer: 2.33 GiB received, 18.10 GiB sent
+
+peer: lKmHWg7mLTUEbOBOS4sptcBOxI9lmaW1aGGQi40QRSw=
+  allowed ips: 10.9.9.10/32
+$ ip -details link show | grep -EA4 -i "wireguard|amnezia|awg" || true
+3: awg1: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1280 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/none  promiscuity 0 allmulti 0 minmtu 0 maxmtu 2147483552 
+    amneziawg addrgenmode none numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
+4: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default 
+    link/ether 02:42:36:c1:dc:13 brd ff:ff:ff:ff:ff:ff promiscuity 0 allmulti 0 minmtu 68 maxmtu 65535 
+    bridge forward_delay 1500 hello_time 200 max_age 2000 ageing_time 30000 stp_state 0 priority 32768 vlan_filtering 0 vlan_protocol 802.1Q bridge_id 8000.2:42:36:c1:dc:13 designated_root 8000.2:42:36:c1:dc:13 root_port 0 root_path_cost 0 topology_change 0 topology_change_detected 0 hello_timer    0.00 tcn_timer    0.00 topology_change_timer    0.00 gc_timer  124.18 fdb_n_learned 0 fdb_max_learned 0 vlan_default_pvid 1 vlan_stats_enabled 0 vlan_stats_per_port 0 group_fwd_mask 0 group_address 01:80:c2:00:00:00 mcast_snooping 1 no_linklocal_learn 0 mcast_vlan_snooping 0 mst_enabled 0 mcast_router 1 mcast_query_use_ifaddr 0 mcast_querier 0 mcast_hash_elasticity 16 mcast_hash_max 4096 mcast_last_member_count 2 mcast_startup_query_count 2 mcast_last_member_interval 100 mcast_membership_interval 26000 mcast_querier_interval 25500 mcast_query_interval 12500 mcast_query_response_interval 1000 mcast_startup_query_interval 3124 mcast_stats_enabled 0 mcast_igmp_version 2 mcast_mld_version 1 nf_call_iptables 0 nf_call_ip6tables 0 nf_call_arptables 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
+5: amn0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default 
 --
-327-    }
-328-
-329:    private static void scaleEventArrow(ServerLevel level, AbstractArrow arrow) {
-330-        Entity owner = arrow.getOwner();
-331-        if (owner == null) return;
-332-        ActiveChallengeState state = activeEvent();
-333-        if (state == null || eventLevel(level.getServer(), state) != level) return;
-334-        if (!state.eventEntities.contains(owner.getUUID())
-335-                && (state.targetEntityId == null || !state.targetEntityId.equals(owner.getUUID()))) return;
-336-        ChallengeDefinition definition;
-337-        try { definition = BrigadaCore.challenges().require(state.challengeId); }
-338-        catch (RuntimeException ignored) { return; }
-339-        double multiplier = switch (definition.difficulty()) {
-340-            case EASY -> 1.00;
-341-            case NORMAL -> 1.65;
-342-            case HARD -> 2.50;
-343-        };
-344-        if (multiplier != 1.0) arrow.setBaseDamage(2.0 * multiplier);
-345-    }
-346-
-347-    private static void expelOutsiders(ServerLevel level, ActiveChallengeState state) {
-95-            return !isFullBoundaryPosition(serverLevel, pos);
-96-        });
-97:        UseItemCallback.EVENT.register((player, level, hand) -> {
-98-            if (!(player instanceof ServerPlayer serverPlayer) || !isChallengeParticipant(serverPlayer))
-99-                return InteractionResult.PASS;
-100-            ItemStack stack = player.getItemInHand(hand);
-101-            return isForbiddenChallengeUse(serverPlayer, stack) ? InteractionResult.FAIL : InteractionResult.PASS;
-102-        });
-103-        UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
-104-            if (!(player instanceof ServerPlayer serverPlayer) || !isMiniEventParticipant(serverPlayer))
-105-                return InteractionResult.PASS;
-106-            return player.getItemInHand(hand).getItem() instanceof BlockItem ? InteractionResult.FAIL : InteractionResult.PASS;
-107-        });
-108-        ServerTickEvents.END_SERVER_TICK.register(ChallengeRuntimeFixes::tick);
-109-        loadBoundaryBackup();
-110-        dumpItemRegistry();
-111-    }
-112-
-113-    private static void dumpItemRegistry() {
-114-        try {
-115-            StringBuilder out = new StringBuilder();
-252-                ensureFullHeightBoundary(level, state);
-253-                confineParticipants(server, level, state);
-254:                expelOutsiders(level, state);
-255-                scaleEventMobs(level, definition, state);
-256-                stabiliseEventMobs(level, state);
-257-                tickContinuousPressure(level, definition, state);
-258-                fixDefense(level, definition, state);
-259-                fixElite(level, definition, state);
-260-                soundProgress(level, definition, state);
-261-                renderMeaningfulParticles(level, definition, state);
-262-            }
-263-        } else {
-264-            observedEvent = Long.MIN_VALUE;
-265-            observedWave = -1;
-266-            observedPhase = -1;
-267-            magmaLineageEvent = Long.MIN_VALUE;
-268-            magmaLineageSeen = false;
-269-            restoreOrphanedBoundary(server);
-270-        }
-271-        tickWavePulses();
-272-        tickBursts(server);
-273-    }
-274-
-275-    private static void enforceChallengeRestrictions(MinecraftServer server) {
-276-        ActiveChallengeState state = BrigadaCore.stateStore().state().activeChallenge;
-277-        if (state == null || state.contribution == null || state.contribution.isEmpty()) return;
-278-        for (String name : state.contribution.keySet()) {
-279-            ServerPlayer player = server.getPlayerList().getPlayerByName(name);
-280-            if (player == null) continue;
---
-345-    }
-346-
-347:    private static void expelOutsiders(ServerLevel level, ActiveChallengeState state) {
-348-        if (state.contribution == null) return;
-349-        double minX = state.arenaMinX;
-350-        double maxX = state.arenaMaxX + 1.0;
-351-        double minZ = state.arenaMinZ;
-352-        double maxZ = state.arenaMaxZ + 1.0;
-353-        for (ServerPlayer player : level.players()) {
-354-            if (state.contribution.containsKey(player.getName().getString())) continue;
-355-            double x = player.getX(), z = player.getZ();
-356-            if (x < minX || x > maxX || z < minZ || z > maxZ) continue;
-357-
-358-            double left = x - minX, right = maxX - x, top = z - minZ, bottom = maxZ - z;
-359-            double nx=x, nz=z;
-360-            if (left <= right && left <= top && left <= bottom) nx = minX - 1.35;
-361-            else if (right <= top && right <= bottom) nx = maxX + 1.35;
-362-            else if (top <= bottom) nz = minZ - 1.35;
-363-            else nz = maxZ + 1.35;
-364-
-365-            BlockPos safe = findSafeFeet(level, (int)Math.floor(nx), (int)Math.floor(nz), (int)Math.floor(player.getY()));
-366-            double ny = safe != null ? safe.getY() : player.getY();
-367-            if (safe != null) { nx = safe.getX() + 0.5; nz = safe.getZ() + 0.5; }
-368-            player.teleportTo(nx, ny, nz);
-369-            player.setDeltaMovement(0.0, Math.min(0.0, player.getDeltaMovement().y), 0.0);
-370-        }
-371-    }
-372-
-373-    private static boolean continuousPressureMechanic(MiniEventMechanic mechanic) {
-LIVE_COMBAT_LOCKDOWN_SNAPSHOT_OK
+28: awg0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1280 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/none  promiscuity 0 allmulti 0 minmtu 0 maxmtu 2147483552 
+    amneziawg addrgenmode none numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
+72: veth552bd4a@if71: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default 
+    link/ether 96:91:00:3d:d9:12 brd ff:ff:ff:ff:ff:ff link-netnsid 0 promiscuity 1 allmulti 1 minmtu 68 maxmtu 65535 
+    veth 
+    bridge_slave state forwarding priority 32 cost 2 hairpin off guard off root_block off fastleave off learning on flood on port_id 0x8005 port_no 0x5 designated_port 32773 designated_cost 0 designated_bridge 8000.2:42:36:c1:dc:13 designated_root 8000.2:42:36:c1:dc:13 hold_timer    0.00 message_age_timer    0.00 forward_delay_timer    0.00 topology_change_ack 0 config_pending 0 proxy_arp off proxy_arp_wifi off mcast_router 1 mcast_fast_leave off mcast_flood on bcast_flood on mcast_to_unicast off neigh_suppress off neigh_vlan_suppress off group_fwd_mask 0 group_fwd_mask_str 0x0 vlan_tunnel off isolated off locked off mab off addrgenmode eui64 numtxqueues 4 numrxqueues 4 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
+
+===== config_files =====
+$ find /opt/amnezia /etc/amnezia /etc/wireguard /etc/amneziawg /etc/awg /etc/xray /usr/local/etc/xray -maxdepth 5 -type f 2>/dev/null | sort || true
+/etc/amnezia/amneziawg/awg0.conf
+/etc/amnezia/amneziawg/awg1.conf
+/opt/amnezia/amnezia-awg2/Dockerfile
+/opt/amnezia/amnezia-dns/Dockerfile
+/opt/amnezia/amnezia-ipsec/Dockerfile
+/opt/amnezia/amnezia-openvpn/Dockerfile
+/opt/amnezia/amnezia-wireguard/Dockerfile
+/opt/amnezia/amnezia-xray/Dockerfile
+
+===== sanitized_configs =====
+--- /etc/amnezia/amneziawg/awg0.conf ---
+[Interface]
+PrivateKey = <REDACTED>
+Address = 10.9.9.1/24
+MTU = 1280
+ListenPort = 39743
+PostUp = iptables -I FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+Jc = 3
+Jmin = 47
+Jmax = 87
+S1 = 142
+S2 = 31
+S3 = 13
+S4 = 13
+H1 = 367587183-1032322096
+H2 = 1056007891-1094102140
+H3 = 1146302831-1280148199
+H4 = 1468693119-1882266884
+I1 = <r 187>
+
+[Peer]
+#_Name = Mother_Phone
+PublicKey = rXLcOWVz330cvD/ltcpEQOnTJOJwYCteqOlb2DBRLGA=
+AllowedIPs = 10.9.9.2/32
+
+[Peer]
+#_Name = Mother_PC
+PublicKey = MfrFkahkThjWyRykWwwreWa7O9BBjzqgFOgcGeL9ZgQ=
+AllowedIPs = 10.9.9.3/32
+
+[Peer]
+#_Name = I_Phone
+PublicKey = SHAaAmzGE/o/WnTrO/blXulC/uw5pM/cwpVWfXq3EGY=
+AllowedIPs = 10.9.9.5/32
+
+[Peer]
+#_Name = I_PC
+PublicKey = RO0XIJ0JZC17HFsivehf/n4tKEERSbXt+fMwDBGDyDk=
+AllowedIPs = 10.9.9.6/32
+
+[Peer]
+#_Name = Sister_Phone
+PublicKey = MDmPyqSmVKpri1qQAbh/HHuURS4rfABPP5yR1zNoYH4=
+AllowedIPs = 10.9.9.4/32
+
+[Peer]
+#_Name = Sister_PC
+PublicKey = Pbj+z/prtm+vHsalZiIVNINtBcMRC9FpOxxF2991RUk=
+AllowedIPs = 10.9.9.7/32
+
+[Peer]
+#_Name = Roma_Phone
+PublicKey = U7NWNqgKshyNdA+R9kgA/h0j7/507Y2bsGLNuFxVkWE=
+AllowedIPs = 10.9.9.9/32
+
+[Peer]
+#_Name = Roma_PC
+PublicKey = lKmHWg7mLTUEbOBOS4sptcBOxI9lmaW1aGGQi40QRSw=
+AllowedIPs = 10.9.9.10/32
+
+[Peer]
+#_Name = Kartawiy_Phone
+PublicKey = hGwXc4ErHjlkLEatdVpDU0mLKvyrLhYidWlggIIfSAM=
+AllowedIPs = 10.9.9.8/32
+
+[Peer]
+#_Name = Kartawiy_PC
+PublicKey = LEPB4qmySuMfIfw8nDW6xTavRWLLKcBr3k35FazDKGA=
+AllowedIPs = 10.9.9.11/32
+
+[Peer]
+#_Name = Lena_Phone
+PublicKey = WMCChXHfZyYgu5t35/lCjJNXD2ug/B7tQ5DD1qrI1lA=
+AllowedIPs = 10.9.9.12/32
+
+[Peer]
+#_Name = Grandfather_PC
+PublicKey = 2I2JUg3dtPIaxD41h/k2KhBhrdaDsyM1ktNS9sKncWE=
+AllowedIPs = 10.9.9.18/32
+
+[Peer]
+#_Name = Phone_Dad
+PublicKey = 72rbUW5MZ9vsLIIfXqHJIrbkoM+hARv+qGD8KAdxcDY=
+AllowedIPs = 10.9.9.20/32
+
+
+--- /etc/amnezia/amneziawg/awg1.conf ---
+[Interface]
+PrivateKey = <REDACTED>
+Address = 10.9.10.1/24
+MTU = 1280
+ListenPort = 443
+PostUp = iptables -I FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+Jc = 3
+Jmin = 47
+Jmax = 87
+S1 = 142
+S2 = 31
+S3 = 13
+S4 = 13
+H1 = 367587183-1032322096
+H2 = 1056007891-1094102140
+H3 = 1146302831-1280148199
+H4 = 1468693119-1882266884
+[Peer]
+PublicKey = 7WqjZHRvdgMUTnSPnawG+KT5aGq/9ZS6/wijlGlDQQ0=
+AllowedIPs = 10.9.10.2/32
+
+[Peer]
+#_Name = yota1
+PublicKey = VXLkEpIvUt8YE1z1QO5XT/wWz+1jTgGThVmaaKhb4HE=
+AllowedIPs = 10.9.10.3/32
+
+[Peer]
+#_Name = yota2
+PublicKey = bXfq5xsokUzbhpfIhXwRlKcEOrbwt5S9wqORjx1J+g4=
+AllowedIPs = 10.9.10.4/32
+
+[Peer]
+#_Name = yota3
+PublicKey = fBYg+3YOB/nDXNJFSmWRbG92fHxDHXj1tz9t70CXO2c=
+AllowedIPs = 10.9.10.5/32
+
+[Peer]
+#_Name = yota4
+PublicKey = hGP6OhbJTdhcg9xi8y7cia+1CPmFtnBV4WChb6iMr3Y=
+AllowedIPs = 10.9.10.6/32
+
+
+===== firewall =====
+$ iptables-save 2>/dev/null || true
+# Generated by iptables-save v1.8.11 (nf_tables) on Tue Sep  1 04:31:02 2026
+*filter
+:INPUT DROP [15762361:3631669159]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [894451:53137839]
+:DOCKER - [0:0]
+:DOCKER-ISOLATION-STAGE-1 - [0:0]
+:DOCKER-ISOLATION-STAGE-2 - [0:0]
+:DOCKER-USER - [0:0]
+:ufw-after-forward - [0:0]
+:ufw-after-input - [0:0]
+:ufw-after-logging-forward - [0:0]
+:ufw-after-logging-input - [0:0]
+:ufw-after-logging-output - [0:0]
+:ufw-after-output - [0:0]
+:ufw-before-forward - [0:0]
+:ufw-before-input - [0:0]
+:ufw-before-logging-forward - [0:0]
+:ufw-before-logging-input - [0:0]
+:ufw-before-logging-output - [0:0]
+:ufw-before-output - [0:0]
+:ufw-logging-allow - [0:0]
+:ufw-logging-deny - [0:0]
+:ufw-not-local - [0:0]
+:ufw-reject-forward - [0:0]
+:ufw-reject-input - [0:0]
+:ufw-reject-output - [0:0]
+:ufw-skip-to-policy-forward - [0:0]
+:ufw-skip-to-policy-input - [0:0]
+:ufw-skip-to-policy-output - [0:0]
+:ufw-track-forward - [0:0]
+:ufw-track-input - [0:0]
+:ufw-track-output - [0:0]
+:ufw-user-forward - [0:0]
+:ufw-user-input - [0:0]
+:ufw-user-limit - [0:0]
+:ufw-user-limit-accept - [0:0]
+:ufw-user-logging-forward - [0:0]
+:ufw-user-logging-input - [0:0]
+:ufw-user-logging-output - [0:0]
+:ufw-user-output - [0:0]
+-A INPUT -j ufw-before-logging-input
+-A INPUT -j ufw-before-input
+-A INPUT -j ufw-after-input
+-A INPUT -j ufw-after-logging-input
+-A INPUT -j ufw-reject-input
+-A INPUT -j ufw-track-input
+-A INPUT -p icmp -m icmp --icmp-type 8 -j DROP
+-A FORWARD -i awg0 -j ACCEPT
+-A FORWARD -j DOCKER-USER
+-A FORWARD -j DOCKER-ISOLATION-STAGE-1
+-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -o docker0 -j DOCKER
+-A FORWARD -i docker0 ! -o docker0 -j ACCEPT
+-A FORWARD -i docker0 -o docker0 -j ACCEPT
+-A FORWARD -o amn0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -o amn0 -j DOCKER
+-A FORWARD -i amn0 ! -o amn0 -j ACCEPT
+-A FORWARD -i amn0 -o amn0 -j ACCEPT
+-A FORWARD -i awg1 -j ACCEPT
+-A FORWARD -j ufw-before-logging-forward
+-A FORWARD -j ufw-before-forward
+-A FORWARD -j ufw-after-forward
+-A FORWARD -j ufw-after-logging-forward
+-A FORWARD -j ufw-reject-forward
+-A FORWARD -j ufw-track-forward
+-A OUTPUT -j ufw-before-logging-output
+-A OUTPUT -j ufw-before-output
+-A OUTPUT -j ufw-after-output
+-A OUTPUT -j ufw-after-logging-output
+-A OUTPUT -j ufw-reject-output
+-A OUTPUT -j ufw-track-output
+-A DOCKER -d 172.29.172.2/32 ! -i amn0 -o amn0 -p tcp -m tcp --dport 2334 -j ACCEPT
+-A DOCKER -d 172.29.172.3/32 ! -i amn0 -o amn0 -p udp -m udp --dport 33745 -j ACCEPT
+-A DOCKER -d 172.29.172.5/32 ! -i amn0 -o amn0 -p udp -m udp --dport 1488 -j ACCEPT
+-A DOCKER -d 172.29.172.4/32 ! -i amn0 -o amn0 -p udp -m udp --dport 4500 -j ACCEPT
+-A DOCKER -d 172.29.172.4/32 ! -i amn0 -o amn0 -p udp -m udp --dport 500 -j ACCEPT
+-A DOCKER -d 172.29.172.6/32 ! -i amn0 -o amn0 -p udp -m udp --dport 38317 -j ACCEPT
+-A DOCKER-ISOLATION-STAGE-1 -i docker0 ! -o docker0 -j DOCKER-ISOLATION-STAGE-2
+-A DOCKER-ISOLATION-STAGE-1 -i amn0 ! -o amn0 -j DOCKER-ISOLATION-STAGE-2
+-A DOCKER-ISOLATION-STAGE-1 -j RETURN
+-A DOCKER-ISOLATION-STAGE-2 -o docker0 -j DROP
+-A DOCKER-ISOLATION-STAGE-2 -o amn0 -j DROP
+-A DOCKER-ISOLATION-STAGE-2 -j RETURN
+-A DOCKER-USER -j RETURN
+-A ufw-after-input -p udp -m udp --dport 137 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp -m udp --dport 138 -j ufw-skip-to-policy-input
+-A ufw-after-input -p tcp -m tcp --dport 139 -j ufw-skip-to-policy-input
+-A ufw-after-input -p tcp -m tcp --dport 445 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp -m udp --dport 67 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp -m udp --dport 68 -j ufw-skip-to-policy-input
+-A ufw-after-input -m addrtype --dst-type BROADCAST -j ufw-skip-to-policy-input
+-A ufw-after-logging-forward -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw-after-logging-input -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw-before-forward -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 3 -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 11 -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 12 -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A ufw-before-forward -j ufw-user-forward
+-A ufw-before-input -i lo -j ACCEPT
+-A ufw-before-input -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-input -m conntrack --ctstate INVALID -j ufw-logging-deny
+-A ufw-before-input -m conntrack --ctstate INVALID -j DROP
+-A ufw-before-input -p icmp -m icmp --icmp-type 3 -j ACCEPT
+-A ufw-before-input -p icmp -m icmp --icmp-type 11 -j ACCEPT
+-A ufw-before-input -p icmp -m icmp --icmp-type 12 -j ACCEPT
+-A ufw-before-input -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A ufw-before-input -p udp -m udp --sport 67 --dport 68 -j ACCEPT
+-A ufw-before-input -j ufw-not-local
+-A ufw-before-input -d 224.0.0.251/32 -p udp -m udp --dport 5353 -j ACCEPT
+-A ufw-before-input -d 239.255.255.250/32 -p udp -m udp --dport 1900 -j ACCEPT
+-A ufw-before-input -j ufw-user-input
+-A ufw-before-output -o lo -j ACCEPT
+-A ufw-before-output -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-output -j ufw-user-output
+-A ufw-logging-allow -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW ALLOW] "
+-A ufw-logging-deny -m conntrack --ctstate INVALID -m limit --limit 3/min --limit-burst 10 -j RETURN
+-A ufw-logging-deny -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw-not-local -m addrtype --dst-type LOCAL -j RETURN
+-A ufw-not-local -m addrtype --dst-type MULTICAST -j RETURN
+-A ufw-not-local -m addrtype --dst-type BROADCAST -j RETURN
+-A ufw-not-local -m limit --limit 3/min --limit-burst 10 -j ufw-logging-deny
+-A ufw-not-local -j DROP
+-A ufw-skip-to-policy-forward -j DROP
+-A ufw-skip-to-policy-input -j DROP
+-A ufw-skip-to-policy-output -j ACCEPT
+-A ufw-track-output -p tcp -m conntrack --ctstate NEW -j ACCEPT
+-A ufw-track-output -p udp -m conntrack --ctstate NEW -j ACCEPT
+-A ufw-user-forward -i awg0 -o eth0 -j ACCEPT
+-A ufw-user-forward -i awg1 -o eth0 -j ACCEPT
+-A ufw-user-input -s 193.32.162.84/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -s 2.57.121.112/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -s 180.76.171.14/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -s 62.60.130.242/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -s 45.148.10.157/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -s 62.60.130.253/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -s 45.148.10.141/32 -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-input -p tcp -m tcp --dport 22 -j ACCEPT
+-A ufw-user-input -p udp -m udp --dport 39743 -j ACCEPT
+-A ufw-user-input -p udp -m udp --dport 443 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 80 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 443 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 3128 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 1080 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 1081 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 1082 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 25565 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 8088 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 18787 -j ACCEPT
+-A ufw-user-limit -m limit --limit 3/min -j LOG --log-prefix "[UFW LIMIT BLOCK] "
+-A ufw-user-limit -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-limit-accept -j ACCEPT
+COMMIT
+# Completed on Tue Sep  1 04:31:02 2026
+# Generated by iptables-save v1.8.11 (nf_tables) on Tue Sep  1 04:31:02 2026
+*nat
+:PREROUTING ACCEPT [158767433:12706154688]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [28300764:1712829934]
+:POSTROUTING ACCEPT [14380842:862913269]
+:DOCKER - [0:0]
+-A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
+-A OUTPUT ! -d 127.0.0.0/8 -m addrtype --dst-type LOCAL -j DOCKER
+-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.0/24 ! -o amn0 -j MASQUERADE
+-A POSTROUTING -o eth0 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.2/32 -d 172.29.172.2/32 -p tcp -m tcp --dport 2334 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.3/32 -d 172.29.172.3/32 -p udp -m udp --dport 33745 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.5/32 -d 172.29.172.5/32 -p udp -m udp --dport 1488 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.4/32 -d 172.29.172.4/32 -p udp -m udp --dport 4500 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.4/32 -d 172.29.172.4/32 -p udp -m udp --dport 500 -j MASQUERADE
+-A POSTROUTING -o eth0 -j MASQUERADE
+-A POSTROUTING -s 172.29.172.6/32 -d 172.29.172.6/32 -p udp -m udp --dport 38317 -j MASQUERADE
+-A DOCKER -i docker0 -j RETURN
+-A DOCKER -i amn0 -j RETURN
+-A DOCKER ! -i amn0 -p tcp -m tcp --dport 2334 -j DNAT --to-destination 172.29.172.2:2334
+-A DOCKER ! -i amn0 -p udp -m udp --dport 33745 -j DNAT --to-destination 172.29.172.3:33745
+-A DOCKER ! -i amn0 -p udp -m udp --dport 1488 -j DNAT --to-destination 172.29.172.5:1488
+-A DOCKER ! -i amn0 -p udp -m udp --dport 4500 -j DNAT --to-destination 172.29.172.4:4500
+-A DOCKER ! -i amn0 -p udp -m udp --dport 500 -j DNAT --to-destination 172.29.172.4:500
+-A DOCKER ! -i amn0 -p udp -m udp --dport 38317 -j DNAT --to-destination 172.29.172.6:38317
+COMMIT
+# Completed on Tue Sep  1 04:31:02 2026
+$ ip6tables-save 2>/dev/null || true
+# Generated by ip6tables-save v1.8.11 (nf_tables) on Tue Sep  1 04:31:02 2026
+*filter
+:INPUT DROP [27425:5566483]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [2:152]
+:ufw6-after-forward - [0:0]
+:ufw6-after-input - [0:0]
+:ufw6-after-logging-forward - [0:0]
+:ufw6-after-logging-input - [0:0]
+:ufw6-after-logging-output - [0:0]
+:ufw6-after-output - [0:0]
+:ufw6-before-forward - [0:0]
+:ufw6-before-input - [0:0]
+:ufw6-before-logging-forward - [0:0]
+:ufw6-before-logging-input - [0:0]
+:ufw6-before-logging-output - [0:0]
+:ufw6-before-output - [0:0]
+:ufw6-logging-allow - [0:0]
+:ufw6-logging-deny - [0:0]
+:ufw6-reject-forward - [0:0]
+:ufw6-reject-input - [0:0]
+:ufw6-reject-output - [0:0]
+:ufw6-skip-to-policy-forward - [0:0]
+:ufw6-skip-to-policy-input - [0:0]
+:ufw6-skip-to-policy-output - [0:0]
+:ufw6-track-forward - [0:0]
+:ufw6-track-input - [0:0]
+:ufw6-track-output - [0:0]
+:ufw6-user-forward - [0:0]
+:ufw6-user-input - [0:0]
+:ufw6-user-limit - [0:0]
+:ufw6-user-limit-accept - [0:0]
+:ufw6-user-logging-forward - [0:0]
+:ufw6-user-logging-input - [0:0]
+:ufw6-user-logging-output - [0:0]
+:ufw6-user-output - [0:0]
+-A INPUT -j ufw6-before-logging-input
+-A INPUT -j ufw6-before-input
+-A INPUT -j ufw6-after-input
+-A INPUT -j ufw6-after-logging-input
+-A INPUT -j ufw6-reject-input
+-A INPUT -j ufw6-track-input
+-A FORWARD -j ufw6-before-logging-forward
+-A FORWARD -j ufw6-before-forward
+-A FORWARD -j ufw6-after-forward
+-A FORWARD -j ufw6-after-logging-forward
+-A FORWARD -j ufw6-reject-forward
+-A FORWARD -j ufw6-track-forward
+-A OUTPUT -j ufw6-before-logging-output
+-A OUTPUT -j ufw6-before-output
+-A OUTPUT -j ufw6-after-output
+-A OUTPUT -j ufw6-after-logging-output
+-A OUTPUT -j ufw6-reject-output
+-A OUTPUT -j ufw6-track-output
+-A ufw6-after-input -p udp -m udp --dport 137 -j ufw6-skip-to-policy-input
+-A ufw6-after-input -p udp -m udp --dport 138 -j ufw6-skip-to-policy-input
+-A ufw6-after-input -p tcp -m tcp --dport 139 -j ufw6-skip-to-policy-input
+-A ufw6-after-input -p tcp -m tcp --dport 445 -j ufw6-skip-to-policy-input
+-A ufw6-after-input -p udp -m udp --dport 546 -j ufw6-skip-to-policy-input
+-A ufw6-after-input -p udp -m udp --dport 547 -j ufw6-skip-to-policy-input
+-A ufw6-after-logging-forward -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw6-after-logging-input -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw6-before-forward -m rt --rt-type 0 -j DROP
+-A ufw6-before-forward -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw6-before-forward -p ipv6-icmp -m icmp6 --icmpv6-type 1 -j ACCEPT
+-A ufw6-before-forward -p ipv6-icmp -m icmp6 --icmpv6-type 2 -j ACCEPT
+-A ufw6-before-forward -p ipv6-icmp -m icmp6 --icmpv6-type 3 -j ACCEPT
+-A ufw6-before-forward -p ipv6-icmp -m icmp6 --icmpv6-type 4 -j ACCEPT
+-A ufw6-before-forward -p ipv6-icmp -m icmp6 --icmpv6-type 128 -j ACCEPT
+-A ufw6-before-forward -p ipv6-icmp -m icmp6 --icmpv6-type 129 -j ACCEPT
+-A ufw6-before-forward -j ufw6-user-forward
+-A ufw6-before-input -i lo -j ACCEPT
+-A ufw6-before-input -m rt --rt-type 0 -j DROP
+-A ufw6-before-input -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 129 -j ACCEPT
+-A ufw6-before-input -m conntrack --ctstate INVALID -j ufw6-logging-deny
+-A ufw6-before-input -m conntrack --ctstate INVALID -j DROP
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 1 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 2 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 3 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 4 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 128 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 133 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 134 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 135 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 136 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 141 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 142 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 130 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 131 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 132 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 143 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 148 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 149 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 151 -m hl --hl-eq 1 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 152 -m hl --hl-eq 1 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 153 -m hl --hl-eq 1 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 144 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 145 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 146 -j ACCEPT
+-A ufw6-before-input -p ipv6-icmp -m icmp6 --icmpv6-type 147 -j ACCEPT
+-A ufw6-before-input -s fe80::/10 -d fe80::/10 -p udp -m udp --sport 547 --dport 546 -j ACCEPT
+-A ufw6-before-input -d ff02::fb/128 -p udp -m udp --dport 5353 -j ACCEPT
+-A ufw6-before-input -d ff02::f/128 -p udp -m udp --dport 1900 -j ACCEPT
+-A ufw6-before-input -j ufw6-user-input
+-A ufw6-before-output -o lo -j ACCEPT
+-A ufw6-before-output -m rt --rt-type 0 -j DROP
+-A ufw6-before-output -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 1 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 2 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 3 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 4 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 128 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 129 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 133 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 136 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 135 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 134 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 141 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 142 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 130 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 131 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 132 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 143 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 148 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -p ipv6-icmp -m icmp6 --icmpv6-type 149 -m hl --hl-eq 255 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 151 -m hl --hl-eq 1 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 152 -m hl --hl-eq 1 -j ACCEPT
+-A ufw6-before-output -s fe80::/10 -p ipv6-icmp -m icmp6 --icmpv6-type 153 -m hl --hl-eq 1 -j ACCEPT
+-A ufw6-before-output -j ufw6-user-output
+-A ufw6-logging-allow -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW ALLOW] "
+-A ufw6-logging-deny -m conntrack --ctstate INVALID -m limit --limit 3/min --limit-burst 10 -j RETURN
+-A ufw6-logging-deny -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw6-skip-to-policy-forward -j DROP
+-A ufw6-skip-to-policy-input -j DROP
+-A ufw6-skip-to-policy-output -j ACCEPT
+-A ufw6-track-output -p tcp -m conntrack --ctstate NEW -j ACCEPT
+-A ufw6-track-output -p udp -m conntrack --ctstate NEW -j ACCEPT
+-A ufw6-user-forward -i awg0 -o eth0 -j ACCEPT
+-A ufw6-user-forward -i awg1 -o eth0 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 22 -j ACCEPT
+-A ufw6-user-input -p udp -m udp --dport 39743 -j ACCEPT
+-A ufw6-user-input -p udp -m udp --dport 443 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 80 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 443 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 3128 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 1080 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 1081 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 1082 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 25565 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 8088 -j ACCEPT
+-A ufw6-user-input -p tcp -m tcp --dport 18787 -j ACCEPT
+-A ufw6-user-limit -m limit --limit 3/min -j LOG --log-prefix "[UFW LIMIT BLOCK] "
+-A ufw6-user-limit -j REJECT --reject-with icmp6-port-unreachable
+-A ufw6-user-limit-accept -j ACCEPT
+COMMIT
+# Completed on Tue Sep  1 04:31:02 2026
+$ nft list ruleset 2>/dev/null || true
+
+===== modules =====
+$ lsmod | grep -Ei 'wireguard|amnezia|awg' || true
+wireguard             118784  0
+amneziawg             139264  0
+libchacha20poly1305    16384  2 amneziawg,wireguard
+curve25519_x86_64      36864  2 amneziawg,wireguard
+libcurve25519_generic    45056  3 amneziawg,curve25519_x86_64,wireguard
+ip6_udp_tunnel         16384  2 amneziawg,wireguard
+udp_tunnel             32768  2 amneziawg,wireguard
+$ modinfo amneziawg 2>/dev/null | head -100 || true
+filename:       /lib/modules/6.12.96+deb13-amd64/updates/dkms/amneziawg.ko.xz
+intree:         Y
+alias:          net-pf-16-proto-16-family-amneziawg
+alias:          rtnl-link-amneziawg
+version:        1.0.20260611
+author:         Jason A. Donenfeld <Jason@zx2c4.com>, AmneziaVPN <admin@amnezia.org>
+description:    AmneziaWG secure network tunnel
+license:        GPL v2
+srcversion:     B58D1862AF4AF80F783A3A7
+depends:        libchacha20poly1305,udp_tunnel,ip6_udp_tunnel,curve25519-x86_64,libcurve25519-generic
+name:           amneziawg
+retpoline:      Y
+vermagic:       6.12.96+deb13-amd64 SMP preempt mod_unload modversions 
+sig_id:         PKCS#7
+signer:         DKMS module signing key
+sig_key:        3F:55:AC:00:21:C5:0B:3A:D3:C9:95:75:95:C3:D0:A6:66:A2:01:8A
+sig_hashalgo:   sha256
+signature:      39:E8:67:DF:28:58:34:B1:ED:BD:19:B1:0E:F9:9D:88:B4:32:9E:80:
+		F8:7E:C5:3F:32:E5:DD:B1:CD:00:24:0F:28:4D:C3:E4:58:AD:3A:3F:
+		12:11:C6:94:DF:38:BA:93:19:99:94:D4:0A:DD:25:DA:2D:6F:F8:60:
+		6D:93:31:E3:95:83:A7:F3:2C:F5:9B:C9:D7:72:FE:92:80:70:3C:F8:
+		CA:3C:3C:78:DF:79:41:17:9F:BB:5E:A0:77:24:34:89:67:E5:B6:66:
+		33:56:75:D9:FE:7B:02:9D:33:F1:E7:BD:8D:AE:27:64:7B:85:47:4D:
+		E1:86:A1:CA:31:9C:A0:C6:DB:40:63:00:7E:A0:6E:16:5E:49:AD:2F:
+		6D:88:2C:32:0E:F6:29:46:76:C8:44:2C:B9:3D:13:C3:9E:9C:E8:02:
+		CD:A2:9B:B0:9E:38:07:14:AD:78:6D:1A:0C:A9:D2:3F:61:F5:FE:F4:
+		07:5C:0F:C0:F6:4F:EB:81:7A:28:FF:36:DC:24:1B:54:99:53:39:22:
+		61:76:50:3E:84:CF:D5:07:56:35:90:69:8D:F5:8C:58:E9:84:8D:D5:
+		8A:DE:A4:10:AA:6F:CF:C7:48:E2:53:C5:A9:0B:2F:F0:89:36:79:67:
+		C6:DA:E8:E9:B3:01:F9:39:61:0B:26:06:1F:D1:2A:3E
+parm:           bogus_endpoints:int
+parm:           bogus_endpoints_prefix:charp
+parm:           bogus_endpoints_prefix6:charp
+$ modinfo wireguard 2>/dev/null | head -100 || true
+filename:       /lib/modules/6.12.96+deb13-amd64/kernel/drivers/net/wireguard/wireguard.ko.xz
+alias:          net-pf-16-proto-16-family-wireguard
+alias:          rtnl-link-wireguard
+version:        1.0.0
+author:         Jason A. Donenfeld <Jason@zx2c4.com>
+description:    WireGuard secure network tunnel
+license:        GPL v2
+srcversion:     D06025D3F77AE2CFB317551
+depends:        libchacha20poly1305,udp_tunnel,ip6_udp_tunnel,curve25519-x86_64,libcurve25519-generic
+intree:         Y
+name:           wireguard
+retpoline:      Y
+vermagic:       6.12.96+deb13-amd64 SMP preempt mod_unload modversions 
+sig_id:         PKCS#7
+signer:         Build time autogenerated kernel key
+sig_key:        21:62:0F:98:D3:0A:20:73:38:BC:B0:87:28:8E:AB:28:05:C5:12:2C
+sig_hashalgo:   sha256
+signature:      30:65:02:30:2C:85:E8:7E:C0:2B:4A:8C:A7:76:13:FB:21:9A:EB:CC:
+		B6:1F:74:E9:9C:00:27:C8:C9:26:88:5D:07:DA:06:03:78:62:BB:E9:
+		78:3E:88:2A:7E:A1:52:F4:AF:28:8C:FC:02:31:00:8F:5E:09:9D:F6:
+		1A:E8:A7:22:3D:B1:65:03:EE:24:DC:25:FB:12:A7:31:5B:53:D8:1B:
+		6A:B3:EB:5E:8F:DA:05:7E:A7:E7:C1:E2:49:BA:CF:98:C1:6F:22:B5:
+		84:B0:BF
+
+===== amnezia_logs =====
+--- container: amnezia-awg2 ---
+Error response from daemon: configured logging driver does not support reading
+
+--- container: amnezia-openvpn ---
+Error response from daemon: configured logging driver does not support reading
+
+--- container: amnezia-xray ---
+Error response from daemon: configured logging driver does not support reading
+
+--- container: amnezia-ipsec ---
+Error response from daemon: configured logging driver does not support reading
+
+--- container: amnezia-wireguard ---
+Error response from daemon: configured logging driver does not support reading
+
+VPN_DIAGNOSTICS_OK
 
 exit_code=0
-finished_at=2026-08-26T08:43:46Z
+finished_at=2026-09-01T04:31:02Z
 runner=alexhost-143-246
