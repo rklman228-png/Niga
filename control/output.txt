@@ -1,23 +1,12 @@
-===== rotate compromised mobile credentials =====
-credentials_rotated=yes
-===== prove rotated config through public endpoint =====
-ip=143.246.197.187
-warp=off
-HANDSHAKE
-0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	1788239687
-TRANSFER
-0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	5968	3244
-rotated_tunnel=ok
-===== final safe status =====
-awg31_mobile=true
-host_iface=up
-udp585=2
-old_awg0=up
-old_awg1=up
+===== Amnezia VPN status =====
+mobile_awg31=true
+mobile_iface=up
+mobile_udp585=2
+legacy_awg0=up
+legacy_awg1=up
 legacy_xray=true
-secure_handoff=ready
-MOBILE_AMNEZIAWG31_ROTATED_OK
+AMNEZIA_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-01T05:14:48Z
+finished_at=2026-09-01T05:16:19Z
 runner=alexhost-143-246
