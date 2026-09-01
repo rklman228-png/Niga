@@ -1,6 +1,40 @@
 ===== authenticated Reality self-test =====
+tunnel_http=failed status=35
 curl: (35) TLS connect error: error:0A000126:SSL routines::unexpected eof while reading
+--- client log (secrets filtered) ---
+Xray 25.8.3 (Xray, Penetrates Everything.) bd86732 (go1.24.5 linux/amd64)
+A unified platform for anti-censorship.
+2026/09/01 04:42:53.862747 [Info] infra/conf/serial: Reading config: &{Name:/tmp/client.json Format:json}
+2026/09/01 04:42:53.868624 [Debug] app/log: Logger started
+2026/09/01 04:42:53.868943 [Debug] app/proxyman/inbound: creating stream worker on 127.0.0.1:10888
+2026/09/01 04:42:53.869707 [Info] transport/internet/tcp: listening TCP on 127.0.0.1:10888
+2026/09/01 04:42:53.870007 [Warning] core: Xray 25.8.3 started
+2026/09/01 04:42:55.876380 [Info] [4232359790] proxy/socks: TCP Connect request to tcp:api.ipify.org:443
+2026/09/01 04:42:55.876935 from tcp:127.0.0.1:59030 accepted tcp:api.ipify.org:443
+2026/09/01 04:42:55.878815 [Info] [4232359790] app/dispatcher: default route for tcp:api.ipify.org:443
+2026/09/01 04:42:55.878884 [Info] [4232359790] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:8443
+2026/09/01 04:42:55.878912 [Debug] [4232359790] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/09/01 04:42:55.949835 [Info] [4232359790] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:8443
+2026/09/01 04:42:55.950434 [Debug] [4232359790] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/09/01 04:42:56.219017 [Info] [4232359790] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:8443
+2026/09/01 04:42:56.219113 [Debug] [4232359790] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/09/01 04:42:56.717441 [Info] [4232359790] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:8443
+2026/09/01 04:42:56.717476 [Debug] [4232359790] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/09/01 04:42:57.386855 [Info] [4232359790] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:8443
+2026/09/01 04:42:57.386914 [Debug] [4232359790] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/09/01 04:42:58.255776 [Info] [4232359790] app/proxyman/outbound: app/proxyman/outbound: failed to process outbound traffic > proxy/vless/outbound: failed to find an available destination > common/retry: [EOF] > common/retry: all retry attempts failed
+2026/09/01 04:42:58.256023 [Info] [4232359790] app/proxyman/inbound: connection ends > proxy/socks: connection ends > proxy/socks: failed to transport all TCP response > io: read/write on closed pipe
+--- server log (secrets filtered) ---
+Xray 25.8.3 (Xray, Penetrates Everything.) bd86732 (go1.24.5 linux/amd64)
+A unified platform for anti-censorship.
+2026/09/01 04:40:59.535976 [Info] infra/conf/serial: Reading config: &{Name:/etc/xray-mobile/server.json Format:json}
+2026/09/01 04:40:59.543390 [Warning] core: Xray 25.8.3 started
+===== survival check =====
+mobile=true
+old_xray=true
+awg0=up
+awg1=up
 
 exit_code=35
-finished_at=2026-09-01T04:42:03Z
+finished_at=2026-09-01T04:42:58Z
 runner=alexhost-143-246
