@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo '===== VPN status ====='
+echo '===== live whitelist trace ====='
+echo "now=$(date -u +%FT%TZ)"
 echo "wl_vless=$(docker inspect -f '{{.State.Running}}' xray-vless-whitelist 2>/dev/null || echo missing)"
-echo "tcp443=$(ss -ltnH | grep -c ':443 ' || true)"
-echo "tcp47006=$(ss -ltnH | grep -c ':47006 ' || true)"
+echo "public443_estab=$(ss -tnH state established '( sport = :443 or dport = :443 )' 2>/dev/null | wc -l)"
+echo "wl47006_estab=$(ss -tnH state established '( sport = :47006 or dport = :47006 )' 2>/dev/null | wc -l)"
+echo '--- recent wl xray accepts ---'
+docker logs --since 8m --tail 200 xray-vless-whitelist 2>&1 \
+ | sed -E 's/([0-9]{1,3}\.){3}[0-9]{1,3}/[ip]/g; s/[A-Fa-f0-9]{8}-[A-Fa-f0-9-]{27,}/[uuid]/g' \
+ | tail -n 120 || true
+
+echo '--- nginx stream sockets ---'
+ss -ltnp | grep -E ':(443|4443|47006) ' || true
+
+echo '--- service preservation ---'
 echo "main_vless=$(docker inspect -f '{{.State.Running}}' xray-vless-47005 2>/dev/null || echo missing)"
 echo "awg31=$(docker inspect -f '{{.State.Running}}' amnezia-awg31-mobile 2>/dev/null || echo missing)"
-echo "legacy_xray=$(docker inspect -f '{{.State.Running}}' amnezia-xray 2>/dev/null || echo missing)"
-for domain in bot.pronexsbp.ru enihub.ru; do
-  code="$(curl -sS -o /dev/null --max-time 8 --resolve "$domain:443:127.0.0.1" -w '%{http_code}' "https://$domain/" || true)"
-  echo "$domain=http_$code"
-done
-echo VPN_STATUS_OK
+echo TRACE_OK
