@@ -3,16 +3,18 @@ set -euo pipefail
 IMAGE='ghcr.io/xtls/xray-core:26.3.27'
 STATE='/root/vless-reality-47005'
 
-echo '===== Xray image CLI diagnostics ====='
-docker image inspect "$IMAGE" --format 'entrypoint={{json .Config.Entrypoint}} cmd={{json .Config.Cmd}}'
-echo '--- version ---'
-docker run --rm "$IMAGE" version || true
-echo '--- help head ---'
-docker run --rm "$IMAGE" help 2>&1 | head -n 40 || true
+redact() {
+  sed -E 's/[A-Za-z0-9_+\/-]{28,}={0,2}/[redacted]/g'
+}
 
-echo '--- state files present ---'
 for f in server.json client.json; do
-  if [ -s "$STATE/$f" ]; then echo "$f=present"; else echo "$f=missing"; fi
+  echo "===== validate $f ====="
+  set +e
+  OUT="$(docker run --rm -v "$STATE/$f:/etc/xray/config.json:ro" "$IMAGE" run -test -config=/etc/xray/config.json 2>&1)"
+  CODE=$?
+  set -e
+  printf '%s\n' "$OUT" | redact
+  echo "code=$CODE"
 done
 
-echo XRAY_CLI_DIAG_OK
+echo XRAY_VALIDATION_DIAG_OK
