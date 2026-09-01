@@ -1,23 +1,10 @@
-===== normalize current REALITY server fields =====
-server_fields=normalized
-===== validate configs as container root =====
-server.json=valid
-client.json=valid
-===== deploy isolated VLESS REALITY =====
-server_container=running
-tcp47005=listening
-===== end-to-end test exact client config =====
-tunnel_test=ok
-exit_ip=143.246.197.187
-===== encrypted one-time handoff =====
-secure_handoff=ready
-===== preservation checks =====
-legacy_awg0=up
-legacy_awg1=up
+rsa_credentials_handoff=ready
+vless_container=true
+tcp47005=1
 awg31_mobile=true
 legacy_xray=true
-VLESS_REALITY_DEPLOY_OK
+VLESS_CREDS_HANDOFF_OK
 
 exit_code=0
-finished_at=2026-09-01T05:48:42Z
+finished_at=2026-09-01T05:49:40Z
 runner=alexhost-143-246
