@@ -1,20 +1,15 @@
-===== preflight =====
+===== safety/preflight =====
 port585=free
 old_awg0=up
 old_awg1=up
-===== pull official AWG image =====
-===== image/tool capability =====
-image=[amneziavpn/amneziawg-go@sha256:cbafc02b8373a83f428272db6d8001b37bc02e6211cbd8c0cb4e2e3759b12b72]
-/usr/bin/amneziawg-go
-/usr/bin/awg
-/usr/bin/awg-quick
-amneziawg-go 0.0.20250522
+legacy_xray=true
+===== generate isolated AWG 3.1 credentials =====
+===== validate config parser =====
+server_config=ok
+===== launch separate native AmneziaWG 3.1 container =====
+===== server state =====
+Unable to access interface: No such device
 
-Userspace AmneziaWG daemon for linux-amd64.
-Information available at https://amnezia.org
-amneziawg-tools v3.1.20260812 - https://amnezia.org
-AWG31_PREFLIGHT_OK
-
-exit_code=0
-finished_at=2026-09-01T04:59:44Z
+exit_code=1
+finished_at=2026-09-01T05:02:42Z
 runner=alexhost-143-246
