@@ -1,21 +1,14 @@
-===== force whitelist profile to IPv4 =====
---- validate ---
-configs=valid
---- restart whitelist server only ---
-wl_server=running
---- test IPv4 client through public 443 ---
-https://api.ipify.org code=200 total=5.352046
-https://telegram.org/ code=200 total=0.370613
-https://github.com/ code=200 total=0.672541
-https://www.gstatic.com/generate_204 code=204 total=0.263163
-exit_ip_ok=yes
---- preservation ---
+===== VPN status =====
+wl_vless=true
+tcp443=2
+tcp47006=1
 main_vless=true
 awg31=true
+legacy_xray=true
 bot.pronexsbp.ru=http_200
 enihub.ru=http_200
-WL_IPV4_PROFILE_READY
+VPN_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-01T08:11:17Z
+finished_at=2026-09-01T08:12:27Z
 runner=alexhost-143-246
