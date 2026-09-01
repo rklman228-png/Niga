@@ -1,208 +1,45 @@
-===== userspace override strings =====
-Prefer_EI9
-Prefer_FI9
-Prefer_NI3x
-Prefer_NI3
-Prefer_PI3
-Prefer_NI3
-Prefer_NH3
-Prefer_PH3
-Prefer_NH3
-Prefer_NL3G
-PreferGo
-preferGo
-*github.com/amnezia-vpn/amneziawg-go/v3/ipc
-*github.com/amnezia-vpn/amneziawg-go/v3/tun
-+github.com/amnezia-vpn/amneziawg-go/v3/conn
--github.com/amnezia-vpn/amneziawg-go/v3/device
--github.com/amnezia-vpn/amneziawg-go/v3/replay
--github.com/amnezia-vpn/amneziawg-go/v3/tai64n
-/github.com/amnezia-vpn/amneziawg-go/v3/rwcancel
-2github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter
-F*atomic.Pointer[github.com/amnezia-vpn/amneziawg-go/v3/device.Keypair]
-, locked to thread, synctest bubble value out of range298023223876953125invalid public keyprotocol_version=1invalid fwmark: %w%v - UAPI: Created/var/run/amneziawgunix socket in useinput/output errorno child processesfile name too longno locks availableidentifier removedmultihop attemptedRFS specific errorstreams pipe errorconnection refusedoperation canceledsegmentation faultreflect.Value.Elemreflect.Value.Typeuse of closed fileunknown time zone context.Background/cpu.cfs_quota_us
-unsafe.String: len out of range11368683772161602973937988281255684341886080801486968994140625looking up unknown address typeFailed to receive %s packet: %v%v - Receiving keepalive packet%v - Sending handshake responseRoutine: event worker - startedRoutine: event worker - stoppedfailed to merge with device: %wfailed to parse listen_port: %wUAPI: Updating rekey after timefailed to set preshared key: %wunsupported virtio GSO type: %d.lib section in a.out corruptedcannot assign requested addressreflect: Len of non-array type invalid return from write: got malformed time zone informationzone must be a non-empty stringcrypto/ecdh: invalid public keyencoding/hex: invalid byte: %#Ucrypto/aes: len(dst) < len(src)Starting amneziawg-go version %sslice bounds out of range [::%x]slice bounds out of range [:%x:]slice bounds out of range [%x::]SIGFPE: floating-point exceptionSIGTTOU: background write to tty (types from different packages)end outside usable address spaceruntime: fixalloc size too largeinvalid limiter event type foundscanstack: goroutine not stoppedscavenger state is already wiredsweep increased allocation countremovespecial on invalid pointergetWeakHandle on invalid pointerruntime: root level max pages = _cgo_pthread_key_created missingruntime: sudog with non-nil elemruntime: sudog with non-nil nextruntime: sudog with non-nil prevruntime: mcall function returnednon-Go code disabled sigaltstackruntime: newstack called from g=runtime: stack split at bad timepanic while printing panic value28421709430404007434844970703125%v - Received handshake responsepersistent_keepalive_interval=%sUAPI: Updating reject after timeUAPI: Updating keepalive timeoutresource temporarily unavailablenumerical argument out of domainsoftware caused connection abortMapIter.Value called before Nextsync: Unlock of unlocked RWMutexsync: negative WaitGroup counteruse of closed network connection" not supported for cpu option "initial table capacity too largego package net: hostLookupOrder(unexpected character, want colonchacha20: invalid buffer overlapbufio: tried to fill full buffersubtle.XORBytes: invalid overlapslice bounds out of range [%x:%y]SIGCHLD: child status has changedSIGTTIN: background read from ttySIGXFSZ: file size limit exceededbase outside usable address spaceruntime: memory allocated by OS [misrounded allocation in sysAlloc/cpu/classes/gc/pause:cpu-seconds/cpu/classes/gc/total:cpu-seconds/gc/limiter/last-enabled:gc-cycle/memory/classes/heap/stacks:bytes/memory/classes/heap/unused:bytes/sched/pauses/stopping/gc:seconds/sched/pauses/total/other:secondsmin must be a non-zero power of 2runtime: failed mSpanList.insert runtime: epollcreate failed with runtime: morestack on g0, stack [runtime: castogscanstatus oldval=stoplockedm: inconsistent lockingfindrunnable: negative nmspinningfreeing stack not in a stack spanstackalloc not on scheduler stackruntime: goroutine stack exceeds runtime: text offset out of rangetimer period must be non-negativetoo many concurrent timer firingsruntime: name offset out of rangeruntime: type offset out of range142108547152020037174224853515625710542735760100185871124267578125hex string does not fit the sliceReceiving cookie response from %sReceived packet with invalid mac1Failed to decode response message%v - Failed to derive keypair: %v%v - Sending handshake initiationFailed to create cookie reply: %vbytes.Buffer.Grow: negative countfailed to parse rekey timeout: %w%v - UAPI: Updating preshared keytoo many levels of symbolic linksreflect: slice index out of range of method on nil interface valuereflect: Field index out of rangereflect: array index out of rangesync: RUnlock of unlocked RWMutexwaiting for unsupported file typeGODEBUG: no value specified for "concurrent map read and map writetable must have positive capacitygo package net: confVal.netCgo = too many Answers to pack (>65535)GODEBUG sys/cpu: can not enable "sha3: invalid hash state functionFailed to determine executable: %vslice bounds out of range [:%x:%y]slice bounds out of range [%x:%y:]SIGURG: urgent condition on socketruntime: standard file descriptor out of memory allocating allArenas... too many potential issues ...
-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_user arena chunk size is not a multiple of the physical page sizeruntime: function marked with #cgo nocallback called back into Goruntime.SetFinalizer: pointer not at beginning of allocated block| https://github.com/amnezia-vpn/amneziawg-linux-kernel-module 
-       Running amneziawg-go is not required because this      
-       kernel has first class support for AmneziaWG. For      
-crypto/aes: internal error: using generic implementation despite hardware supportexpected all size classes up to min size for malloc header to fit in one-page spanscrypto/hmac: use of keys shorter than 112 bits is not allowed in FIPS 140-only modereflect.Value.Interface: cannot return value obtained from unexported field or methodcrypto/hmac: use of hash functions other than SHA-2 or SHA-3 is not allowed in FIPS 140-only modeamneziawg-go %s
-Userspace AmneziaWG daemon for %s-%s.
-path	github.com/amnezia-vpn/amneziawg-go/v3
-mod	github.com/amnezia-vpn/amneziawg-go/v3	(devel)	
-build	-ldflags="-linkmode external -extldflags \"-fno-PIC -static\""
-Prefer_ERMS
-Prefer_FSRM
-Prefer_No_VZEROUPPER
-MathVec_Prefer_No_AVX512
-Prefer_PMINUB_for_stringop
-internal/runtime/maps.(*groupReference).key
-internal/runtime/maps.(*groupReference).elem
-internal/runtime/maps.(*groupReference).ctrls
-runtime.mutexPreferLowLatency
-net.(*Resolver).preferGo
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).ParseEndpoint
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).ClearSrc
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).DstIP
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).DstToBytes
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).DstToString
-github.com/amnezia-vpn/amneziawg-go/v3/conn.listenNet
-github.com/amnezia-vpn/amneziawg-go/v3/conn.listenConfig
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Open
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).makeReceiveIPv4
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).makeReceiveIPv6
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Open.(*StdNetBind).makeReceiveIPv6.func2
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Open.(*StdNetBind).makeReceiveIPv4.func1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Open.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).putMessages
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).receiveIP
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).getMessages
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).receiveIP.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).BatchSize
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Close
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Close.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.ErrUDPGSODisabled.Error
-github.com/amnezia-vpn/amneziawg-go/v3/conn.ErrUDPGSODisabled.Unwrap
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Send
-github.com/amnezia-vpn/amneziawg-go/v3/conn.setSrcControl
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Send.deferwrap2
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).Send.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).send
-github.com/amnezia-vpn/amneziawg-go/v3/conn.coalesceMessages
-github.com/amnezia-vpn/amneziawg-go/v3/conn.splitCoalescedMessages
-github.com/amnezia-vpn/amneziawg-go/v3/conn.ReceiveFunc.PrettyName
-github.com/amnezia-vpn/amneziawg-go/v3/conn.kernelVersion
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0
-github.com/amnezia-vpn/amneziawg-go/v3/conn.errShouldDisableUDPGSO
-github.com/amnezia-vpn/amneziawg-go/v3/conn.supportsUDPOffload
-github.com/amnezia-vpn/amneziawg-go/v3/conn.supportsUDPOffload.func1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.getGSOSize
-github.com/amnezia-vpn/amneziawg-go/v3/conn.setGSOSize
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).SetMark
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).SetMark.func2
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetBind).SetMark.func1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).SrcIP
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).SrcIfidx
-github.com/amnezia-vpn/amneziawg-go/v3/conn.getSrcFromControl
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func1.1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func2
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func2.2
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func2.1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func3
-github.com/amnezia-vpn/amneziawg-go/v3/conn.init.0.func3.1
-github.com/amnezia-vpn/amneziawg-go/v3/conn.listenNet.listenConfig.func1
-type:.eq.github.com/amnezia-vpn/amneziawg-go/v3/conn.ErrUDPGSODisabled
-github.com/amnezia-vpn/amneziawg-go/v3/conn.StdNetEndpoint.MarshalBinary
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).MarshalBinary
-github.com/amnezia-vpn/amneziawg-go/v3/conn.StdNetEndpoint.String
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).String
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*StdNetEndpoint).UnmarshalBinary
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*ErrUDPGSODisabled).Error
-github.com/amnezia-vpn/amneziawg-go/v3/conn.(*ErrUDPGSODisabled).Unwrap
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).Close
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).Close.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).Init
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).Init.func1
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).Init.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).cleanup
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).cleanup.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.(*Ratelimiter).Allow
-type:.eq.github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter.RatelimiterEntry
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.NewRWCancel
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.RetryAfterError
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.(*RWCancel).ReadyRead
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.(*RWCancel).ReadyWrite
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.(*RWCancel).Read
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.(*RWCancel).Write
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.(*RWCancel).Close
-github.com/amnezia-vpn/amneziawg-go/v3/tun.checksumNoFold
-github.com/amnezia-vpn/amneziawg-go/v3/tun.checksum
-github.com/amnezia-vpn/amneziawg-go/v3/tun.pseudoHeaderChecksumNoFold
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*tcpGROTable).lookupOrInsert
-github.com/amnezia-vpn/amneziawg-go/v3/tun.newTCPFlowKey
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*tcpGROTable).insert
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*tcpGROTable).newItems
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*udpGROTable).lookupOrInsert
-github.com/amnezia-vpn/amneziawg-go/v3/tun.newUDPFlowKey
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*udpGROTable).insert
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*udpGROTable).newItems
-github.com/amnezia-vpn/amneziawg-go/v3/tun.ipHeadersCanCoalesce
-github.com/amnezia-vpn/amneziawg-go/v3/tun.udpPacketsCanCoalesce
-github.com/amnezia-vpn/amneziawg-go/v3/tun.tcpPacketsCanCoalesce
-github.com/amnezia-vpn/amneziawg-go/v3/tun.checksumValid
-github.com/amnezia-vpn/amneziawg-go/v3/tun.coalesceUDPPackets
-github.com/amnezia-vpn/amneziawg-go/v3/tun.coalesceTCPPackets
-github.com/amnezia-vpn/amneziawg-go/v3/tun.tcpGRO
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*tcpGROTable).deleteAt
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*tcpGROTable).updateAt
-github.com/amnezia-vpn/amneziawg-go/v3/tun.applyTCPCoalesceAccounting
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*virtioNetHdr).encode
-github.com/amnezia-vpn/amneziawg-go/v3/tun.applyUDPCoalesceAccounting
-github.com/amnezia-vpn/amneziawg-go/v3/tun.packetIsGROCandidate
-github.com/amnezia-vpn/amneziawg-go/v3/tun.udpGRO
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*udpGROTable).updateAt
-github.com/amnezia-vpn/amneziawg-go/v3/tun.handleGRO
-github.com/amnezia-vpn/amneziawg-go/v3/tun.gsoSplit
-github.com/amnezia-vpn/amneziawg-go/v3/tun.gsoNoneChecksum
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).File
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).routineHackListener
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).routineHackListener.func1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).routineHackListener.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.createNetlinkSocket
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).routineNetlinkListener
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).routineNetlinkListener.func1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.getIFIndex
-github.com/amnezia-vpn/amneziawg-go/v3/tun.getIFIndex.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).setMTU
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).setMTU.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).MTU
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).MTU.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Name
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).nameSlow
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).nameSlow.func1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Write
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Write.func1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*tcpGROTable).reset
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*udpGROTable).reset
-github.com/amnezia-vpn/amneziawg-go/v3/tun.handleVirtioRead
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*virtioNetHdr).decode
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Read
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Read.deferwrap1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Events
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Close
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).Close.func1
-github.com/amnezia-vpn/amneziawg-go/v3/rwcancel.(*RWCancel).Cancel
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).BatchSize
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).initFromFlags
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).initFromFlags.func1
-github.com/amnezia-vpn/amneziawg-go/v3/tun.CreateTUN
-github.com/amnezia-vpn/amneziawg-go/v3/tun.CreateTUNFromFile
-github.com/amnezia-vpn/amneziawg-go/v3/tun.newTCPGROTable
-github.com/amnezia-vpn/amneziawg-go/v3/tun.newUDPGROTable
-github.com/amnezia-vpn/amneziawg-go/v3/tun.CreateTUNFromFile.gowrap2
-github.com/amnezia-vpn/amneziawg-go/v3/tun.CreateTUNFromFile.gowrap1
-type:.eq.github.com/amnezia-vpn/amneziawg-go/v3/tun.tcpFlowKey
-type:.eq.github.com/amnezia-vpn/amneziawg-go/v3/tun.tcpGROItem
-type:.hash.github.com/amnezia-vpn/amneziawg-go/v3/tun.tcpFlowKey
-type:.eq.github.com/amnezia-vpn/amneziawg-go/v3/tun.udpFlowKey
-type:.eq.github.com/amnezia-vpn/amneziawg-go/v3/tun.udpGROItem
-type:.hash.github.com/amnezia-vpn/amneziawg-go/v3/tun.udpFlowKey
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).initNameCache-fm
-github.com/amnezia-vpn/amneziawg-go/v3/tun.(*NativeTun).initNameCache
-github.com/amnezia-vpn/amneziawg-go/v3/replay.(*Filter).Reset
-github.com/amnezia-vpn/amneziawg-go/v3/replay.(*Filter).ValidateCounter
-github.com/amnezia-vpn/amneziawg-go/v3/tai64n.Now
-github.com/amnezia-vpn/amneziawg-go/v3/tai64n.stamp
-github.com/amnezia-vpn/amneziawg-go/v3/tai64n.Timestamp.String
-github.com/amnezia-vpn/amneziawg-go/v3/tai64n.(*Timestamp).String
-github.com/amnezia-vpn/amneziawg-go/v3/ipc.(*UAPIListener).Accept
-github.com/amnezia-vpn/amneziawg-go/v3/ipc.(*UAPIListener).Close
-===== likely WireGuard override =====
-PROCESS
-alive=yes
-LOG
+===== launch forced-userspace AmneziaWG 3.1 =====
+===== server state =====
+2: awg0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq state UNKNOWN mode DEFAULT group default qlen 500
+    link/none  promiscuity 0 allmulti 0 minmtu 68 maxmtu 65535 
+    tun type tun pi off vnet_hdr on persist off addrgenmode random numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
+interface: awg0
+  public key: 0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=
+  private key: (hidden)
+  listening port: 585
+  jc: 6
+  jmin: 10
+  jmax: 50
+  s1: 83
+  s2: 117
+  s3: 41
+  s4: 17
+  h1: 61531016-137894337
+  h2: 174729262-515450005
+  h3: 994241659-1183806904
+  h4: 1229418618-1300727015
+  header protection key: eP1OVFcG4no6AjzYNcQIqYFkEYsx/yVR3utr1qixdno=
+  content padding addition: 10-100
+  rekey after time: 100-120
+  rekey timeout: 3-7
+  reject after time: 150-180
+  keepalive timeout: 5-15
+  max handshake attempts: 15-20
+  random trailers: on
+  disable cookies: on
+
+peer: MLS3fXl+YajzjzfUncXLXjHWnARtdUyAUR++TnHCMSA=
+  preshared key: (hidden)
+  allowed ips: 10.31.0.2/32
+===== authenticated AWG3 end-to-end test =====
+HANDSHAKE
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	0
+TRANSFER_BEFORE
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	0	582
+HTTP
+wget: download timed out
+awg31_test=failed status=1
+--- server userspace log ---
 ┌──────────────────────────────────────────────────────────────┐
 │                                                              │
 │       Running amneziawg-go is not required because this      │
@@ -212,18 +49,7 @@ LOG
 | https://github.com/amnezia-vpn/amneziawg-linux-kernel-module │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
-LINKS
-2: awgprobe: <POINTOPOINT,MULTICAST,NOARP> mtu 1420 qdisc noop state DOWN mode DEFAULT group default qlen 500
-    link/none  promiscuity 0 allmulti 0 minmtu 68 maxmtu 65535 
-    tun type tun pi off vnet_hdr on persist off addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 
-SOCKETS
-/var/run/amneziawg:
-total 8
-drwxr-xr-x    2 root     root          4096 Sep  1 05:07 .
-drwxr-xr-x    1 root     root          4096 Sep  1 05:07 ..
-srwx------    1 root     root             0 Sep  1 05:07 awgprobe.sock
-USERSPACE_OVERRIDE_PROBE_OK
 
-exit_code=0
-finished_at=2026-09-01T05:07:24Z
+exit_code=1
+finished_at=2026-09-01T05:08:51Z
 runner=alexhost-143-246
