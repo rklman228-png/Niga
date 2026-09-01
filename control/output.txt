@@ -1,46 +1,82 @@
-===== container inspect =====
-name=amnezia-awg31-mobile status=Restarting (1) Less than a second ago ports=
-running=true restarting=true exit=1 error= restart_count=9
-===== container logs =====
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-[#] ip link add awg0 type amneziawg
-[#] awg setconf awg0 /dev/fd/63
-Unable to modify interface: Invalid argument
-[#] ip link delete dev awg0
-===== inside container =====
-Error response from daemon: Container ea15ceeea335286a938b0ed33aa7c5d93ac286aa7c97360da1b3fab4110fd1a3 is restarting, wait until the container is running
+===== userspace AWG3 capability test =====
+interface: awgtest
+  public key: 0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=
+  private key: (hidden)
+  listening port: 585
+  jc: 6
+  jmin: 10
+  jmax: 50
+  s1: 83
+  s2: 117
+  s3: 41
+  s4: 17
+  h1: 61531016-137894337
+  h2: 174729262-515450005
+  h3: 994241659-1183806904
+  h4: 1229418618-1300727015
+  header protection key: eP1OVFcG4no6AjzYNcQIqYFkEYsx/yVR3utr1qixdno=
+  content padding addition: 10-100
+  rekey after time: 100-120
+  rekey timeout: 3-7
+  reject after time: 150-180
+  keepalive timeout: 5-15
+  max handshake attempts: 15-20
+  random trailers: on
+  disable cookies: on
+
+peer: MLS3fXl+YajzjzfUncXLXjHWnARtdUyAUR++TnHCMSA=
+  preshared key: (hidden)
+  allowed ips: 10.31.0.2/32
+userspace_awg3=ok
+===== launch native AmneziaWG 3.1 userspace container =====
+===== server AWG3 state =====
+interface: awg0
+  public key: 0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=
+  private key: (hidden)
+  listening port: 585
+  jc: 6
+  jmin: 10
+  jmax: 50
+  s1: 83
+  s2: 117
+  s3: 41
+  s4: 17
+  h1: 61531016-137894337
+  h2: 174729262-515450005
+  h3: 994241659-1183806904
+  h4: 1229418618-1300727015
+  header protection key: eP1OVFcG4no6AjzYNcQIqYFkEYsx/yVR3utr1qixdno=
+  content padding addition: 10-100
+  rekey after time: 100-120
+  rekey timeout: 3-7
+  reject after time: 150-180
+  keepalive timeout: 5-15
+  max handshake attempts: 15-20
+  random trailers: on
+  disable cookies: on
+
+peer: MLS3fXl+YajzjzfUncXLXjHWnARtdUyAUR++TnHCMSA=
+  preshared key: (hidden)
+  allowed ips: 10.31.0.2/32
+===== authenticated AWG3 tunnel test =====
+HANDSHAKE
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	0
+TRANSFER_BEFORE
+0/wvJReTb3TCqagkA/lCHh2XjACBSNFZBDesPFGlfmA=	0	641
+HTTP
+wget: download timed out
+awg31_test=failed status=1
+--- server daemon log ---
+┌──────────────────────────────────────────────────────────────┐
+│                                                              │
+│       Running amneziawg-go is not required because this      │
+│       kernel has first class support for AmneziaWG. For      │
+│       information on installing the kernel module,           │
+│       please visit:                                          │
+| https://github.com/amnezia-vpn/amneziawg-linux-kernel-module │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
 
 exit_code=1
-finished_at=2026-09-01T05:04:44Z
+finished_at=2026-09-01T05:06:13Z
 runner=alexhost-143-246
