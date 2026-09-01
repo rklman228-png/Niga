@@ -1,19 +1,33 @@
-===== prepare Xray whitelist profile =====
-credentials=generated
-===== validate Xray configs =====
-xray_configs=valid
-===== ensure nginx stream module =====
+===== verify existing services before retry =====
+main_vless=true
+awg31=true
+legacy_xray=true
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
-nginx_stream=ready
-===== start isolated whitelist Xray =====
+===== ensure whitelist Xray local backend =====
 wl_xray=running
-===== install nginx SNI mux on 443 =====
+===== install 443 SNI mux with IPv4 inner HTTPS =====
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: [emerg] bind() to [::1]:4443 failed (99: Cannot assign requested address)
-nginx: configuration file /etc/nginx/nginx.conf test failed
-nginx_mux_config=invalid
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx_backup=/root/nginx-whitelist-backup-20260901T075235Z
+===== verify ordinary HTTPS =====
+bot.pronexsbp.ru=http_200
+enihub.ru=http_200
+ordinary_https=ok
+===== test whitelist VLESS through public TCP 443 =====
+wl_tunnel=ok
+exit_ip=143.246.197.187
+===== encrypted client handoff =====
+secure_handoff=ready
+===== final status =====
+wl_vless=true
+tcp443=2
+tcp4443=1
+main_vless=true
+awg31=true
+legacy_xray=true
+WL_VLESS_READY
 
-exit_code=52
-finished_at=2026-09-01T07:51:13Z
+exit_code=0
+finished_at=2026-09-01T07:52:41Z
 runner=alexhost-143-246
