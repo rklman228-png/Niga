@@ -1,31 +1,34 @@
-===== xray binary =====
-/usr/bin/xray
-===== xray version =====
+===== backup existing VPN state =====
+backup=/root/amnezia-vpn-backups/20260901T044056Z
+===== verify prerequisites =====
+===== generate isolated mobile credentials =====
+===== validate config in disposable container =====
 Xray 25.8.3 (Xray, Penetrates Everything.) bd86732 (go1.24.5 linux/amd64)
 A unified platform for anti-censorship.
-===== reality support =====
-Xray is a platform for building proxies.
-
-Usage:
-
-	xray <command> [arguments]
-
-The commands are:
-
-	run          Run Xray with config, the default command
-	version      Show current version of Xray
-	api          Call an API in an Xray process
-	convert      Convert configs
-	tls          TLS tools
-	uuid         Generate UUIDv4 or UUIDv5
-	x25519       Generate key pair for x25519 key exchange
-	wg           Generate key pair for wireguard key exchange
-	mldsa65      Generate key pair for ML-DSA-65 post-quantum signature
-
-Use "xray help <command>" for more information about a command.
-x25519_generator=ok
-XRAY_CAPABILITY_OK
+2026/09/01 04:40:57.772443 [Info] infra/conf/serial: Reading config: &{Name:/tmp/server.json Format:json}
+Configuration OK.
+===== launch isolated mobile Reality service =====
+===== local transport test =====
+LISTEN 0      4096         0.0.0.0:8443       0.0.0.0:*    users:(("docker-proxy",pid=345013,fd=4))                                                                                                           
+HTTP/2 200 
+server: AkamaiGHost
+mime-version: 1.0
+content-type: text/html
+content-length: 421
+expires: Tue, 01 Sep 2026 04:41:01 GMT
+cache-control: max-age=0, no-cache, no-store
+pragma: no-cache
+===== encrypt client URI for chat handoff =====
+mobile_protocol=VLESS+REALITY+Vision
+mobile_port=8443/tcp
+mobile_sni=www.microsoft.com
+container_running=true
+old_amnezia_xray=true
+awg0_present=yes
+awg1_present=yes
+client_uri_encrypted=yes
+MOBILE_REALITY_DEPLOY_OK
 
 exit_code=0
-finished_at=2026-09-01T04:39:06Z
+finished_at=2026-09-01T04:41:01Z
 runner=alexhost-143-246
