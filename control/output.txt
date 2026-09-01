@@ -1,10 +1,13 @@
-rsa_credentials_handoff=ready
-vless_container=true
-tcp47005=1
-awg31_mobile=true
+===== VPN status =====
+vless_reality=true
+vless_tcp47005=1
+mobile_awg31=true
+mobile_iface=up
+legacy_awg0=up
+legacy_awg1=up
 legacy_xray=true
-VLESS_CREDS_HANDOFF_OK
+VPN_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-01T05:49:40Z
+finished_at=2026-09-01T05:51:00Z
 runner=alexhost-143-246
