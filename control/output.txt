@@ -1,61 +1,32 @@
-===== live whitelist trace =====
-now=2026-09-01T08:14:52Z
-wl_vless=true
-public443_estab=132
-wl47006_estab=0
---- recent wl xray accepts ---
-Xray 26.3.27 (Xray, Penetrates Everything.) Custom (go1.26.1 linux/amd64)
-A unified platform for anti-censorship.
-2026/09/01 08:11:05.091641 [Info] infra/conf/serial: Reading config: &{Name:/etc/xray/config.json Format:json}
-2026/09/01 08:11:05.094429 [Warning] infra/conf: REALITY: Listening on non-443 ports may get your IP blocked by the GFW
-2026/09/01 08:11:05.098728 [Warning] core: Xray 26.3.27 started
-2026/09/01 08:11:14.686884 from [ip]:10762 accepted tcp:api.ipify.org:443 [direct]
-2026/09/01 08:11:15.088452 from [ip]:50882 accepted tcp:telegram.org:443 [direct]
-2026/09/01 08:11:15.463698 from [ip]:50896 accepted tcp:github.com:443 [direct]
-2026/09/01 08:11:16.177234 from [ip]:50906 accepted tcp:www.gstatic.com:443 [direct]
-2026/09/01 08:11:16.438514 from [ip]:50916 accepted tcp:api.ipify.org:443 [direct]
-2026/09/01 08:13:25.048767 from [ip]:63964 accepted tcp:gateway.icloud.com:443 [direct]
-2026/09/01 08:13:50.986144 from [ip]:57940 accepted tcp:[ip]:443 [direct]
-2026/09/01 08:13:50.986189 from [ip]:57930 accepted tcp:[ip]:443 [direct]
-2026/09/01 08:13:51.730854 from [ip]:57950 accepted tcp:courier.push.apple.com:5223 [direct]
-2026/09/01 08:13:52.500961 from tcp:[ip]:47406 accepted udp:time.apple.com:123 [direct]
-2026/09/01 08:13:52.829129 from [ip]:47420 accepted tcp:sandbox.itunes.apple.com:443 [direct]
-2026/09/01 08:13:57.227538 from [ip]:47434 accepted tcp:ab.chatgpt.com:443 [direct]
-2026/09/01 08:13:57.403082 from [ip]:47450 accepted tcp:api.revenuecat.com:443 [direct]
-2026/09/01 08:13:57.415934 from [ip]:47464 accepted tcp:ios.chat.openai.com:443 [direct]
-2026/09/01 08:13:58.002768 from [ip]:47480 accepted tcp:o33249.ingest.us.sentry.io:443 [direct]
-2026/09/01 08:13:58.103826 from [ip]:47508 accepted tcp:[ip]:443 [direct]
-2026/09/01 08:13:58.120185 from [ip]:47494 accepted tcp:[ip]:443 [direct]
-2026/09/01 08:13:58.374207 from [ip]:47510 accepted tcp:ws.chatgpt.com:443 [direct]
-2026/09/01 08:14:07.814633 from [ip]:19510 accepted tcp:gspe1-ssl.ls.apple.com:443 [direct]
-2026/09/01 08:14:13.449094 from [ip]:20236 accepted tcp:ab.chatgpt.com:443 [direct]
-2026/09/01 08:14:19.188871 from [ip]:20238 accepted tcp:android.clients.google.com:443 [direct]
-2026/09/01 08:14:19.675665 from [ip]:20246 accepted tcp:mtalk.google.com:5228 [direct]
-2026/09/01 08:14:21.003593 from [ip]:20262 accepted tcp:www.google.com:443 [direct]
-2026/09/01 08:14:21.011022 from [ip]:20252 accepted tcp:t0.gstatic.com:443 [direct]
-2026/09/01 08:14:22.391956 from [ip]:40544 accepted tcp:clientservices.googleapis.com:443 [direct]
-2026/09/01 08:14:28.139005 from [ip]:40572 accepted tcp:www.google.com:443 [direct]
-2026/09/01 08:14:28.262801 from [ip]:40582 accepted tcp:optimizationguide-pa.googleapis.com:443 [direct]
-2026/09/01 08:14:29.240890 from [ip]:40614 accepted tcp:lh3.google.com:443 [direct]
-2026/09/01 08:14:29.423017 from [ip]:40634 accepted tcp:www.googleadservices.com:443 [direct]
-2026/09/01 08:14:29.845978 from [ip]:40652 accepted tcp:ogads-pa.clients6.google.com:443 [direct]
-2026/09/01 08:14:30.176827 from [ip]:40660 accepted tcp:lh3.googleusercontent.com:443 [direct]
-2026/09/01 08:14:30.333372 from [ip]:40668 accepted tcp:alfabank.ru:443 [direct]
-2026/09/01 08:14:30.859568 from [ip]:40686 accepted tcp:play.google.com:443 [direct]
-2026/09/01 08:14:38.011563 from [ip]:61568 accepted tcp:xp.apple.com:443 [direct]
-2026/09/01 08:14:38.225492 from [ip]:61608 accepted tcp:amp-api-edge.apps.apple.com:443 [direct]
-2026/09/01 08:14:38.230672 from [ip]:61584 accepted tcp:amp-api-edge.apps.apple.com:443 [direct]
-2026/09/01 08:14:38.231236 from [ip]:61596 accepted tcp:amp-api-edge.apps.apple.com:443 [direct]
---- nginx stream sockets ---
-LISTEN 0      511        127.0.0.1:4443       0.0.0.0:*    users:(("nginx",pid=3778777,fd=23),("nginx",pid=965278,fd=23),("nginx",pid=965277,fd=23),("nginx",pid=965276,fd=23),("nginx",pid=965275,fd=23))
-LISTEN 0      511          0.0.0.0:443        0.0.0.0:*    users:(("nginx",pid=3778777,fd=6),("nginx",pid=965278,fd=6),("nginx",pid=965277,fd=6),("nginx",pid=965276,fd=6),("nginx",pid=965275,fd=6))     
-LISTEN 0      4096       127.0.0.1:47006      0.0.0.0:*    users:(("docker-proxy",pid=1023207,fd=4))                                                                                                      
-LISTEN 0      511             [::]:443           [::]:*    users:(("nginx",pid=3778777,fd=5),("nginx",pid=965278,fd=5),("nginx",pid=965277,fd=5),("nginx",pid=965276,fd=5),("nginx",pid=965275,fd=5))     
---- service preservation ---
+===== prepare separate XHTTP+REALITY whitelist profile =====
+credentials=generated
+===== validate XHTTP configs =====
+xhttp_configs=valid
+===== start isolated XHTTP backend =====
+xhttp_backend=running
+===== add dedicated SNI route without touching old whitelist =====
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx_backup=/root/nginx-xhttp-backup-20260901T081816Z
+===== verify existing services =====
+bot.pronexsbp.ru=http_200
+enihub.ru=http_200
+===== end-to-end XHTTP through public 443 =====
+https://api.ipify.org code=200 total=0.559051
+https://telegram.org/ code=200 total=0.365478
+https://github.com/ code=200 total=0.726794
+https://www.gstatic.com/generate_204 code=204 total=0.115377
+xhttp_tunnel=ok
+exit_ip=143.246.197.187
+===== secure client handoff =====
+secure_handoff=ready
+===== preservation =====
+xhttp_vless=true
+old_wl_vless=true
 main_vless=true
 awg31=true
-TRACE_OK
+XHTTP_WL_READY
 
 exit_code=0
-finished_at=2026-09-01T08:14:53Z
+finished_at=2026-09-01T08:18:42Z
 runner=alexhost-143-246
