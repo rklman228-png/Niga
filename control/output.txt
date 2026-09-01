@@ -1,32 +1,14 @@
-===== prepare separate XHTTP+REALITY whitelist profile =====
-credentials=generated
-===== validate XHTTP configs =====
-xhttp_configs=valid
-===== start isolated XHTTP backend =====
-xhttp_backend=running
-===== add dedicated SNI route without touching old whitelist =====
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-nginx_backup=/root/nginx-xhttp-backup-20260901T081816Z
-===== verify existing services =====
-bot.pronexsbp.ru=http_200
-enihub.ru=http_200
-===== end-to-end XHTTP through public 443 =====
-https://api.ipify.org code=200 total=0.559051
-https://telegram.org/ code=200 total=0.365478
-https://github.com/ code=200 total=0.726794
-https://www.gstatic.com/generate_204 code=204 total=0.115377
-xhttp_tunnel=ok
-exit_ip=143.246.197.187
-===== secure client handoff =====
-secure_handoff=ready
-===== preservation =====
-xhttp_vless=true
-old_wl_vless=true
+===== VPN status =====
+xhttp_wl=true
+old_wl=true
 main_vless=true
 awg31=true
-XHTTP_WL_READY
+tcp443=2
+xhttp_backend=1
+bot.pronexsbp.ru=http_200
+enihub.ru=http_200
+VPN_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-01T08:18:42Z
+finished_at=2026-09-01T08:20:20Z
 runner=alexhost-143-246
