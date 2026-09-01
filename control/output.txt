@@ -1,34 +1,37 @@
-===== latency diagnostics =====
---- load ---
- 06:45:30 up 9 days, 14:45,  1 user,  load average: 1.38, 1.58, 1.53
-cpu_count=4
-mem_available_mb=4527
---- vless status ---
-vless=true
-tcp47005=1
---- network RTT from VPS ---
-host=1.1.1.1
-8 packets transmitted, 8 received, 0% packet loss, time 7010ms
-rtt min/avg/max/mdev = 13.337/13.427/13.500/0.053 ms
-host=8.8.8.8
-8 packets transmitted, 8 received, 0% packet loss, time 7006ms
-rtt min/avg/max/mdev = 12.974/13.027/13.122/0.042 ms
---- HTTPS timing from VPS ---
-https://www.gstatic.com/generate_204 connect=0.016822s tls=0.060481s total=0.074339s
-https://www.cloudflare.com/cdn-cgi/trace connect=0.016695s tls=0.055556s total=0.071177s
---- socket counters ---
-Total: 1165
-TCP:   2269 (estab 578, closed 1343, orphaned 35, timewait 1303)
-
-Transport Total     IP        IPv6
-RAW	  1         0         1        
-UDP	  19        15        4        
-TCP	  926       915       11       
-INET	  946       930       16       
-FRAG	  0         0         0        
-
-LATENCY_DIAG_OK
+===== whitelist profile preflight =====
+--- nginx build ---
+nginx version: nginx/1.26.3
+--with-stream_ssl_module
+--with-stream_ssl_preread_module
+--with-stream_realip_module
+--with-stream=dynamic
+--with-stream_geoip_module=dynamic
+--- listeners 443 ---
+LISTEN 0      511          0.0.0.0:443   0.0.0.0:* users:(("nginx",pid=3958537,fd=6),("nginx",pid=3958536,fd=6),("nginx",pid=3958535,fd=6),("nginx",pid=3958534,fd=6),("nginx",pid=3778777,fd=6))     
+LISTEN 0      511             [::]:443      [::]:* users:(("nginx",pid=3958537,fd=5),("nginx",pid=3958536,fd=5),("nginx",pid=3958535,fd=5),("nginx",pid=3958534,fd=5),("nginx",pid=3778777,fd=5))     
+--- nginx 443 declarations ---
+/etc/nginx/sites-available/amneziawg-miniapp:13:    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+/etc/nginx/sites-available/amneziawg-miniapp:14:    listen 443 ssl; # managed by Certbot
+/etc/nginx/sites-available/default:27:	# listen 443 ssl default_server;
+/etc/nginx/sites-available/default:28:	# listen [::]:443 ssl default_server;
+/etc/nginx/sites-available/enihub:16:    listen 443 ssl; # managed by Certbot
+/etc/nginx/sites-enabled/amneziawg-miniapp:13:    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+/etc/nginx/sites-enabled/amneziawg-miniapp:14:    listen 443 ssl; # managed by Certbot
+/etc/nginx/sites-enabled/enihub:16:    listen 443 ssl; # managed by Certbot
+--- candidate local ports ---
+47006=free
+47007=free
+8443=free
+2053=free
+--- decoy TLS 1.3 tests ---
+vk.com=tls13_unknown
+yandex.ru=tls13_unknown
+www.yandex.ru=tls13_unknown
+--- preservation ---
+vless_main=true
+awg31=true
+WL_PREFLIGHT_OK
 
 exit_code=0
-finished_at=2026-09-01T06:45:44Z
+finished_at=2026-09-01T07:47:35Z
 runner=alexhost-143-246
