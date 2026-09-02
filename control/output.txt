@@ -1,16 +1,10 @@
-===== add new client to main VLESS =====
-clients_after=3
-===== validate and restart =====
-main_vless=running
-===== prove new credential =====
-new_client_test=ok
-exit_ip_ok=yes
-===== secure handoff =====
-secure_handoff=ready
+===== VPN status =====
 main_vless=true
+main_tcp47005=1
 awg31=true
-NEW_MAIN_VLESS_READY
+legacy_xray=true
+VPN_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-02T04:08:19Z
+finished_at=2026-09-02T04:09:14Z
 runner=alexhost-143-246
