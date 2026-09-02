@@ -1,15 +1,10 @@
-===== add client =====
-clients_after=4
-===== validate/restart =====
-===== prove new client =====
-new_client_test=ok
-exit_ip_ok=yes
-===== secure handoff =====
-secure_handoff=ready
+===== VPN status =====
 main_vless=true
+main_tcp47005=1
 awg31=true
-EXTRA_MAIN_VLESS_READY
+legacy_xray=true
+VPN_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-02T05:13:37Z
+finished_at=2026-09-02T05:14:34Z
 runner=alexhost-143-246
