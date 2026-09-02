@@ -1,10 +1,27 @@
-===== VPN status =====
+===== latency/routing diagnostics =====
 main_vless=true
-main_tcp47005=1
 awg31=true
-legacy_xray=true
-VPN_STATUS_OK
+--- VLESS outbound summary ---
+outbound[0] protocol=freedom tag=direct
+outbound[1] protocol=blackhole tag=block
+--- host routing ---
+default via 143.246.197.1 dev eth0 proto static 
+0:	from all lookup local
+32766:	from all lookup main
+32767:	from all lookup default
+--- congestion/qdisc ---
+tcp_congestion_control=hybla
+available_cc=reno cubic bbr hybla
+default_qdisc=fq
+qdisc fq 0: root refcnt 2 limit 10000p flow_limit 100p buckets 1024 orphan_mask 1023 bands 3 priomap 1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1 weights 589824 196608 65536 quantum 3028b initial_quantum 15140b low_rate_threshold 550Kbit refill_delay 40ms timer_slack 10us horizon 10s horizon_drop 
+--- active VLESS TCP RTT samples ---
+--- VPS outbound baseline ---
+1.1.1.1 rtt min/avg/max/mdev = 13.380/13.430/13.483/0.043 ms
+8.8.8.8 rtt min/avg/max/mdev = 12.995/13.028/13.066/0.026 ms
+https://www.gstatic.com/generate_204 connect=0.015266s tls=0.060498s total=0.076516s
+https://telegram.org/ connect=0.049537s tls=0.123466s total=0.190730s
+ROUTING_DIAG_OK
 
 exit_code=0
-finished_at=2026-09-02T05:14:34Z
+finished_at=2026-09-02T05:45:10Z
 runner=alexhost-143-246
