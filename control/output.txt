@@ -1,10 +1,43 @@
-===== VPN status =====
-main_vless=true
-main_tcp47005=1
-awg31=true
-legacy_xray=true
-VPN_STATUS_OK
+===== AWG31 inspect =====
+container=true
+--- mounts ---
+/root/amnezia-awg31-mobile -> /config
+
+--- interface ---
+awg3m            UNKNOWN        10.31.0.1/24 
+--- likely configs ---
+/root/amneziawg_bot_ui_update_v2.zip
+/root/install_amneziawg_en.sh.3
+/root/amneziawg_bot_ui_update_v2/amneziawg_telegram_bot/amneziawg-bot.service
+/root/amneziawg_bot_ui_update_v2/amneziawg_bot_motion_update_v3.zip
+/root/nginx-whitelist-backup-20260901T075051Z/amneziawg-miniapp
+/root/nginx-whitelist-backup-20260901T075235Z/amneziawg-miniapp
+/root/install_amneziawg_en.sh.1
+/root/amneziawg_telegram_bot_ready.zip
+/root/amnezia-vpn-backups/20260901T044056Z/amneziawg/awg0.conf
+/root/amnezia-vpn-backups/20260901T044056Z/amneziawg/awg1.conf
+/root/install_amneziawg_en.sh
+/root/awg/awg_common.sh
+/root/awg/.awg_config.lock
+/root/awg/manage_amneziawg.log
+/root/awg/install_amneziawg.log
+/root/awg/manage_amneziawg.sh
+/root/awg/awgsetup_cfg.init
+/root/awg/.awg_apply.lock
+/root/amneziawg_telegram_bot/amneziawg-bot.service
+/root/amneziawg_bot_update/amneziawg_telegram_bot/amneziawg-bot.service
+/root/amneziawg_bot_motion_update_v3.zip
+/root/install_amneziawg_en.sh.2
+/root/amneziawg_bot_update.zip
+/root/amnezia-awg31-mobile/mobile-awg31.conf
+/root/amnezia-awg31-mobile/awg0.conf
+/root/amneziawg_bot_access_update_v4.zip
+/etc/amnezia/amneziawg/awg0.conf
+/etc/amnezia/amneziawg/awg1.conf
+/etc/sysctl.d/99-amneziawg-security.conf
+/etc/logrotate.d/amneziawg-ensure-module
+AWG31_INSPECT_OK
 
 exit_code=0
-finished_at=2026-09-02T05:45:51Z
+finished_at=2026-09-02T13:12:19Z
 runner=alexhost-143-246
