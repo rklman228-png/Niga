@@ -1,15 +1,16 @@
-===== main VLESS inspect =====
-running=true
---- mounts ---
-/var/lib/docker/volumes/e5f3a268bb08df48677ffda5c0748e72f58f67edb7e543b5a23ca73ed5d26763/_data -> /var/log/xray
-/root/vless-reality-47005/server.json -> /etc/xray/config.json
-/var/lib/docker/volumes/419ef564dab5d95ec5a73d6a009d4eff7295a6913767e7853aef0b3cf0ec5559/_data -> /usr/local/etc/xray
-
---- image/cmd ---
-image=ghcr.io/xtls/xray-core:26.3.27 cmd=["run","-config=/etc/xray/config.json"]
---- config summary ---
-MAIN_VLESS_INSPECT_OK
+===== add new client to main VLESS =====
+clients_after=3
+===== validate and restart =====
+main_vless=running
+===== prove new credential =====
+new_client_test=ok
+exit_ip_ok=yes
+===== secure handoff =====
+secure_handoff=ready
+main_vless=true
+awg31=true
+NEW_MAIN_VLESS_READY
 
 exit_code=0
-finished_at=2026-09-02T04:06:48Z
+finished_at=2026-09-02T04:08:19Z
 runner=alexhost-143-246
