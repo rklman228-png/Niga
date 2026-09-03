@@ -1,14 +1,11 @@
-===== AWG31 client diagnostics =====
-container=true
-udp585=2
-peer_10_31_0_3=present
-client_public_match=yes
-psk_match=yes
-header_key_match=yes
-config_peer_count=2
-server_public_match=yes
-live_peer=missing
+===== VPN status =====
+main_vless=true
+main_tcp47005=1
+awg31=true
+awg_udp585=2
+cc=bbr
+VPN_STATUS_OK
 
-exit_code=141
-finished_at=2026-09-03T14:07:37Z
+exit_code=0
+finished_at=2026-09-03T14:08:25Z
 runner=alexhost-143-246
