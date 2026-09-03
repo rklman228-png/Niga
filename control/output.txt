@@ -1,37 +1,11 @@
-===== apply VPN network tuning =====
-before_cc=hybla
-before_rmem_max=67108864
-before_wmem_max=67108864
-net.core.default_qdisc = fq
-net.ipv4.tcp_congestion_control = bbr
-net.ipv4.tcp_mtu_probing = 1
-net.ipv4.tcp_fastopen = 3
-net.core.rmem_max = 67108864
-net.core.wmem_max = 67108864
-net.core.rmem_default = 1048576
-net.core.wmem_default = 1048576
-net.ipv4.udp_rmem_min = 131072
-net.ipv4.udp_wmem_min = 131072
-net.ipv4.tcp_rmem = 4096 131072 67108864
-net.ipv4.tcp_wmem = 4096 16384 67108864
-net.core.netdev_max_backlog = 16384
---- restart active VPN transports ---
---- verify ---
-after_cc=bbr
-qdisc=fq
-rmem_max=67108864
-wmem_max=67108864
-tcp_mtu_probing=1
-tcp_fastopen=3
+===== VPN status =====
 main_vless=true
+main_tcp47005=1
 awg31=true
-tcp47005=1
-udp585=2
-1.1.1.1 loss=0% rtt=13.407/13.569/13.694/0.105
-8.8.8.8 loss=0% rtt=13.023/13.112/13.256/0.068
-cloudflare_10MB code=200 speed_Bps=34296493 total=0.291575s
-VPN_TUNING_OK
+awg_udp585=2
+cc=bbr
+VPN_STATUS_OK
 
 exit_code=0
-finished_at=2026-09-03T13:51:33Z
+finished_at=2026-09-03T13:52:12Z
 runner=alexhost-143-246
