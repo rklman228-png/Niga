@@ -1,11 +1,39 @@
-===== VPN status =====
-main_vless=true
-main_tcp47005=1
-awg31=true
-awg_udp585=2
-cc=bbr
-VPN_STATUS_OK
+===== AWG apply inspection =====
+host_awg=/usr/bin/awg
+host_wg=/usr/bin/wg
+container_awg=/usr/bin/awg
+container_wg=/usr/bin/wg
+--- start-hostnet.sh ---
+#!/bin/sh
+set -eu
+export WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1
+IFACE=awg3m
+rm -f /var/run/amneziawg/${IFACE}.sock /var/run/wireguard/${IFACE}.sock 2>/dev/null || true
+amneziawg-go -f "$IFACE" >/tmp/amneziawg-go.log 2>&1 &
+pid=$!
+cleanup() {
+  iptables -D INPUT -p udp --dport 585 -j ACCEPT >/dev/null 2>&1 || true
+  iptables -D FORWARD -i "$IFACE" -o eth0 -j ACCEPT >/dev/null 2>&1 || true
+  iptables -D FORWARD -i eth0 -o "$IFACE" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT >/dev/null 2>&1 || true
+  iptables -t nat -D POSTROUTING -s 10.31.0.0/24 -o eth0 -j MASQUERADE >/dev/null 2>&1 || true
+  kill "$pid" >/dev/null 2>&1 || true
+}
+trap cleanup TERM INT EXIT
+sleep 1
+kill -0 "$pid"
+awg-quick strip /config/awg0.conf >/tmp/awg3.stripped
+awg setconf "$IFACE" /tmp/awg3.stripped
+ip addr add 10.31.0.1/24 dev "$IFACE"
+ip link set mtu 1280 up dev "$IFACE"
+iptables -C INPUT -p udp --dport 585 -j ACCEPT 2>/dev/null || iptables -I INPUT 1 -p udp --dport 585 -j ACCEPT
+iptables -C FORWARD -i "$IFACE" -o eth0 -j ACCEPT 2>/dev/null || iptables -I FORWARD 1 -i "$IFACE" -o eth0 -j ACCEPT
+iptables -C FORWARD -i eth0 -o "$IFACE" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || iptables -I FORWARD 1 -i eth0 -o "$IFACE" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -t nat -C POSTROUTING -s 10.31.0.0/24 -o eth0 -j MASQUERADE 2>/dev/null || iptables -t nat -I POSTROUTING 1 -s 10.31.0.0/24 -o eth0 -j MASQUERADE
+wait "$pid"
+--- awg0 peer count ---
+1
+AWG_APPLY_INSPECT_OK
 
 exit_code=0
-finished_at=2026-09-03T13:52:12Z
+finished_at=2026-09-03T13:57:09Z
 runner=alexhost-143-246
