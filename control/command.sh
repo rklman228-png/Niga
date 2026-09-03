@@ -9,12 +9,32 @@ OUTDIR=control/generated
 mkdir -p "$OUTDIR"
 rm -f "$OUTDIR/awg31-full.key.enc.b64" "$OUTDIR/awg31-full.payload.enc.b64"
 
+# Remove the unusable peer left by the previous interrupted handoff.
+python3 - "$SERVER_CFG" <<'PY'
+import sys
+p=sys.argv[1]
+lines=open(p,errors='replace').read().splitlines()
+blocks=[]; cur=[]
+for line in lines:
+    if line.strip()=='[Peer]' and cur:
+        blocks.append(cur); cur=[line]
+    else:
+        cur.append(line)
+if cur: blocks.append(cur)
+out=[]
+for b in blocks:
+    text='\n'.join(b)
+    if '[Peer]' in text and 'AllowedIPs = 10.31.0.3/32' in text:
+        continue
+    out.extend(b)
+open(p,'w').write('\n'.join(out).rstrip()+'\n')
+PY
+chmod 600 "$SERVER_CFG"
+
 IP="$(python3 - "$SERVER_CFG" <<'PY'
 import re,sys
 text=open(sys.argv[1],errors='replace').read()
-used=set()
-for m in re.finditer(r'^AllowedIPs\s*=\s*10\.31\.0\.(\d+)/32\s*$',text,re.M):
-    used.add(int(m.group(1)))
+used={int(x) for x in re.findall(r'^AllowedIPs\s*=\s*10\.31\.0\.(\d+)/32\s*$',text,re.M)}
 for n in range(3,255):
     if n not in used:
         print(f'10.31.0.{n}')
@@ -33,14 +53,11 @@ PUBPEM="$ROOT/.handoff-public.pem"
 BACKUP="$ROOT/awg0.conf.bak-$(date -u +%Y%m%dT%H%M%SZ)"
 CIPHER="$ROOT/.client-new-$SUFFIX.enc"
 KEYCIPHER="$ROOT/.client-new-$SUFFIX.key.enc"
-
-cleanup(){
-  rm -f "$CLIENT_TMP" "$PRIV" "$PUB" "$PSK" "$PASSFILE" "$PUBPEM" "$CIPHER" "$KEYCIPHER"
-}
+cleanup(){ rm -f "$CLIENT_TMP" "$PRIV" "$PUB" "$PSK" "$PASSFILE" "$PUBPEM" "$CIPHER" "$KEYCIPHER"; }
 trap cleanup EXIT
 umask 077
 
-echo '===== create new AWG31 client ====='
+echo '===== create new AWG31 full client ====='
 echo "client_address=$IP/32"
 awg genkey > "$PRIV"
 awg pubkey < "$PRIV" > "$PUB"
@@ -64,51 +81,42 @@ python3 - "$TEMPLATE" "$CLIENT_TMP" <<'PY'
 import os,sys
 src,dst=sys.argv[1:]
 priv=os.environ['CLIENT_PRIV']; psk=os.environ['CLIENT_PSK']; ip=os.environ['IP']
-section=''
-out=[]
+section=''; out=[]
 for raw in open(src,errors='replace'):
-    line=raw.rstrip('\n')
-    s=line.strip()
+    line=raw.rstrip('\n'); s=line.strip()
     if s.startswith('[') and s.endswith(']'):
-        section=s[1:-1]
-        out.append(line); continue
+        section=s[1:-1]; out.append(line); continue
     if '=' in line:
-        k,v=line.split('=',1); key=k.strip().lower()
-        if section=='Interface' and key=='privatekey':
-            line=f'PrivateKey = {priv}'
-        elif section=='Interface' and key=='address':
-            line=f'Address = {ip}/32'
-        elif section=='Peer' and key=='presharedkey':
-            line=f'PresharedKey = {psk}'
+        k,_=line.split('=',1); key=k.strip().lower()
+        if section=='Interface' and key=='privatekey': line=f'PrivateKey = {priv}'
+        elif section=='Interface' and key=='address': line=f'Address = {ip}/32'
+        elif section=='Peer' and key=='presharedkey': line=f'PresharedKey = {psk}'
     out.append(line)
 open(dst,'w').write('\n'.join(out).rstrip()+'\n')
 PY
 chmod 600 "$CLIENT_TMP"
 
-echo '===== validate configs ====='
-if ! docker exec "$CONTAINER" awg-quick strip /config/awg0.conf >/dev/null 2>&1; then
-  cp -a "$BACKUP" "$SERVER_CFG"
-  echo server_config_validation=failed
-  exit 71
-fi
-if ! docker exec "$CONTAINER" awg-quick strip "/config/.client-new-$SUFFIX.conf" >/dev/null 2>&1; then
-  cp -a "$BACKUP" "$SERVER_CFG"
-  echo client_config_validation=failed
-  exit 72
-fi
+echo '===== validate ====='
+docker exec "$CONTAINER" awg-quick strip /config/awg0.conf >/dev/null
+docker exec "$CONTAINER" awg-quick strip "/config/.client-new-$SUFFIX.conf" >/dev/null
 echo configs=valid
 
-echo '===== restart AWG31 ====='
+echo '===== apply ====='
 docker restart "$CONTAINER" >/dev/null
-sleep 3
-if [ "$(docker inspect -f '{{.State.Running}}' "$CONTAINER" 2>/dev/null || echo false)" != true ]; then
+for _ in $(seq 1 12); do
+  if [ "$(docker inspect -f '{{.State.Running}}' "$CONTAINER" 2>/dev/null || echo false)" = true ] && docker exec "$CONTAINER" awg show awg3m >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+if ! docker exec "$CONTAINER" awg show awg3m >/dev/null 2>&1; then
   cp -a "$BACKUP" "$SERVER_CFG"
   docker restart "$CONTAINER" >/dev/null 2>&1 || true
-  echo restart=failed
+  echo awg_live_check=failed
   exit 73
 fi
-LIVE_PEERS="$(awg show awg3m peers 2>/dev/null | wc -l | tr -d ' ')"
 CFG_PEERS="$(grep -c '^\[Peer\]' "$SERVER_CFG")"
+LIVE_PEERS="$(docker exec "$CONTAINER" awg show awg3m peers | wc -l | tr -d ' ')"
 echo "config_peers=$CFG_PEERS"
 echo "live_peers=$LIVE_PEERS"
 echo "udp585=$(ss -lunH | grep -c ':585 ' || true)"
@@ -137,6 +145,6 @@ base64 -w0 "$KEYCIPHER" > "$OUTDIR/awg31-full.key.enc.b64"
 echo secure_handoff=ready
 unset CLIENT_PRIV CLIENT_PUB CLIENT_PSK
 
-echo "awg31=$(docker inspect -f '{{.State.Running}}' "$CONTAINER" 2>/dev/null || echo missing)"
+echo "awg31=$(docker inspect -f '{{.State.Running}}' "$CONTAINER")"
 echo "main_vless=$(docker inspect -f '{{.State.Running}}' xray-vless-47005 2>/dev/null || echo missing)"
 echo NEW_AWG31_FULL_READY
