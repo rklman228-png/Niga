@@ -1,70 +1,37 @@
-===== VPN slowdown diagnostics =====
-utc=2026-09-03T13:49:15Z
---- services ---
-xray-vless-47005=true
-amnezia-awg31-mobile=true
-amnezia-xray=true
---- host load ---
- 13:49:16 up 11 days, 21:48,  0 users,  load average: 2.06, 1.75, 1.67
-               total        used        free      shared  buff/cache   available
-Mem:            7947        3672         647        2103        6028        4274
-Swap:            511         511           0
-root_disk=47% used, 40G free
---- docker resources ---
-xray-vless-47005 cpu=0.00% mem=46.54MiB / 7.761GiB net=11.8GB / 12.1GB
-amnezia-awg31-mobile cpu=0.03% mem=63.32MiB / 7.761GiB net=0B / 0B
-amnezia-xray cpu=0.00% mem=28MiB / 7.761GiB net=342kB / 53kB
---- network interface ---
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq state UP mode DEFAULT group default qlen 1000
-    link/ether 38:f5:ba:9b:cd:4c brd ff:ff:ff:ff:ff:ff
-    RX:     bytes    packets errors dropped  missed   mcast           
-    4376272170215 4700812976      0       1       0       0 
-    TX:     bytes    packets errors dropped carrier collsns           
-    4212979390347 3379424677      0       0       0       0 
---- qdisc/congestion ---
-cc=hybla
-available_cc=reno cubic bbr hybla
-default_qdisc=fq
-qdisc fq 0: root refcnt 2 limit 10000p flow_limit 100p buckets 1024 orphan_mask 1023 bands 3 priomap 1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1 weights 589824 196608 65536 quantum 3028b initial_quantum 15140b low_rate_threshold 550Kbit refill_delay 40ms timer_slack 10us horizon 10s horizon_drop 
- Sent 4304882325390 bytes 4779426542 pkt (dropped 182529, overlimits 0 requeues 8595) 
- backlog 0b 0p requeues 8595
-  flows 1087 (inactive 1087 throttled 0) band0_pkts 0 band1_pkts 0 band2_pkts 0
-  gc 6772477 highprio 0 fastpath 2500871342 throttled 735506396 latency 147us flows_plimit 178817
- horizon_drops 3712
---- socket/conntrack pressure ---
-Total: 1147
-TCP:   1903 (estab 619, closed 975, orphaned 32, timewait 962)
-
-Transport Total     IP        IPv6
-RAW	  1         0         1        
-UDP	  17        13        4        
-TCP	  928       918       10       
-INET	  946       931       15       
-FRAG	  0         0         0        
-
-conntrack=43292
-conntrack_max=262144
---- TCP retrans counters ---
---- active VLESS RTT (addresses hidden) ---
---- AWG status sanitized ---
---- recent service error counts (20m) ---
-xray-vless-47005 errors=0
-xray-vless-47005 warnings=0
-amnezia-awg31-mobile errors=0
-amnezia-awg31-mobile warnings=0
---- outbound latency/loss ---
-1.1.1.1 loss=0% rtt=13.315/13.611/14.898/0.403
-8.8.8.8 loss=0% rtt=12.989/13.041/13.133/0.045
-9.9.9.9 loss=0% rtt=12.825/12.968/13.546/0.179
---- HTTPS timing ---
-https://www.gstatic.com/generate_204 code=204 connect=0.015463s tls=0.062646s start=0.076473s total=0.076623s
-https://telegram.org/ code=200 connect=0.050317s tls=0.118790s start=0.175956s total=0.179098s
-https://github.com/ code=200 connect=0.054231s tls=0.111329s start=0.160755s total=0.446647s
-https://ya.ru/ code=200 connect=0.088211s tls=0.167730s start=0.328589s total=0.328978s
---- outbound throughput sample ---
-cloudflare_20MB code=200 speed_Bps=23384018 total=0.855285s
-VPN_SLOW_DIAG_OK
+===== apply VPN network tuning =====
+before_cc=hybla
+before_rmem_max=67108864
+before_wmem_max=67108864
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.tcp_mtu_probing = 1
+net.ipv4.tcp_fastopen = 3
+net.core.rmem_max = 67108864
+net.core.wmem_max = 67108864
+net.core.rmem_default = 1048576
+net.core.wmem_default = 1048576
+net.ipv4.udp_rmem_min = 131072
+net.ipv4.udp_wmem_min = 131072
+net.ipv4.tcp_rmem = 4096 131072 67108864
+net.ipv4.tcp_wmem = 4096 16384 67108864
+net.core.netdev_max_backlog = 16384
+--- restart active VPN transports ---
+--- verify ---
+after_cc=bbr
+qdisc=fq
+rmem_max=67108864
+wmem_max=67108864
+tcp_mtu_probing=1
+tcp_fastopen=3
+main_vless=true
+awg31=true
+tcp47005=1
+udp585=2
+1.1.1.1 loss=0% rtt=13.407/13.569/13.694/0.105
+8.8.8.8 loss=0% rtt=13.023/13.112/13.256/0.068
+cloudflare_10MB code=200 speed_Bps=34296493 total=0.291575s
+VPN_TUNING_OK
 
 exit_code=0
-finished_at=2026-09-03T13:49:54Z
+finished_at=2026-09-03T13:51:33Z
 runner=alexhost-143-246
